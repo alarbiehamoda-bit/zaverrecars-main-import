@@ -13,20 +13,20 @@ import { whatsappUrl } from "@/config/contact";
 
 export const brandHeaderAssets: Record<string, string> = {
   "Lamborghini": "/manus-storage/lamborghini-optimized_c206dfb4.webp",
-  "Maserati": "/manus-storage/maserati-mark-transparent_e710247c-compact_ea6903b3.webp",
+  "Maserati": "/manus-storage/image-extractpics-22_4e531ab7.webp",
   "Ferrari": "/manus-storage/ferrari-optimized_317e7910.webp",
-  "McLaren": "/manus-storage/mclaren-optimized_64d59d1e.webp",
-  "Mercedes-Benz": "/manus-storage/mercedes-benz-optimized_1697fc7d.webp",
-  "Porsche": "/manus-storage/porsche-optimized_2c5f86d3.webp",
-  "Rolls-Royce": "/manus-storage/rolls-royce-optimized_d790c128.webp",
-  "Range Rover": "/manus-storage/range-rover-optimized_f6df64bb.webp",
+  "McLaren": "/manus-storage/image-extractpics-6_afbb3706.webp",
+  "Mercedes-Benz": "/manus-storage/image-extractpics-17_f4533e21.webp",
+  "Porsche": "/manus-storage/image-extractpics-33_ad1142fc.webp",
+  "Rolls-Royce": "/manus-storage/image-extractpics-10_c0973c01.webp",
+  "Range Rover": "/manus-storage/image-extractpics-2_cbff50e4.webp",
   "Audi": "/manus-storage/audi-optimized_42f6ed84.webp",
-  "BMW": "/manus-storage/bmw-optimized_6f4b0380.webp",
+  "BMW": "/manus-storage/image-extractpics-9_57f39cfd.webp",
   "Bentley": "/manus-storage/bentley-optimized_2dc7a26d.webp",
-  "Aston Martin": "/manus-storage/aston-martin-optimized_7fa1af36.webp",
-  "Cadillac": "/manus-storage/cadillac-optimized_8ec1bb49.webp",
-  "Brabus": "/manus-storage/brabus-source-logo_229102a2.png",
-  "Mansory": "/manus-storage/mansory-source-logo_93978eac.png",
+  "Aston Martin": "/manus-storage/image-extractpics-4_8b34e11c.webp",
+  "Cadillac": "/manus-storage/image-extractpics-20_bfbf8a84.webp",
+  "Brabus": "/manus-storage/image-extractpics-27_43c08169.webp",
+  "Mansory": "/manus-storage/image-extractpics-25_e551cd05.webp",
 };
 
 export const brandSheetHeaders: Record<string, string> = {

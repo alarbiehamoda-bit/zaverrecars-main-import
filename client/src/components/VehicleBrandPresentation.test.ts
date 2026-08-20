@@ -11,7 +11,16 @@ const zaverreMark = readFileSync(new URL("./ZaverreMark.tsx", import.meta.url), 
 
 describe("vehicle brand and image presentation", () => {
   it("uses a source for every catalogue marque that needs a visual mark", () => {
-    expect(component).toContain('"Maserati": "/manus-storage/maserati-mark-transparent');
+    expect(component).toContain('"Maserati": "/manus-storage/image-extractpics-22_4e531ab7.webp"');
+  });
+
+  it("prioritizes the supplied and background-cleaned assets for every catalogue marque", () => {
+    expect(component).toContain('"Ferrari": "/manus-storage/ferrari-optimized_317e7910.webp"');
+    expect(component).toContain('"Audi": "/manus-storage/audi-optimized_42f6ed84.webp"');
+    expect(component).toContain('"Lamborghini": "/manus-storage/lamborghini-optimized_c206dfb4.webp"');
+    expect(component).toContain('"Bentley": "/manus-storage/bentley-optimized_2dc7a26d.webp"');
+    expect(component).toContain('"Brabus": "/manus-storage/image-extractpics-27_43c08169.webp"');
+    expect(component).toContain('"Mansory": "/manus-storage/image-extractpics-25_e551cd05.webp"');
   });
 
   it("keeps vehicle photos uncropped and makes marque badges a prominent, consistent marque plate", () => {
