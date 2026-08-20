@@ -2148,3 +2148,60 @@ html[data-theme="light"] :is(.featured-section-heading .eyebrow, .fleet-browse-p
     width: 44px;
   }
 }
+
+/* One consistent icon well: the original marque file remains unchanged in both themes. */
+.fleet-browse-page .brand-logo-rail .brand-filter-icon-well {
+  align-items: center;
+  background: radial-gradient(circle at 34% 24%, rgba(74, 139, 176, .95), rgba(10, 47, 73, .99) 68%);
+  border: 1px solid rgba(122, 194, 228, .58);
+  border-radius: 14px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.2), inset 0 -8px 16px rgba(0,0,0,.22), 0 4px 10px rgba(5, 45, 74, .16);
+  display: flex;
+  height: 52px;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  width: 52px;
+}
+.fleet-browse-page .brand-logo-rail .brand-filter-icon-well::before {
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: inherit;
+  content: "";
+  inset: 4px;
+  pointer-events: none;
+  position: absolute;
+}
+.fleet-browse-page .brand-logo-rail .brand-filter-icon-well .brand-filter-mark,
+.fleet-browse-page .brand-logo-rail .brand-filter-icon-well .brand-mark-fallback {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  filter: contrast(1.12) saturate(1.08) drop-shadow(0 1px 2px rgba(0,0,0,.48)) !important;
+  height: 42px !important;
+  mix-blend-mode: normal !important;
+  object-fit: contain;
+  padding: 0 !important;
+  position: relative;
+  width: 42px !important;
+  z-index: 1;
+}
+.fleet-browse-page .brand-logo-rail .brand-filter-icon-well svg {
+  color: #f7f4ec;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,.46));
+  position: relative;
+  z-index: 1;
+}
+html[data-theme="light"] .fleet-browse-page .brand-logo-rail .brand-filter-icon-well {
+  background: radial-gradient(circle at 34% 24%, #5fa4ca, #0b385a 68%);
+  border-color: rgba(11, 56, 90, .48);
+}
+html:not([data-theme="light"]) .fleet-browse-page .brand-logo-rail .brand-filter-icon-well {
+  background: radial-gradient(circle at 34% 24%, #5b7f94, #182f3e 68%);
+  border-color: rgba(247, 225, 184, .52);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.24), inset 0 -8px 16px rgba(0,0,0,.26), 0 4px 10px rgba(0,0,0,.28);
+}
+@media (max-width: 620px) {
+  .fleet-browse-page .brand-logo-rail .brand-filter-icon-well { height: 44px; width: 44px; }
+  .fleet-browse-page .brand-logo-rail .brand-filter-icon-well .brand-filter-mark,
+  .fleet-browse-page .brand-logo-rail .brand-filter-icon-well .brand-mark-fallback { height: 36px !important; width: 36px !important; }
+}

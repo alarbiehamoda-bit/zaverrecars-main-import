@@ -11,7 +11,7 @@ const zaverreMark = readFileSync(new URL("./ZaverreMark.tsx", import.meta.url), 
 
 describe("vehicle brand and image presentation", () => {
   it("uses a source for every catalogue marque that needs a visual mark", () => {
-    expect(component).toContain('"Maserati": "/manus-storage/image-extractpics-22_4e531ab7.webp"');
+    expect(component).toContain('"Maserati": "/manus-storage/maserati-filter-icon-transparent_4de88744.png"');
   });
 
   it("prioritizes the supplied and background-cleaned assets for every catalogue marque", () => {
@@ -73,6 +73,42 @@ describe("vehicle brand and image presentation", () => {
     expect(glassStyles).toContain("height: 52px");
     expect(glassStyles).toContain(".fleet-browse-toolbar .eyebrow");
     expect(glassStyles).toContain("#0b385a");
+  });
+
+  it("uses the same original marque source inside one contrast-safe icon well for both themes", () => {
+    expect(component).toContain('className="brand-filter-icon-well"');
+    expect(component).toContain('<BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} className="brand-filter-mark" />');
+    expect(glassStyles).toContain("One consistent icon well");
+    expect(glassStyles).toContain("object-fit: contain");
+    expect(glassStyles).toContain("background: transparent !important");
+    expect(glassStyles).toContain("mix-blend-mode: normal !important");
+    expect(glassStyles).toContain('html[data-theme="light"] .fleet-browse-page .brand-logo-rail .brand-filter-icon-well');
+    expect(glassStyles).toContain('html:not([data-theme="light"]) .fleet-browse-page .brand-logo-rail .brand-filter-icon-well');
+  });
+
+  it("keeps every sensitive light or dark marque on the same protected filter source", () => {
+    expect(component).toContain("const source = brandHeaderAssets[brandName] || logoUrl");
+    for (const marque of ["Rolls-Royce", "Mercedes-Benz", "Bentley", "Aston Martin", "Audi", "Porsche", "Maserati", "Lamborghini"]) {
+      expect(component).toContain(`\"${marque}\": \"/manus-storage/`);
+    }
+    expect(component).toContain("filterBrands.map((brand) => <a href={`/cars/${brandRouteSlug(brand.brandName)}`");
+    expect(component).toContain("<span className=\"brand-filter-icon-well\"><BrandMark brandName={brand.brandName}");
+    expect(glassStyles).toContain(".brand-filter-icon-well .brand-filter-mark");
+    expect(glassStyles).toContain("filter: contrast(1.12) saturate(1.08)");
+    expect(component).toContain('"Rolls-Royce": "/manus-storage/image-extractpics-10_c0973c01.webp"');
+    expect(component).toContain('"Maserati": "/manus-storage/maserati-filter-icon-transparent_4de88744.png"');
+    expect(component).toContain('"Mercedes-Benz": "/manus-storage/image-extractpics-17_f4533e21.webp"');
+  });
+
+  it("maps every branded filter through one icon-well and the same BrandMark source", () => {
+    const requiredMarques = ["Lamborghini", "Maserati", "Ferrari", "McLaren", "Mercedes-Benz", "Porsche", "Rolls-Royce", "Range Rover", "Audi", "BMW", "Bentley", "Aston Martin", "Cadillac", "Brabus", "Mansory"];
+    for (const marque of requiredMarques) {
+      expect(component).toContain(`\"${marque}\": \"/manus-storage/`);
+    }
+    expect(component).toContain("const source = brandHeaderAssets[brandName] || logoUrl");
+    expect(component).toContain('<span className="brand-filter-icon-well"><BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} className="brand-filter-mark" /></span>');
+    expect(glassStyles).toContain(".brand-filter-icon-well .brand-filter-mark");
+    expect(glassStyles).toContain("object-fit: contain");
   });
 
   it("anchors the header lockup with neon", () => {

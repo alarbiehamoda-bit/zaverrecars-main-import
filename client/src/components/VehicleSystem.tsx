@@ -13,7 +13,7 @@ import { whatsappUrl } from "@/config/contact";
 
 export const brandHeaderAssets: Record<string, string> = {
   "Lamborghini": "/manus-storage/lamborghini-optimized_c206dfb4.webp",
-  "Maserati": "/manus-storage/image-extractpics-22_4e531ab7.webp",
+  "Maserati": "/manus-storage/maserati-filter-icon-transparent_4de88744.png",
   "Ferrari": "/manus-storage/ferrari-optimized_317e7910.webp",
   "McLaren": "/manus-storage/image-extractpics-6_afbb3706.webp",
   "Mercedes-Benz": "/manus-storage/image-extractpics-17_f4533e21.webp",
@@ -142,9 +142,9 @@ export function BrandFilterRail({ activeBrand, onSelect, brands, vehicles }: { a
   };
 
   return <div ref={railRef} className={`brand-logo-rail brand-filter-rail${isDragging ? " is-dragging" : ""}`} aria-label="Vehicle brand filters" onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={endDrag}>
-    <a href="/cars" key="All" className={activeBrand === "All" ? "active" : ""} onClick={(event) => selectBrand(event, "All")} aria-current={activeBrand === "All" ? "page" : undefined} aria-label={`Show all ${brandVehicleCounts.All} vehicles`}><CarFront size={28} strokeWidth={1.45} aria-hidden="true" /><small>ALL</small><b className="brand-filter-model-count">{brandVehicleCounts.All} {brandVehicleCounts.All === 1 ? "MODEL" : "MODELS"}</b></a>
+    <a href="/cars" key="All" className={activeBrand === "All" ? "active" : ""} onClick={(event) => selectBrand(event, "All")} aria-current={activeBrand === "All" ? "page" : undefined} aria-label={`Show all ${brandVehicleCounts.All} vehicles`}><span className="brand-filter-icon-well" aria-hidden="true"><CarFront size={28} strokeWidth={1.45} /></span><small>ALL</small><b className="brand-filter-model-count">{brandVehicleCounts.All} {brandVehicleCounts.All === 1 ? "MODEL" : "MODELS"}</b></a>
     {filterBrands.map((brand) => <a href={`/cars/${brandRouteSlug(brand.brandName)}`} key={brand.brandName} className={activeBrand === brand.brandName ? "active" : ""} onClick={(event) => selectBrand(event, brand.brandName)} aria-current={activeBrand === brand.brandName ? "page" : undefined} aria-label={`Show ${brandVehicleCounts[brand.brandName]} ${brand.displayName} vehicles`}>
-      <BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} className="brand-filter-mark" />
+      <span className="brand-filter-icon-well"><BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} className="brand-filter-mark" /></span>
       <small>{brand.displayName}</small><b className="brand-filter-model-count">{brandVehicleCounts[brand.brandName]} {brandVehicleCounts[brand.brandName] === 1 ? "MODEL" : "MODELS"}</b>
     </a>)}
   </div>;
