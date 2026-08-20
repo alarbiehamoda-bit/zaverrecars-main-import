@@ -2059,3 +2059,92 @@ html[data-theme="light"] main.zaverre-day .delivery-location-grid li {
   color: #0a4671 !important;
   border-color: rgba(10, 100, 158, .4) !important;
 }
+
+/* Marque plates: light-brown in daylight and warm beige at night, with the same protected logo geometry. */
+html[data-theme="light"] :is(.vehicle-brand-ribbon, .brand-logo-rail :is(a, button), .brand-logo-rail :is(a, button):hover, .brand-logo-rail :is(a, button):focus-visible, .brand-logo-rail :is(a, button).active) {
+  background: linear-gradient(135deg, #f4dfc5 0%, #ddb187 58%, #c98d62 100%) !important;
+  border-color: rgba(125, 75, 43, .52) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 250, 242, .92), 0 8px 16px rgba(104, 57, 31, .13) !important;
+  color: #372114 !important;
+}
+html[data-theme="light"] :is(.vehicle-brand-ribbon > span, .vehicle-brand-ribbon > i, .brand-logo-rail :is(a, button), .brand-logo-rail :is(a, button) small, .brand-logo-rail .brand-filter-model-count) {
+  color: #372114 !important;
+  -webkit-text-fill-color: #372114 !important;
+}
+html:not([data-theme="light"]) :is(.vehicle-brand-ribbon, .brand-logo-rail :is(a, button), .brand-logo-rail :is(a, button):hover, .brand-logo-rail :is(a, button):focus-visible, .brand-logo-rail :is(a, button).active) {
+  background: linear-gradient(135deg, #fff0d8 0%, #ecd2aa 58%, #d7b57e 100%) !important;
+  border-color: rgba(247, 220, 176, .72) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .72), 0 8px 18px rgba(0, 0, 0, .22) !important;
+  color: #332116 !important;
+}
+html:not([data-theme="light"]) :is(.vehicle-brand-ribbon > span, .vehicle-brand-ribbon > i, .brand-logo-rail :is(a, button), .brand-logo-rail :is(a, button) small, .brand-logo-rail .brand-filter-model-count) {
+  color: #332116 !important;
+  -webkit-text-fill-color: #332116 !important;
+}
+
+/* Showroom navigation: every marque receives a neutral glass plate so detailed marks stay legible. */
+html[data-theme="light"] .fleet-browse-page .brand-logo-rail :is(a, button) {
+  background: linear-gradient(145deg, rgba(255, 255, 255, .98), rgba(245, 248, 250, .94)) !important;
+  border-color: rgba(13, 58, 89, .18) !important;
+  border-radius: 18px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,1), 0 8px 17px rgba(20, 68, 99, .12) !important;
+  flex-basis: 88px;
+  min-height: 94px;
+}
+html[data-theme="light"] .fleet-browse-page .brand-logo-rail :is(a, button):hover,
+html[data-theme="light"] .fleet-browse-page .brand-logo-rail :is(a, button):focus-visible,
+html[data-theme="light"] .fleet-browse-page .brand-logo-rail :is(a, button).active {
+  background: linear-gradient(145deg, #ffffff, #e8f2f7) !important;
+  border-color: rgba(8, 93, 144, .52) !important;
+  box-shadow: inset 0 1px 0 #ffffff, 0 10px 21px rgba(15, 91, 138, .18) !important;
+}
+html[data-theme="light"] .fleet-browse-page .brand-logo-rail :is(.brand-filter-mark, .brand-mark-fallback) {
+  background: linear-gradient(145deg, #ffffff, #f2f4f5) !important;
+  border-color: rgba(13, 58, 89, .16) !important;
+  border-radius: 14px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,1), 0 4px 10px rgba(20, 68, 99, .1) !important;
+  filter: contrast(1.13) saturate(1.08) !important;
+  height: 52px;
+  padding: 6px;
+  width: 52px;
+}
+html[data-theme="light"] .fleet-browse-page .brand-logo-rail :is(a, button, a small, button small, .brand-filter-model-count) {
+  color: #0b385a !important;
+  -webkit-text-fill-color: #0b385a !important;
+}
+html:not([data-theme="light"]) .fleet-browse-page .brand-logo-rail :is(a, button) {
+  background: linear-gradient(145deg, #fff0d8 0%, #ead0a5 100%) !important;
+  border-color: rgba(249, 221, 174, .74) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.72), 0 8px 18px rgba(0,0,0,.26) !important;
+  flex-basis: 88px;
+  min-height: 94px;
+}
+html:not([data-theme="light"]) .fleet-browse-page .brand-logo-rail :is(.brand-filter-mark, .brand-mark-fallback) {
+  background: linear-gradient(145deg, #fffaf1, #f3e1c4) !important;
+  border-color: rgba(155, 109, 64, .3) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 4px 11px rgba(46, 30, 14, .14) !important;
+  filter: contrast(1.12) saturate(1.06) !important;
+  height: 52px;
+  padding: 6px;
+  width: 52px;
+}
+html:not([data-theme="light"]) .fleet-browse-page .brand-logo-rail :is(a, button, a small, button small, .brand-filter-model-count) {
+  color: #352014 !important;
+  -webkit-text-fill-color: #352014 !important;
+}
+html[data-theme="light"] :is(.featured-section-heading .eyebrow, .fleet-browse-page .fleet-browse-toolbar .eyebrow) {
+  color: #0b385a !important;
+  -webkit-text-fill-color: #0b385a !important;
+}
+@media (max-width: 620px) {
+  html[data-theme="light"] .fleet-browse-page .brand-logo-rail :is(a, button),
+  html:not([data-theme="light"]) .fleet-browse-page .brand-logo-rail :is(a, button) {
+    flex-basis: 72px;
+    min-height: 82px;
+  }
+  html[data-theme="light"] .fleet-browse-page .brand-logo-rail :is(.brand-filter-mark, .brand-mark-fallback),
+  html:not([data-theme="light"]) .fleet-browse-page .brand-logo-rail :is(.brand-filter-mark, .brand-mark-fallback) {
+    height: 44px;
+    width: 44px;
+  }
+}

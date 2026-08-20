@@ -52,10 +52,30 @@ describe("vehicle brand and image presentation", () => {
     expect(mobileStyles).toContain("background: transparent !important");
   });
 
-  it("gives dark-mode marque plates a light blue shared backdrop and anchors the header lockup with neon", () => {
+  it("gives marque plates a light-brown daylight backdrop and a warm beige dark-mode backdrop", () => {
     expect(styles).toContain('html:not([data-theme="light"]) .vehicle-brand-ribbon');
-    expect(styles).toContain("#e4f6ff");
+    expect(glassStyles).toContain("Marque plates");
+    expect(glassStyles).toContain("#f4dfc5");
+    expect(glassStyles).toContain("#fff0d8");
+    expect(glassStyles).toContain("#372114");
+    expect(glassStyles).toContain("#332116");
+    expect(glassStyles).toContain('.brand-logo-rail :is(a, button)');
+    expect(component).toContain('className={`brand-logo-rail brand-filter-rail');
+    expect(component).toContain('<a href={`/cars/${brandRouteSlug(brand.brandName)}`}');
     expect(styles).toContain("mix-blend-mode: normal");
+  });
+
+  it("keeps showroom filter links on a neutral glass surface with enlarged contained marks", () => {
+    expect(glassStyles).toContain("Showroom navigation");
+    expect(glassStyles).toContain(".fleet-browse-page .brand-logo-rail :is(a, button)");
+    expect(glassStyles).toContain("rgba(255, 255, 255, .98)");
+    expect(glassStyles).toContain("#fff0d8");
+    expect(glassStyles).toContain("height: 52px");
+    expect(glassStyles).toContain(".fleet-browse-toolbar .eyebrow");
+    expect(glassStyles).toContain("#0b385a");
+  });
+
+  it("anchors the header lockup with neon", () => {
     expect(glassStyles).toContain("A fine neon baseline");
     expect(glassStyles).toContain("#48c8ff");
     expect(glassStyles).toContain("width: 100%");
