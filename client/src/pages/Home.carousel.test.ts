@@ -45,9 +45,11 @@ describe("unified vehicle system safeguards", () => {
     expect(fleetSource).toContain("brandRouteSlug");
   });
 
-  it("keeps non-home routes deferred from the initial JavaScript bundle", () => {
-    expect(appSource).toContain('lazy(() => import("./pages/FleetBrowse"))');
-    expect(appSource).toContain('lazy(() => import("./pages/VehicleDetail"))');
+  it("keeps public routes synchronous for SSR hydration while administration remains deferred", () => {
+    expect(appSource).toContain('import FleetBrowse from "./pages/FleetBrowse"');
+    expect(appSource).toContain('import VehicleDetail from "./pages/VehicleDetail"');
+    expect(appSource).toContain('import JournalArticle from "./pages/JournalArticle"');
+    expect(appSource).toContain('lazy(() => import("./pages/AdminVehicles"))');
     expect(appSource).toContain("<Suspense");
   });
 
@@ -69,9 +71,10 @@ describe("unified vehicle system safeguards", () => {
     expect(systemSource).toContain("whatsappUrl(vehicleMessage(vehicle))");
   });
 
-  it("keeps the horizontal fleet carousel drag-safe on mouse and touch input", () => {
-    expect(homeSource).toContain('dragPointerIdRef.current = event.pointerId');
-    expect(homeSource).toContain('event.preventDefault();');
-    expect(homeSource).toContain('horizontal-fleet-track${isDragging ? " is-dragging" : ""}');
+  it("keeps the active related-vehicle carousel drag-safe on mouse and touch input", () => {
+    expect(systemSource).toContain("const startDrag = (event: ReactPointerEvent<HTMLDivElement>)");
+    expect(systemSource).toContain("pointerId: event.pointerId");
+    expect(systemSource).toContain("const moveDrag = (event: ReactPointerEvent<HTMLDivElement>)");
+    expect(systemSource).toContain("event.preventDefault();");
   });
 });

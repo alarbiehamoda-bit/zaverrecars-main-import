@@ -56,7 +56,7 @@ describe("theme and touch gallery controls", () => {
     expect(vehicleGlassStyles).toContain("#ef7d2c");
     expect(vehicleGlassStyles).toContain("hero-section.hero-cinematic");
     expect(vehicleGlassStyles).toContain("70svh");
-    expect(homeSource).toContain("zaverre-original-hero_42295d7b.webp");
+    expect(homeSource).toContain("brand.heroTexture");
   });
 
   it("keeps gallery navigation driven by touch gestures rather than previous and next arrow controls", () => {

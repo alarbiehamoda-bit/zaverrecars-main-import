@@ -57,12 +57,12 @@ describe("fleet browse presentation", () => {
   });
 
   it("uses transparent mark assets for the verified marque circles and a restrained card-hover scale", () => {
-    expect(vehicleSystemSource).toContain("porsche-mark-alpha_3e9d4514-compact_102f3f2f.webp");
-    expect(vehicleSystemSource).toContain("lamborghini-mark-alpha_908b0fd9-compact_5c748351.webp");
-    expect(vehicleSystemSource).toContain("mercedes-benz-mark-alpha_b6b16a8b.png");
-    expect(vehicleSystemSource).toContain("rolls-royce-mark-alpha_563aa828.png");
-    expect(vehicleSystemSource).toContain("range-rover-mark-alpha_867187f0.png");
-    expect(vehicleSystemSource).toContain("maserati-mark-transparent_e710247c-compact_ea6903b3.webp");
+    expect(vehicleSystemSource).toContain("/manus-storage/porsche-optimized_2c5f86d3.webp");
+    expect(vehicleSystemSource).toContain("/manus-storage/lamborghini-optimized_c206dfb4.webp");
+    expect(vehicleSystemSource).toContain("/manus-storage/mercedes-benz-optimized_1697fc7d.webp");
+    expect(vehicleSystemSource).toContain("/manus-storage/rolls-royce-optimized_d790c128.webp");
+    expect(vehicleSystemSource).toContain("/manus-storage/range-rover-optimized_f6df64bb.webp");
+    expect(vehicleSystemSource).toContain("brand-mark-fallback");
     expect(vehicleSystemSource).toContain('"--vehicle-image-hover-scale": String(imageSettings.scale)');
     expect(glassStyles).toContain("box-shadow: inset 0 -28px 40px rgba(0, 0, 0, .32), 0 16px 30px rgba(0, 0, 0, .18)");
   });

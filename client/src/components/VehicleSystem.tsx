@@ -12,19 +12,18 @@ import { vehicleSpecificationValue } from "@/lib/fleetPresentation";
 import { whatsappUrl } from "@/config/contact";
 
 export const brandHeaderAssets: Record<string, string> = {
-  "Lamborghini": "/manus-storage/lamborghini-mark-alpha_908b0fd9-compact_5c748351.webp",
-  "Maserati": "/manus-storage/maserati-mark-transparent_e710247c-compact_ea6903b3.webp",
-  "Ferrari": "/manus-storage/ferrari-mark-alpha_ebd3a0c6-compact_f6e36672.webp",
-  "McLaren": "/manus-storage/mclaren-mark-alpha_64919dfb.png",
-  "Mercedes-Benz": "/manus-storage/mercedes-benz-mark-alpha_b6b16a8b.png",
-  "Porsche": "/manus-storage/porsche-mark-alpha_3e9d4514-compact_102f3f2f.webp",
-  "Rolls-Royce": "/manus-storage/rolls-royce-mark-alpha_563aa828.png",
-  "Range Rover": "/manus-storage/range-rover-mark-alpha_867187f0.png",
-  "Audi": "/manus-storage/audi-mark-alpha_e3702f8b.png",
-  "BMW": "/manus-storage/bmw-mark-alpha_95ceff84-compact_d9c98b1d.webp",
-  "Bentley": "/manus-storage/bentley-mark-alpha_ecc033e3.png",
-  "Aston Martin": "/manus-storage/aston-martin-mark-alpha_07983d09.png",
-  "Cadillac": "/manus-storage/cadillac-mark-alpha_d155e159-compact_993ffff8.webp",
+  "Lamborghini": "/manus-storage/lamborghini-optimized_c206dfb4.webp",
+  "Ferrari": "/manus-storage/ferrari-optimized_317e7910.webp",
+  "McLaren": "/manus-storage/mclaren-optimized_64d59d1e.webp",
+  "Mercedes-Benz": "/manus-storage/mercedes-benz-optimized_1697fc7d.webp",
+  "Porsche": "/manus-storage/porsche-optimized_2c5f86d3.webp",
+  "Rolls-Royce": "/manus-storage/rolls-royce-optimized_d790c128.webp",
+  "Range Rover": "/manus-storage/range-rover-optimized_f6df64bb.webp",
+  "Audi": "/manus-storage/audi-optimized_42f6ed84.webp",
+  "BMW": "/manus-storage/bmw-optimized_6f4b0380.webp",
+  "Bentley": "/manus-storage/bentley-optimized_2dc7a26d.webp",
+  "Aston Martin": "/manus-storage/aston-martin-optimized_7fa1af36.webp",
+  "Cadillac": "/manus-storage/cadillac-optimized_8ec1bb49.webp",
   "Brabus": "/manus-storage/brabus-source-logo_229102a2.png",
   "Mansory": "/manus-storage/mansory-source-logo_93978eac.png",
 };
@@ -48,7 +47,7 @@ const price = (value: number) => new Intl.NumberFormat("en-AE", { maximumFractio
 const vehicleMessage = (vehicle: Vehicle) => `Hello ZAVERRE,\nI would like to reserve the ${vehicle.fullName}.\nVehicle image: ${vehicleAssetUrl(vehicle.image)}\nPlease confirm availability, the final daily rate, required documents, and pickup or delivery options.`;
 
 export function BrandMark({ brandName, logoUrl, className = "" }: { brandName: string; logoUrl?: string | null; className?: string }) {
-  const source = logoUrl || brandHeaderAssets[brandName];
+  const source = brandHeaderAssets[brandName] || logoUrl;
   const [available, setAvailable] = useState(Boolean(source));
   const identityClass = `brand-mark--${brandName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`;
   if (available && source) return <img className={`${identityClass} ${className}`.trim()} src={source} alt={`${brandName} mark`} loading="lazy" decoding="async" onError={() => setAvailable(false)} />;

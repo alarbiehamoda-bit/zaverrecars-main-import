@@ -1,4 +1,3 @@
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { deliveryLocations, journalArticles, rentalFaqs } from "@/config/homeContent";
 import { useCmsContent } from "@/hooks/useCmsContent";
 import { ArrowUpRight, MapPin, ShieldCheck, Truck } from "lucide-react";
@@ -48,14 +47,14 @@ export function RentalFaqSection() {
           <p>Clear initial answers before you submit a request, with ZAVERRE confirming the terms for the selected vehicle.</p>
           <div className="home-faq-assurance"><ShieldCheck size={18} /> Clear terms before booking confirmation</div>
         </div>
-        <Accordion type="single" collapsible className="home-faq-list">
-          {faqs.map((item, index) => (
-            <AccordionItem key={item.question} value={`faq-${index}`}>
-              <AccordionTrigger>{item.question}</AccordionTrigger>
-              <AccordionContent>{item.answer}</AccordionContent>
-            </AccordionItem>
+        <div className="home-faq-list">
+          {faqs.map((item) => (
+            <details key={item.question}>
+              <summary>{item.question}</summary>
+              <div className="home-faq-answer">{item.answer}</div>
+            </details>
           ))}
-        </Accordion>
+        </div>
       </div>
     </section>
   );

@@ -1,5 +1,6 @@
 import { journalArticles } from "@/config/homeContent";
 import { vehicleCatalog } from "@/config/vehicleCatalog";
+import { brand } from "@/config/brand";
 import { brandFromRouteSlug, categoryFromRouteSlug } from "@/lib/fleetRoutes";
 import { vehicleFromSlug } from "@/lib/vehicleDetail";
 
@@ -21,6 +22,7 @@ export function getRouteSeo(pathname: string, origin: string): RouteSeo {
     return {
       title: "Luxury Car Rental in Dubai | ZAVERRE",
       description: fallbackDescription,
+      image: brand.heroTexture,
       schema: { "@context": "https://schema.org", "@type": "Organization", name: siteName, url },
     };
   }
@@ -59,7 +61,22 @@ export function getRouteSeo(pathname: string, origin: string): RouteSeo {
         title: `${vehicle.fullName} Rental in Dubai | ZAVERRE`,
         description,
         image: vehicle.image,
-        schema: { "@context": "https://schema.org", "@type": "Product", name: vehicle.fullName, description, image: toAbsoluteUrl(vehicle.image, origin), category: vehicle.category, url },
+        schema: {
+          "@context": "https://schema.org",
+          "@type": "Product",
+          name: vehicle.fullName,
+          description,
+          image: toAbsoluteUrl(vehicle.image, origin),
+          category: vehicle.category,
+          url,
+          offers: {
+            "@type": "Offer",
+            priceCurrency: "AED",
+            price: vehicle.priceAedPerDay,
+            availability: "https://schema.org/InStock",
+            url,
+          },
+        },
       };
     }
   }

@@ -1,4 +1,3 @@
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { ZaverreMark } from "@/components/ZaverreMark";
 import { contact, whatsappUrl } from "@/config/contact";
 import { vehicleCatalog, type Vehicle } from "@/config/vehicleCatalog";
@@ -23,7 +22,6 @@ import {
 import {
   ArrowDownRight,
   ArrowLeft,
-  ArrowRight,
   ArrowUpRight,
   CalendarDays,
   CarFront,
@@ -35,7 +33,6 @@ import {
   Palette,
   Route,
   Settings2,
-  ShieldCheck,
   Timer,
   Users,
   Zap,

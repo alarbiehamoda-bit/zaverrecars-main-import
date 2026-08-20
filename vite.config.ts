@@ -150,7 +150,10 @@ function vitePluginManusDebugCollector(): Plugin {
   };
 }
 
-const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector()];
+const isProductionBuild = process.env.NODE_ENV === "production";
+const plugins = isProductionBuild
+  ? [react(), tailwindcss()]
+  : [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector()];
 
 export default defineConfig({
   plugins,
@@ -167,6 +170,20 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          framework: ["react", "react-dom", "wouter", "@tanstack/react-query"],
+          trpc: ["@trpc/client", "@trpc/react-query", "superjson"],
+          interface: ["lucide-react", "sonner"],
+          catalogue: [
+            path.resolve(import.meta.dirname, "client", "src", "config", "vehicleCatalog.ts"),
+            path.resolve(import.meta.dirname, "client", "src", "components", "VehicleSystem.tsx"),
+            path.resolve(import.meta.dirname, "client", "src", "hooks", "useManagedVehicleCatalog.ts"),
+          ],
+        },
+      },
+    },
   },
   server: {
     host: true,

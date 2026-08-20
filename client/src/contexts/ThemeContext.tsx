@@ -21,13 +21,15 @@ export function ThemeProvider({
   defaultTheme = "light",
   switchable = false,
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(() => {
-    if (switchable) {
-      const stored = localStorage.getItem("theme");
-      return (stored as Theme) || defaultTheme;
-    }
-    return defaultTheme;
-  });
+  // Start from the same value on the server and the browser's first render so
+  // SSR hydration cannot disagree about theme-conditional UI.
+  const [theme, setTheme] = useState<Theme>(defaultTheme);
+
+  useEffect(() => {
+    if (!switchable) return;
+    const stored = window.localStorage.getItem("theme");
+    if (stored === "light" || stored === "dark") setTheme(stored);
+  }, [defaultTheme, switchable]);
 
   useEffect(() => {
     const root = document.documentElement;

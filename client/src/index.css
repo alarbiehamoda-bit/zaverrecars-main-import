@@ -407,12 +407,13 @@ button { cursor: pointer; }
 .home-faq-section { background: radial-gradient(circle at 90% 12%, rgba(199,167,120,.12), transparent 28%), linear-gradient(145deg, #0d0d0c, #181511 58%, #0c0c0b); }
 .home-faq-intro { color: #f6f0e5; }.home-faq-intro > p:not(.eyebrow) { color: #b8afa2; }.home-faq-assurance { border-color: rgba(199,167,120,.36); color: #d8bd86; }
 .home-faq-list { border-top: 1px solid rgba(199,167,120,.29); }
-.home-faq-list [data-slot="accordion-item"] { border-color: rgba(199,167,120,.24); }
-.home-faq-list [data-slot="accordion-trigger"] { color: #f3ece0; font-family: "Cormorant Garamond", Georgia, serif; font-size: clamp(24px,2.3vw,34px); font-weight: 500; line-height: .92; padding: 25px 0; text-align: right; text-decoration: none; }
-.home-faq-list [data-slot="accordion-trigger"]:hover { color: #edcf99; text-decoration: none; }
-.home-faq-list [data-slot="accordion-trigger"] svg { color: #d7b676; height: 20px; margin-top: 0; width: 20px; }
-.home-faq-list [data-slot="accordion-content"] { color: #b9b0a3; font-size: 14px; line-height: 1.85; text-align: right; }
-.home-faq-list [data-slot="accordion-content"] > div { padding-bottom: 26px; }
+.home-faq-list details { border-bottom: 1px solid rgba(199,167,120,.24); }
+.home-faq-list summary { align-items: center; color: #f3ece0; cursor: pointer; display: flex; font-family: "Cormorant Garamond", Georgia, serif; font-size: clamp(24px,2.3vw,34px); font-weight: 500; gap: 18px; justify-content: space-between; line-height: .92; list-style: none; padding: 25px 0; text-align: right; }
+.home-faq-list summary::-webkit-details-marker { display: none; }
+.home-faq-list summary::after { color: #d7b676; content: "+"; font-family: "Manrope", Arial, sans-serif; font-size: 20px; font-weight: 400; line-height: 1; }
+.home-faq-list details[open] summary { color: #edcf99; }
+.home-faq-list details[open] summary::after { content: "−"; }
+.home-faq-list .home-faq-answer { color: #b9b0a3; font-size: 14px; line-height: 1.85; padding: 0 0 26px; text-align: right; }
 .journal-preview-section { background: #10100f; }
 .journal-preview-section::before { background: linear-gradient(90deg, transparent, rgba(199,167,120,.16), transparent); content: ""; height: 1px; left: 7vw; position: absolute; right: 7vw; top: 0; }
 .journal-preview-head { align-items: end; display: flex; gap: 44px; justify-content: space-between; margin-bottom: clamp(34px,5vw,60px); }

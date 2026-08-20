@@ -1,7 +1,5 @@
 import { journalArticles } from "@/config/homeContent";
-import { contact, whatsappUrl } from "@/config/contact";
 import { useCmsContent, whatsappHref } from "@/hooks/useCmsContent";
-import { trpc } from "@/lib/trpc";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { useState } from "react";
 import { Link } from "wouter";
@@ -19,7 +17,7 @@ function JournalVisual({ src, alt, title }: { src: string; alt: string; title: s
     );
   }
 
-  return <figure className="journal-article-image"><img src={src} alt={alt} onError={() => setImageUnavailable(true)} /></figure>;
+  return <figure className="journal-article-image"><img src={src} alt={alt} decoding="async" fetchPriority="high" onError={() => setImageUnavailable(true)} /></figure>;
 }
 
 export default function JournalArticle({ params }: { params: { slug: string } }) {

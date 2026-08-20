@@ -21,13 +21,16 @@ describe("homepage experience content", () => {
     expect(rentalFaqs[0]?.answer).toContain("21 years old");
     expect(rentalFaqs[0]?.answer).toContain("25");
     expect(rentalFaqs.every((item) => item.question.length > 0 && item.answer.length > 0)).toBe(true);
+    expect(experienceSource).toContain("<details key={item.question}>");
+    expect(experienceSource).toContain("<summary>{item.question}</summary>");
+    expect(experienceSource).not.toContain('from "@/components/ui/accordion"');
   });
 
   it("keeps three supplied-image article cards and independent detail routes", () => {
     expect(journalArticles).toHaveLength(3);
     expect(new Set(journalArticles.map((article) => article.slug)).size).toBe(3);
     expect(journalArticles.every((article) => article.image.startsWith("/manus-storage/"))).toBe(true);
-    expect(homeSource).toContain('lazy(() => import("@/components/HomeExperienceSections").then');
+    expect(homeSource).toContain('from "@/components/HomeExperienceSections"');
     expect(homeSource).toContain("<JournalPreviewSection />");
     expect(appSource).toContain('path="/journal/:slug"');
   });

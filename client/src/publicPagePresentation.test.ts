@@ -7,6 +7,7 @@ const pagesDirectory = dirname(fileURLToPath(import.meta.url));
 const journalArticleSource = readFileSync(join(pagesDirectory, "pages", "JournalArticle.tsx"), "utf8");
 const notFoundSource = readFileSync(join(pagesDirectory, "pages", "NotFound.tsx"), "utf8");
 const zaverreMarkSource = readFileSync(join(pagesDirectory, "components", "ZaverreMark.tsx"), "utf8");
+const brandConfigSource = readFileSync(join(pagesDirectory, "config", "brand.ts"), "utf8");
 
 describe("public page fallbacks", () => {
   it("replaces an unavailable journal image with a branded visual state", () => {
@@ -22,5 +23,11 @@ describe("public page fallbacks", () => {
   it("keeps the logo readable if its image source is unavailable", () => {
     expect(zaverreMarkSource).toContain("onError={() => setImageUnavailable(true)}");
     expect(zaverreMarkSource).toContain('zaverre-mark--fallback');
+  });
+
+  it("uses the supplied transparent logo and hero image assets", () => {
+    expect(brandConfigSource).toContain("zaverre-logo-transparent-optimized_c58adddb.webp");
+    expect(brandConfigSource).toContain("zaverre-logo-transparent-blue-optimized_b3aeecee.webp");
+    expect(brandConfigSource).toContain("zaverre-hero-orange-lamborghini-optimized_e9595c1a.webp");
   });
 });

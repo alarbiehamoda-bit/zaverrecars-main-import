@@ -38,7 +38,10 @@ export function registerStorageProxy(app: Express) {
         return;
       }
 
-      res.set("Cache-Control", "no-store");
+      // Public site assets are served through this proxy as signed redirects.
+      // Cache only the redirect briefly—well below the signed URL lifetime—to
+      // avoid repeated presign requests during browsing while retaining refresh.
+      res.set("Cache-Control", "public, max-age=900");
       res.redirect(307, url);
     } catch (err) {
       console.error("[StorageProxy] failed:", err);

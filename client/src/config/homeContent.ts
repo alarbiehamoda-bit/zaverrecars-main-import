@@ -64,7 +64,7 @@ export const journalArticles: JournalArticle[] = [
     title: "A Practical Guide to Renting a Ferrari or Lamborghini in Dubai",
     summary:
       "From choosing the right model to arranging collection, a practical guide to planning a refined day of driving.",
-    image: "/manus-storage/zafir-journal-atlantis_62aeda55.webp",
+    image: "/manus-storage/zaverre-journal-atlantis-optimized_08f1a2f8.webp",
     imageAlt: "Two supercars outside Atlantis in Dubai at sunset",
     paragraphs: [
       "A refined rental begins with choosing a car that suits the occasion, not only the specification. A Ferrari brings elegant sporting character to a coastal drive, while a Lamborghini makes a stronger visual statement for city plans and special occasions.",
@@ -78,8 +78,8 @@ export const journalArticles: JournalArticle[] = [
     title: "The Best Dubai Routes for a Supercar Drive",
     summary:
       "Dubai routes that combine memorable scenery, comfortable roads, and well-chosen stopping points for a considered drive.",
-    image: "/manus-storage/zafir-journal-rolls-royce_9a4f16c9.webp",
-    imageAlt: "Two supercars in a green Dubai setting",
+    image: "/manus-storage/zaverre-journal-lamborghini-optimized_a34fb235.webp",
+    imageAlt: "Orange Lamborghini displayed below the Lamborghini crest",
     paragraphs: [
       "Dubai's coastal roads and landmark destinations suit a relaxed day of driving with thoughtful photo stops. Plan the route around peak traffic, parking, and local road rules.",
       "Palm Jumeirah, Jumeirah Beach Residence, and Bluewaters Island offer clear waterfront views, while Downtown and DIFC bring a different architectural character to an evening drive.",
@@ -92,8 +92,8 @@ export const journalArticles: JournalArticle[] = [
     title: "Luxury Car Rental Requirements in the UAE",
     summary:
       "A clear overview of licences, documents, age requirements, and insurance so you arrive prepared for booking.",
-    image: "/manus-storage/zafir-journal-showroom_96bd3746.webp",
-    imageAlt: "A turquoise Lamborghini Urus parked outdoors",
+    image: "/manus-storage/zaverre-journal-rolls-royce-dawn-optimized_3d58e85c.webp",
+    imageAlt: "White Rolls-Royce Dawn convertible in the desert",
     paragraphs: [
       "Luxury-car rental requirements vary by driver profile and vehicle type, but the starting point is always a valid driving licence and clear identification. Residents usually need a UAE licence, while visitors may need an International Driving Permit depending on their issuing country.",
       "Rental providers commonly set age limits by vehicle category. At ZAVERRE, the usual minimum is 21, while some supercars may require drivers to be 25 or older.",
