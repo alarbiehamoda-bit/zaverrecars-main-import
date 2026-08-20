@@ -6,6 +6,7 @@ const appSource = readFileSync(resolve(process.cwd(), "client/src/App.tsx"), "ut
 const toggleSource = readFileSync(resolve(process.cwd(), "client/src/components/ThemeToggle.tsx"), "utf8");
 const gallerySource = readFileSync(resolve(process.cwd(), "client/src/components/CarGallery.tsx"), "utf8");
 const globalStyles = readFileSync(resolve(process.cwd(), "client/src/index.css"), "utf8");
+const mobileStyles = readFileSync(resolve(process.cwd(), "client/src/mobile.css"), "utf8");
 const vehicleGlassStyles = readFileSync(resolve(process.cwd(), "client/src/vehicle-glass.css"), "utf8");
 const homeSource = readFileSync(resolve(process.cwd(), "client/src/pages/Home.tsx"), "utf8");
 
@@ -57,6 +58,9 @@ describe("theme and touch gallery controls", () => {
     expect(vehicleGlassStyles).toContain("hero-section.hero-cinematic");
     expect(vehicleGlassStyles).toContain("70svh");
     expect(homeSource).toContain("brand.heroTexture");
+    expect(mobileStyles).toContain("@media (max-width: 760px)");
+    expect(vehicleGlassStyles).toContain('html[data-theme="light"]');
+    expect(globalStyles).toContain(".dark");
   });
 
   it("keeps gallery navigation driven by touch gestures rather than previous and next arrow controls", () => {
