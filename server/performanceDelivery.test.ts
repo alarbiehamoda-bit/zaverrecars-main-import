@@ -15,8 +15,9 @@ const storageProxySource = read("server/_core/storageProxy.ts");
 const indexTemplate = read("client/index.html");
 
 describe("performance delivery contracts", () => {
-  it("uses optimized WebP assets for the global logo and primary hero", () => {
-    expect(brandSource).toContain("zaverre-logo-transparent-optimized_c58adddb.webp");
+  it("uses optimized assets for the transparent global logo and primary hero", () => {
+    expect(brandSource).toContain("zaverre-mark-gold-transparent_5b35d875.png");
+    expect(brandSource).toContain("zaverre-mark-blue-transparent_e67bc456.png");
     expect(brandSource).toContain("zaverre-hero-orange-lamborghini-optimized_e9595c1a.webp");
   });
 

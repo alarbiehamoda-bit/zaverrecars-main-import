@@ -43,6 +43,20 @@
   transform: scale(1.18);
   transform-origin: center;
 }
+.brand-lockup { align-items: center; gap: 13px; }
+.brand-lockup .zaverre-mark.brand-mark {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  filter: none !important;
+  flex: 0 0 62px;
+  height: 62px;
+  object-fit: contain;
+  padding: 0 !important;
+  transform: none !important;
+  width: 62px;
+}
 .desktop-nav button { position: relative; }
 .desktop-nav button::after {
   background: linear-gradient(90deg, transparent, #e8c989, transparent);

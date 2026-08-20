@@ -9,6 +9,7 @@ const globalStyles = readFileSync(resolve(process.cwd(), "client/src/index.css")
 const mobileStyles = readFileSync(resolve(process.cwd(), "client/src/mobile.css"), "utf8");
 const vehicleGlassStyles = readFileSync(resolve(process.cwd(), "client/src/vehicle-glass.css"), "utf8");
 const homeSource = readFileSync(resolve(process.cwd(), "client/src/pages/Home.tsx"), "utf8");
+const themeContextSource = readFileSync(resolve(process.cwd(), "client/src/contexts/ThemeContext.tsx"), "utf8");
 
 describe("theme and touch gallery controls", () => {
   it("enables a persistent dark and day-mode toggle from the application shell", () => {
@@ -61,6 +62,8 @@ describe("theme and touch gallery controls", () => {
     expect(mobileStyles).toContain("@media (max-width: 760px)");
     expect(vehicleGlassStyles).toContain('html[data-theme="light"]');
     expect(globalStyles).toContain(".dark");
+    expect(themeContextSource).toContain("if (!import.meta.env.DEV || typeof window === \"undefined\") return null;");
+    expect(themeContextSource).toContain('get("themePreview")');
   });
 
   it("keeps gallery navigation driven by touch gestures rather than previous and next arrow controls", () => {

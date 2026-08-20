@@ -26,8 +26,8 @@ describe("public page fallbacks", () => {
   });
 
   it("uses the supplied transparent logo and hero image assets", () => {
-    expect(brandConfigSource).toContain("zaverre-logo-transparent-optimized_c58adddb.webp");
-    expect(brandConfigSource).toContain("zaverre-logo-transparent-blue-optimized_b3aeecee.webp");
+    expect(brandConfigSource).toContain("zaverre-mark-gold-transparent_5b35d875.png");
+    expect(brandConfigSource).toContain("zaverre-mark-blue-transparent_e67bc456.png");
     expect(brandConfigSource).toContain("zaverre-hero-orange-lamborghini-optimized_e9595c1a.webp");
   });
 });

@@ -13,6 +13,7 @@ import { whatsappUrl } from "@/config/contact";
 
 export const brandHeaderAssets: Record<string, string> = {
   "Lamborghini": "/manus-storage/lamborghini-optimized_c206dfb4.webp",
+  "Maserati": "/manus-storage/maserati-mark-transparent_e710247c-compact_ea6903b3.webp",
   "Ferrari": "/manus-storage/ferrari-optimized_317e7910.webp",
   "McLaren": "/manus-storage/mclaren-optimized_64d59d1e.webp",
   "Mercedes-Benz": "/manus-storage/mercedes-benz-optimized_1697fc7d.webp",

@@ -10,6 +10,12 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
+const getDevelopmentPreviewTheme = (): Theme | null => {
+  if (!import.meta.env.DEV || typeof window === "undefined") return null;
+  const previewTheme = new URLSearchParams(window.location.search).get("themePreview");
+  return previewTheme === "light" || previewTheme === "dark" ? previewTheme : null;
+};
+
 interface ThemeProviderProps {
   children: React.ReactNode;
   defaultTheme?: Theme;
@@ -27,6 +33,11 @@ export function ThemeProvider({
 
   useEffect(() => {
     if (!switchable) return;
+    const previewTheme = getDevelopmentPreviewTheme();
+    if (previewTheme) {
+      setTheme(previewTheme);
+      return;
+    }
     const stored = window.localStorage.getItem("theme");
     if (stored === "light" || stored === "dark") setTheme(stored);
   }, [defaultTheme, switchable]);
