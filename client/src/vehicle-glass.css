@@ -1528,6 +1528,20 @@ html:not([data-theme="light"]) .vehicle-detail-page .detail-price-panel .detail-
   -webkit-text-fill-color: #fff0d5 !important;
 }
 
+/* The fixed first-booking coupon must never obscure a vehicle's public rate. */
+.vehicle-detail-page .detail-price-panel,
+.vehicle-detail-page .detail-rental-grid > div:first-child {
+  isolation: isolate;
+  position: relative;
+  z-index: 43;
+}
+.vehicle-detail-page .detail-price-panel {
+  background-color: rgba(13, 13, 12, .96) !important;
+}
+html[data-theme="light"] .vehicle-detail-page .detail-price-panel {
+  background-color: rgba(246, 252, 255, .98) !important;
+}
+
 /* Daylight catalogue hierarchy: blue search/navigation, brown marque names and counts. */
 html[data-theme="light"] .fleet-browse-page .fleet-browse-toolbar :is(.eyebrow, h2, h2 em),
 html[data-theme="light"] .fleet-browse-page .search-field :is(svg, input, input::placeholder),
