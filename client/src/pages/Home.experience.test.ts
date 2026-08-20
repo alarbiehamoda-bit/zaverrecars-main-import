@@ -6,6 +6,7 @@ import { deliveryLocations, journalArticles, rentalFaqs } from "../config/homeCo
 const homeSource = readFileSync(resolve(process.cwd(), "client/src/pages/Home.tsx"), "utf8");
 const appSource = readFileSync(resolve(process.cwd(), "client/src/App.tsx"), "utf8");
 const experienceSource = readFileSync(resolve(process.cwd(), "client/src/components/HomeExperienceSections.tsx"), "utf8");
+const glassStyles = readFileSync(resolve(process.cwd(), "client/src/vehicle-glass.css"), "utf8");
 
 describe("homepage experience content", () => {
   it("keeps a confirmation-based delivery policy and the complete delivery-location list", () => {
@@ -43,5 +44,15 @@ describe("homepage experience content", () => {
   it("reads primary homepage messaging from the public content settings hook", () => {
     expect(homeSource).toContain("const hero = cms.homeHero");
     expect(homeSource).toContain("<GoldRule label={hero.kicker} />");
+  });
+
+  it("keeps daylight supporting copy, FAQ questions, and utility icons in a dark navy contrast palette", () => {
+    expect(glassStyles).toContain("Daylight readability pass");
+    expect(glassStyles).toContain("#173f61");
+    expect(glassStyles).toContain(".home-faq-list summary");
+    expect(glassStyles).toContain("#0a395d");
+    expect(glassStyles).toContain(".home-faq-list summary::after");
+    expect(glassStyles).toContain("#0877b6");
+    expect(glassStyles).toContain(".delivery-location-grid li) svg");
   });
 });

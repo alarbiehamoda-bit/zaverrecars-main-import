@@ -2006,3 +2006,56 @@ html[data-theme="light"] .vehicle-card .card-rate__currency em { color: #0b6595 
   .vehicle-card .card-rate .card-rate__value b { font-size: clamp(31px, 10vw, 39px); }
   .vehicle-card .card-rate .card-rate__value i { font-size: 6px; padding-left: 5px; }
 }
+
+/* Daylight readability pass: supporting copy and utility icons use navy, never low-contrast cream. */
+html[data-theme="light"] main.zaverre-day :is(.delivery-intro, .home-faq-intro, .journal-preview-head) > p:not(.eyebrow),
+html[data-theme="light"] main.zaverre-day .journal-preview-head > p {
+  color: #173f61 !important;
+  -webkit-text-fill-color: #173f61 !important;
+}
+html[data-theme="light"] main.zaverre-day :is(.delivery-intro, .home-faq-intro, .journal-preview-head) .eyebrow {
+  color: #0b5b91 !important;
+  -webkit-text-fill-color: #0b5b91 !important;
+}
+html[data-theme="light"] main.zaverre-day :is(.delivery-intro h2, .home-faq-intro h2, .journal-preview-head h2) {
+  color: #082f52 !important;
+  -webkit-text-fill-color: #082f52 !important;
+}
+html[data-theme="light"] main.zaverre-day :is(.delivery-intro h2 em, .home-faq-intro h2 em, .journal-preview-head h2 em) {
+  color: #0a76b5 !important;
+  -webkit-text-fill-color: #0a76b5 !important;
+}
+html[data-theme="light"] main.zaverre-day :is(.delivery-policy, .home-faq-assurance) {
+  border-top-color: rgba(10, 100, 158, .35) !important;
+  color: #0a4f7d !important;
+  -webkit-text-fill-color: #0a4f7d !important;
+}
+html[data-theme="light"] main.zaverre-day :is(.delivery-policy, .home-faq-assurance, .delivery-location-grid li) svg {
+  color: #075884 !important;
+  stroke-width: 2.25;
+}
+html[data-theme="light"] main.zaverre-day .home-faq-list {
+  border-top-color: rgba(10, 100, 158, .36) !important;
+}
+html[data-theme="light"] main.zaverre-day .home-faq-list details {
+  border-bottom-color: rgba(10, 100, 158, .26) !important;
+}
+html[data-theme="light"] main.zaverre-day .home-faq-list summary {
+  color: #0a395d !important;
+  -webkit-text-fill-color: #0a395d !important;
+}
+html[data-theme="light"] main.zaverre-day .home-faq-list summary::after {
+  color: #0877b6 !important;
+}
+html[data-theme="light"] main.zaverre-day .home-faq-list details[open] summary {
+  color: #064876 !important;
+  -webkit-text-fill-color: #064876 !important;
+}
+html[data-theme="light"] main.zaverre-day .home-faq-list .home-faq-answer {
+  color: #174d72 !important;
+  -webkit-text-fill-color: #174d72 !important;
+}
+html[data-theme="light"] main.zaverre-day .delivery-location-grid li {
+  color: #0a4671 !important;
+  border-color: rgba(10, 100, 158, .4) !important;
+}
