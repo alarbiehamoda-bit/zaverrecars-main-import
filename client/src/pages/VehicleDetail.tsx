@@ -1,5 +1,5 @@
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { brand } from "@/config/brand";
+import { ZaverreMark } from "@/components/ZaverreMark";
 import { contact, whatsappUrl } from "@/config/contact";
 import { vehicleCatalog, type Vehicle } from "@/config/vehicleCatalog";
 import { archiveGalleryByVehicleId } from "@/data/archiveVehicleGalleries";
@@ -222,7 +222,7 @@ export default function VehicleDetail() {
   if (!vehicle || !publicPrice) {
     return (
       <main className="detail-not-found">
-        <img src={brand.monogram} alt="ZAVERRE" />
+        <ZaverreMark className="detail-not-found__mark" label="ZAVERRE" />
         <p className="eyebrow">VEHICLE NOT FOUND</p>
         <h1>This vehicle is not in the current collection.</h1>
         <button className="button button-gold" onClick={handleReturn}>RETURN TO FLEET <ArrowLeft size={17} /></button>
@@ -239,7 +239,7 @@ export default function VehicleDetail() {
     <main className={`vehicle-detail-page${theme === "light" ? " zaverre-day" : ""}`}>
       <header className="detail-header">
         <button className="brand-lockup" onClick={handleReturn} aria-label="Return to previous fleet view; double press for ZAVERRE home">
-          <img src={brand.monogram} alt="" className="brand-mark" />
+          <ZaverreMark className="brand-mark" />
           <span>ZAVERRE</span>
         </button>
         <div className="detail-header-actions">
@@ -278,7 +278,7 @@ export default function VehicleDetail() {
 
       <section className="detail-final-cta"><ImageIcon size={18} /><p>ONE VEHICLE. INDIVIDUAL ARRANGEMENT.</p><h2>Ready when you are.</h2></section>
 
-      <footer className="site-footer"><div className="footer-brand"><img src={brand.monogram} alt="" /><span>ZAVERRE</span></div><p>Luxury car rental, curated with restraint.</p></footer>
+      <footer className="site-footer"><div className="footer-brand"><ZaverreMark className="footer-brand__mark" /><span>ZAVERRE</span></div><p>Luxury car rental, curated with restraint.</p></footer>
       <FirstBookingCoupon />
       <FloatingContactRail message={safeMessage(vehicle)} />
     </main>

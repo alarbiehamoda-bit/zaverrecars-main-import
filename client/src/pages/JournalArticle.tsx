@@ -3,7 +3,24 @@ import { contact, whatsappUrl } from "@/config/contact";
 import { useCmsContent, whatsappHref } from "@/hooks/useCmsContent";
 import { trpc } from "@/lib/trpc";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { useState } from "react";
 import { Link } from "wouter";
+
+function JournalVisual({ src, alt, title }: { src: string; alt: string; title: string }) {
+  const [imageUnavailable, setImageUnavailable] = useState(false);
+
+  if (imageUnavailable) {
+    return (
+      <figure className="journal-article-image journal-article-image--fallback">
+        <span>THE ZAVERRE JOURNAL</span>
+        <strong>{title}</strong>
+        <i>Curated roads. Considered arrivals.</i>
+      </figure>
+    );
+  }
+
+  return <figure className="journal-article-image"><img src={src} alt={alt} onError={() => setImageUnavailable(true)} /></figure>;
+}
 
 export default function JournalArticle({ params }: { params: { slug: string } }) {
   const content = useCmsContent();
@@ -40,7 +57,7 @@ export default function JournalArticle({ params }: { params: { slug: string } })
           <h1>{article.title}</h1>
           <p>{article.summary}</p>
         </div>
-        <figure className="journal-article-image"><img src={article.image} alt={article.imageAlt} /></figure>
+        <JournalVisual src={article.image} alt={article.imageAlt} title={article.title} />
         <div className="journal-article-body">
           {article.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
           <aside>

@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { ArrowDownRight, ArrowUp, ChevronLeft, MessageCircle, Phone, Search } from "lucide-react";
 import { useLocation } from "wouter";
 import "./FleetBrowse.css";
-import { brand } from "@/config/brand";
+import { ZaverreMark } from "@/components/ZaverreMark";
 import { vehicleFilterBrands, type Vehicle } from "@/config/vehicleCatalog";
 import { useManagedVehicleCatalog } from "@/hooks/useManagedVehicleCatalog";
 import { BrandFilterRail, BrandMark, MasterVehicleGrid } from "@/components/VehicleSystem";
@@ -111,7 +111,7 @@ export default function FleetBrowse() {
 
   return <main className={`fleet-browse-page${theme === "light" ? " zaverre-day" : ""}`}>
     <header className="fleet-browse-header">
-      <a className="brand-lockup" href="/" onClick={(event) => { event.preventDefault(); navigate("/"); }} aria-label="ZAVERRE home"><img src={brand.monogram} alt="" className="brand-mark" /><span>ZAVERRE</span></a>
+      <a className="brand-lockup" href="/" onClick={(event) => { event.preventDefault(); navigate("/"); }} aria-label="ZAVERRE home"><ZaverreMark className="brand-mark" /><span>ZAVERRE</span></a>
       <div className="fleet-header-actions"><ThemeToggle /><button className="header-book" onClick={() => window.open(whatsappUrl("Hello ZAVERRE, I would like to enquire about the fleet."), "_blank", "noopener,noreferrer")}>BOOK NOW <ArrowDownRight size={16} /></button></div>
     </header>
     {activeBrand && <section className="brand-name-bar" aria-label={`${activeBrand} brand name`}><strong>{activeBrand}</strong></section>}

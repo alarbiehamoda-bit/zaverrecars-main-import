@@ -31,6 +31,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { ZaverreMark } from "@/components/ZaverreMark";
 import { brand } from "@/config/brand";
 import { whatsappUrl } from "@/config/contact";
 import { useCmsContent, whatsappHref } from "@/hooks/useCmsContent";
@@ -533,7 +534,7 @@ export default function Home() {
     <main className={`overflow-x-hidden text-[#f6f0e5] ${theme === "light" ? "zaverre-day" : "bg-[#0d0d0c]"}`}>
       <header className={`site-header${isScrolled ? " site-header--scrolled" : ""}`}>
         <button className="brand-lockup" onClick={() => scrollTo("top")} aria-label="ZAVERRE home">
-          <img src={brand.monogram} alt="" className="brand-mark" />
+          <ZaverreMark className="brand-mark" />
           <span>ZAVERRE</span>
         </button>
         <nav className="desktop-nav" aria-label="Primary navigation">
@@ -618,7 +619,7 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="site-footer"><div className="footer-brand"><img src={brand.monogram} alt="" /><span>ZAVERRE</span></div><p>Luxury car rental, curated with restraint.</p><span>© {new Date().getFullYear()} ZAVERRE</span></footer>
+      <footer className="site-footer"><div className="footer-brand"><ZaverreMark className="footer-brand__mark" /><span>ZAVERRE</span></div><p>Luxury car rental, curated with restraint.</p><span>© {new Date().getFullYear()} ZAVERRE</span></footer>
 
       <FloatingContactRail message="Hello ZAVERRE, I would like to reserve a vehicle. Please share availability, the final daily rate, and booking requirements." />
       <FirstBookingCoupon />
