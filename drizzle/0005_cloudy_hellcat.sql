@@ -1,0 +1,1 @@
+ALTER TABLE `vehicleContent` ADD `publicModel` varchar(255);

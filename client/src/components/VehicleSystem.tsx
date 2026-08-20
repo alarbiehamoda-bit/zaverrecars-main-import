@@ -1,0 +1,181 @@
+import { type CSSProperties, type PointerEvent as ReactPointerEvent, useRef, useState } from "react";
+import { useMemo } from "react";
+import "./VehicleSystem.css";
+import { Armchair, ArrowDownRight, ArrowUpRight, CarFront, ChevronRight, DoorOpen, Gauge, MessageCircle, Timer } from "lucide-react";
+import { resolveVehicleImageSettings, vehicleBrands, vehicleCatalog, vehicleFilterBrands, type Vehicle } from "@/config/vehicleCatalog";
+import type { ManagedBrand } from "@/hooks/useManagedVehicleCatalog";
+import { vehicleAssetUrl } from "@/lib/vehicleAssets";
+import { brandRouteSlug } from "@/lib/fleetRoutes";
+import { vehicleSlug } from "@/lib/vehicleDetail";
+import { DirhamMark } from "@/components/DirhamMark";
+import { vehicleSpecificationValue } from "@/lib/fleetPresentation";
+import { whatsappUrl } from "@/config/contact";
+
+export const brandHeaderAssets: Record<string, string> = {
+  "Lamborghini": "/manus-storage/lamborghini-mark-alpha_908b0fd9-compact_5c748351.webp",
+  "Maserati": "/manus-storage/maserati-mark-transparent_e710247c-compact_ea6903b3.webp",
+  "Ferrari": "/manus-storage/ferrari-mark-alpha_ebd3a0c6-compact_f6e36672.webp",
+  "McLaren": "/manus-storage/mclaren-mark-alpha_64919dfb.png",
+  "Mercedes-Benz": "/manus-storage/mercedes-benz-mark-alpha_b6b16a8b.png",
+  "Porsche": "/manus-storage/porsche-mark-alpha_3e9d4514-compact_102f3f2f.webp",
+  "Rolls-Royce": "/manus-storage/rolls-royce-mark-alpha_563aa828.png",
+  "Range Rover": "/manus-storage/range-rover-mark-alpha_867187f0.png",
+  "Audi": "/manus-storage/audi-mark-alpha_e3702f8b.png",
+  "BMW": "/manus-storage/bmw-mark-alpha_95ceff84-compact_d9c98b1d.webp",
+  "Bentley": "/manus-storage/bentley-mark-alpha_ecc033e3.png",
+  "Aston Martin": "/manus-storage/aston-martin-mark-alpha_07983d09.png",
+  "Cadillac": "/manus-storage/cadillac-mark-alpha_d155e159-compact_993ffff8.webp",
+  "Brabus": "/manus-storage/brabus-source-logo_229102a2.png",
+  "Mansory": "/manus-storage/mansory-source-logo_93978eac.png",
+};
+
+export const brandSheetHeaders: Record<string, string> = {
+  "Lamborghini": "/manus-storage/lamborghini-brand-header-from-user-reference_4e144aba.jpg",
+  "Ferrari": "/manus-storage/ferrari-brand-header-from-user-reference_e6ebcd07.jpg",
+  "McLaren": "/manus-storage/mclaren-brand-header-from-user-reference_1c88e897.jpg",
+  "Mercedes-Benz": "/manus-storage/mercedes-benz-brand-header-from-user-reference_91f77606.jpg",
+  "Porsche": "/manus-storage/porsche-brand-header-from-user-reference_9fa47405.jpg",
+  "Rolls-Royce": "/manus-storage/rolls-royce-brand-header-from-user-reference_39a5cf9f.jpg",
+  "Audi": "/manus-storage/audi-brand-header-from-user-reference_ab88493f.jpg",
+  "BMW": "/manus-storage/bmw-brand-header-from-user-reference_1c9875ce.jpg",
+  "Bentley": "/manus-storage/bentley-brand-header-from-user-reference_a5f393a3.jpg",
+  "Aston Martin": "/manus-storage/aston-martin-brand-header-from-user-reference_3d4e6d58.jpg",
+  "Cadillac": "/manus-storage/cadillac-brand-header-from-user-reference_eb546591.jpg",
+};
+
+const categoryLabel: Record<Vehicle["category"], string> = { Performance: "Performance", "Luxury SUV": "Luxury SUV", Convertible: "Convertible" };
+const price = (value: number) => new Intl.NumberFormat("en-AE", { maximumFractionDigits: 0 }).format(value);
+const vehicleMessage = (vehicle: Vehicle) => `Hello ZAVERRE,\nI would like to reserve the ${vehicle.fullName}.\nVehicle image: ${vehicleAssetUrl(vehicle.image)}\nPlease confirm availability, the final daily rate, required documents, and pickup or delivery options.`;
+
+export function BrandMark({ brandName, logoUrl, className = "" }: { brandName: string; logoUrl?: string | null; className?: string }) {
+  const source = logoUrl || brandHeaderAssets[brandName];
+  const [available, setAvailable] = useState(Boolean(source));
+  const identityClass = `brand-mark--${brandName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`;
+  if (available && source) return <img className={`${identityClass} ${className}`.trim()} src={source} alt={`${brandName} mark`} loading="lazy" decoding="async" onError={() => setAvailable(false)} />;
+  const initials = brandName.split(/\s|-/).filter(Boolean).map((word) => word[0]).join("").slice(0, 2).toUpperCase();
+  return <span className={`brand-mark-fallback ${identityClass} ${className}`.trim()} aria-label={`${brandName} mark`} title={brandName}>{initials}</span>;
+}
+
+export function VehicleCard({ vehicle, onDetails, onBook, className = "", imageLoading = "lazy" }: { vehicle: Vehicle; onDetails: (vehicle: Vehicle) => void; onBook: (vehicle: Vehicle) => void; className?: string; imageLoading?: "eager" | "lazy" }) {
+  const [imageAvailable, setImageAvailable] = useState(true);
+  const imageSettings = resolveVehicleImageSettings(vehicle.imageSettings);
+  const imageStyle = {
+    objectFit: imageSettings.fit,
+    objectPosition: imageSettings.position,
+    "--vehicle-image-scale": String(imageSettings.scale),
+    "--vehicle-image-hover-scale": String(imageSettings.scale),
+    "--vehicle-image-offset-x": `${imageSettings.offsetX}%`,
+    "--vehicle-image-offset-y": `${imageSettings.offsetY}%`,
+  } as CSSProperties;
+  const cardSpecifications = [
+    { label: "Engine", icon: Gauge },
+    { label: "0–100", sourceLabel: "0–100 km/h", icon: Timer },
+    { label: "Doors", icon: DoorOpen },
+    { label: "Seats", icon: Armchair },
+  ].flatMap((specification) => {
+    const value = vehicleSpecificationValue(vehicle, specification.sourceLabel ?? specification.label);
+    return value ? [{ ...specification, value }] : [];
+  });
+  const managedFacts = vehicle.cardPresentation?.facts?.length ? vehicle.cardPresentation.facts : undefined;
+  const ctaLabel = vehicle.cardPresentation?.ctaLabel || "BOOK NOW";
+
+  return <article id={`vehicle-card-${vehicle.id}`} className={`vehicle-card group ${className}`.trim()}>
+    <a href={`/fleet/${vehicleSlug(vehicle)}`} className="vehicle-image-wrap" onClick={(event) => { event.preventDefault(); onDetails(vehicle); }} aria-label={`View details for ${vehicle.fullName}`}>
+      {imageAvailable ? <img src={vehicleAssetUrl(vehicle.image)} alt={vehicle.fullName} decoding="async" loading={imageLoading} width="640" height="390" className="vehicle-image" style={imageStyle} onError={() => setImageAvailable(false)} /> : <span className="vehicle-image-fallback" aria-label={`${vehicle.fullName} verified source image is temporarily unavailable`}><span>{vehicle.brand}</span><strong>{vehicle.model}</strong><i>VERIFIED SOURCE<br />TEMPORARILY UNAVAILABLE</i></span>}
+      <div className="vehicle-image-shade" /><span className="vehicle-number">{String(vehicle.index).padStart(2, "0")}</span><span className="vehicle-arrow"><ArrowUpRight size={15} /></span>
+    </a>
+      <div className="vehicle-card-body">
+      <div className="vehicle-brand-ribbon"><BrandMark brandName={vehicle.brand} logoUrl={vehicle.brandLogoUrl} className="vehicle-brand-ribbon-mark" /><span>{vehicle.brand}</span><i>{vehicle.cardPresentation?.kicker || "CURATED MARQUE"}</i></div>
+      <h3 className="font-display text-[#f7f1e5]">{vehicle.cardPresentation?.title || vehicle.model}</h3>
+      {managedFacts ? <div className="card-spec-list" aria-label={`${vehicle.fullName} managed quick specifications`}>{managedFacts.map((specification) => <span key={specification.label} className="card-spec-item"><Gauge size={14} aria-hidden="true" /><small>{specification.label}</small><b>{specification.value}</b></span>)}</div> : cardSpecifications.length ? <div className="card-spec-list" aria-label={`${vehicle.fullName} verified quick specifications`}>{cardSpecifications.map((specification) => { const Icon = specification.icon; return <span key={specification.label} className="card-spec-item"><Icon size={14} aria-hidden="true" /><small>{specification.label}</small><b>{specification.value}</b></span>; })}</div> : <div className="card-facts"><span>{categoryLabel[vehicle.category]}</span>{vehicle.color && <span>{vehicle.color}</span>}</div>}
+      <div className="card-rate"><span>DAILY RATE · EXCL. VAT</span><strong><DirhamMark /><b>{price(vehicle.priceAedPerDay)}</b></strong></div>
+      <div className="card-actions"><button type="button" className="card-book" onClick={() => onBook(vehicle)}>{ctaLabel} <ArrowDownRight size={14} /></button><a href={`/fleet/${vehicleSlug(vehicle)}`} className="card-details" onClick={(event) => { event.preventDefault(); onDetails(vehicle); }}>VIEW DETAILS + PHOTOS <ChevronRight size={14} /></a></div>
+      <a className="card-whatsapp" href={whatsappUrl(vehicleMessage(vehicle))} target="_blank" rel="noreferrer"><MessageCircle size={14} strokeWidth={2.25} aria-hidden="true" /><span>WHATSAPP ENQUIRY</span><ArrowUpRight size={13} aria-hidden="true" /></a>
+    </div>
+  </article>;
+}
+
+export function BrandFilterRail({ activeBrand, onSelect, brands, vehicles }: { activeBrand: string; onSelect: (brand: string) => void; brands?: ManagedBrand[]; vehicles?: Vehicle[] }) {
+  const railRef = useRef<HTMLDivElement>(null);
+  const dragRef = useRef({ active: false, moved: false, pointerId: -1, startX: 0, scrollLeft: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const filterBrands = useMemo<ManagedBrand[]>(() => brands ?? vehicleBrands.filter((brandName) => brandName !== "All").map((brandName) => ({ brandName, displayName: brandName })), [brands]);
+  const filterVehicles = vehicles ?? vehicleCatalog;
+  const brandVehicleCounts = useMemo(() => Object.fromEntries([["All", filterVehicles.length], ...filterBrands.map((brand) => [brand.brandName, filterVehicles.filter((vehicle) => vehicle.brand === brand.brandName || vehicleFilterBrands(vehicle).includes(brand.brandName)).length])]), [filterBrands, filterVehicles]);
+
+  const startDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    const rail = railRef.current;
+    if (!rail) return;
+    dragRef.current = { active: true, moved: false, pointerId: event.pointerId, startX: event.clientX, scrollLeft: rail.scrollLeft };
+    rail.setPointerCapture(event.pointerId);
+    setIsDragging(true);
+  };
+
+  const moveDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const rail = railRef.current;
+    const drag = dragRef.current;
+    if (!rail || !drag.active || drag.pointerId !== event.pointerId) return;
+    const delta = event.clientX - drag.startX;
+    if (Math.abs(delta) > 4) drag.moved = true;
+    rail.scrollLeft = drag.scrollLeft - delta;
+  };
+
+  const endDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const rail = railRef.current;
+    if (!dragRef.current.active || dragRef.current.pointerId !== event.pointerId) return;
+    if (rail?.hasPointerCapture(event.pointerId)) rail.releasePointerCapture(event.pointerId);
+    dragRef.current.active = false;
+    setIsDragging(false);
+  };
+
+  const selectBrand = (event: React.MouseEvent<HTMLAnchorElement>, brandName: string) => {
+    if (dragRef.current.moved) { event.preventDefault(); return; }
+    event.preventDefault();
+    onSelect(brandName);
+  };
+
+  return <div ref={railRef} className={`brand-logo-rail brand-filter-rail${isDragging ? " is-dragging" : ""}`} aria-label="Vehicle brand filters" onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={endDrag}>
+    <a href="/cars" key="All" className={activeBrand === "All" ? "active" : ""} onClick={(event) => selectBrand(event, "All")} aria-current={activeBrand === "All" ? "page" : undefined} aria-label={`Show all ${brandVehicleCounts.All} vehicles`}><CarFront size={28} strokeWidth={1.45} aria-hidden="true" /><small>ALL</small><b className="brand-filter-model-count">{brandVehicleCounts.All} {brandVehicleCounts.All === 1 ? "MODEL" : "MODELS"}</b></a>
+    {filterBrands.map((brand) => <a href={`/cars/${brandRouteSlug(brand.brandName)}`} key={brand.brandName} className={activeBrand === brand.brandName ? "active" : ""} onClick={(event) => selectBrand(event, brand.brandName)} aria-current={activeBrand === brand.brandName ? "page" : undefined} aria-label={`Show ${brandVehicleCounts[brand.brandName]} ${brand.displayName} vehicles`}>
+      <BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} className="brand-filter-mark" />
+      <small>{brand.displayName}</small><b className="brand-filter-model-count">{brandVehicleCounts[brand.brandName]} {brandVehicleCounts[brand.brandName] === 1 ? "MODEL" : "MODELS"}</b>
+    </a>)}
+  </div>;
+}
+
+export function MasterVehicleGrid({ vehicles, onDetails, onBook, layout = "grid" }: { vehicles: Vehicle[]; onDetails: (vehicle: Vehicle) => void; onBook: (vehicle: Vehicle) => void; layout?: "grid" | "vertical" | "carousel" }) {
+  const railRef = useRef<HTMLDivElement>(null);
+  const dragRef = useRef({ active: false, moved: false, pointerId: -1, startX: 0, startScrollLeft: 0 });
+  const suppressClickRef = useRef(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const startDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (layout !== "carousel" || (event.pointerType === "mouse" && event.button !== 0)) return;
+    const rail = railRef.current;
+    if (!rail) return;
+    dragRef.current = { active: true, moved: false, pointerId: event.pointerId, startX: event.clientX, startScrollLeft: rail.scrollLeft };
+    rail.setPointerCapture(event.pointerId);
+    setIsDragging(true);
+  };
+  const moveDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const rail = railRef.current;
+    const drag = dragRef.current;
+    if (!rail || !drag.active || drag.pointerId !== event.pointerId) return;
+    const delta = event.clientX - drag.startX;
+    if (Math.abs(delta) > 4) drag.moved = true;
+    rail.scrollLeft = drag.startScrollLeft - delta;
+  };
+  const endDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const rail = railRef.current;
+    const drag = dragRef.current;
+    if (!drag.active || drag.pointerId !== event.pointerId) return;
+    if (rail?.hasPointerCapture(event.pointerId)) rail.releasePointerCapture(event.pointerId);
+    drag.active = false;
+    setIsDragging(false);
+    if (drag.moved) {
+      suppressClickRef.current = true;
+      window.setTimeout(() => { suppressClickRef.current = false; }, 80);
+    }
+  };
+  return <div ref={railRef} className={`master-vehicle-grid master-vehicle-grid--${layout}${isDragging ? " is-dragging" : ""}`} aria-label={layout === "carousel" ? "Swipe or drag through similar vehicles" : "Vehicle collection"} role={layout === "carousel" ? "region" : undefined} aria-roledescription={layout === "carousel" ? "horizontal vehicle carousel" : undefined} onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={endDrag} onClickCapture={(event) => { if (suppressClickRef.current) { event.preventDefault(); event.stopPropagation(); } }}>{vehicles.map((vehicle, index) => <VehicleCard key={vehicle.id} vehicle={vehicle} onDetails={onDetails} onBook={onBook} className="featured-vehicle-card master-vehicle-card" imageLoading={index < 3 ? "eager" : "lazy"} />)}</div>;
+}

@@ -31,6 +31,7 @@ export function ThemeProvider({
 
   useEffect(() => {
     const root = document.documentElement;
+    root.dataset.theme = theme;
     if (theme === "dark") {
       root.classList.add("dark");
     } else {
@@ -44,7 +45,12 @@ export function ThemeProvider({
 
   const toggleTheme = switchable
     ? () => {
+        const root = document.documentElement;
+        root.classList.add("theme-transitioning");
         setTheme(prev => (prev === "light" ? "dark" : "light"));
+        window.requestAnimationFrame(() => {
+          window.requestAnimationFrame(() => root.classList.remove("theme-transitioning"));
+        });
       }
     : undefined;
 

@@ -1,0 +1,8 @@
+@media (max-width: 600px) {
+  .admin-vehicle-studio { padding: 24px 16px; }
+  .admin-studio-header, .admin-editor-heading, .admin-gallery-section { align-items: flex-start; flex-direction: column; }
+  .admin-field-grid, .admin-json-grid, .admin-gallery-grid { grid-template-columns: 1fr; }
+  .admin-wide-field { grid-column: auto; }
+  .admin-editor-heading .button, .admin-upload { justify-content: center; width: 100%; }
+  .admin-private-section .admin-field-grid { width: 100%; }
+}

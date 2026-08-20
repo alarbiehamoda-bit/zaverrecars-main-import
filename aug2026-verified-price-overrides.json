@@ -1,0 +1,33 @@
+{
+  "source": "Dubai_Luxury_Cars_FAIR_PROFITABLE_Pricing_Aug2026.xlsx",
+  "sheet": "1 - Final Price List",
+  "priceBasis": "Final daily price excluding VAT",
+  "currency": "AED per day",
+  "matchRule": "Exact normalized brand, model/specification, and colour match only",
+  "overridesByPartnerId": {
+    "partner-001": 2400,
+    "partner-002": 1750,
+    "partner-003": 2200,
+    "partner-005": 1550,
+    "partner-008": 1500,
+    "partner-009": 2050,
+    "partner-012": 2100,
+    "partner-013": 2550,
+    "partner-018": 1450,
+    "partner-020": 1150,
+    "partner-021": 1650,
+    "partner-023": 3950,
+    "partner-031": 3100,
+    "partner-032": 9350,
+    "partner-033": 9200,
+    "partner-039": 3000,
+    "partner-045": 10050,
+    "partner-050": 2800,
+    "partner-059": 5150,
+    "partner-062": 3900,
+    "partner-081": 1550,
+    "partner-084": 3500,
+    "partner-085": 3400,
+    "partner-089": 2400
+  }
+}
