@@ -21,4 +21,11 @@ describe("vehicle price presentation", () => {
     expect(styles).toContain('html[data-theme="light"] .vehicle-card .card-rate');
     expect(styles).toContain("@media (max-width: 620px)");
   });
+
+  it("uses a dedicated blue-glass rate panel with precise light-theme values", () => {
+    expect(styles).toContain("Catalogue rate card");
+    expect(styles).toContain("#0b4e7a");
+    expect(styles).toContain('html[data-theme="light"] .vehicle-card .card-rate');
+    expect(styles).toContain("#052f52");
+  });
 });

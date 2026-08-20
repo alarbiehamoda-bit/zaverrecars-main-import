@@ -51,4 +51,13 @@ describe("vehicle brand and image presentation", () => {
     expect(mobileStyles).toContain("height: 48px !important");
     expect(mobileStyles).toContain("background: transparent !important");
   });
+
+  it("gives dark-mode marque plates a light blue shared backdrop and anchors the header lockup with neon", () => {
+    expect(styles).toContain('html:not([data-theme="light"]) .vehicle-brand-ribbon');
+    expect(styles).toContain("#e4f6ff");
+    expect(styles).toContain("mix-blend-mode: normal");
+    expect(glassStyles).toContain("A fine neon baseline");
+    expect(glassStyles).toContain("#48c8ff");
+    expect(glassStyles).toContain("width: 100%");
+  });
 });
