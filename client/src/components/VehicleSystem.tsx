@@ -85,7 +85,10 @@ export function VehicleCard({ vehicle, onDetails, onBook, className = "", imageL
       <div className="vehicle-image-shade" /><span className="vehicle-number">{String(vehicle.index).padStart(2, "0")}</span><span className="vehicle-arrow"><ArrowUpRight size={15} /></span>
     </a>
       <div className="vehicle-card-body">
-      <div className="vehicle-brand-ribbon"><BrandMark brandName={vehicle.brand} logoUrl={vehicle.brandLogoUrl} className="vehicle-brand-ribbon-mark" /><span>{vehicle.brand}</span><i>{vehicle.cardPresentation?.kicker || "CURATED MARQUE"}</i></div>
+      <div className="vehicle-brand-ribbon" aria-label={`${vehicle.brand} marque`}>
+        <span className="vehicle-brand-ribbon__seal"><BrandMark brandName={vehicle.brand} logoUrl={vehicle.brandLogoUrl} className="vehicle-brand-ribbon-mark" /></span>
+        <span className="vehicle-brand-ribbon__identity"><strong>{vehicle.brand}</strong><i>{vehicle.cardPresentation?.kicker || "CURATED MARQUE"}</i></span>
+      </div>
       <h3 className="font-display text-[#f7f1e5]">{vehicle.cardPresentation?.title || vehicle.model}</h3>
       {managedFacts ? <div className="card-spec-list" aria-label={`${vehicle.fullName} managed quick specifications`}>{managedFacts.map((specification) => <span key={specification.label} className="card-spec-item"><Gauge size={14} aria-hidden="true" /><small>{specification.label}</small><b>{specification.value}</b></span>)}</div> : cardSpecifications.length ? <div className="card-spec-list" aria-label={`${vehicle.fullName} verified quick specifications`}>{cardSpecifications.map((specification) => { const Icon = specification.icon; return <span key={specification.label} className="card-spec-item"><Icon size={14} aria-hidden="true" /><small>{specification.label}</small><b>{specification.value}</b></span>; })}</div> : <div className="card-facts"><span>{categoryLabel[vehicle.category]}</span>{vehicle.color && <span>{vehicle.color}</span>}</div>}
       <div className="card-rate" aria-label={`Daily rental rate: AED ${price(vehicle.priceAedPerDay)}, excluding VAT`}>

@@ -14,7 +14,7 @@ describe("vehicle brand and image presentation", () => {
     expect(component).toContain('"Maserati": "/manus-storage/maserati-mark-transparent');
   });
 
-  it("keeps vehicle photos uncropped and makes marque badges a consistent rounded square", () => {
+  it("keeps vehicle photos uncropped and makes marque badges a prominent, consistent marque plate", () => {
     expect(styles).toContain("border-radius: 10px");
     expect(styles).toContain("border-radius: 12px");
     expect(styles).toContain("transform: none !important");
@@ -24,6 +24,12 @@ describe("vehicle brand and image presentation", () => {
     expect(fleetBrowseStyles).toContain("transform: none !important");
     expect(fleetBrowseStyles).toContain("mix-blend-mode: screen");
     expect(styles).toContain("mix-blend-mode: screen");
+    expect(component).toContain('className="vehicle-brand-ribbon__seal"');
+    expect(component).toContain('className="vehicle-brand-ribbon__identity"');
+    expect(styles).toContain("Elevated marque plate");
+    expect(styles).toContain("filter: contrast(1.18) saturate(1.16)");
+    expect(styles).toContain("height: 48px");
+    expect(mobileStyles).toContain("flex-basis: 67px !important");
   });
 
   it("keeps the header ZAVERRE mark transparent and visually prominent", () => {
