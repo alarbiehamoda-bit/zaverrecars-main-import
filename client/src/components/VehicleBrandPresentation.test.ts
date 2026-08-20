@@ -111,6 +111,14 @@ describe("vehicle brand and image presentation", () => {
     expect(glassStyles).toContain("object-fit: contain");
   });
 
+  it("visually elevates the selected marque without changing its filter route", () => {
+    expect(component).toContain('className={activeBrand === brand.brandName ? "active" : ""}');
+    expect(component).toContain('aria-current={activeBrand === brand.brandName ? "page" : undefined}');
+    expect(glassStyles).toContain(".brand-logo-rail :is(a, button).active");
+    expect(glassStyles).toContain("#5bd0ff");
+    expect(glassStyles).toContain(".brand-logo-rail :is(a, button).active::after");
+  });
+
   it("anchors the header lockup with neon", () => {
     expect(glassStyles).toContain("A fine neon baseline");
     expect(glassStyles).toContain("#48c8ff");

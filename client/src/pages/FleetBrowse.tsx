@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { ArrowDownRight, ArrowUp, ChevronLeft, MessageCircle, Phone, Search } from "lucide-react";
+import { ArrowDownRight, ArrowUp, CarFront, ChevronLeft, Crown, Gauge, MessageCircle, Phone, Search, Wind, type LucideIcon } from "lucide-react";
 import { useLocation } from "wouter";
 import "./FleetBrowse.css";
 import { ZaverreMark } from "@/components/ZaverreMark";
@@ -19,6 +19,17 @@ type FleetReturnTarget = {
   fleetPath: string;
   vehicleId: string;
 };
+
+const categoryFilterIcons: Record<"all" | "performance" | "luxury-suv" | "convertibles", LucideIcon> = {
+  all: CarFront,
+  performance: Gauge,
+  "luxury-suv": Crown,
+  convertibles: Wind,
+};
+
+function CategoryFilterLink({ href, active, label, count, Icon, onSelect }: { href: string; active: boolean; label: string; count: number; Icon: LucideIcon; onSelect: () => void }) {
+  return <a href={href} className={active ? "active" : ""} aria-current={active ? "page" : undefined} onClick={(event) => { event.preventDefault(); onSelect(); }}><span className="fleet-category-icon-well" aria-hidden="true"><Icon size={16} strokeWidth={1.7} /></span><span className="fleet-category-label">{label}</span><b className="fleet-category-count">{count}</b></a>;
+}
 
 function restoreVehicleCard(vehicleId: string) {
   const card = document.getElementById(`vehicle-card-${vehicleId}`);
@@ -127,7 +138,7 @@ export default function FleetBrowse() {
         <label className="search-field"><Search size={17} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search brand, model, engine…" aria-label="Search vehicles by brand, model, category, or verified specification" /></label>
       </div>
       <BrandFilterRail activeBrand={activeBrand || "All"} onSelect={selectBrand} brands={brands} vehicles={vehicleCatalog} />
-      <div className="fleet-category-rail" aria-label="Vehicle category filters"><a href="/cars" className={!activeCategory ? "active" : ""} onClick={(event) => { event.preventDefault(); selectCategory("all"); }}>ALL CARS <b className="fleet-category-count">{vehicleCatalog.length}</b></a>{fleetCategoryDefinitions.map((category) => <a href={`/cars/category/${category.slug}`} key={category.slug} className={activeCategory?.slug === category.slug ? "active" : ""} onClick={(event) => { event.preventDefault(); selectCategory(category.slug); }}>{category.label} <b className="fleet-category-count">{categoryCounts[category.slug]}</b></a>)}</div>
+      <div className="fleet-category-rail" aria-label="Vehicle category filters"><CategoryFilterLink href="/cars" active={!activeCategory} label="ALL CARS" count={vehicleCatalog.length} Icon={categoryFilterIcons.all} onSelect={() => selectCategory("all")} />{fleetCategoryDefinitions.map((category) => <CategoryFilterLink href={`/cars/category/${category.slug}`} key={category.slug} active={activeCategory?.slug === category.slug} label={category.label} count={categoryCounts[category.slug]} Icon={categoryFilterIcons[category.slug]} onSelect={() => selectCategory(category.slug)} />)}</div>
       {vehicles.length ? <MasterVehicleGrid vehicles={vehicles} layout="vertical" onDetails={openVehicleDetails} onBook={bookVehicle} /> : <div className="empty-state">No verified ZAVERRE vehicle matches this search.</div>}
     </section>
     {showBackToTop && <div className="fleet-floating-actions" aria-label="Fleet return and contact actions">

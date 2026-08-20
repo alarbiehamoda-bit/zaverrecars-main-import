@@ -173,4 +173,14 @@ describe("fleet browse presentation", () => {
     expect(fleetBrowseStyles).toContain(".fleet-category-count { color: #edd9b5");
     expect(glassStyles).toContain('html[data-theme="light"] .fleet-category-count');
   });
+
+  it("matches category controls to the icon-well system and makes selected filters visually explicit", () => {
+    expect(fleetBrowseSource).toContain("const categoryFilterIcons");
+    expect(fleetBrowseSource).toContain("CategoryFilterLink");
+    expect(fleetBrowseSource).toContain('className="fleet-category-icon-well"');
+    expect(glassStyles).toContain("Category controls inherit the marque icon-well language");
+    expect(glassStyles).toContain(".fleet-category-icon-well");
+    expect(glassStyles).toContain(".brand-logo-rail :is(a, button).active");
+    expect(glassStyles).toContain("#5bd0ff");
+  });
 });
