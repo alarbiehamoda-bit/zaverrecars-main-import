@@ -14,3 +14,18 @@ export function vehicleAssetUrl(source: string) {
     ? `${referenceAssetOrigin}${source}`
     : source;
 }
+
+/**
+ * Returns a stable identifier for a gallery asset. The same storage image can
+ * arrive as a relative key, an absolute reference URL, or a signed URL with
+ * transient query parameters; all forms must render only once in a gallery.
+ */
+export function galleryAssetKey(source: string) {
+  const resolved = vehicleAssetUrl(source.trim());
+  try {
+    const url = new URL(resolved, referenceAssetOrigin);
+    return `${url.origin}${decodeURIComponent(url.pathname)}`.toLowerCase();
+  } catch {
+    return resolved.split(/[?#]/, 1)[0].toLowerCase();
+  }
+}

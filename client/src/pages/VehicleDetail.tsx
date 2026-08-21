@@ -2,7 +2,7 @@ import { ZaverreMark } from "@/components/ZaverreMark";
 import { vehicleCatalog, type Vehicle } from "@/config/vehicleCatalog";
 import { archiveGalleryByVehicleId } from "@/data/archiveVehicleGalleries";
 import { trpc } from "@/lib/trpc";
-import { vehicleAssetUrl } from "@/lib/vehicleAssets";
+import { galleryAssetKey, vehicleAssetUrl } from "@/lib/vehicleAssets";
 import { CarGallery } from "@/components/CarGallery";
 import { VehicleCard } from "@/components/VehicleSystem";
 import { FirstBookingCoupon } from "@/components/FirstBookingCoupon";
@@ -135,13 +135,19 @@ export default function VehicleDetail() {
     const archiveGallery = vehicle ? archiveGalleryByVehicleId[vehicle.id] ?? [] : [];
     const managedPrimaryImage = managedImages.find((image) => image.isPrimary)?.imageUrl;
     const sourceImages = vehicle ? [managedPrimaryImage || vehicle.image, vehicle.image, ...archiveGallery, ...importedGallery] : [];
-    const uniqueSourceImages = Array.from(new Set(sourceImages.filter(Boolean)));
-    const images = uniqueSourceImages
-      .map((src, index) => ({ src: vehicleAssetUrl(src), alt: `${vehicle?.fullName} — view ${index + 1}` }))
-      .concat(managedImages
-        .filter((image) => !uniqueSourceImages.includes(image.imageUrl))
-        .map((image) => ({ src: image.imageUrl, alt: image.altText || vehicle?.fullName || "ZAVERRE vehicle" })));
-    return images;
+    const candidates = [
+      ...sourceImages.filter(Boolean).map((src) => ({ src: vehicleAssetUrl(src), alt: vehicle?.fullName || "ZAVERRE vehicle" })),
+      ...managedImages.map((image) => ({ src: vehicleAssetUrl(image.imageUrl), alt: image.altText || vehicle?.fullName || "ZAVERRE vehicle" })),
+    ];
+    const seen = new Set<string>();
+    return candidates
+      .filter((image) => {
+        const key = galleryAssetKey(image.src);
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      })
+      .map((image, index) => ({ ...image, alt: `${image.alt} — view ${index + 1}` }));
   }, [detailQuery.data?.images, vehicle]);
 
   const publicPrice = content?.publicCustomerPriceAed ?? vehicle?.priceAedPerDay;
