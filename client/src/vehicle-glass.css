@@ -1963,6 +1963,59 @@ html[data-theme="light"] main.zaverre-day .hero-cinematic .hero-copy > .section-
   .vehicle-detail-page .detail-quick-actions .button { font-size: 7px; min-height: 39px; }
 }
 
+/* Unified marque well: one two-level vessel is scaled for cards, rails, hero lockups, and the vehicle studio. */
+:is(.brand-emblem-well, .brand-card-identifier, .brand-card-logo, .brand-logo-preview) {
+  align-items: center !important;
+  background: linear-gradient(145deg, #d6d6a8 0%, #aeb47b 100%) !important;
+  border: 1px solid rgba(67, 75, 41, .56) !important;
+  border-radius: 14px !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,240,.64), inset 0 -6px 12px rgba(78,84,41,.18), 0 4px 10px rgba(52,48,25,.18) !important;
+  display: flex !important;
+  isolation: isolate;
+  justify-content: center !important;
+  overflow: hidden !important;
+  position: relative;
+}
+:is(.brand-emblem-well, .brand-card-identifier, .brand-card-logo, .brand-logo-preview)::before {
+  border: 1px solid rgba(255,255,239,.36);
+  border-radius: inherit;
+  content: "";
+  inset: 4px;
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+}
+:is(.brand-emblem-well, .brand-card-identifier, .brand-card-logo, .brand-logo-preview) > :is(img, svg, span) {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+}
+:is(.brand-emblem-well, .brand-card-identifier, .brand-card-logo, .brand-logo-preview) .brand-mark--high-contrast {
+  background: radial-gradient(circle at 35% 25%, rgba(111,141,116,.96), rgba(26,47,38,.98) 72%) !important;
+  border: 1px solid rgba(238,249,226,.68) !important;
+  border-radius: 10px !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.26), 0 2px 7px rgba(27,35,20,.36) !important;
+  filter: contrast(1.2) saturate(1.08) drop-shadow(0 1px 2px rgba(0,0,0,.56)) !important;
+  padding: 4px !important;
+}
+html[data-theme="light"] :is(.brand-emblem-well, .brand-card-identifier, .brand-card-logo, .brand-logo-preview) {
+  border-color: rgba(67,75,41,.56) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,240,.72), inset 0 -6px 12px rgba(78,84,41,.16), 0 4px 10px rgba(52,48,25,.14) !important;
+}
+html:not([data-theme="light"]) :is(.brand-emblem-well, .brand-card-identifier, .brand-card-logo, .brand-logo-preview) {
+  background: linear-gradient(145deg, #deddb2 0%, #b7bd83 100%) !important;
+  border-color: rgba(246,235,192,.5) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,240,.64), inset 0 -6px 12px rgba(46,50,24,.24), 0 5px 12px rgba(0,0,0,.24) !important;
+}
+:is(.brand-emblem-well--hero, .brand-card-identifier) { border-radius: 22px !important; }
+:is(.brand-emblem-well--filter, .brand-emblem-well--catalogue, .brand-emblem-well--manager, .brand-emblem-well--preview) { border-radius: 14px !important; }
+@media (max-width: 620px) {
+  :is(.brand-emblem-well--filter, .brand-emblem-well--catalogue, .brand-emblem-well--manager, .brand-emblem-well--preview) { border-radius: 11px !important; }
+  :is(.brand-emblem-well--hero, .brand-card-identifier) { border-radius: 18px !important; }
+}
+
 /* Catalogue rate card: an explicit currency code, tabular value, and daily unit make pricing scannable. */
 .vehicle-card .card-rate {
   align-items: center !important;
@@ -2362,4 +2415,26 @@ html:not([data-theme="light"]) .fleet-browse-page .filter-holder .brand-cards :i
 }
 @media (max-width: 620px) {
   .fleet-browse-page .filter-holder { border-radius: 18px; margin-bottom: 24px; padding: 9px; }
+}
+
+/* Final theme lock: every marque context receives the exact same well surface within its active theme. */
+html[data-theme="light"] :is(.brand-emblem-well, .brand-card-identifier, .brand-card-logo, .brand-logo-preview) {
+  background: linear-gradient(145deg, #d6d6a8 0%, #aeb47b 100%) !important;
+  border-color: rgba(67, 75, 41, .56) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,240,.72), inset 0 -6px 12px rgba(78,84,41,.16), 0 4px 10px rgba(52,48,25,.14) !important;
+}
+html:not([data-theme="light"]) :is(.brand-emblem-well, .brand-card-identifier, .brand-card-logo, .brand-logo-preview) {
+  background: linear-gradient(145deg, #deddb2 0%, #b7bd83 100%) !important;
+  border-color: rgba(246,235,192,.5) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,240,.64), inset 0 -6px 12px rgba(46,50,24,.24), 0 5px 12px rgba(0,0,0,.24) !important;
+}
+html[data-theme="light"] :is(.fleet-browse-page .filter-holder .brand-cards .brand-emblem-well, .brand-catalogue .brand-logo-rail .brand-emblem-well) {
+  background: linear-gradient(145deg, #d6d6a8 0%, #aeb47b 100%) !important;
+  border-color: rgba(67,75,41,.56) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,240,.72), inset 0 -6px 12px rgba(78,84,41,.16), 0 4px 10px rgba(52,48,25,.14) !important;
+}
+html:not([data-theme="light"]) :is(.fleet-browse-page .filter-holder .brand-cards .brand-emblem-well, .brand-catalogue .brand-logo-rail .brand-emblem-well) {
+  background: linear-gradient(145deg, #deddb2 0%, #b7bd83 100%) !important;
+  border-color: rgba(246,235,192,.5) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,240,.64), inset 0 -6px 12px rgba(46,50,24,.24), 0 5px 12px rgba(0,0,0,.24) !important;
 }

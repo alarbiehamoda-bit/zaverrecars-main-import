@@ -128,7 +128,7 @@ export default function FleetBrowse() {
     {activeBrand && <section className="brand-name-bar" aria-label={`${activeBrand} brand name`}><strong>{activeBrand}</strong></section>}
     <section className={`fleet-browse-hero${activeBrand ? " fleet-browse-hero--brand" : ""}`}>
       <div className="fleet-browse-hero-copy">
-        {activeBrand ? <div className="fleet-browse-brand-information"><div className="fleet-browse-brand-logo"><BrandMark brandName={activeBrand} logoUrl={activeBrandMeta?.logoUrl} /></div><p className="fleet-browse-brand-count"><b>{activeBrandCount}</b><span>{activeBrandCount === 1 ? "vehicle" : "vehicles"}</span></p></div> : <><p className="eyebrow">ZAVERRE COLLECTION</p><h1>{pageTitle}</h1><p>Every vehicle currently available in the ZAVERRE catalogue, presented through the same primary card system.</p></>}
+        {activeBrand ? <div className="fleet-browse-brand-information"><div className="fleet-browse-brand-logo brand-emblem-well brand-emblem-well--hero"><BrandMark brandName={activeBrand} logoUrl={activeBrandMeta?.logoUrl} /></div><p className="fleet-browse-brand-count"><b>{activeBrandCount}</b><span>{activeBrandCount === 1 ? "vehicle" : "vehicles"}</span></p></div> : <><p className="eyebrow">ZAVERRE COLLECTION</p><h1>{pageTitle}</h1><p>Every vehicle currently available in the ZAVERRE catalogue, presented through the same primary card system.</p></>}
       </div>
       {!activeBrand && <div className="fleet-browse-count"><span>{vehicles.length}</span><small>{vehicles.length === 1 ? "vehicle" : "vehicles"}</small></div>}
     </section>

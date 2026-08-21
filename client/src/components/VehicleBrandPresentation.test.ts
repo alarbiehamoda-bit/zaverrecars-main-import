@@ -33,7 +33,7 @@ describe("vehicle brand and image presentation", () => {
     expect(fleetBrowseStyles).toContain("transform: none !important");
     expect(fleetBrowseStyles).toContain("mix-blend-mode: screen");
     expect(styles).toContain("mix-blend-mode: screen");
-    expect(component).toContain('className="vehicle-brand-ribbon__seal"');
+    expect(component).toContain('className="vehicle-brand-ribbon__seal brand-emblem-well brand-emblem-well--catalogue"');
     expect(component).toContain('className="vehicle-brand-ribbon__identity"');
     expect(styles).toContain("Elevated marque plate");
     expect(styles).toContain("filter: contrast(1.18) saturate(1.16)");
@@ -76,7 +76,7 @@ describe("vehicle brand and image presentation", () => {
   });
 
   it("uses the same original marque source inside one contrast-safe icon well for both themes", () => {
-    expect(component).toContain('className="brand-filter-icon-well"');
+    expect(component).toContain('className="brand-filter-icon-well brand-emblem-well brand-emblem-well--filter"');
     expect(component).toContain('<BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} className="brand-filter-mark" />');
     expect(glassStyles).toContain("One consistent icon well");
     expect(glassStyles).toContain("object-fit: contain");
@@ -92,7 +92,7 @@ describe("vehicle brand and image presentation", () => {
       expect(component).toContain(`\"${marque}\": \"/manus-storage/`);
     }
     expect(component).toContain("filterBrands.map((brand) => <a href={`/cars/${brandRouteSlug(brand.brandName)}`");
-    expect(component).toContain("<span className=\"brand-filter-icon-well\"><BrandMark brandName={brand.brandName}");
+    expect(component).toContain("<span className=\"brand-filter-icon-well brand-emblem-well brand-emblem-well--filter\"><BrandMark brandName={brand.brandName}");
     expect(glassStyles).toContain(".brand-filter-icon-well .brand-filter-mark");
     expect(glassStyles).toContain("filter: contrast(1.12) saturate(1.08)");
     expect(component).toContain('"Rolls-Royce": "/manus-storage/image-extractpics-10_c0973c01.webp"');
@@ -106,7 +106,7 @@ describe("vehicle brand and image presentation", () => {
       expect(component).toContain(`\"${marque}\": \"/manus-storage/`);
     }
     expect(component).toContain("const source = brandHeaderAssets[brandName] || logoUrl");
-    expect(component).toContain('<span className="brand-filter-icon-well"><BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} className="brand-filter-mark" /></span>');
+    expect(component).toContain('<span className="brand-filter-icon-well brand-emblem-well brand-emblem-well--filter"><BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} className="brand-filter-mark" /></span>');
     expect(glassStyles).toContain(".brand-filter-icon-well .brand-filter-mark");
     expect(glassStyles).toContain("object-fit: contain");
   });
