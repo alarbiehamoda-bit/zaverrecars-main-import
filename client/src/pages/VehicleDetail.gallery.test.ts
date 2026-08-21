@@ -22,8 +22,10 @@ describe("vehicle detail gallery behavior", () => {
     expect(gallerySource).toContain("setPointerCapture");
   });
 
-  it("uses image position in thumbnail keys so an intentional repeated source image remains safe", () => {
+  it("uses image position in thumbnail keys after the detail source removes duplicate image URLs", () => {
     expect(gallerySource).toContain("key={`${image.src}-${index}`}");
+    expect(detailSource).toContain("const uniqueSourceImages = Array.from(new Set(sourceImages.filter(Boolean)))");
+    expect(detailSource).toContain(".filter((image) => !uniqueSourceImages.includes(image.imageUrl))");
   });
 
   it("keeps the verified primary image available for the lightbox in the shared component", () => {
@@ -45,7 +47,7 @@ describe("vehicle detail gallery behavior", () => {
     expect(detailSource).toContain("vehicle.image,");
     expect(detailSource).toContain("...archiveGallery,");
     expect(detailSource).toContain("const sourceImages");
-    expect(detailSource).toContain("sourceImages.includes(image.imageUrl)");
+    expect(detailSource).toContain("uniqueSourceImages.includes(image.imageUrl)");
     expect(archiveGallerySource).toContain("excludedImageIndex");
     expect(archiveGallerySource).toContain("index !== source.excludedImageIndex");
   });

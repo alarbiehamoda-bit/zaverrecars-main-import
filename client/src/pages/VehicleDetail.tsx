@@ -130,10 +130,11 @@ export default function VehicleDetail() {
     const archiveGallery = vehicle ? archiveGalleryByVehicleId[vehicle.id] ?? [] : [];
     const managedPrimaryImage = managedImages.find((image) => image.isPrimary)?.imageUrl;
     const sourceImages = vehicle ? [managedPrimaryImage || vehicle.image, vehicle.image, ...archiveGallery, ...importedGallery] : [];
-    const images = sourceImages
+    const uniqueSourceImages = Array.from(new Set(sourceImages.filter(Boolean)));
+    const images = uniqueSourceImages
       .map((src, index) => ({ src: vehicleAssetUrl(src), alt: `${vehicle?.fullName} — view ${index + 1}` }))
       .concat(managedImages
-        .filter((image) => !sourceImages.includes(image.imageUrl))
+        .filter((image) => !uniqueSourceImages.includes(image.imageUrl))
         .map((image) => ({ src: image.imageUrl, alt: image.altText || vehicle?.fullName || "ZAVERRE vehicle" })));
     return images;
   }, [detailQuery.data?.images, vehicle]);
