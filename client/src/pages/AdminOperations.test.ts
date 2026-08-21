@@ -9,6 +9,11 @@ const db = readFileSync(new URL("../../../server/db.ts", import.meta.url), "utf8
 describe("operations cockpit", () => {
   it("reads its overview through an admin-protected operations router", () => {
     expect(source).toContain("trpc.operations.overview.useQuery");
+    expect(source).toContain("trpc.cms.public.useQuery");
+    expect(source).toContain("trpc.brand.publicPresentationList.useQuery");
+    expect(source).toContain("PUBLIC DELIVERY");
+    expect(source).toContain("AI review workflow");
+    expect(source).toContain("No public settings are published yet");
     expect(router).toContain("adminProcedure.query");
     expect(router).toContain("getAdminOperationsSnapshot");
     expect(router).toContain("getAdminServiceHealth");

@@ -31,3 +31,9 @@ The operations cockpit and brand manager were checked at desktop and 375px mobil
 ## Saved-logo data-path verification
 
 The saved Audi logo was traced from `vehicleBrands` through the public presentation endpoint. The initial issue was that the Audi record was marked hidden, which correctly removed it from the public filter but also previously prevented its saved logo from reaching vehicle-card presentation. Presentation data is now fetched independently of filter visibility. Audi has been made visible in the public filter so the saved mark can be seen immediately; future uploads automatically enable visibility before the explicit publish step.
+
+## Unified public-delivery verification
+
+Desktop previews confirmed the new **Public delivery** panel in Operations cockpit: public brand assets and uploads, homepage content and design, and the review-only AI workflow are visibly connected to their corresponding editors. Content studio reports its public source as connected. The homepage and fleet views load through the shared CMS, managed vehicle, and managed brand data paths, while global quick-contact actions now use the published CMS contact source rather than a static configuration.
+
+The initial public CMS source was empty, so the existing contact configuration, homepage hero, featured-vehicle selection, three existing journal articles, and five existing FAQs were migrated into the CMS tables without changing their public content. Subsequent desktop and mobile previews show **Public source connected** in Content studio and three connected public settings in Operations cockpit.

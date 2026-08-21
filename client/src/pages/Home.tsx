@@ -71,7 +71,7 @@ function FeaturedVehicles({ vehicles, onDetails, onBook }: { vehicles: Vehicle[]
 export default function Home() {
   const { theme } = useTheme();
   const cms = useCmsContent();
-  const { catalog: vehicleCatalog, featuredIds: managedFeaturedIds } = useManagedVehicleCatalog();
+  const { catalog: vehicleCatalog, featuredIds: managedFeaturedIds, brands: managedBrands } = useManagedVehicleCatalog();
   const managedContact = cms.contact;
   const hero = cms.homeHero;
   const [, navigate] = useLocation();
@@ -194,7 +194,7 @@ export default function Home() {
               <div><p className="eyebrow">SHOWROOM NAVIGATION</p><p>Choose a marque to open its full collection, or view every current ZAVERRE vehicle.</p></div>
               <button className="button button-outline fleet-all-link" onClick={() => navigate("/cars")}>VIEW ALL CARS <ArrowDownRight size={17} /></button>
             </div>
-            <BrandFilterRail activeBrand="" onSelect={(brandName) => navigate(brandName === "All" ? "/cars" : `/cars/${brandRouteSlug(brandName)}`)} />
+            <BrandFilterRail activeBrand="" brands={managedBrands} vehicles={vehicleCatalog} onSelect={(brandName) => navigate(brandName === "All" ? "/cars" : `/cars/${brandRouteSlug(brandName)}`)} />
         </div>
       </section>
 
