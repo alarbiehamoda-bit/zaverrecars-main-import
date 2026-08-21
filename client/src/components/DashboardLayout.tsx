@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/sidebar";
 import { startLogin } from "@/const";
 import { useIsMobile } from "@/hooks/useMobile";
+import { trpc } from "@/lib/trpc";
 import { CarFront, CircleDollarSign, FileSpreadsheet, Inbox, LayoutDashboard, LogOut, PanelLeft, Tags, Users } from "lucide-react";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
@@ -123,11 +124,14 @@ function DashboardLayoutContent({
   const { user, logout } = useAuth();
   const [location, setLocation] = useLocation();
   const { state, toggleSidebar, setOpenMobile } = useSidebar();
+  const backendHealth = trpc.operations.health.useQuery(undefined, { refetchInterval: 60_000, retry: 1 });
   const isCollapsed = state === "collapsed";
   const [isResizing, setIsResizing] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const activeMenuItem = menuItems.find(item => item.path === location);
   const isMobile = useIsMobile();
+  const backendStatus = backendHealth.data?.status === "ready" ? "ready" : backendHealth.isLoading ? "checking" : "attention";
+  const backendHealthLabel = backendStatus === "ready" ? "Backend connected" : backendStatus === "checking" ? "Checking backend" : "Backend needs attention";
   const navigateTo = (path: string) => {
     setLocation(path);
     if (isMobile) setOpenMobile(false);
@@ -219,6 +223,10 @@ function DashboardLayoutContent({
           </SidebarContent>
 
           <SidebarFooter className="p-3">
+            <div className={`admin-backend-health admin-backend-health--${backendStatus}`} title={backendHealth.data?.message ?? backendHealthLabel} aria-live="polite">
+              <span aria-hidden="true" className="admin-backend-health-dot" />
+              <div className="group-data-[collapsible=icon]:hidden"><small>System status</small><strong>{backendHealthLabel}</strong></div>
+            </div>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button className="flex items-center gap-3 rounded-lg px-1 py-1 hover:bg-accent/50 transition-colors w-full text-left group-data-[collapsible=icon]:justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-ring">
@@ -261,17 +269,12 @@ function DashboardLayoutContent({
 
       <SidebarInset className="admin-zaverre-inset">
         {isMobile && (
-          <div className="admin-mobile-topbar flex border-b h-14 items-center justify-between px-2 backdrop-blur supports-[backdrop-filter]:backdrop-blur sticky top-0 z-40">
-            <div className="flex items-center gap-2">
-              <SidebarTrigger className="h-9 w-9 rounded-lg bg-background" />
-              <div className="flex items-center gap-3">
-                <div className="flex flex-col gap-1">
-                  <span className="tracking-tight text-foreground">
-                    {activeMenuItem?.label ?? "Menu"}
-                  </span>
-                </div>
-              </div>
-            </div>
+          <div className="admin-mobile-topbar flex border-b h-14 items-center justify-between px-3 backdrop-blur supports-[backdrop-filter]:backdrop-blur sticky top-0 z-40">
+            <button type="button" className="admin-mobile-studio-trigger" onClick={toggleSidebar} aria-label="Open studios menu">
+              <PanelLeft className="h-4 w-4" />
+              <span>Studios</span>
+            </button>
+            <span className="admin-mobile-current-studio">{activeMenuItem?.label ?? "Menu"}</span>
           </div>
         )}
         <main className="flex-1 p-4">{children}</main>

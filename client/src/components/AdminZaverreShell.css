@@ -30,6 +30,7 @@
 .admin-zaverre-sidebar [data-sidebar="menu-button"] { color: #b8d8e8; cursor: pointer; pointer-events: auto; position: relative; z-index: 1; }
 .admin-zaverre-sidebar [data-sidebar="menu-button"]:hover { background: rgba(78, 184, 234, .1) !important; color: #f4fbff; }
 .admin-zaverre-sidebar button:not([disabled]), .admin-zaverre-sidebar a { cursor: pointer; pointer-events: auto; }
+.admin-backend-health { align-items:center; border:1px solid rgba(135,207,241,.18); border-radius:10px; display:flex; gap:8px; margin-bottom:9px; min-height:42px; padding:7px 9px; }.admin-backend-health small { color:#8fb6c9; display:block; font-size:.63rem; line-height:1; }.admin-backend-health strong { color:#dff7ff; display:block; font-size:.72rem; margin-top:4px; }.admin-backend-health-dot { background:#f2c173; border-radius:50%; box-shadow:0 0 0 3px rgba(242,193,115,.12); height:7px; width:7px; }.admin-backend-health--ready .admin-backend-health-dot { background:#6fdaa4; box-shadow:0 0 0 3px rgba(111,218,164,.12); }.admin-backend-health--attention { border-color:rgba(235,153,109,.33); }.admin-backend-health--attention .admin-backend-health-dot { background:#eb996d; box-shadow:0 0 0 3px rgba(235,153,109,.12); }
 .admin-zaverre-mark { height: 25px; width: 25px; }
 .admin-zaverre-wordmark { color: #f1d49b; font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.14rem; letter-spacing: .18em; }
 .admin-zaverre-inset { background: transparent; }
@@ -40,6 +41,10 @@
 .admin-auth-eyebrow { color: #88d8fa; font-size: .68rem; font-weight: 800; letter-spacing: .17em; margin: 0; }
 .admin-auth-button { background: linear-gradient(135deg, #5ccbf3, #1978b2) !important; color: #02131e !important; font-weight: 800; }
 .admin-mobile-topbar { background: rgba(6, 19, 30, .94); border-color: rgba(105, 205, 249, .16) !important; color: #eaf8ff; }
+.admin-mobile-studio-trigger { align-items:center; background:rgba(78,184,234,.13); border:1px solid rgba(128,216,247,.4); border-radius:9px; color:#eaf8ff; cursor:pointer; display:inline-flex; font-size:.74rem; font-weight:800; gap:7px; letter-spacing:.05em; min-height:38px; padding:0 12px; text-transform:uppercase; }
+.admin-mobile-studio-trigger:focus-visible { outline:2px solid #80d8f7; outline-offset:2px; }
+.admin-mobile-studio-trigger:active { transform:scale(.97); }
+.admin-mobile-current-studio { color:#b8d8e8; font-size:.78rem; font-weight:700; max-width:46%; overflow:hidden; text-align:right; text-overflow:ellipsis; white-space:nowrap; }
 @media (max-width: 768px) {
   .admin-zaverre-inset > main { padding: 12px; }
 }

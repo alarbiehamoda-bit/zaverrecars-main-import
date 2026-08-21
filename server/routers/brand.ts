@@ -26,7 +26,10 @@ export const brandRouter = router({
       isVisible: z.boolean().default(true),
     })).mutation(async ({ ctx, input }) => {
       await upsertAdminVehicleBrand({ ...input, updatedByUserId: ctx.user.id });
-      await recordAdminActivity({ actorUserId: ctx.user.id, action: "brand.saved", subjectType: "brand", subjectKey: input.brandName, detailsJson: JSON.stringify({ isVisible: input.isVisible, sortOrder: input.sortOrder }) });
+      await recordAdminActivity({ actorUserId: ctx.user.id, action: "brand.saved", subjectType: "brand", subjectKey: input.brandName, detailsJson: JSON.stringify({ isVisible: input.isVisible, sortOrder: input.sortOrder }) }).catch((error) => {
+        console.error("[Brand] Activity logging failed after a successful brand save:", error);
+      });
+      return { brandName: input.brandName, logoUrl: input.logoUrl ?? null };
     }),
     uploadLogo: adminProcedure.input(z.object({
       fileName: z.string().trim().min(1).max(255),
@@ -35,7 +38,7 @@ export const brandRouter = router({
     })).mutation(async ({ input }) => {
       const bytes = Buffer.from(input.base64, "base64");
       if (bytes.byteLength === 0 || bytes.byteLength > 8 * 1024 * 1024) throw new Error("Logo file must be between 1 byte and 8 MB");
-      const safeName = input.fileName.replace(/[^a-zA-Z0-9._-]/g, "-");
+      const safeName = input.fileName.replace(/\.[^.]+$/, "").replace(/[^a-zA-Z0-9_-]/g, "-") || "brand-logo";
       const key = `vehicle-brands/${Date.now()}-${safeName}.${extensionFor(input.contentType)}`;
       const { url } = await storagePut(key, bytes, input.contentType);
       return { key, url };

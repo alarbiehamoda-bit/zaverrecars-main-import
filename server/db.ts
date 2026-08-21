@@ -362,6 +362,21 @@ export async function recordAdminActivity(values: typeof adminActivityLog.$infer
   await db.insert(adminActivityLog).values(values);
 }
 
+export async function getAdminServiceHealth() {
+  const checkedAt = new Date();
+  const db = await getDb();
+  if (!db) {
+    return { status: "unavailable" as const, message: "Database connection is not configured.", checkedAt };
+  }
+  try {
+    await db.select({ id: users.id }).from(users).limit(1);
+    return { status: "ready" as const, message: "Backend and database connection are available.", checkedAt };
+  } catch (error) {
+    console.error("[Admin health] Database check failed:", error);
+    return { status: "unavailable" as const, message: "Backend could not reach the database. Please retry shortly.", checkedAt };
+  }
+}
+
 export async function getAdminOperationsSnapshot() {
   const db = await getDb();
   if (!db) {

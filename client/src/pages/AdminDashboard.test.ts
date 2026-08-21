@@ -29,6 +29,8 @@ describe("admin dashboard contracts", () => {
     expect(dashboardSource).toContain('if (user.role !== "admin")');
     expect(dashboardSource).toContain("Admin access required");
     expect(dashboardSource).toContain("setOpenMobile(false)");
+    expect(dashboardSource).toContain("trpc.operations.health.useQuery");
+    expect(dashboardSource).toContain("Backend connected");
   });
 
   it("keeps content, vehicle media, pricing, and booking-status management wired to admin procedures", () => {

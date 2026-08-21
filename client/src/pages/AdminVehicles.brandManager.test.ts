@@ -20,6 +20,13 @@ describe("brand manager control room", () => {
     expect(routerSource).toContain('return "svg"');
   });
 
+  it("explains the two-step logo flow and refreshes both administration and public brand data after saving", () => {
+    expect(source).toContain("Logo uploaded. Select or enter the brand name, then choose Save Brand to publish it.");
+    expect(source).toContain("utils.brand.publicList.invalidate()");
+    expect(source).toContain("brandMessage");
+    expect(routerSource).toContain("Activity logging failed after a successful brand save");
+  });
+
   it("exposes a ZAVERRE-styled protected administration entry point", () => {
     expect(layoutSource).toContain("admin-auth-gate");
     expect(layoutSource).toContain("ZAVERRE / MANAGEMENT");

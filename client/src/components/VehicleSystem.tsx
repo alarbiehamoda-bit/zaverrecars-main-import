@@ -1,5 +1,5 @@
 import { type CSSProperties, type PointerEvent as ReactPointerEvent, useRef, useState } from "react";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import "./VehicleSystem.css";
 import { Armchair, ArrowDownRight, ArrowUpRight, CarFront, ChevronRight, DoorOpen, Gauge, Timer } from "lucide-react";
 import { resolveVehicleImageSettings, vehicleBrands, vehicleCatalog, vehicleFilterBrands, type Vehicle } from "@/config/vehicleCatalog";
@@ -58,8 +58,11 @@ const categoryLabel: Record<Vehicle["category"], string> = { Performance: "Perfo
 const price = (value: number) => new Intl.NumberFormat("en-AE", { maximumFractionDigits: 0 }).format(value);
 
 export function BrandMark({ brandName, logoUrl, className = "" }: { brandName: string; logoUrl?: string | null; className?: string }) {
-  const source = brandHeaderAssets[brandName] || logoUrl;
+  // The administrative source intentionally wins over the built-in catalogue mark.
+  // This keeps one user-approved logo consistent in filters, vehicle cards and headers.
+  const source = logoUrl || brandHeaderAssets[brandName];
   const [available, setAvailable] = useState(Boolean(source));
+  useEffect(() => setAvailable(Boolean(source)), [source]);
   const identityClass = `brand-mark--${brandName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`;
   const contrastClass = highContrastMarkBrands.has(brandName) ? "brand-mark--high-contrast" : "";
   if (available && source) return <img className={`${identityClass} ${contrastClass} ${className}`.trim()} src={source} alt={`${brandName} mark`} loading="lazy" decoding="async" onError={() => setAvailable(false)} />;

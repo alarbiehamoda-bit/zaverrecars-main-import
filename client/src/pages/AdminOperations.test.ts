@@ -11,6 +11,8 @@ describe("operations cockpit", () => {
     expect(source).toContain("trpc.operations.overview.useQuery");
     expect(router).toContain("adminProcedure.query");
     expect(router).toContain("getAdminOperationsSnapshot");
+    expect(router).toContain("getAdminServiceHealth");
+    expect(router).toContain("health: adminProcedure.query");
   });
 
   it("registers the operations cockpit as the default administration route", () => {
@@ -25,5 +27,6 @@ describe("operations cockpit", () => {
   it("derives booking metrics from the full operational set and limits only the visible queue", () => {
     expect(db).toContain("newBookings: bookings.filter");
     expect(db).toContain("recentBookings: bookings.slice(0, 8)");
+    expect(db).toContain("getAdminServiceHealth");
   });
 });

@@ -87,7 +87,7 @@ describe("vehicle brand and image presentation", () => {
   });
 
   it("keeps every sensitive light or dark marque on the same protected filter source", () => {
-    expect(component).toContain("const source = brandHeaderAssets[brandName] || logoUrl");
+    expect(component).toContain("const source = logoUrl || brandHeaderAssets[brandName]");
     for (const marque of ["Rolls-Royce", "Mercedes-Benz", "Bentley", "Aston Martin", "Audi", "Porsche", "Maserati", "Lamborghini"]) {
       expect(component).toContain(`\"${marque}\": \"/manus-storage/`);
     }
@@ -105,7 +105,7 @@ describe("vehicle brand and image presentation", () => {
     for (const marque of requiredMarques) {
       expect(component).toContain(`\"${marque}\": \"/manus-storage/`);
     }
-    expect(component).toContain("const source = brandHeaderAssets[brandName] || logoUrl");
+    expect(component).toContain("const source = logoUrl || brandHeaderAssets[brandName]");
     expect(component).toContain('<span className="brand-filter-icon-well brand-emblem-well brand-emblem-well--filter"><BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} className="brand-filter-mark" /></span>');
     expect(glassStyles).toContain(".brand-filter-icon-well .brand-filter-mark");
     expect(glassStyles).toContain("object-fit: contain");
@@ -113,7 +113,8 @@ describe("vehicle brand and image presentation", () => {
 
   it("keeps marque icon changes centralized and reflected in filter cards, vehicle cards, and brand headers", () => {
     expect(component).toContain("Single editable source for each marque icon");
-    expect(component).toContain("const source = brandHeaderAssets[brandName] || logoUrl");
+    expect(component).toContain("const source = logoUrl || brandHeaderAssets[brandName]");
+    expect(component).toContain("useEffect(() => setAvailable(Boolean(source)), [source])");
     expect(component).toContain('<BrandMark brandName={vehicle.brand} logoUrl={vehicle.brandLogoUrl} className="vehicle-brand-ribbon-mark" />');
     expect(component).toContain('<BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} className="brand-filter-mark" />');
     expect(component).toContain('loading="lazy"');

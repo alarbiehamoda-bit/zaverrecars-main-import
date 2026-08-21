@@ -9,6 +9,7 @@ describe("admin interaction resilience", () => {
     expect(css).toContain("opacity: 1 !important");
     expect(css).toContain("pointer-events: auto");
     expect(css).toContain("z-index: 60");
+    expect(css).toContain(".admin-mobile-studio-trigger");
   });
 
   it("exposes the approval-first assistant actions inside the vehicle studio", () => {

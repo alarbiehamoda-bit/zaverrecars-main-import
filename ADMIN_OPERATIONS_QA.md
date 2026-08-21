@@ -19,3 +19,11 @@ After an administrator signs in, verify `/admin`, `/admin/vehicles`, `/admin/bra
 The authenticated preview was checked on desktop for `/admin`, `/admin/vehicles`, `/admin/pricing`, `/admin/import`, and `/admin/brands`. Each route now highlights its matching sidebar entry and renders the matching internal studio tab. The operations cockpit displays all six workspaces and states explicitly that navigation alone cannot write data; live changes remain behind the relevant save control.
 
 The same five routes were also checked at a 375px mobile viewport. The mobile title bar identifies the current workspace, each internal studio tab shows the correct active state, and the content retains readable controls without horizontal clipping.
+
+## Brand-logo update verification
+
+Brand rendering now prefers a logo saved by the administrator over the built-in catalogue asset. The brand manager keeps the upload and publish steps explicit, refreshes both the administration list and the public brand query after saving, and reports upload or save errors in the form. The desktop preview showed the brand manager and public fleet route loading correctly after this change.
+
+## Administration visibility and health verification
+
+The operations cockpit and brand manager were checked at desktop and 375px mobile widths. The desktop sidebar shows every studio and a green **Backend connected** status. The phone view now exposes an explicit **Studios** button alongside the current workspace title, rather than relying on an unlabeled icon. The health check completed successfully against the live project database.
