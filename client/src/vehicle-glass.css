@@ -2220,11 +2220,11 @@ html:not([data-theme="light"]) .fleet-browse-page .brand-logo-rail .brand-filter
 }
 .fleet-browse-page .fleet-category-icon-well {
   align-items: center;
-  background: radial-gradient(circle at 34% 24%, #5fa4ca, #0b385a 68%);
-  border: 1px solid rgba(11, 56, 90, .48);
+  background: var(--zvr-icon-well-bg);
+  border: 1px solid var(--zvr-icon-well-border);
   border-radius: 10px;
   box-shadow: inset 0 1px 0 rgba(255,255,255,.22), inset 0 -5px 10px rgba(0,0,0,.2), 0 3px 8px rgba(5, 45, 74, .14);
-  color: #f7f4ec;
+  color: var(--zvr-icon-well-ink);
   display: flex;
   height: 30px;
   justify-content: center;
@@ -2306,9 +2306,9 @@ html[data-theme="light"] .fleet-browse-page .filter-holder .brand-cards :is(a, b
   opacity: .62;
 }
 .fleet-browse-page .filter-holder .brand-cards .brand-filter-icon-well {
-  background: linear-gradient(145deg, #d6d6a8 0%, #aeb47b 100%) !important;
-  border-color: rgba(67, 75, 41, .56) !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,240,.64), inset 0 -6px 12px rgba(78, 84, 41, .18), 0 4px 10px rgba(52, 48, 25, .18) !important;
+  background: var(--zvr-icon-well-bg) !important;
+  border-color: var(--zvr-icon-well-border) !important;
+  box-shadow: var(--zvr-icon-well-shadow) !important;
 }
 .fleet-browse-page .filter-holder .brand-cards .brand-filter-icon-well::before { border-color: rgba(255,255,239,.36); }
 html:not([data-theme="light"]) .fleet-browse-page .filter-holder {
