@@ -5,7 +5,7 @@ const cardSource = readFileSync(new URL("./VehicleSystem.tsx", import.meta.url),
 const styles = readFileSync(new URL("../vehicle-glass.css", import.meta.url), "utf8");
 
 describe("vehicle price presentation", () => {
-  it("renders a legible daily price with an explicit AED code and accessible label", () => {
+  it("renders a legible daily price without visual currency text beneath the dirham symbol", () => {
     expect(cardSource).toContain('className="card-rate__meta"');
     expect(cardSource).toContain('className="card-rate__currency"');
     expect(cardSource).toContain("DAILY RATE");
@@ -13,6 +13,8 @@ describe("vehicle price presentation", () => {
     expect(cardSource).toContain("PER DAY");
     expect(cardSource).toContain("AED");
     expect(cardSource).toContain("Daily rental rate: AED");
+    expect(cardSource).toContain('aria-label="United Arab Emirates dirham"');
+    expect(cardSource).not.toContain("<em>AED</em>");
   });
 
   it("preserves strong contrast and readable tabular values in both themes and on phones", () => {
