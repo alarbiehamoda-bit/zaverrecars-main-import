@@ -2450,10 +2450,23 @@ html:not([data-theme="light"]) :is(.fleet-browse-page .filter-holder .brand-card
 }
 @media (max-width: 620px) {
   :is(.featured-vehicle-card, .fleet-browse-page .master-vehicle-grid--vertical .master-vehicle-card .vehicle-card) {
-    height: 590px !important;
-    min-height: 590px !important;
+    height: 570px !important;
+    min-height: 570px !important;
   }
+  .vehicle-card .vehicle-card-body {
+    min-height: 0;
+    padding: 12px 14px 14px;
+  }
+  .vehicle-card .vehicle-brand-ribbon { margin-bottom: 7px; }
+  .vehicle-card .card-spec-list { margin: 8px 0; }
+  .vehicle-card .card-actions { flex: 0 0 44px; margin-top: 10px; }
+  .vehicle-card :is(.card-book, .card-details) { height: 44px; min-height: 44px; }
+  .vehicle-card .card-whatsapp { flex: 0 0 38px; margin-top: 8px; min-height: 38px; }
   .vehicle-card .card-rate__currency {
     flex-basis: 24px;
   }
+}
+.vehicle-card .card-rate .dirham-mark {
+  color: #ef7d2c !important;
+  stroke: currentColor !important;
 }

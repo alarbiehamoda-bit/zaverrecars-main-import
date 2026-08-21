@@ -9,12 +9,16 @@ describe("catalogue card sizing", () => {
     expect(styles).toContain(".featured-vehicle-card");
     expect(styles).toContain(".master-vehicle-grid--vertical");
     expect(styles).toContain("height: 620px !important");
-    expect(styles).toContain("height: 590px !important");
+    expect(styles).toContain("height: 570px !important");
   });
 
-  it("removes the visual AED caption beneath the dirham symbol while keeping compact icon spacing", () => {
+  it("removes the visual AED caption, protects mobile actions, and uses an orange dirham mark", () => {
     expect(styles).toContain(".vehicle-card .card-rate__currency");
     expect(styles).toContain("flex-basis: 28px");
     expect(styles).toContain("flex-basis: 24px");
+    expect(styles).toContain(".vehicle-card .card-actions { flex: 0 0 44px");
+    expect(styles).toContain(".vehicle-card .card-whatsapp { flex: 0 0 38px");
+    expect(styles).toContain(".vehicle-card .card-rate .dirham-mark");
+    expect(styles).toContain("#ef7d2c");
   });
 });
