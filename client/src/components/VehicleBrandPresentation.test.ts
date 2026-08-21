@@ -129,22 +129,11 @@ describe("vehicle brand and image presentation", () => {
   });
 
   it("uses Brand Cards semantics and the requested brown, beige, and light-olive card palette", () => {
-    const iconWellStyles = readFileSync(new URL("../global-icon-wells.css", import.meta.url), "utf8");
     expect(component).toContain('aria-label="Brand Cards"');
     expect(glassStyles).toContain("Brand Cards palette");
     expect(glassStyles).toContain("#8d654e");
     expect(glassStyles).toContain("#f3e2c4");
-    expect(iconWellStyles).toContain("#d6d6a8");
-  });
-
-  it("shares one olive icon-surface token across cards, filter controls, and specification icons", () => {
-    const globalStyles = readFileSync(new URL("../index.css", import.meta.url), "utf8");
-    const iconWellStyles = readFileSync(new URL("../global-icon-wells.css", import.meta.url), "utf8");
-    expect(globalStyles).toContain('@import "./global-icon-wells.css"');
-    expect(iconWellStyles).toContain("--zvr-icon-well-bg");
-    expect(iconWellStyles).toContain("var(--zvr-icon-well-bg)");
-    expect(iconWellStyles).toContain(".detail-spec-grid--iconic > div > svg");
-    expect(glassStyles).toContain("var(--zvr-icon-well-bg)");
+    expect(glassStyles).toContain("#d6d6a8");
   });
 
   it("anchors the header lockup with neon", () => {

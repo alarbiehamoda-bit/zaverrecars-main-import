@@ -6,7 +6,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "./mobile.css";
-@import "./global-icon-wells.css";
 
 @custom-variant dark (&:is(.dark *));
 
