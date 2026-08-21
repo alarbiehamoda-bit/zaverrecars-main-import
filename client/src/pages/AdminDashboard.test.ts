@@ -15,6 +15,8 @@ describe("admin dashboard contracts", () => {
   it("registers each administration route behind the shared dashboard shell", () => {
     expect(appSource).toContain('path="/admin/content" component={AdminContent}');
     expect(appSource).toContain('path="/admin/vehicles" component={AdminVehicles}');
+    expect(appSource).toContain('path="/admin/pricing" component={AdminVehicles}');
+    expect(appSource).toContain('path="/admin/import" component={AdminVehicles}');
     expect(appSource).toContain('path="/admin/bookings" component={AdminBookings}');
     expect(contentSource).toContain("<DashboardLayout>");
     expect(vehiclesSource).toContain("<DashboardLayout>");
@@ -26,6 +28,7 @@ describe("admin dashboard contracts", () => {
     expect(dashboardSource).toContain("startLogin()");
     expect(dashboardSource).toContain('if (user.role !== "admin")');
     expect(dashboardSource).toContain("Admin access required");
+    expect(dashboardSource).toContain("setOpenMobile(false)");
   });
 
   it("keeps content, vehicle media, pricing, and booking-status management wired to admin procedures", () => {

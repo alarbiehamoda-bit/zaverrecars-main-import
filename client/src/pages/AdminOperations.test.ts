@@ -17,6 +17,9 @@ describe("operations cockpit", () => {
     expect(app).toContain('path="/admin" component={AdminOperations}');
     expect(source).toContain("Booking pipeline");
     expect(source).toContain("Brand workspace");
+    expect(source).toContain("Pricing desk");
+    expect(source).toContain("Catalogue import");
+    expect(source).toContain("Review-led workflow");
   });
 
   it("derives booking metrics from the full operational set and limits only the visible queue", () => {

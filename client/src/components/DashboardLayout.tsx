@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/sidebar";
 import { startLogin } from "@/const";
 import { useIsMobile } from "@/hooks/useMobile";
-import { CarFront, Inbox, LayoutDashboard, LogOut, PanelLeft, Tags, Users } from "lucide-react";
+import { CarFront, CircleDollarSign, FileSpreadsheet, Inbox, LayoutDashboard, LogOut, PanelLeft, Tags, Users } from "lucide-react";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { DashboardLayoutSkeleton } from './DashboardLayoutSkeleton';
@@ -33,6 +33,8 @@ const menuItems = [
   { icon: LayoutDashboard, label: "Operations cockpit", path: "/admin" },
   { icon: LayoutDashboard, label: "Content studio", path: "/admin/content" },
   { icon: CarFront, label: "Vehicle studio", path: "/admin/vehicles" },
+  { icon: CircleDollarSign, label: "Pricing desk", path: "/admin/pricing" },
+  { icon: FileSpreadsheet, label: "Catalogue import", path: "/admin/import" },
   { icon: Tags, label: "Brand manager", path: "/admin/brands" },
   { icon: Inbox, label: "Booking inbox", path: "/admin/bookings" },
   { icon: Users, label: "Public site", path: "/" },
@@ -120,12 +122,16 @@ function DashboardLayoutContent({
 }: DashboardLayoutContentProps) {
   const { user, logout } = useAuth();
   const [location, setLocation] = useLocation();
-  const { state, toggleSidebar } = useSidebar();
+  const { state, toggleSidebar, setOpenMobile } = useSidebar();
   const isCollapsed = state === "collapsed";
   const [isResizing, setIsResizing] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const activeMenuItem = menuItems.find(item => item.path === location);
   const isMobile = useIsMobile();
+  const navigateTo = (path: string) => {
+    setLocation(path);
+    if (isMobile) setOpenMobile(false);
+  };
 
   useEffect(() => {
     if (isCollapsed) {
@@ -197,7 +203,7 @@ function DashboardLayoutContent({
                   <SidebarMenuItem key={item.path}>
                     <SidebarMenuButton
                       isActive={isActive}
-                      onClick={() => setLocation(item.path)}
+                      onClick={() => navigateTo(item.path)}
                       tooltip={item.label}
                       className={`h-10 transition-all font-normal`}
                     >

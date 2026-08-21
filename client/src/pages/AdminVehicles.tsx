@@ -13,6 +13,18 @@ import "./AdminVehiclesVisual.css";
 
 type ImageFit = "contain" | "cover" | "fill";
 type StudioTab = "vehicle" | "brands" | "prices" | "import";
+const studioPathByTab: Record<StudioTab, string> = {
+  vehicle: "/admin/vehicles",
+  brands: "/admin/brands",
+  prices: "/admin/pricing",
+  import: "/admin/import",
+};
+function studioTabFromPath(location: string): StudioTab {
+  if (location.startsWith("/admin/brands")) return "brands";
+  if (location.startsWith("/admin/pricing")) return "prices";
+  if (location.startsWith("/admin/import")) return "import";
+  return "vehicle";
+}
 type BrandCard = { id: number; brandName: string; displayName: string; logoUrl: string | null; logoKey: string | null; sortOrder: number; isVisible: boolean; vehicleCount: number; isCustomLogo: boolean };
 type SheetRow = { rowNumber: number; vehicleKey: string; publicBrand?: string | null; publicModel?: string | null; publicYear?: number | null; publicCustomerPriceAed?: number | null; visibility?: "listed" | "hidden"; featured?: boolean; issues: string[] };
 type AssistantScope = "general" | "brand" | "vehicle" | "content" | "visual";
@@ -86,7 +98,7 @@ function optionalInteger(value: string, label: string, min: number, max: number,
 function AdminVehiclesContent() {
   const [location, navigate] = useLocation();
   const utils = trpc.useUtils();
-  const [tab, setTab] = useState<StudioTab>(() => location.startsWith("/admin/brands") ? "brands" : "vehicle");
+  const [tab, setTab] = useState<StudioTab>(() => studioTabFromPath(location));
   const [vehicleKey, setVehicleKey] = useState(vehicleCatalog[0].id);
   const [form, setForm] = useState<FormState>(emptyForm);
   const [brandForm, setBrandForm] = useState({ brandName: "", displayName: "", logoUrl: "", logoKey: "", sortOrder: "0", isVisible: true });
@@ -117,6 +129,10 @@ function AdminVehiclesContent() {
   }, [brandNames, brands.data]);
   const brandSummary = useMemo(() => ({ total: brandCards.length, visible: brandCards.filter((brand) => brand.isVisible).length, customLogos: brandCards.filter((brand) => brand.isCustomLogo).length, logoReview: brandCards.filter((brand) => !brand.isCustomLogo).length }), [brandCards]);
   const filteredBrandCards = useMemo(() => brandCards.filter((brand) => `${brand.brandName} ${brand.displayName}`.toLowerCase().includes(brandSearch.trim().toLowerCase())), [brandCards, brandSearch]);
+
+  useEffect(() => {
+    setTab(studioTabFromPath(location));
+  }, [location]);
 
   const invalidateVehicle = () => {
     void utils.vehicle.admin.get.invalidate({ vehicleKey });
@@ -246,8 +262,8 @@ function AdminVehiclesContent() {
   const resetBrandForm = () => setBrandForm({ brandName: "", displayName: "", logoUrl: "", logoKey: "", sortOrder: "0", isVisible: true });
   const setStudioTab = (nextTab: StudioTab) => {
     setTab(nextTab);
-    if (nextTab === "brands" && !location.startsWith("/admin/brands")) navigate("/admin/brands");
-    if (nextTab !== "brands" && location.startsWith("/admin/brands")) navigate("/admin/vehicles");
+    const nextPath = studioPathByTab[nextTab];
+    if (location !== nextPath) navigate(nextPath);
   };
   const toggleBrandVisibility = (brand: BrandCard) => saveBrand.mutate({ brandName: brand.brandName, displayName: brand.displayName, logoUrl: brand.logoUrl, logoKey: brand.logoKey, sortOrder: brand.sortOrder, isVisible: !brand.isVisible });
   const requestAssistantDraft = () => {

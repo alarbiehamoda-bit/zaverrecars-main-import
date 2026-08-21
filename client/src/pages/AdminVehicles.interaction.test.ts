@@ -16,4 +16,11 @@ describe("admin interaction resilience", () => {
     expect(studio).toContain("CREATE PROPOSAL");
     expect(studio).toContain("ADMIN REVIEW REQUIRED");
   });
+
+  it("synchronizes every studio tab to its route so shared pages respond to sidebar navigation", () => {
+    expect(studio).toContain("function studioTabFromPath(location: string)");
+    expect(studio).toContain("setTab(studioTabFromPath(location));");
+    expect(studio).toContain('prices: "/admin/pricing"');
+    expect(studio).toContain('import: "/admin/import"');
+  });
 });

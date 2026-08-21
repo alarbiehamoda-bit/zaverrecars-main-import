@@ -13,3 +13,9 @@ At the user's request, interactive login with a real administrator session was n
 ## Safe follow-up
 
 After an administrator signs in, verify `/admin`, `/admin/vehicles`, `/admin/brands`, `/admin/bookings`, and `/admin/content`; perform one reversible brand visibility toggle and confirm the resulting activity appears in the cockpit.
+
+## Studio navigation verification
+
+The authenticated preview was checked on desktop for `/admin`, `/admin/vehicles`, `/admin/pricing`, `/admin/import`, and `/admin/brands`. Each route now highlights its matching sidebar entry and renders the matching internal studio tab. The operations cockpit displays all six workspaces and states explicitly that navigation alone cannot write data; live changes remain behind the relevant save control.
+
+The same five routes were also checked at a 375px mobile viewport. The mobile title bar identifies the current workspace, each internal studio tab shows the correct active state, and the content retains readable controls without horizontal clipping.
