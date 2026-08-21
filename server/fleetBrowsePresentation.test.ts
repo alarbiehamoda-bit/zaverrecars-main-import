@@ -25,10 +25,11 @@ describe("fleet browse presentation", () => {
     expect(readFileSync(new URL("../client/src/index.css", import.meta.url), "utf8")).toContain("object-fit: contain");
   });
 
-  it("renders a shared brand ribbon and visual text overlay without changing card actions", () => {
+  it("renders a shared brand ribbon and primary booking actions without a duplicate WhatsApp row", () => {
     expect(vehicleSystemSource).toContain("vehicle-brand-ribbon");
     expect(vehicleSystemSource).not.toContain("vehicle-visual-caption");
-    expect(vehicleSystemSource).toContain("whatsappUrl(vehicleMessage(vehicle))");
+    expect(vehicleSystemSource).toContain('className="card-actions"');
+    expect(vehicleSystemSource).not.toContain("whatsappUrl(vehicleMessage(vehicle))");
   });
 
   it("keeps the long collection easy to return from without adding brand text over vehicle images", () => {
@@ -85,10 +86,11 @@ describe("fleet browse presentation", () => {
     expect(globalStyles).toContain(".delivery-location-grid li { align-items: center; background: rgba(47,111,170,.08)");
   });
 
-  it("keeps the delivery title brown while every vehicle WhatsApp request identifies the car and its source image", () => {
+  it("keeps the delivery title brown while vehicle booking remains delegated to the surrounding page action", () => {
     expect(glassStyles).toContain(".delivery-section .delivery-intro h2");
     expect(glassStyles).toContain("color: #765128 !important");
-    expect(vehicleSystemSource).toContain("Vehicle image: ${vehicleAssetUrl(vehicle.image)}");
+    expect(vehicleSystemSource).toContain("onBook(vehicle)");
+    expect(vehicleSystemSource).not.toContain("WHATSAPP ENQUIRY");
   });
 
   it("returns from a detail page to the exact vehicle card that opened it", () => {

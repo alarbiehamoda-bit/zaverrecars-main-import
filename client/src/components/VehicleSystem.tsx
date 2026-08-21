@@ -1,7 +1,7 @@
 import { type CSSProperties, type PointerEvent as ReactPointerEvent, useRef, useState } from "react";
 import { useMemo } from "react";
 import "./VehicleSystem.css";
-import { Armchair, ArrowDownRight, ArrowUpRight, CarFront, ChevronRight, DoorOpen, Gauge, MessageCircle, Timer } from "lucide-react";
+import { Armchair, ArrowDownRight, ArrowUpRight, CarFront, ChevronRight, DoorOpen, Gauge, Timer } from "lucide-react";
 import { resolveVehicleImageSettings, vehicleBrands, vehicleCatalog, vehicleFilterBrands, type Vehicle } from "@/config/vehicleCatalog";
 import type { ManagedBrand } from "@/hooks/useManagedVehicleCatalog";
 import { vehicleAssetUrl } from "@/lib/vehicleAssets";
@@ -9,7 +9,6 @@ import { brandRouteSlug } from "@/lib/fleetRoutes";
 import { vehicleSlug } from "@/lib/vehicleDetail";
 import { DirhamMark } from "@/components/DirhamMark";
 import { vehicleSpecificationValue } from "@/lib/fleetPresentation";
-import { whatsappUrl } from "@/config/contact";
 
 // Single editable source for each marque icon. Updating one URL here updates brand cards, vehicle cards, and brand headers.
 export const brandHeaderAssets: Record<string, string> = {
@@ -57,7 +56,6 @@ const highContrastMarkBrands = new Set([
 
 const categoryLabel: Record<Vehicle["category"], string> = { Performance: "Performance", "Luxury SUV": "Luxury SUV", Convertible: "Convertible" };
 const price = (value: number) => new Intl.NumberFormat("en-AE", { maximumFractionDigits: 0 }).format(value);
-const vehicleMessage = (vehicle: Vehicle) => `Hello ZAVERRE,\nI would like to reserve the ${vehicle.fullName}.\nVehicle image: ${vehicleAssetUrl(vehicle.image)}\nPlease confirm availability, the final daily rate, required documents, and pickup or delivery options.`;
 
 export function BrandMark({ brandName, logoUrl, className = "" }: { brandName: string; logoUrl?: string | null; className?: string }) {
   const source = brandHeaderAssets[brandName] || logoUrl;
@@ -109,7 +107,6 @@ export function VehicleCard({ vehicle, onDetails, onBook, className = "", imageL
         <strong className="card-rate__value"><span className="card-rate__currency" aria-label="United Arab Emirates dirham"><DirhamMark /></span><b>{price(vehicle.priceAedPerDay)}</b><i>PER DAY</i></strong>
       </div>
       <div className="card-actions"><button type="button" className="card-book" onClick={() => onBook(vehicle)}>{ctaLabel} <ArrowDownRight size={14} /></button><a href={`/fleet/${vehicleSlug(vehicle)}`} className="card-details" onClick={(event) => { event.preventDefault(); onDetails(vehicle); }}>VIEW DETAILS + PHOTOS <ChevronRight size={14} /></a></div>
-      <a className="card-whatsapp" href={whatsappUrl(vehicleMessage(vehicle))} target="_blank" rel="noreferrer"><MessageCircle size={14} strokeWidth={2.25} aria-hidden="true" /><span>WHATSAPP ENQUIRY</span><ArrowUpRight size={13} aria-hidden="true" /></a>
     </div>
   </article>;
 }

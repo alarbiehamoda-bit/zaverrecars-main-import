@@ -24,10 +24,11 @@ describe("catalogue card sizing", () => {
     expect(styles).toContain("#ef7d2c");
   });
 
-  it("keeps the primary-card WhatsApp enquiry row and actions consistent across catalogue contexts", () => {
-    expect(styles).toContain("Shared primary-card geometry");
+  it("uses one primary-card model across catalogue contexts after removing the duplicate enquiry row", () => {
+    expect(styles).toContain("Unified primary-card geometry");
     expect(styles).toContain(".detail-related-master-card");
-    expect(styles).toContain("flex: 0 0 42px");
-    expect(styles).toContain("flex-basis: 40px");
+    expect(styles).toContain("height: 620px !important");
+    expect(styles).toContain("height: 570px !important");
+    expect(styles).toContain(".vehicle-brand-ribbon__identity i");
   });
 });

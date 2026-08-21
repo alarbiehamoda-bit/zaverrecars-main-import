@@ -2472,7 +2472,11 @@ html:not([data-theme="light"]) :is(.fleet-browse-page .filter-holder .brand-card
   stroke: currentColor !important;
 }
 
-/* Shared primary-card geometry: the same controls and WhatsApp enquiry row travel with the card across pages. */
+/* Unified primary-card geometry: all public contexts follow the homepage card model. */
+:is(.featured-vehicle-card, .detail-related-master-card, .fleet-browse-page .master-vehicle-grid--vertical .master-vehicle-card) {
+  height: 620px !important;
+  min-height: 620px !important;
+}
 :is(.featured-vehicle-card, .detail-related-master-card, .fleet-browse-page .master-vehicle-grid--vertical .master-vehicle-card) .card-actions {
   flex: 0 0 50px;
   margin-top: 14px;
@@ -2480,14 +2484,6 @@ html:not([data-theme="light"]) :is(.fleet-browse-page .filter-holder .brand-card
 :is(.featured-vehicle-card, .detail-related-master-card, .fleet-browse-page .master-vehicle-grid--vertical .master-vehicle-card) :is(.card-book, .card-details) {
   height: 50px;
   min-height: 50px;
-}
-:is(.featured-vehicle-card, .detail-related-master-card, .fleet-browse-page .master-vehicle-grid--vertical .master-vehicle-card) .card-whatsapp {
-  align-self: stretch;
-  display: inline-flex;
-  flex: 0 0 42px;
-  justify-content: center;
-  margin-top: 10px;
-  min-height: 42px;
 }
 .fleet-collection-transition { transform-origin: center top; }
 @media (prefers-reduced-motion: no-preference) {
@@ -2498,6 +2494,31 @@ html:not([data-theme="light"]) :is(.fleet-browse-page .filter-holder .brand-card
   }
 }
 @media (max-width: 620px) {
+  :is(.featured-vehicle-card, .detail-related-master-card, .fleet-browse-page .master-vehicle-grid--vertical .master-vehicle-card) {
+    height: 570px !important;
+    min-height: 570px !important;
+  }
+  :is(.featured-vehicle-card, .detail-related-master-card, .fleet-browse-page .master-vehicle-grid--vertical .master-vehicle-card) .vehicle-brand-ribbon {
+    gap: 10px !important;
+    grid-template-columns: 43px minmax(0, 1fr) !important;
+    margin-bottom: 10px !important;
+    min-height: 52px !important;
+    padding: 5px 11px 5px 5px !important;
+  }
+  :is(.featured-vehicle-card, .detail-related-master-card, .fleet-browse-page .master-vehicle-grid--vertical .master-vehicle-card) .vehicle-brand-ribbon__seal {
+    height: 42px !important;
+    width: 42px !important;
+  }
+  :is(.featured-vehicle-card, .detail-related-master-card, .fleet-browse-page .master-vehicle-grid--vertical .master-vehicle-card) .vehicle-brand-ribbon-mark {
+    height: 34px !important;
+    width: 34px !important;
+  }
+  :is(.featured-vehicle-card, .detail-related-master-card, .fleet-browse-page .master-vehicle-grid--vertical .master-vehicle-card) .vehicle-brand-ribbon__identity strong {
+    font-size: 20px !important;
+  }
+  :is(.featured-vehicle-card, .detail-related-master-card, .fleet-browse-page .master-vehicle-grid--vertical .master-vehicle-card) .vehicle-brand-ribbon__identity i {
+    display: none;
+  }
   :is(.featured-vehicle-card, .detail-related-master-card, .fleet-browse-page .master-vehicle-grid--vertical .master-vehicle-card) .card-actions {
     flex-basis: 48px;
     margin-top: 12px;
@@ -2505,9 +2526,5 @@ html:not([data-theme="light"]) :is(.fleet-browse-page .filter-holder .brand-card
   :is(.featured-vehicle-card, .detail-related-master-card, .fleet-browse-page .master-vehicle-grid--vertical .master-vehicle-card) :is(.card-book, .card-details) {
     height: 48px;
     min-height: 48px;
-  }
-  :is(.featured-vehicle-card, .detail-related-master-card, .fleet-browse-page .master-vehicle-grid--vertical .master-vehicle-card) .card-whatsapp {
-    flex-basis: 40px;
-    min-height: 40px;
   }
 }

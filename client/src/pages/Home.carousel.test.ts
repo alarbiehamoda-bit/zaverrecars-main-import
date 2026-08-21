@@ -27,7 +27,7 @@ describe("unified vehicle system safeguards", () => {
     expect(systemSource).toContain("TEMPORARILY UNAVAILABLE");
     expect(systemSource).toContain("BOOK NOW");
     expect(systemSource).toContain("VIEW DETAILS + PHOTOS");
-    expect(systemSource).toContain("WHATSAPP ENQUIRY");
+    expect(systemSource).not.toContain("WHATSAPP ENQUIRY");
   });
 
   it("uses one brand filter component for all cars, brand pages, and the homepage navigation", () => {
@@ -63,12 +63,13 @@ describe("unified vehicle system safeguards", () => {
     expect(detailSource).toContain("detail-related-master-card");
   });
 
-  it("routes vehicle booking actions through direct WhatsApp contact without an inline request form", () => {
+  it("routes booking actions through direct WhatsApp contact without an inline request form or duplicate card enquiry row", () => {
     expect(homeSource).not.toContain('id="booking"');
     expect(homeSource).toContain("const openGeneralEnquiry");
     expect(homeSource).toContain("window.open(whatsappHref(managedContact, vehicleMessage(vehicle))");
     expect(fleetSource).toContain("window.open(whatsappUrl(`Hello ZAVERRE, I would like to reserve the ${vehicle.fullName}");
-    expect(systemSource).toContain("whatsappUrl(vehicleMessage(vehicle))");
+    expect(systemSource).toContain("onBook(vehicle)");
+    expect(systemSource).not.toContain("whatsappUrl(vehicleMessage(vehicle))");
   });
 
   it("keeps the active related-vehicle carousel drag-safe on mouse and touch input", () => {
