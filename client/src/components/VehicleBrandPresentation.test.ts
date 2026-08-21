@@ -111,6 +111,15 @@ describe("vehicle brand and image presentation", () => {
     expect(glassStyles).toContain("object-fit: contain");
   });
 
+  it("keeps marque icon changes centralized and reflected in filter cards, vehicle cards, and brand headers", () => {
+    expect(component).toContain("Single editable source for each marque icon");
+    expect(component).toContain("const source = brandHeaderAssets[brandName] || logoUrl");
+    expect(component).toContain('<BrandMark brandName={vehicle.brand} logoUrl={vehicle.brandLogoUrl} className="vehicle-brand-ribbon-mark" />');
+    expect(component).toContain('<BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} className="brand-filter-mark" />');
+    expect(component).toContain('loading="lazy"');
+    expect(glassStyles).toContain('object-fit: contain');
+  });
+
   it("visually elevates the selected marque without changing its filter route", () => {
     expect(component).toContain('className={activeBrand === brand.brandName ? "active" : ""}');
     expect(component).toContain('aria-current={activeBrand === brand.brandName ? "page" : undefined}');

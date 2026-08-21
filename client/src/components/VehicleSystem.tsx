@@ -11,6 +11,7 @@ import { DirhamMark } from "@/components/DirhamMark";
 import { vehicleSpecificationValue } from "@/lib/fleetPresentation";
 import { whatsappUrl } from "@/config/contact";
 
+// Single editable source for each marque icon. Updating one URL here updates brand cards, vehicle cards, and brand headers.
 export const brandHeaderAssets: Record<string, string> = {
   "Lamborghini": "/manus-storage/lamborghini-optimized_c206dfb4.webp",
   "Maserati": "/manus-storage/maserati-filter-icon-transparent_4de88744.png",
