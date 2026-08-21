@@ -2325,6 +2325,22 @@ html[data-theme="light"] :is(.fleet-browse-page .filter-holder .brand-cards .bra
   border-color: rgba(246, 255, 238, .76) !important;
   box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 3px 8px rgba(20, 68, 41, .26) !important;
 }
+
+/* Home showroom navigation uses the same BrandFilterRail outside .fleet-browse-page. */
+.brand-catalogue .brand-logo-rail .brand-filter-icon-well {
+  background: linear-gradient(145deg, #d6d6a8 0%, #aeb47b 100%);
+  border: 1px solid rgba(67, 75, 41, .56);
+  border-radius: 14px;
+  box-shadow: inset 0 1px 0 rgba(255,255,240,.64), inset 0 -6px 12px rgba(78,84,41,.18), 0 4px 10px rgba(52,48,25,.18);
+}
+.brand-catalogue .brand-logo-rail .brand-filter-icon-well .brand-mark--high-contrast {
+  background: radial-gradient(circle at 35% 25%, rgba(111, 141, 116, .96), rgba(26, 47, 38, .98) 72%) !important;
+  border: 1px solid rgba(238, 249, 226, .6) !important;
+  border-radius: 10px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.24), 0 2px 7px rgba(27,35,20,.36) !important;
+  filter: contrast(1.2) saturate(1.08) drop-shadow(0 1px 2px rgba(0,0,0,.56)) !important;
+  padding: 4px !important;
+}
 html:not([data-theme="light"]) .fleet-browse-page .filter-holder {
   background: linear-gradient(112deg, rgba(45, 35, 25, .94), rgba(25, 22, 17, .98));
   border: 1px solid rgba(237, 212, 174, .3);

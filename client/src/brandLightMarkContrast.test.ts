@@ -18,6 +18,7 @@ describe("light marque contrast", () => {
     expect(styles).toContain(".brand-filter-icon-well");
     expect(styles).toContain(".brand-card-identifier");
     expect(styles).toContain(".vehicle-brand-ribbon__seal");
+    expect(styles).toContain(".brand-catalogue .brand-logo-rail .brand-filter-icon-well");
     expect(styles).toContain("rgba(26, 47, 38, .98)");
   });
 });
