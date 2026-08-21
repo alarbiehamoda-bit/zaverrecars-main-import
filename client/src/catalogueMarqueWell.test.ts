@@ -12,10 +12,10 @@ describe("catalogue marque well", () => {
     expect(styles).toContain(".vehicle-card .vehicle-brand-ribbon__seal");
   });
 
-  it("keeps separate well surfaces for dark and light catalogue cards", () => {
+  it("balances catalogue card seals with the Brand Cards icon holder in both themes", () => {
     expect(styles).toContain("--catalogue-marque-well-background");
-    expect(styles).toContain('html[data-theme="light"] .vehicle-card');
-    expect(styles).toContain("#e8eef0");
-    expect(styles).toContain("rgba(67,57,42,.94)");
+    expect(styles).toContain("#d6d6a8");
+    expect(styles).toContain("#aeb47b");
+    expect(styles).toContain("rgba(67, 75, 41, .56)");
   });
 });

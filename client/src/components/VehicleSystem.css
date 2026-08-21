@@ -37,14 +37,9 @@ html[data-theme="light"] .vehicle-brand-ribbon__identity i { color: #8a4a35; }
 
 /* Catalogue marque well: all vehicle cards share this Aston Martin-style seal, with a separate balanced surface per theme. */
 .vehicle-card {
-  --catalogue-marque-well-background: radial-gradient(circle at 32% 22%, rgba(255,255,255,.18), transparent 33%), linear-gradient(145deg, rgba(67,57,42,.94), rgba(11,11,10,.98));
-  --catalogue-marque-well-border: rgba(250,216,160,.62);
-  --catalogue-marque-well-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 6px 15px rgba(0,0,0,.22);
-}
-html[data-theme="light"] .vehicle-card {
-  --catalogue-marque-well-background: radial-gradient(circle at 32% 22%, rgba(255,255,255,.96), transparent 38%), linear-gradient(145deg, #e8eef0, #c5cfd5);
-  --catalogue-marque-well-border: rgba(24,89,130,.36);
-  --catalogue-marque-well-shadow: inset 0 1px 0 rgba(255,255,255,.96), 0 5px 13px rgba(24,65,93,.12);
+  --catalogue-marque-well-background: linear-gradient(145deg, #d6d6a8 0%, #aeb47b 100%);
+  --catalogue-marque-well-border: rgba(67, 75, 41, .56);
+  --catalogue-marque-well-shadow: inset 0 1px 0 rgba(255,255,240,.64), inset 0 -6px 12px rgba(78, 84, 41, .18), 0 4px 10px rgba(52, 48, 25, .18);
 }
 .vehicle-card .vehicle-brand-ribbon__seal {
   background: var(--catalogue-marque-well-background) !important;
