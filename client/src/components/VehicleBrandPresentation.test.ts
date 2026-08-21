@@ -60,7 +60,7 @@ describe("vehicle brand and image presentation", () => {
     expect(glassStyles).toContain("#372114");
     expect(glassStyles).toContain("#332116");
     expect(glassStyles).toContain('.brand-logo-rail :is(a, button)');
-    expect(component).toContain('className={`brand-logo-rail brand-filter-rail');
+    expect(component).toContain('className={`brand-cards brand-logo-rail brand-filter-rail');
     expect(component).toContain('<a href={`/cars/${brandRouteSlug(brand.brandName)}`}');
     expect(styles).toContain("mix-blend-mode: normal");
   });
@@ -117,6 +117,14 @@ describe("vehicle brand and image presentation", () => {
     expect(glassStyles).toContain(".brand-logo-rail :is(a, button).active");
     expect(glassStyles).toContain("#5bd0ff");
     expect(glassStyles).toContain(".brand-logo-rail :is(a, button).active::after");
+  });
+
+  it("uses Brand Cards semantics and the requested brown, beige, and light-olive card palette", () => {
+    expect(component).toContain('aria-label="Brand Cards"');
+    expect(glassStyles).toContain("Brand Cards palette");
+    expect(glassStyles).toContain("#8d654e");
+    expect(glassStyles).toContain("#f3e2c4");
+    expect(glassStyles).toContain("#d6d6a8");
   });
 
   it("anchors the header lockup with neon", () => {

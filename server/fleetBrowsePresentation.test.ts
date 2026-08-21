@@ -183,4 +183,14 @@ describe("fleet browse presentation", () => {
     expect(glassStyles).toContain(".brand-logo-rail :is(a, button).active");
     expect(glassStyles).toContain("#5bd0ff");
   });
+
+  it("names the showroom controls as Filter Top, Filter Holder, and Brand Cards", () => {
+    expect(fleetBrowseSource).toContain('className="fleet-browse-toolbar filter-top"');
+    expect(fleetBrowseSource).toContain('aria-label="Filter Top"');
+    expect(fleetBrowseSource).toContain('className="filter-holder"');
+    expect(fleetBrowseSource).toContain('aria-label="Filter Holder"');
+    expect(fleetBrowseSource).toContain("FILTER TOP");
+    expect(fleetBrowseSource).toContain("BRAND CARDS");
+    expect(vehicleSystemSource).toContain('aria-label="Brand Cards"');
+  });
 });

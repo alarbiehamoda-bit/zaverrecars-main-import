@@ -133,11 +133,11 @@ export default function FleetBrowse() {
       {!activeBrand && <div className="fleet-browse-count"><span>{vehicles.length}</span><small>{vehicles.length === 1 ? "vehicle" : "vehicles"}</small></div>}
     </section>
     <section className="fleet-browse-content" aria-labelledby="fleet-browse-title">
-      <div className="fleet-browse-toolbar">
-        <div><p className="eyebrow">SHOWROOM NAVIGATION</p><h2 id="fleet-browse-title">Browse <em>the fleet.</em></h2></div>
+      <div className="fleet-browse-toolbar filter-top" aria-label="Filter Top" data-filter-part="filter-top">
+        <div><p className="eyebrow"><span>FILTER TOP</span><i aria-hidden="true">/</i><span>BRAND CARDS</span></p><h2 id="fleet-browse-title">Browse <em>the fleet.</em></h2></div>
         <label className="search-field"><Search size={17} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search brand, model, engine…" aria-label="Search vehicles by brand, model, category, or verified specification" /></label>
       </div>
-      <BrandFilterRail activeBrand={activeBrand || "All"} onSelect={selectBrand} brands={brands} vehicles={vehicleCatalog} />
+      <div className="filter-holder" aria-label="Filter Holder" data-filter-part="filter-holder"><BrandFilterRail activeBrand={activeBrand || "All"} onSelect={selectBrand} brands={brands} vehicles={vehicleCatalog} /></div>
       <div className="fleet-category-rail" aria-label="Vehicle category filters"><CategoryFilterLink href="/cars" active={!activeCategory} label="ALL CARS" count={vehicleCatalog.length} Icon={categoryFilterIcons.all} onSelect={() => selectCategory("all")} />{fleetCategoryDefinitions.map((category) => <CategoryFilterLink href={`/cars/category/${category.slug}`} key={category.slug} active={activeCategory?.slug === category.slug} label={category.label} count={categoryCounts[category.slug]} Icon={categoryFilterIcons[category.slug]} onSelect={() => selectCategory(category.slug)} />)}</div>
       {vehicles.length ? <MasterVehicleGrid vehicles={vehicles} layout="vertical" onDetails={openVehicleDetails} onBook={bookVehicle} /> : <div className="empty-state">No verified ZAVERRE vehicle matches this search.</div>}
     </section>
