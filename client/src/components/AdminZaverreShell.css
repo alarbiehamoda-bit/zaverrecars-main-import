@@ -1,0 +1,39 @@
+.zaverre-admin-shell {
+  --zvr-admin-navy: #06131e;
+  --zvr-admin-panel: #0b1c29;
+  --zvr-admin-blue: #4eb8ea;
+  --zvr-admin-gold: #d7b77a;
+  background:
+    radial-gradient(circle at 88% 0%, rgba(46, 150, 205, .16), transparent 32rem),
+    linear-gradient(145deg, #06111a, #0a1a26 58%, #061019);
+  color: #e8f6ff;
+}
+
+.admin-zaverre-sidebar,
+.admin-zaverre-sidebar [data-sidebar="sidebar"] {
+  background: linear-gradient(180deg, #081722, #050e15 88%) !important;
+  border-right: 1px solid rgba(105, 205, 249, .16) !important;
+}
+
+.admin-zaverre-sidebar [data-active="true"] {
+  background: linear-gradient(135deg, rgba(68, 176, 226, .28), rgba(215, 183, 122, .15)) !important;
+  color: #effbff !important;
+  box-shadow: inset 2px 0 0 var(--zvr-admin-blue);
+}
+
+.admin-zaverre-sidebar [data-active="true"] svg { color: var(--zvr-admin-blue) !important; }
+.admin-zaverre-sidebar [data-sidebar="menu-button"] { color: #b8d8e8; }
+.admin-zaverre-sidebar [data-sidebar="menu-button"]:hover { background: rgba(78, 184, 234, .1) !important; color: #f4fbff; }
+.admin-zaverre-mark { height: 25px; width: 25px; }
+.admin-zaverre-wordmark { color: #f1d49b; font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.14rem; letter-spacing: .18em; }
+.admin-zaverre-inset { background: transparent; }
+.admin-zaverre-inset > main { min-height: 100vh; }
+.admin-auth-gate { background: radial-gradient(circle at 52% 12%, rgba(41, 157, 213, .28), transparent 28rem), linear-gradient(145deg, #06111a, #0b1d2a 58%, #061019); color: #eef9ff; }
+.admin-auth-card { border: 1px solid rgba(113, 207, 247, .25); border-radius: 24px; background: linear-gradient(145deg, rgba(10, 31, 45, .94), rgba(5, 14, 22, .9)); box-shadow: 0 26px 75px rgba(0, 0, 0, .34); }
+.admin-auth-mark { height: 62px; width: 62px; }
+.admin-auth-eyebrow { color: #88d8fa; font-size: .68rem; font-weight: 800; letter-spacing: .17em; margin: 0; }
+.admin-auth-button { background: linear-gradient(135deg, #5ccbf3, #1978b2) !important; color: #02131e !important; font-weight: 800; }
+.admin-mobile-topbar { background: rgba(6, 19, 30, .94); border-color: rgba(105, 205, 249, .16) !important; color: #eaf8ff; }
+@media (max-width: 768px) {
+  .admin-zaverre-inset > main { padding: 12px; }
+}

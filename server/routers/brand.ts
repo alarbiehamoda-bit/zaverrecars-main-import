@@ -4,11 +4,12 @@ import { adminProcedure, publicProcedure, router } from "../_core/trpc";
 import { storagePut } from "../storage";
 
 const brandName = z.string().trim().min(2).max(120).regex(/^[a-zA-Z0-9&' .-]+$/);
-const imageType = z.enum(["image/jpeg", "image/png", "image/webp"]);
+const imageType = z.enum(["image/jpeg", "image/png", "image/webp", "image/svg+xml"]);
 
 function extensionFor(contentType: z.infer<typeof imageType>) {
   if (contentType === "image/png") return "png";
   if (contentType === "image/webp") return "webp";
+  if (contentType === "image/svg+xml") return "svg";
   return "jpg";
 }
 

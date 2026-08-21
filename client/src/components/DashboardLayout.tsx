@@ -21,15 +21,18 @@ import {
 } from "@/components/ui/sidebar";
 import { startLogin } from "@/const";
 import { useIsMobile } from "@/hooks/useMobile";
-import { CarFront, Inbox, LayoutDashboard, LogOut, PanelLeft, Users } from "lucide-react";
+import { CarFront, Inbox, LayoutDashboard, LogOut, PanelLeft, Tags, Users } from "lucide-react";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { DashboardLayoutSkeleton } from './DashboardLayoutSkeleton';
+import { ZaverreMark } from "./ZaverreMark";
 import { Button } from "./ui/button";
+import "./AdminZaverreShell.css";
 
 const menuItems = [
   { icon: LayoutDashboard, label: "Content studio", path: "/admin/content" },
   { icon: CarFront, label: "Vehicle studio", path: "/admin/vehicles" },
+  { icon: Tags, label: "Brand manager", path: "/admin/brands" },
   { icon: Inbox, label: "Booking inbox", path: "/admin/bookings" },
   { icon: Users, label: "Public site", path: "/" },
 ];
@@ -61,9 +64,11 @@ export default function DashboardLayout({
 
   if (!user) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="flex flex-col items-center gap-8 p-8 max-w-md w-full">
+      <div className="admin-auth-gate flex items-center justify-center min-h-screen">
+        <div className="admin-auth-card flex flex-col items-center gap-8 p-8 max-w-md w-full">
           <div className="flex flex-col items-center gap-6">
+            <ZaverreMark className="admin-auth-mark" />
+            <p className="admin-auth-eyebrow">ZAVERRE / MANAGEMENT</p>
             <h1 className="text-2xl font-semibold tracking-tight text-center">
               Sign in to continue
             </h1>
@@ -74,7 +79,7 @@ export default function DashboardLayout({
           <Button
             onClick={() => startLogin()}
             size="lg"
-            className="w-full shadow-lg hover:shadow-xl transition-all"
+            className="admin-auth-button w-full shadow-lg hover:shadow-xl transition-all"
           >
             Sign in
           </Button>
@@ -84,11 +89,12 @@ export default function DashboardLayout({
   }
 
   if (user.role !== "admin") {
-    return <div className="flex min-h-screen items-center justify-center p-6"><div className="max-w-md rounded-2xl border border-border bg-card p-8 text-center"><h1 className="text-2xl font-semibold">Admin access required</h1><p className="mt-3 text-sm text-muted-foreground">Your account is signed in but does not have ZAVERRE administrator access.</p></div></div>;
+    return <div className="admin-auth-gate flex min-h-screen items-center justify-center p-6"><div className="admin-auth-card max-w-md rounded-2xl p-8 text-center"><ZaverreMark className="admin-auth-mark mx-auto" /><p className="admin-auth-eyebrow mt-5">ZAVERRE / MANAGEMENT</p><h1 className="text-2xl font-semibold">Admin access required</h1><p className="mt-3 text-sm text-muted-foreground">Your account is signed in but does not have ZAVERRE administrator access.</p></div></div>;
   }
 
   return (
     <SidebarProvider
+      className="zaverre-admin-shell"
       style={
         {
           "--sidebar-width": `${sidebarWidth}px`,
@@ -161,7 +167,7 @@ function DashboardLayoutContent({
       <div className="relative" ref={sidebarRef}>
         <Sidebar
           collapsible="icon"
-          className="border-r-0"
+          className="border-r-0 admin-zaverre-sidebar"
           disableTransition={isResizing}
         >
           <SidebarHeader className="h-16 justify-center">
@@ -175,9 +181,8 @@ function DashboardLayoutContent({
               </button>
               {!isCollapsed ? (
                 <div className="flex items-center gap-2 min-w-0">
-                  <span className="font-semibold tracking-tight truncate">
-                    Navigation
-                  </span>
+                  <ZaverreMark className="admin-zaverre-mark" />
+                  <span className="admin-zaverre-wordmark truncate">ZAVERRE</span>
                 </div>
               ) : null}
             </div>
@@ -247,9 +252,9 @@ function DashboardLayoutContent({
         />
       </div>
 
-      <SidebarInset>
+      <SidebarInset className="admin-zaverre-inset">
         {isMobile && (
-          <div className="flex border-b h-14 items-center justify-between bg-background/95 px-2 backdrop-blur supports-[backdrop-filter]:backdrop-blur sticky top-0 z-40">
+          <div className="admin-mobile-topbar flex border-b h-14 items-center justify-between px-2 backdrop-blur supports-[backdrop-filter]:backdrop-blur sticky top-0 z-40">
             <div className="flex items-center gap-2">
               <SidebarTrigger className="h-9 w-9 rounded-lg bg-background" />
               <div className="flex items-center gap-3">
