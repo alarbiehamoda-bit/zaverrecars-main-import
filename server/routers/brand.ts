@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { listAdminVehicleBrands, listPublicVehicleBrands, recordAdminActivity, upsertAdminVehicleBrand } from "../db";
+import { listAdminVehicleBrands, listPublicVehicleBrandPresentations, listPublicVehicleBrands, recordAdminActivity, upsertAdminVehicleBrand } from "../db";
 import { adminProcedure, publicProcedure, router } from "../_core/trpc";
 import { storagePut } from "../storage";
 
@@ -15,6 +15,7 @@ function extensionFor(contentType: z.infer<typeof imageType>) {
 
 export const brandRouter = router({
   publicList: publicProcedure.query(() => listPublicVehicleBrands()),
+  publicPresentationList: publicProcedure.query(() => listPublicVehicleBrandPresentations()),
   admin: router({
     list: adminProcedure.query(() => listAdminVehicleBrands()),
     save: adminProcedure.input(z.object({

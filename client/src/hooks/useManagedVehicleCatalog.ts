@@ -39,6 +39,8 @@ export type ManagedBrand = {
   logoUrl?: string | null;
 };
 
+type PublicBrandPresentation = ManagedBrand & { isVisible: boolean };
+
 export function mergeManagedVehicleCatalog(catalog: Vehicle[], records: PublicVehicleOverride[]) {
   const overrides = new Map(records.map((record) => [record.vehicleKey, record]));
   const managedCatalog: Vehicle[] = catalog
@@ -116,25 +118,29 @@ export function useManagedVehicleCatalog() {
   const publicContent = trpc.vehicle.publicContent.useQuery(undefined, {
     staleTime: 30_000,
   });
-  const publicBrands = trpc.brand.publicList.useQuery(undefined, { staleTime: 30_000 });
+  const publicBrands = trpc.brand.publicList.useQuery(undefined, { staleTime: 0, refetchOnMount: "always" });
+  const publicBrandPresentations = trpc.brand.publicPresentationList.useQuery(undefined, { staleTime: 0, refetchOnMount: "always" });
 
   return useMemo(() => {
     const managed = mergeManagedVehicleCatalog(vehicleCatalog, publicContent.data ?? []);
-    const publicByName = new Map((publicBrands.data ?? []).map((brand) => [brand.brandName, brand]));
+    const presentationByName = new Map((publicBrandPresentations.data ?? []).map((brand) => [brand.brandName, brand as PublicBrandPresentation]));
+    const visibleBrandNames = new Set((publicBrandPresentations.data ?? []).filter((brand) => brand.isVisible).map((brand) => brand.brandName));
     const names = Array.from(new Set([
-      ...configuredBrands.filter((brand) => brand !== "All"),
-      ...managed.catalog.map((vehicle) => vehicle.brand),
+      ...configuredBrands.filter((brand) => brand !== "All" && (!presentationByName.has(brand) || visibleBrandNames.has(brand))),
+      ...managed.catalog.map((vehicle) => vehicle.brand).filter((brand) => !presentationByName.has(brand) || visibleBrandNames.has(brand)),
       ...(publicBrands.data ?? []).map((brand) => brand.brandName),
     ]));
     const brands: ManagedBrand[] = names.map((brandName) => {
-      const managedBrand = publicByName.get(brandName);
+      const managedBrand = presentationByName.get(brandName);
       return { brandName, displayName: managedBrand?.displayName || brandName, logoUrl: managedBrand?.logoUrl };
     });
-    const logoByBrand = new Map(brands.map((brand) => [brand.brandName, brand.logoUrl]));
+    // Presentation data deliberately includes hidden filter brands: visibility controls only the
+    // filter rail, never the logo displayed on an existing public vehicle card or detail page.
+    const logoByBrand = new Map((publicBrandPresentations.data ?? []).map((brand) => [brand.brandName, brand.logoUrl]));
     const catalogWithBrandLogos: Vehicle[] = managed.catalog.map((vehicle) => {
       const logoUrl = logoByBrand.get(vehicle.brand);
       return logoUrl ? { ...vehicle, brandLogoUrl: logoUrl } : vehicle;
     });
-    return { ...managed, catalog: catalogWithBrandLogos, brands, isLoading: publicContent.isLoading || publicBrands.isLoading };
-  }, [publicBrands.data, publicBrands.isLoading, publicContent.data, publicContent.isLoading]);
+    return { ...managed, catalog: catalogWithBrandLogos, brands, isLoading: publicContent.isLoading || publicBrands.isLoading || publicBrandPresentations.isLoading };
+  }, [publicBrands.data, publicBrands.isLoading, publicBrandPresentations.data, publicBrandPresentations.isLoading, publicContent.data, publicContent.isLoading]);
 }

@@ -150,10 +150,11 @@ function AdminVehiclesContent() {
     onError: (error) => setBrandMessage({ type: "error", text: error.message || "The logo could not be uploaded. Check the file and retry." }),
   });
   const saveBrand = trpc.brand.admin.save.useMutation({
-    onSuccess: () => {
+    onSuccess: (_result, variables) => {
       void utils.brand.admin.list.invalidate();
       void utils.brand.publicList.invalidate();
-      setBrandMessage({ type: "success", text: "Brand identity saved. The updated logo is now the preferred source across the public site." });
+      void utils.brand.publicPresentationList.invalidate();
+      setBrandMessage({ type: "success", text: variables.isVisible ? "Brand identity saved. The updated logo is now the preferred source across the public site." : "Brand identity saved. Its logo updates vehicle cards, but this brand remains hidden from the public filter until you enable Visible in filter." });
     },
     onError: (error) => setBrandMessage({ type: "error", text: error.message || "The brand could not be saved. No public logo was changed." }),
   });
@@ -271,8 +272,8 @@ function AdminVehiclesContent() {
     }
     try {
       const uploaded = await uploadLogo.mutateAsync({ fileName: file.name, contentType: file.type as "image/jpeg" | "image/png" | "image/webp" | "image/svg+xml", base64: await fileToBase64(file) });
-      setBrandForm((current) => ({ ...current, logoUrl: uploaded.url, logoKey: uploaded.key }));
-      setBrandMessage({ type: "success", text: "Logo uploaded. Select or enter the brand name, then choose Save Brand to publish it." });
+      setBrandForm((current) => ({ ...current, logoUrl: uploaded.url, logoKey: uploaded.key, isVisible: true }));
+      setBrandMessage({ type: "success", text: "Logo uploaded. Visibility was enabled so the new mark can appear in the public filter; choose Save Brand to publish it." });
     } catch {
       // The mutation error handler provides the actionable message.
     }

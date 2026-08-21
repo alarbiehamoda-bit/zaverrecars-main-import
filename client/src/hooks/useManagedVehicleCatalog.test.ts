@@ -1,6 +1,9 @@
+import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { vehicleCatalog } from "@/config/vehicleCatalog";
 import { mergeManagedVehicleCatalog } from "./useManagedVehicleCatalog";
+
+const source = readFileSync(new URL("./useManagedVehicleCatalog.ts", import.meta.url), "utf8");
 
 describe("mergeManagedVehicleCatalog", () => {
   it("applies public pricing, approved details and a primary image while excluding hidden vehicles", () => {
@@ -72,5 +75,12 @@ describe("mergeManagedVehicleCatalog", () => {
     expect(result.catalog[0].imageSettings?.fit).toBe("cover");
     expect(result.catalog[0].galleryImageFit).toBe("fill");
     expect(result.featuredIds).toEqual([source[0].id]);
+  });
+
+  it("keeps a saved brand logo on vehicle cards even when that brand is hidden from the filter rail", () => {
+    expect(source).toContain("trpc.brand.publicPresentationList.useQuery");
+    expect(source).toContain("visibility controls only the");
+    expect(source).toContain("logoByBrand = new Map((publicBrandPresentations.data ?? []).map");
+    expect(source).toContain("visibleBrandNames.has(brand)");
   });
 });

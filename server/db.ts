@@ -328,6 +328,14 @@ export async function listPublicVehicleBrands() {
     .orderBy(asc(vehicleBrands.sortOrder), asc(vehicleBrands.displayName));
 }
 
+export async function listPublicVehicleBrandPresentations() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ brandName: vehicleBrands.brandName, displayName: vehicleBrands.displayName, logoUrl: vehicleBrands.logoUrl, isVisible: vehicleBrands.isVisible })
+    .from(vehicleBrands)
+    .orderBy(asc(vehicleBrands.sortOrder), asc(vehicleBrands.displayName));
+}
+
 export async function listAdminVehicleBrands() {
   const db = await getDb();
   if (!db) return [];

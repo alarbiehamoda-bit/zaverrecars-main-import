@@ -27,3 +27,7 @@ Brand rendering now prefers a logo saved by the administrator over the built-in 
 ## Administration visibility and health verification
 
 The operations cockpit and brand manager were checked at desktop and 375px mobile widths. The desktop sidebar shows every studio and a green **Backend connected** status. The phone view now exposes an explicit **Studios** button alongside the current workspace title, rather than relying on an unlabeled icon. The health check completed successfully against the live project database.
+
+## Saved-logo data-path verification
+
+The saved Audi logo was traced from `vehicleBrands` through the public presentation endpoint. The initial issue was that the Audi record was marked hidden, which correctly removed it from the public filter but also previously prevented its saved logo from reaching vehicle-card presentation. Presentation data is now fetched independently of filter visibility. Audi has been made visible in the public filter so the saved mark can be seen immediately; future uploads automatically enable visibility before the explicit publish step.

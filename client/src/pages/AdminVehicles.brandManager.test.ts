@@ -21,8 +21,9 @@ describe("brand manager control room", () => {
   });
 
   it("explains the two-step logo flow and refreshes both administration and public brand data after saving", () => {
-    expect(source).toContain("Logo uploaded. Select or enter the brand name, then choose Save Brand to publish it.");
+    expect(source).toContain("Visibility was enabled so the new mark can appear in the public filter");
     expect(source).toContain("utils.brand.publicList.invalidate()");
+    expect(source).toContain("utils.brand.publicPresentationList.invalidate()");
     expect(source).toContain("brandMessage");
     expect(routerSource).toContain("Activity logging failed after a successful brand save");
   });
