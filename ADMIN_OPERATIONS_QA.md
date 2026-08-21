@@ -37,3 +37,7 @@ The saved Audi logo was traced from `vehicleBrands` through the public presentat
 Desktop previews confirmed the new **Public delivery** panel in Operations cockpit: public brand assets and uploads, homepage content and design, and the review-only AI workflow are visibly connected to their corresponding editors. Content studio reports its public source as connected. The homepage and fleet views load through the shared CMS, managed vehicle, and managed brand data paths, while global quick-contact actions now use the published CMS contact source rather than a static configuration.
 
 The initial public CMS source was empty, so the existing contact configuration, homepage hero, featured-vehicle selection, three existing journal articles, and five existing FAQs were migrated into the CMS tables without changing their public content. Subsequent desktop and mobile previews show **Public source connected** in Content studio and three connected public settings in Operations cockpit.
+
+## Vehicle-detail return behavior
+
+The detail-page return control now has a deliberate two-step behavior: one press returns to the saved fleet context, while a second press within a 650 ms confirmation window returns to the ZAVERRE homepage. The header label changes accessibly during that brief window to state **Press again for home**. The Aston Martin DBX 707 detail page was reviewed on a mobile viewport after the change.

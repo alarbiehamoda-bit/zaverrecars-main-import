@@ -124,6 +124,7 @@ export default function VehicleDetail() {
   const vehicle = useMemo(() => configuredVehicle ? managedCatalog.find((item) => item.id === configuredVehicle.id) ?? configuredVehicle : undefined, [configuredVehicle, managedCatalog]);
   const detailQuery = trpc.vehicle.detail.useQuery({ vehicleKey: vehicle?.id || "vehicle-001" }, { enabled: Boolean(vehicle) });
   const returnTapTimer = useRef<number | null>(null);
+  const [returnHomeArmed, setReturnHomeArmed] = useState(false);
 
   useEffect(() => () => { if (returnTapTimer.current) window.clearTimeout(returnTapTimer.current); }, []);
 
@@ -212,13 +213,16 @@ export default function VehicleDetail() {
     if (returnTapTimer.current) {
       window.clearTimeout(returnTapTimer.current);
       returnTapTimer.current = null;
+      setReturnHomeArmed(false);
       navigate("/");
       return;
     }
+    setReturnHomeArmed(true);
     returnTapTimer.current = window.setTimeout(() => {
       returnTapTimer.current = null;
+      setReturnHomeArmed(false);
       returnToFleet();
-    }, 260);
+    }, 650);
   };
 
   if (!vehicle || !publicPrice) {
@@ -240,9 +244,10 @@ export default function VehicleDetail() {
   return (
     <main className={`vehicle-detail-page${theme === "light" ? " zaverre-day" : ""}`}>
       <header className="detail-header">
-        <button className="brand-lockup" onClick={handleReturn} aria-label="Return to previous fleet view; double press for ZAVERRE home">
+        <button className="brand-lockup" onClick={handleReturn} aria-label={returnHomeArmed ? "Press again to return to ZAVERRE home" : "Return to the previous fleet view; press again quickly for ZAVERRE home"} title={returnHomeArmed ? "Press again for ZAVERRE home" : "Press once for fleet, twice for home"}>
           <ZaverreMark className="brand-mark" />
           <span>ZAVERRE</span>
+          {returnHomeArmed && <small className="detail-return-hint" aria-live="polite">PRESS AGAIN FOR HOME</small>}
         </button>
         <div className="detail-header-actions">
           <ThemeToggle />
