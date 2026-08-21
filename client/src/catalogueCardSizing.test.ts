@@ -23,4 +23,11 @@ describe("catalogue card sizing", () => {
     expect(styles).toContain(".vehicle-card .card-rate .dirham-mark");
     expect(styles).toContain("#ef7d2c");
   });
+
+  it("keeps the primary-card WhatsApp enquiry row and actions consistent across catalogue contexts", () => {
+    expect(styles).toContain("Shared primary-card geometry");
+    expect(styles).toContain(".detail-related-master-card");
+    expect(styles).toContain("flex: 0 0 42px");
+    expect(styles).toContain("flex-basis: 40px");
+  });
 });
