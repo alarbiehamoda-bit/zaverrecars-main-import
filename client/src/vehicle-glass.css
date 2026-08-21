@@ -2455,13 +2455,14 @@ html:not([data-theme="light"]) :is(.fleet-browse-page .filter-holder .brand-card
   }
   .vehicle-card .vehicle-card-body {
     min-height: 0;
-    padding: 12px 14px 14px;
+    padding: 14px 16px;
   }
-  .vehicle-card .vehicle-brand-ribbon { margin-bottom: 7px; }
-  .vehicle-card .card-spec-list { margin: 8px 0; }
-  .vehicle-card .card-actions { flex: 0 0 44px; margin-top: 10px; }
-  .vehicle-card :is(.card-book, .card-details) { height: 44px; min-height: 44px; }
-  .vehicle-card .card-whatsapp { flex: 0 0 38px; margin-top: 8px; min-height: 38px; }
+  .fleet-browse-page .master-vehicle-grid--vertical .vehicle-image-wrap { aspect-ratio: 16 / 9; padding: 8px; }
+  .vehicle-card .vehicle-brand-ribbon { margin-bottom: 10px; min-height: 51px; }
+  .vehicle-card .card-spec-list { margin: 9px 0; }
+  .vehicle-card .card-actions { flex: 0 0 48px; margin-top: 12px; }
+  .vehicle-card :is(.card-book, .card-details) { font-size: 8px; height: 48px; min-height: 48px; }
+  .vehicle-card .card-whatsapp { flex: 0 0 40px; margin-top: 10px; min-height: 40px; }
   .vehicle-card .card-rate__currency {
     flex-basis: 24px;
   }

@@ -12,12 +12,14 @@ describe("catalogue card sizing", () => {
     expect(styles).toContain("height: 570px !important");
   });
 
-  it("removes the visual AED caption, protects mobile actions, and uses an orange dirham mark", () => {
+  it("removes the visual AED caption, preserves comfortable mobile controls, and uses an orange dirham mark", () => {
     expect(styles).toContain(".vehicle-card .card-rate__currency");
     expect(styles).toContain("flex-basis: 28px");
     expect(styles).toContain("flex-basis: 24px");
-    expect(styles).toContain(".vehicle-card .card-actions { flex: 0 0 44px");
-    expect(styles).toContain(".vehicle-card .card-whatsapp { flex: 0 0 38px");
+    expect(styles).toContain(".fleet-browse-page .master-vehicle-grid--vertical .vehicle-image-wrap { aspect-ratio: 16 / 9");
+    expect(styles).toContain(".vehicle-card .vehicle-brand-ribbon { margin-bottom: 10px; min-height: 51px");
+    expect(styles).toContain(".vehicle-card .card-actions { flex: 0 0 48px");
+    expect(styles).toContain(".vehicle-card .card-whatsapp { flex: 0 0 40px");
     expect(styles).toContain(".vehicle-card .card-rate .dirham-mark");
     expect(styles).toContain("#ef7d2c");
   });
