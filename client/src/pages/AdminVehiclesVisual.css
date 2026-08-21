@@ -78,6 +78,10 @@
 .brand-card-action:hover,
 .price-adjust-control button:hover { transform: translateY(-1px); border-color: rgba(115, 208, 255, 0.7); background: rgba(67, 175, 235, 0.18); }
 .studio-tab-nav button.active { color: #041524; background: linear-gradient(135deg, #83dfff, #4ba5dd); border-color: transparent; font-weight: 800; }
+.admin-assistant-panel { border:1px solid rgba(115, 208, 255, .27); background:linear-gradient(135deg, rgba(11, 38, 56, .97), rgba(17, 41, 55, .86)); border-radius:22px; box-shadow:0 18px 42px rgba(0,0,0,.16); margin:0 0 20px; padding:18px; }
+.admin-assistant-heading h2 { align-items:center; color:#f0f9ff; display:flex; gap:8px; margin:4px 0 4px; }.admin-assistant-heading h2 svg { color:#f3c179; }.admin-assistant-heading p { color:#a9c8db; line-height:1.55; margin:0; max-width:70ch; }
+.admin-assistant-compose { display:grid; gap:10px; grid-template-columns:180px minmax(0,1fr) auto; margin-top:14px; }.admin-assistant-compose textarea { min-height:48px; resize:vertical; }.admin-assistant-compose .button { align-self:stretch; white-space:nowrap; }
+.admin-assistant-result { border-top:1px solid rgba(129,193,227,.18); margin-top:16px; padding-top:14px; }.admin-assistant-summary { color:#def3ff; font-size:.94rem; margin:0 0 12px; }.admin-assistant-suggestions { display:grid; gap:10px; grid-template-columns:repeat(auto-fit,minmax(205px,1fr)); }.admin-assistant-suggestions article { background:rgba(3,15,25,.5); border:1px solid rgba(122,203,248,.17); border-radius:15px; display:flex; flex-direction:column; gap:7px; padding:13px; }.admin-assistant-suggestions article > span { color:#82d9fb; font-size:.61rem; font-weight:800; letter-spacing:.13em; }.admin-assistant-suggestions h3 { color:#f3fbff; font-size:1rem; margin:0; }.admin-assistant-suggestions p { color:#b4d1e0; font-size:.82rem; line-height:1.55; margin:0; }.admin-assistant-suggestions footer { align-items:center; display:flex; justify-content:space-between; gap:8px; margin-top:auto; }.admin-assistant-suggestions small { color:#f4c781; font-size:.57rem; font-weight:800; letter-spacing:.07em; }
 
 .admin-selected-card { overflow: hidden; margin-top: 14px; border-radius: 18px; background: #07111a; border: 1px solid rgba(255,255,255,.09); }
 .admin-selected-card img { width: 100%; aspect-ratio: 1.46; object-fit: contain; background: radial-gradient(circle at 50% 35%, #29465a, #07111a 70%); display: block; }
@@ -212,4 +216,5 @@
   .brand-manager-summary { grid-template-columns:repeat(2,minmax(0,1fr)); }
   .brand-manager-toolbar { align-items:stretch; flex-direction:column; }
   .brand-manager-toolbar label { max-width:none; }
+  .admin-assistant-compose { grid-template-columns:1fr; }
 }

@@ -4,7 +4,7 @@ import { vehicleBrands as catalogBrands, vehicleCatalog, vehicleFilterBrands } f
 import { displayPrice } from "@/lib/vehicleDetail";
 import { brandRouteSlug } from "@/lib/fleetRoutes";
 import { trpc } from "@/lib/trpc";
-import { Check, ChevronDown, ChevronUp, Download, ExternalLink, Eye, EyeOff, FileSpreadsheet, ImagePlus, Loader2, Save, Search, Tags, Trash2, UploadCloud } from "lucide-react";
+import { Check, ChevronDown, ChevronUp, Download, ExternalLink, Eye, EyeOff, FileSpreadsheet, ImagePlus, Loader2, Save, Search, Sparkles, Tags, Trash2, UploadCloud } from "lucide-react";
 import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import { useLocation } from "wouter";
 import * as XLSX from "xlsx";
@@ -15,6 +15,7 @@ type ImageFit = "contain" | "cover" | "fill";
 type StudioTab = "vehicle" | "brands" | "prices" | "import";
 type BrandCard = { id: number; brandName: string; displayName: string; logoUrl: string | null; logoKey: string | null; sortOrder: number; isVisible: boolean; vehicleCount: number; isCustomLogo: boolean };
 type SheetRow = { rowNumber: number; vehicleKey: string; publicBrand?: string | null; publicModel?: string | null; publicYear?: number | null; publicCustomerPriceAed?: number | null; visibility?: "listed" | "hidden"; featured?: boolean; issues: string[] };
+type AssistantScope = "general" | "brand" | "vehicle" | "content" | "visual";
 
 type FormState = {
   publicBrand: string;
@@ -96,6 +97,8 @@ function AdminVehiclesContent() {
   const [sheetFileName, setSheetFileName] = useState("");
   const [sheetMessage, setSheetMessage] = useState("");
   const [brandSearch, setBrandSearch] = useState("");
+  const [assistantRequest, setAssistantRequest] = useState("");
+  const [assistantScope, setAssistantScope] = useState<AssistantScope>("general");
 
   const activeVehicle = useMemo(() => vehicleCatalog.find((vehicle) => vehicle.id === vehicleKey)!, [vehicleKey]);
   const detail = trpc.vehicle.admin.get.useQuery({ vehicleKey });
@@ -128,6 +131,7 @@ function AdminVehiclesContent() {
   const importSheet = trpc.vehicle.admin.importSheet.useMutation({ onSuccess: (result) => { void utils.vehicle.publicContent.invalidate(); void utils.vehicle.admin.get.invalidate({ vehicleKey }); setSheetMessage(`${result.updated} vehicle records imported successfully.`); } });
   const uploadLogo = trpc.brand.admin.uploadLogo.useMutation();
   const saveBrand = trpc.brand.admin.save.useMutation({ onSuccess: () => void utils.brand.admin.list.invalidate() });
+  const assistant = trpc.adminAssistant.draft.useMutation();
 
   useEffect(() => {
     const content = detail.data?.content;
@@ -246,6 +250,15 @@ function AdminVehiclesContent() {
     if (nextTab !== "brands" && location.startsWith("/admin/brands")) navigate("/admin/vehicles");
   };
   const toggleBrandVisibility = (brand: BrandCard) => saveBrand.mutate({ brandName: brand.brandName, displayName: brand.displayName, logoUrl: brand.logoUrl, logoKey: brand.logoKey, sortOrder: brand.sortOrder, isVisible: !brand.isVisible });
+  const requestAssistantDraft = () => {
+    if (!assistantRequest.trim()) return;
+    assistant.mutate({ request: assistantRequest.trim(), scope: assistantScope, context: `Active administration area: ${tab}. Selected vehicle: ${activeVehicle.fullName}.` });
+  };
+  const openAssistantAction = (action: string) => {
+    if (action === "open-brand-manager") setStudioTab("brands");
+    if (action === "open-vehicle-studio") setStudioTab("vehicle");
+    if (action === "open-content-studio") navigate("/admin/content");
+  };
   const changedPriceEntries = useMemo(() => vehicleCatalog.flatMap((vehicle) => {
     const draft = Number(priceDraft[vehicle.id]);
     const baseline = priceOverrides.get(vehicle.id) ?? vehicle.priceAedPerDay;
@@ -263,6 +276,7 @@ function AdminVehiclesContent() {
   return <main className="admin-vehicle-studio">
     <header className="admin-studio-header"><div><p className="eyebrow">ZAVERRE / CONTROL ROOM</p><h1>{tab === "brands" ? "Brand manager" : "Vehicle studio"}</h1></div><button className="button button-quiet" onClick={() => navigate("/")}>VIEW PUBLIC SITE</button></header>
     <nav className="studio-tab-nav" aria-label="Vehicle Studio sections"><button className={tab === "vehicle" ? "active" : ""} onClick={() => setStudioTab("vehicle")}>VEHICLE &amp; GALLERY</button><button className={tab === "import" ? "active" : ""} onClick={() => setStudioTab("import")}><FileSpreadsheet size={14} /> SHEET IMPORT</button><button className={tab === "brands" ? "active" : ""} onClick={() => setStudioTab("brands")}><Tags size={14} /> BRAND MANAGER</button><button className={tab === "prices" ? "active" : ""} onClick={() => setStudioTab("prices")}>BULK PRICE EDITOR · {vehicleCatalog.length}</button></nav>
+    <section className="admin-assistant-panel" aria-labelledby="admin-assistant-title"><div className="admin-assistant-heading"><div><p className="eyebrow">ZAVERRE / AI ASSISTANT</p><h2 id="admin-assistant-title"><Sparkles size={18} />Describe the change you want</h2><p>The assistant prepares a structured proposal only. Review it and use the matching editor before you save any live change.</p></div></div><div className="admin-assistant-compose"><select value={assistantScope} onChange={(event) => setAssistantScope(event.target.value as AssistantScope)} aria-label="Assistant request scope"><option value="general">General website</option><option value="brand">Brand presentation</option><option value="vehicle">Vehicle catalogue</option><option value="content">Content and copy</option><option value="visual">Visual design</option></select><textarea rows={2} value={assistantRequest} onChange={(event) => setAssistantRequest(event.target.value)} placeholder="Example: I want the Bentley brand card to be more prominent in the filter." /><button className="button button-gold" type="button" onClick={requestAssistantDraft} disabled={assistant.isPending || !assistantRequest.trim()}>{assistant.isPending ? <Loader2 className="animate-spin" size={16} /> : <Sparkles size={16} />}CREATE PROPOSAL</button></div>{assistant.isError && <p className="admin-error">The assistant could not prepare a proposal. Try a shorter request or retry in a moment.</p>}{assistant.data && <div className="admin-assistant-result"><p className="admin-assistant-summary">{assistant.data.summary}</p><div className="admin-assistant-suggestions">{assistant.data.suggestions.map((suggestion, index) => <article key={`${suggestion.title}-${index}`}><span>{suggestion.target.toUpperCase()}</span><h3>{suggestion.title}</h3><p>{suggestion.change}</p><footer><small>ADMIN REVIEW REQUIRED</small>{suggestion.action !== "review" && <button type="button" className="gallery-action" onClick={() => openAssistantAction(suggestion.action)}>OPEN EDITOR</button>}</footer></article>)}</div></div>}</section>
 
     {tab === "vehicle" && <div className="studio-console-grid">
       <aside className="admin-vehicle-list"><label>SELECT VEHICLE<select value={vehicleKey} onChange={(event) => setVehicleKey(event.target.value)}>{vehicleCatalog.map((vehicle) => <option key={vehicle.id} value={vehicle.id}>{String(vehicle.index).padStart(2, "0")} · {vehicle.fullName}</option>)}</select></label><div className="admin-selected-card"><img src={activeVehicle.image} alt={activeVehicle.fullName} /><p>{form.publicBrand || activeVehicle.brand}</p><h2>{activeVehicle.model}</h2><span>PUBLIC RATE · AED {displayPrice(Number(form.publicCustomerPriceAed) || activeVehicle.priceAedPerDay)} / DAY</span></div></aside>

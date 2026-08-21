@@ -7,12 +7,17 @@
     radial-gradient(circle at 88% 0%, rgba(46, 150, 205, .16), transparent 32rem),
     linear-gradient(145deg, #06111a, #0a1a26 58%, #061019);
   color: #e8f6ff;
+  isolation: isolate;
 }
 
 .admin-zaverre-sidebar,
 .admin-zaverre-sidebar [data-sidebar="sidebar"] {
   background: linear-gradient(180deg, #081722, #050e15 88%) !important;
   border-right: 1px solid rgba(105, 205, 249, .16) !important;
+  color: #e9f7ff;
+  opacity: 1 !important;
+  position: relative;
+  z-index: 60;
 }
 
 .admin-zaverre-sidebar [data-active="true"] {
@@ -22,8 +27,9 @@
 }
 
 .admin-zaverre-sidebar [data-active="true"] svg { color: var(--zvr-admin-blue) !important; }
-.admin-zaverre-sidebar [data-sidebar="menu-button"] { color: #b8d8e8; }
+.admin-zaverre-sidebar [data-sidebar="menu-button"] { color: #b8d8e8; cursor: pointer; pointer-events: auto; position: relative; z-index: 1; }
 .admin-zaverre-sidebar [data-sidebar="menu-button"]:hover { background: rgba(78, 184, 234, .1) !important; color: #f4fbff; }
+.admin-zaverre-sidebar button:not([disabled]), .admin-zaverre-sidebar a { cursor: pointer; pointer-events: auto; }
 .admin-zaverre-mark { height: 25px; width: 25px; }
 .admin-zaverre-wordmark { color: #f1d49b; font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.14rem; letter-spacing: .18em; }
 .admin-zaverre-inset { background: transparent; }
