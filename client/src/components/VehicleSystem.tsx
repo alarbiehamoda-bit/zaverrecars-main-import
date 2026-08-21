@@ -44,6 +44,17 @@ export const brandSheetHeaders: Record<string, string> = {
   "Cadillac": "/manus-storage/cadillac-brand-header-from-user-reference_eb546591.jpg",
 };
 
+const highContrastMarkBrands = new Set([
+  "Aston Martin",
+  "Audi",
+  "Bentley",
+  "BMW",
+  "Maserati",
+  "McLaren",
+  "Mercedes-Benz",
+  "Range Rover",
+]);
+
 const categoryLabel: Record<Vehicle["category"], string> = { Performance: "Performance", "Luxury SUV": "Luxury SUV", Convertible: "Convertible" };
 const price = (value: number) => new Intl.NumberFormat("en-AE", { maximumFractionDigits: 0 }).format(value);
 const vehicleMessage = (vehicle: Vehicle) => `Hello ZAVERRE,\nI would like to reserve the ${vehicle.fullName}.\nVehicle image: ${vehicleAssetUrl(vehicle.image)}\nPlease confirm availability, the final daily rate, required documents, and pickup or delivery options.`;
@@ -52,7 +63,8 @@ export function BrandMark({ brandName, logoUrl, className = "" }: { brandName: s
   const source = brandHeaderAssets[brandName] || logoUrl;
   const [available, setAvailable] = useState(Boolean(source));
   const identityClass = `brand-mark--${brandName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`;
-  if (available && source) return <img className={`${identityClass} ${className}`.trim()} src={source} alt={`${brandName} mark`} loading="lazy" decoding="async" onError={() => setAvailable(false)} />;
+  const contrastClass = highContrastMarkBrands.has(brandName) ? "brand-mark--high-contrast" : "";
+  if (available && source) return <img className={`${identityClass} ${contrastClass} ${className}`.trim()} src={source} alt={`${brandName} mark`} loading="lazy" decoding="async" onError={() => setAvailable(false)} />;
   const initials = brandName.split(/\s|-/).filter(Boolean).map((word) => word[0]).join("").slice(0, 2).toUpperCase();
   return <span className={`brand-mark-fallback ${identityClass} ${className}`.trim()} aria-label={`${brandName} mark`} title={brandName}>{initials}</span>;
 }
