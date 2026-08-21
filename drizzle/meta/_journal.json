@@ -43,6 +43,13 @@
       "when": 1787210143161,
       "tag": "0005_cloudy_hellcat",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1787286060514,
+      "tag": "0006_elite_scalphunter",
+      "breakpoints": true
     }
   ]
 }

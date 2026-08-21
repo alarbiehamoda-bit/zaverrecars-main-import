@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { listAdminVehicleBrands, listPublicVehicleBrands, upsertAdminVehicleBrand } from "../db";
+import { listAdminVehicleBrands, listPublicVehicleBrands, recordAdminActivity, upsertAdminVehicleBrand } from "../db";
 import { adminProcedure, publicProcedure, router } from "../_core/trpc";
 import { storagePut } from "../storage";
 
@@ -24,7 +24,10 @@ export const brandRouter = router({
       logoKey: z.string().max(1024).nullable().optional(),
       sortOrder: z.number().int().min(0).max(999).default(0),
       isVisible: z.boolean().default(true),
-    })).mutation(({ ctx, input }) => upsertAdminVehicleBrand({ ...input, updatedByUserId: ctx.user.id })),
+    })).mutation(async ({ ctx, input }) => {
+      await upsertAdminVehicleBrand({ ...input, updatedByUserId: ctx.user.id });
+      await recordAdminActivity({ actorUserId: ctx.user.id, action: "brand.saved", subjectType: "brand", subjectKey: input.brandName, detailsJson: JSON.stringify({ isVisible: input.isVisible, sortOrder: input.sortOrder }) });
+    }),
     uploadLogo: adminProcedure.input(z.object({
       fileName: z.string().trim().min(1).max(255),
       contentType: imageType,

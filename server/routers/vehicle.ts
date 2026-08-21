@@ -8,6 +8,7 @@ import {
   getPublicVehicleDetail,
   listPublicVehicleContent,
   removeAdminVehicleImage,
+  recordAdminActivity,
   reorderAdminVehicleImages,
   setAdminVehiclePrimaryImage,
   upsertAdminVehicleContent,
@@ -100,9 +101,10 @@ export const vehicleRouter = router({
           internalMarkupAed: z.number().int().min(0).nullable().optional(),
         }),
       )
-      .mutation(({ ctx, input }) =>
-        upsertAdminVehicleContent({ ...input, updatedByUserId: ctx.user.id }),
-      ),
+      .mutation(async ({ ctx, input }) => {
+        await upsertAdminVehicleContent({ ...input, updatedByUserId: ctx.user.id });
+        await recordAdminActivity({ actorUserId: ctx.user.id, action: "vehicle.content.saved", subjectType: "vehicle", subjectKey: input.vehicleKey, detailsJson: JSON.stringify({ visibility: input.visibility, featured: input.featured }) });
+      }),
     addImage: adminProcedure
       .input(
         z.object({
@@ -173,10 +175,10 @@ export const vehicleRouter = router({
           entries: z.array(z.object({ vehicleKey, publicCustomerPriceAed: z.number().int().min(0).max(1_000_000) })).min(1).max(95),
         }),
       )
-      .mutation(({ ctx, input }) =>
-        bulkUpdateAdminVehiclePrices(
-          input.entries.map((entry) => ({ ...entry, updatedByUserId: ctx.user.id })),
-        ),
-      ),
+      .mutation(async ({ ctx, input }) => {
+        const result = await bulkUpdateAdminVehiclePrices(input.entries.map((entry) => ({ ...entry, updatedByUserId: ctx.user.id })));
+        await recordAdminActivity({ actorUserId: ctx.user.id, action: "vehicle.prices.bulk_updated", subjectType: "vehicle", subjectKey: "bulk-price-editor", detailsJson: JSON.stringify({ count: input.entries.length }) });
+        return result;
+      }),
   }),
 });

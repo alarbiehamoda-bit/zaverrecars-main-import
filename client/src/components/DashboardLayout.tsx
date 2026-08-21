@@ -30,6 +30,7 @@ import { Button } from "./ui/button";
 import "./AdminZaverreShell.css";
 
 const menuItems = [
+  { icon: LayoutDashboard, label: "Operations cockpit", path: "/admin" },
   { icon: LayoutDashboard, label: "Content studio", path: "/admin/content" },
   { icon: CarFront, label: "Vehicle studio", path: "/admin/vehicles" },
   { icon: Tags, label: "Brand manager", path: "/admin/brands" },

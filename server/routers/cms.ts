@@ -3,6 +3,7 @@ import {
   deleteJournalEntry,
   deleteSiteFaq,
   getAdminCmsSnapshot,
+  recordAdminActivity,
   getPublicCmsContent,
   saveJournalEntry,
   saveSiteFaq,
@@ -49,10 +50,14 @@ export const cmsRouter = router({
         await upsertContentSetting({ settingKey: "contact", valueJson: JSON.stringify(input.contact), updatedByUserId: ctx.user.id });
         await Promise.all(input.journal.map((item) => saveJournalEntry({ ...item, published: true, updatedByUserId: ctx.user.id })));
         await Promise.all(input.faqs.map((item) => saveSiteFaq({ ...item, published: true, updatedByUserId: ctx.user.id })));
+        await recordAdminActivity({ actorUserId: ctx.user.id, action: "content.snapshot.imported", subjectType: "content", subjectKey: "cms-import", detailsJson: JSON.stringify({ journal: input.journal.length, faqs: input.faqs.length }) });
       }),
     saveSetting: adminProcedure
       .input(z.object({ settingKey: z.string().trim().min(2).max(128), valueJson: jsonText }))
-      .mutation(({ ctx, input }) => upsertContentSetting({ ...input, updatedByUserId: ctx.user.id })),
+      .mutation(async ({ ctx, input }) => {
+        await upsertContentSetting({ ...input, updatedByUserId: ctx.user.id });
+        await recordAdminActivity({ actorUserId: ctx.user.id, action: "content.setting.saved", subjectType: "content", subjectKey: input.settingKey });
+      }),
     saveJournal: adminProcedure
       .input(z.object({
         slug: z.string().trim().regex(/^[a-z0-9-]+$/).max(180),
@@ -65,10 +70,16 @@ export const cmsRouter = router({
         sortOrder: z.number().int().min(0).max(1000).default(0),
         published: z.boolean().default(true),
       }))
-      .mutation(({ ctx, input }) => saveJournalEntry({ ...input, updatedByUserId: ctx.user.id })),
+      .mutation(async ({ ctx, input }) => {
+        await saveJournalEntry({ ...input, updatedByUserId: ctx.user.id });
+        await recordAdminActivity({ actorUserId: ctx.user.id, action: "journal.saved", subjectType: "journal", subjectKey: input.slug, detailsJson: JSON.stringify({ published: input.published }) });
+      }),
     deleteJournal: adminProcedure
       .input(z.object({ id: z.number().int().positive() }))
-      .mutation(({ input }) => deleteJournalEntry(input.id)),
+      .mutation(async ({ ctx, input }) => {
+        await deleteJournalEntry(input.id);
+        await recordAdminActivity({ actorUserId: ctx.user.id, action: "journal.deleted", subjectType: "journal", subjectKey: String(input.id) });
+      }),
     saveFaq: adminProcedure
       .input(z.object({
         id: z.number().int().positive().optional(),
@@ -77,12 +88,22 @@ export const cmsRouter = router({
         sortOrder: z.number().int().min(0).max(1000).default(0),
         published: z.boolean().default(true),
       }))
-      .mutation(({ ctx, input }) => saveSiteFaq({ ...input, updatedByUserId: ctx.user.id })),
+      .mutation(async ({ ctx, input }) => {
+        const id = await saveSiteFaq({ ...input, updatedByUserId: ctx.user.id });
+        await recordAdminActivity({ actorUserId: ctx.user.id, action: "faq.saved", subjectType: "faq", subjectKey: String(id), detailsJson: JSON.stringify({ published: input.published }) });
+        return id;
+      }),
     deleteFaq: adminProcedure
       .input(z.object({ id: z.number().int().positive() }))
-      .mutation(({ input }) => deleteSiteFaq(input.id)),
+      .mutation(async ({ ctx, input }) => {
+        await deleteSiteFaq(input.id);
+        await recordAdminActivity({ actorUserId: ctx.user.id, action: "faq.deleted", subjectType: "faq", subjectKey: String(input.id) });
+      }),
     updateBookingStatus: adminProcedure
       .input(z.object({ id: z.number().int().positive(), status: z.enum(["new", "contacted", "closed"]) }))
-      .mutation(({ input }) => updateBookingStatus(input.id, input.status)),
+      .mutation(async ({ ctx, input }) => {
+        await updateBookingStatus(input.id, input.status);
+        await recordAdminActivity({ actorUserId: ctx.user.id, action: "booking.status.updated", subjectType: "booking", subjectKey: String(input.id), detailsJson: JSON.stringify({ status: input.status }) });
+      }),
   }),
 });

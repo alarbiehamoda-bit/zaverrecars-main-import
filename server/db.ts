@@ -1,6 +1,7 @@
 import { and, asc, desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import {
+  adminActivityLog,
   bookingEnquiries,
   contentSettings,
   firstBookingCoupons,
@@ -353,6 +354,48 @@ export async function createBookingEnquiry(values: typeof bookingEnquiries.$infe
   if (!db) throw new Error("Database is not available");
   const result = await db.insert(bookingEnquiries).values(values);
   return result[0].insertId;
+}
+
+export async function recordAdminActivity(values: typeof adminActivityLog.$inferInsert) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+  await db.insert(adminActivityLog).values(values);
+}
+
+export async function getAdminOperationsSnapshot() {
+  const db = await getDb();
+  if (!db) {
+    return {
+      metrics: { newBookings: 0, activeBookings: 0, closedBookings: 0, visibleBrands: 0, hiddenBrands: 0, vehicleOverrides: 0, featuredVehicles: 0, publishedJournal: 0, publishedFaqs: 0 },
+      recentBookings: [],
+      activity: [],
+    };
+  }
+
+  const [bookings, brands, vehicles, journal, faqs, activity] = await Promise.all([
+    db.select().from(bookingEnquiries).orderBy(desc(bookingEnquiries.createdAt), desc(bookingEnquiries.id)),
+    db.select().from(vehicleBrands),
+    db.select().from(vehicleContent),
+    db.select().from(journalEntries),
+    db.select().from(siteFaqEntries),
+    db.select().from(adminActivityLog).orderBy(desc(adminActivityLog.createdAt), desc(adminActivityLog.id)).limit(12),
+  ]);
+
+  return {
+    metrics: {
+      newBookings: bookings.filter((entry) => entry.status === "new").length,
+      activeBookings: bookings.filter((entry) => entry.status === "contacted").length,
+      closedBookings: bookings.filter((entry) => entry.status === "closed").length,
+      visibleBrands: brands.filter((entry) => entry.isVisible).length,
+      hiddenBrands: brands.filter((entry) => !entry.isVisible).length,
+      vehicleOverrides: vehicles.length,
+      featuredVehicles: vehicles.filter((entry) => entry.featured).length,
+      publishedJournal: journal.filter((entry) => entry.published).length,
+      publishedFaqs: faqs.filter((entry) => entry.published).length,
+    },
+    recentBookings: bookings.slice(0, 8),
+    activity,
+  };
 }
 
 export async function getPublicCmsContent() {

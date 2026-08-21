@@ -14,6 +14,7 @@ import VehicleDetail from "./pages/VehicleDetail";
 const AdminVehicles = lazy(() => import("./pages/AdminVehicles"));
 const AdminContent = lazy(() => import("./pages/AdminContent"));
 const AdminBookings = lazy(() => import("./pages/AdminBookings"));
+const AdminOperations = lazy(() => import("./pages/AdminOperations"));
 function RouteScrollReset() {
   const [location] = useLocation();
   useEffect(() => {
@@ -29,7 +30,7 @@ function RouteScrollReset() {
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
-      return <Switch><Route path="/" component={Home} /><Route path="/cars" component={FleetBrowse} /><Route path="/cars/category/:categorySlug" component={FleetBrowse} /><Route path="/cars/:brandSlug" component={FleetBrowse} /><Route path="/fleet/:slug" component={VehicleDetail} /><Route path="/journal/:slug" component={JournalArticle} /><Route path="/admin" component={AdminContent} /><Route path="/admin/content" component={AdminContent} /><Route path="/admin/vehicles" component={AdminVehicles} /><Route path="/admin/brands" component={AdminVehicles} /><Route path="/admin/bookings" component={AdminBookings} /><Route path="/404" component={NotFound} /><Route component={NotFound} /></Switch>;
+      return <Switch><Route path="/" component={Home} /><Route path="/cars" component={FleetBrowse} /><Route path="/cars/category/:categorySlug" component={FleetBrowse} /><Route path="/cars/:brandSlug" component={FleetBrowse} /><Route path="/fleet/:slug" component={VehicleDetail} /><Route path="/journal/:slug" component={JournalArticle} /><Route path="/admin" component={AdminOperations} /><Route path="/admin/content" component={AdminContent} /><Route path="/admin/vehicles" component={AdminVehicles} /><Route path="/admin/brands" component={AdminVehicles} /><Route path="/admin/bookings" component={AdminBookings} /><Route path="/404" component={NotFound} /><Route component={NotFound} /></Switch>;
 }
 
 export default function App() {

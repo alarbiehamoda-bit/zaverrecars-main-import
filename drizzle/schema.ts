@@ -101,6 +101,17 @@ export const bookingEnquiries = mysqlTable("bookingEnquiries", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
+/** Immutable operational history for administrator-initiated actions. */
+export const adminActivityLog = mysqlTable("adminActivityLog", {
+  id: int("id").autoincrement().primaryKey(),
+  actorUserId: int("actorUserId"),
+  action: varchar("action", { length: 128 }).notNull(),
+  subjectType: varchar("subjectType", { length: 64 }).notNull(),
+  subjectKey: varchar("subjectKey", { length: 180 }),
+  detailsJson: text("detailsJson"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
 /** Small editable site-wide values such as contact channels and homepage copy. */
 export const contentSettings = mysqlTable("contentSettings", {
   id: int("id").autoincrement().primaryKey(),
@@ -159,6 +170,7 @@ export type VehicleImage = typeof vehicleImages.$inferSelect;
 export type VehicleBrand = typeof vehicleBrands.$inferSelect;
 export type FirstBookingCoupon = typeof firstBookingCoupons.$inferSelect;
 export type BookingEnquiry = typeof bookingEnquiries.$inferSelect;
+export type AdminActivityLog = typeof adminActivityLog.$inferSelect;
 export type ContentSetting = typeof contentSettings.$inferSelect;
 export type JournalEntry = typeof journalEntries.$inferSelect;
 export type SiteFaqEntry = typeof siteFaqEntries.$inferSelect;
