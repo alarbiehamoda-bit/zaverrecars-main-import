@@ -396,60 +396,6 @@ html:not([data-theme="light"]) body .brand-cards.brand-logo-rail .brand-filter-c
   touch-action: manipulation;
 }
 
-/* The brand name and inventory count read as one calm secondary label below
-   the shared circular mark, rather than floating as separate lines. */
-.brand-cards.brand-logo-rail > a .brand-filter-card-meta {
-  align-content: center;
-  background: rgba(61, 42, 25, .12);
-  border: 1px solid rgba(103, 69, 35, .24);
-  border-radius: 8px;
-  display: grid;
-  gap: 2px;
-  justify-items: center;
-  min-height: 21px;
-  padding: 2px 4px;
-  width: 100%;
-}
-.brand-cards.brand-logo-rail > a .brand-filter-card-meta > small,
-.brand-cards.brand-logo-rail > a .brand-filter-card-meta > .brand-filter-model-count {
-  color: inherit !important;
-  display: block;
-  line-height: 1 !important;
-  margin: 0;
-}
-.brand-cards.brand-logo-rail > a .brand-filter-card-meta > small {
-  font-size: 7.5px !important;
-  font-weight: 900 !important;
-  letter-spacing: .035em !important;
-}
-.brand-cards.brand-logo-rail > a .brand-filter-card-meta > .brand-filter-model-count {
-  font-size: 6.4px !important;
-  font-weight: 900 !important;
-  letter-spacing: .055em !important;
-}
-html:not([data-theme="light"]) .brand-cards.brand-logo-rail > a .brand-filter-card-meta {
-  background: rgba(235, 205, 161, .11);
-  border-color: rgba(232, 201, 153, .28);
-}
-html[data-theme="light"] .brand-cards.brand-logo-rail > a .brand-filter-card-meta > small {
-  color: #4b2e17 !important;
-}
-html[data-theme="light"] .brand-cards.brand-logo-rail > a .brand-filter-card-meta > .brand-filter-model-count {
-  color: rgba(75, 46, 23, .82) !important;
-}
-html:not([data-theme="light"]) .brand-cards.brand-logo-rail > a .brand-filter-card-meta > small {
-  color: #f7e5c7 !important;
-}
-html:not([data-theme="light"]) .brand-cards.brand-logo-rail > a .brand-filter-card-meta > .brand-filter-model-count {
-  color: rgba(247, 229, 199, .78) !important;
-}
-html:not([data-theme="light"]) #root :is(.fleet-browse-page, .brand-catalogue) .brand-cards.brand-logo-rail > a .brand-filter-card-meta > small {
-  color: #f7e5c7 !important;
-}
-html:not([data-theme="light"]) #root :is(.fleet-browse-page, .brand-catalogue) .brand-cards.brand-logo-rail > a .brand-filter-card-meta > .brand-filter-model-count {
-  color: rgba(247, 229, 199, .86) !important;
-}
-
 /* The page-home rail has page-level legacy selectors, so this final rule locks
    it to the same head-mark material in both themes. */
 html[data-theme="light"] #root :is(.fleet-browse-page, .brand-catalogue) .brand-cards.brand-logo-rail .brand-filter-card-icon {

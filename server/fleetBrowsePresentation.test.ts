@@ -132,11 +132,10 @@ describe("fleet browse presentation", () => {
     expect(fleetBrowseSource).toContain("fleet-browse-hero--brand");
   });
 
-  it("keeps a compact fleet browser with direct marque navigation and deterministic category routes", () => {
+  it("keeps a compact fleet browser with search, marque navigation, and deterministic category routes", () => {
     expect(fleetBrowseSource).not.toContain("fleet-filter-panel\" aria-label");
     expect(fleetBrowseSource).toContain("fleetCategoryFromSlug");
-    expect(fleetBrowseSource).not.toContain('placeholder="Search brand, model, engine…"');
-    expect(fleetBrowseSource).toContain("Select a marque to filter the collection.");
+    expect(fleetBrowseSource).toContain('placeholder="Search brand, model, engine…"');
     expect(fleetBrowseSource).toContain("BrandFilterRail");
     expect(readFileSync(new URL("../client/src/components/VehicleSystem.tsx", import.meta.url), "utf8")).toContain("brand-filter-model-count");
     expect(readFileSync(new URL("../client/src/components/VehicleSystem.tsx", import.meta.url), "utf8")).not.toContain("className=\"brand-filter-count\"");
