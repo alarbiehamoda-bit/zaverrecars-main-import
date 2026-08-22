@@ -363,7 +363,7 @@ html[data-theme="light"] .brand-cards.brand-logo-rail > a > .brand-filter-model-
 }
 .brand-filter-stack .brand-logo-rail::-webkit-scrollbar { display: none !important; height: 0 !important; }
 #root .fleet-browse-page .brand-cards.brand-logo-rail > a .brand-filter-card-icon .brand-filter-mark.brand-mark--brabus {
-  filter: brightness(0) saturate(100%) invert(18%) sepia(93%) saturate(3015%) hue-rotate(346deg) brightness(95%) contrast(108%) !important;
+  filter: brightness(0) saturate(100%) !important;
   transform: scale(1.08) !important;
 }
 @media (max-width: 620px) {
