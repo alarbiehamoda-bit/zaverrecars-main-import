@@ -14,21 +14,21 @@ import { vehicleSpecificationValue } from "@/lib/fleetPresentation";
 
 // Single editable source for each marque icon. Updating one URL here updates brand cards, vehicle cards, and brand headers.
 export const brandHeaderAssets: Record<string, string> = {
-  "Lamborghini": "/manus-storage/lamborghini_61e83cab.webp",
-  "Maserati": "/manus-storage/maserati_3864a3a5.webp",
-  "Ferrari": "/manus-storage/ferrari_7bfeaa4b.webp",
-  "McLaren": "/manus-storage/mclaren_7b2c2165.webp",
-  "Mercedes-Benz": "/manus-storage/mercedes-benz_742c8a5e.png",
-  "Porsche": "/manus-storage/porsche_2046e63c.webp",
-  "Rolls-Royce": "/manus-storage/rolls-royce_83ca54b8.png",
-  "Range Rover": "/manus-storage/range-rover_f2b46b22.webp",
-  "Audi": "/manus-storage/audi_b18b1c69.png",
-  "BMW": "/manus-storage/bmw_6ac6392b.webp",
-  "Bentley": "/manus-storage/bentley_3079b1ac.png",
-  "Aston Martin": "/manus-storage/aston-martin_4c37d5b3.png",
-  "Cadillac": "/manus-storage/cadillac_2cc6c9fc.webp",
-  "Brabus": "/manus-storage/brabus_8387aead.png",
-  "Mansory": "/manus-storage/mansory_66cf7105.png",
+  "Lamborghini": "/manus-storage/lamborghini_3d05649c.webp",
+  "Maserati": "/manus-storage/maserati_3bed1dcf.webp",
+  "Ferrari": "/manus-storage/ferrari_6b2a95e0.webp",
+  "McLaren": "/manus-storage/mclaren_89f970d9.webp",
+  "Mercedes-Benz": "/manus-storage/mercedes-benz_c827413f.png",
+  "Porsche": "/manus-storage/porsche_e53b4a95.webp",
+  "Rolls-Royce": "/manus-storage/rolls-royce_34550af7.png",
+  "Range Rover": "/manus-storage/range-rover_6c153aa4.webp",
+  "Audi": "/manus-storage/audi_4903d7ea.png",
+  "BMW": "/manus-storage/bmw_dd189652.webp",
+  "Bentley": "/manus-storage/bentley_e2a200f5.png",
+  "Aston Martin": "/manus-storage/aston-martin_d23094b1.png",
+  "Cadillac": "/manus-storage/cadillac_19bee233.webp",
+  "Brabus": "/manus-storage/brabus_01b948c8.png",
+  "Mansory": "/manus-storage/mansory_e051e234.png",
 };
 
 export const brandSheetHeaders: Record<string, string> = {
@@ -60,9 +60,10 @@ const categoryLabel: Record<Vehicle["category"], string> = { Performance: "Perfo
 const price = (value: number) => new Intl.NumberFormat("en-AE", { maximumFractionDigits: 0 }).format(value);
 
 export function BrandMark({ brandName, logoUrl, className = "" }: { brandName: string; logoUrl?: string | null; className?: string }) {
-  // The administrative source intentionally wins over the built-in catalogue mark.
-  // This keeps one user-approved logo consistent in filters, vehicle cards and headers.
-  const source = logoUrl || brandHeaderAssets[brandName];
+  // The verified reference asset is authoritative for the catalogue brands so
+  // filters, headers and cards always share the same original source. An
+  // administrator-provided asset remains the fallback for unlisted marques.
+  const source = brandHeaderAssets[brandName] || logoUrl;
   const usesBuiltInSeekLogoCanvas = Boolean(source && source === brandHeaderAssets[brandName] && usesSeekLogoCanvas(source));
   const [available, setAvailable] = useState(Boolean(source));
   useEffect(() => setAvailable(Boolean(source)), [source]);

@@ -12,16 +12,16 @@ const zaverreMark = readFileSync(new URL("./ZaverreMark.tsx", import.meta.url), 
 
 describe("vehicle brand and image presentation", () => {
   it("uses a source for every catalogue marque that needs a visual mark", () => {
-    expect(component).toContain('"Maserati": "/manus-storage/maserati_3864a3a5.webp"');
+    expect(component).toContain('"Maserati": "/manus-storage/maserati_3bed1dcf.webp"');
   });
 
   it("prioritizes the supplied official icon assets for every supported catalogue marque", () => {
-    expect(component).toContain('"Ferrari": "/manus-storage/ferrari_7bfeaa4b.webp"');
-    expect(component).toContain('"Audi": "/manus-storage/audi_b18b1c69.png"');
-    expect(component).toContain('"Lamborghini": "/manus-storage/lamborghini_61e83cab.webp"');
-    expect(component).toContain('"Bentley": "/manus-storage/bentley_3079b1ac.png"');
-    expect(component).toContain('"Brabus": "/manus-storage/brabus_8387aead.png"');
-    expect(component).toContain('"Mansory": "/manus-storage/mansory_66cf7105.png"');
+    expect(component).toContain('"Ferrari": "/manus-storage/ferrari_6b2a95e0.webp"');
+    expect(component).toContain('"Audi": "/manus-storage/audi_4903d7ea.png"');
+    expect(component).toContain('"Lamborghini": "/manus-storage/lamborghini_3d05649c.webp"');
+    expect(component).toContain('"Bentley": "/manus-storage/bentley_e2a200f5.png"');
+    expect(component).toContain('"Brabus": "/manus-storage/brabus_01b948c8.png"');
+    expect(component).toContain('"Mansory": "/manus-storage/mansory_e051e234.png"');
   });
 
   it("keeps vehicle photos uncropped and makes marque badges a prominent, consistent marque plate", () => {
@@ -83,7 +83,7 @@ describe("vehicle brand and image presentation", () => {
   });
 
   it("keeps every sensitive light or dark marque on the same protected filter source", () => {
-    expect(component).toContain("const source = logoUrl || brandHeaderAssets[brandName]");
+    expect(component).toContain("const source = brandHeaderAssets[brandName] || logoUrl");
     for (const marque of ["Rolls-Royce", "Mercedes-Benz", "Bentley", "Aston Martin", "Audi", "Porsche", "Maserati", "Lamborghini"]) {
       expect(component).toContain(`\"${marque}\": \"/manus-storage/`);
     }
@@ -91,9 +91,9 @@ describe("vehicle brand and image presentation", () => {
     expect(component).toContain("<span className=\"brand-filter-card-icon\" style={iconWellStyle}><BrandMark brandName={brand.brandName}");
     expect(rebuiltCardStyles).toContain(".brand-filter-card-icon > :is(.brand-filter-mark");
     expect(rebuiltCardStyles).toContain("filter: contrast(1.14) saturate(1.06)");
-    expect(component).toContain('"Rolls-Royce": "/manus-storage/rolls-royce_83ca54b8.png"');
-    expect(component).toContain('"Maserati": "/manus-storage/maserati_3864a3a5.webp"');
-    expect(component).toContain('"Mercedes-Benz": "/manus-storage/mercedes-benz_742c8a5e.png"');
+    expect(component).toContain('"Rolls-Royce": "/manus-storage/rolls-royce_34550af7.png"');
+    expect(component).toContain('"Maserati": "/manus-storage/maserati_3bed1dcf.webp"');
+    expect(component).toContain('"Mercedes-Benz": "/manus-storage/mercedes-benz_c827413f.png"');
   });
 
   it("maps every branded filter through one independent icon and the same BrandMark source", () => {
@@ -101,7 +101,7 @@ describe("vehicle brand and image presentation", () => {
     for (const marque of requiredMarques) {
       expect(component).toContain(`\"${marque}\": \"/manus-storage/`);
     }
-    expect(component).toContain("const source = logoUrl || brandHeaderAssets[brandName]");
+    expect(component).toContain("const source = brandHeaderAssets[brandName] || logoUrl");
     expect(component).toContain('<span className="brand-filter-card-icon" style={iconWellStyle}><BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} className="brand-filter-mark" /></span>');
     expect(rebuiltCardStyles).toContain(".brand-filter-card-icon");
     expect(rebuiltCardStyles).toContain("object-fit: contain");
@@ -109,7 +109,7 @@ describe("vehicle brand and image presentation", () => {
 
   it("keeps marque icon changes centralized and reflected in filter cards, vehicle cards, and brand headers", () => {
     expect(component).toContain("Single editable source for each marque icon");
-    expect(component).toContain("const source = logoUrl || brandHeaderAssets[brandName]");
+    expect(component).toContain("const source = brandHeaderAssets[brandName] || logoUrl");
     expect(component).toContain("useEffect(() => setAvailable(Boolean(source)), [source])");
     expect(component).toContain('<BrandMark brandName={displayedBrand} logoUrl={displayedBrandLogo} className="vehicle-brand-ribbon-mark" />');
     expect(component).toContain('const displayedBrand = brandBadge?.brandName || vehicle.brand');

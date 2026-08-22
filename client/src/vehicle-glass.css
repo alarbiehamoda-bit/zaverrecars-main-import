@@ -2705,3 +2705,26 @@ html[data-theme="light"] body .fleet-browse-brand-logo.brand-emblem-well > .bran
 html[data-theme="light"] body .fleet-browse-brand-logo.brand-emblem-well > .brand-mark--audi {
   filter: brightness(0) saturate(100%) invert(19%) sepia(61%) saturate(1537%) hue-rotate(167deg) brightness(88%) contrast(92%) drop-shadow(0 1px 1px rgba(255,255,255,.42)) !important;
 }
+
+/* Reference source calibration: all imported marks share a measured visual
+   weight around the Lamborghini crest, while preserving each original file. */
+:is(.brand-emblem-well, .brand-card-identifier, .brand-card-logo, .brand-logo-preview, .brand-filter-card-icon) > .brand-mark {
+  max-height: 68% !important;
+  max-width: 74% !important;
+  transform: scale(1) !important;
+}
+:is(.brand-emblem-well, .brand-card-identifier, .brand-card-logo, .brand-logo-preview, .brand-filter-card-icon) > .brand-mark--lamborghini { max-height: 74% !important; max-width: 66% !important; transform: scale(1.08) !important; }
+:is(.brand-emblem-well, .brand-card-identifier, .brand-card-logo, .brand-logo-preview, .brand-filter-card-icon) > .brand-mark--ferrari { max-height: 75% !important; max-width: 62% !important; transform: scale(1.10) !important; }
+:is(.brand-emblem-well, .brand-card-identifier, .brand-card-logo, .brand-logo-preview, .brand-filter-card-icon) > .brand-mark--maserati { max-height: 72% !important; max-width: 64% !important; transform: scale(1.04) !important; }
+:is(.brand-emblem-well, .brand-card-identifier, .brand-card-logo, .brand-logo-preview, .brand-filter-card-icon) > .brand-mark--mclaren { max-height: 56% !important; max-width: 86% !important; transform: scale(1.02) !important; }
+:is(.brand-emblem-well, .brand-card-identifier, .brand-card-logo, .brand-logo-preview, .brand-filter-card-icon) > .brand-mark--mercedes-benz { max-height: 72% !important; max-width: 72% !important; transform: scale(1.02) !important; }
+:is(.brand-emblem-well, .brand-card-identifier, .brand-card-logo, .brand-logo-preview, .brand-filter-card-icon) > .brand-mark--aston-martin { max-height: 68% !important; max-width: 88% !important; transform: scale(1.10) !important; }
+:is(.brand-emblem-well, .brand-card-identifier, .brand-card-logo, .brand-logo-preview, .brand-filter-card-icon) > .brand-mark--brabus { max-height: 66% !important; max-width: 66% !important; transform: scale(1.04) !important; }
+:is(.brand-emblem-well, .brand-card-identifier, .brand-card-logo, .brand-logo-preview, .brand-filter-card-icon) > .brand-mark--mansory { max-height: 56% !important; max-width: 84% !important; transform: scale(1.02) !important; }
+
+html:not([data-theme="light"]) :is(.brand-emblem-well, .brand-card-identifier, .brand-card-logo, .brand-logo-preview, .brand-filter-card-icon) > :is(.brand-mark--aston-martin, .brand-mark--audi, .brand-mark--brabus, .brand-mark--mansory, .brand-mark--rolls-royce) {
+  filter: brightness(0) invert(.96) contrast(1.14) drop-shadow(0 1px 3px rgba(0,0,0,.76)) !important;
+}
+html[data-theme="light"] :is(.brand-emblem-well, .brand-card-identifier, .brand-card-logo, .brand-logo-preview, .brand-filter-card-icon) > :is(.brand-mark--aston-martin, .brand-mark--audi, .brand-mark--brabus, .brand-mark--mansory, .brand-mark--rolls-royce) {
+  filter: contrast(1.16) brightness(.76) drop-shadow(0 1px 1px rgba(255,255,255,.42)) !important;
+}
