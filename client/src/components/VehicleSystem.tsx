@@ -25,8 +25,8 @@ export const brandHeaderAssets: Record<string, string> = {
   "Bentley": "/manus-storage/bentley-official_175d4ef0.webp",
   "Aston Martin": "/manus-storage/aston-martin-seeklogo_9b2c0c6c.png",
   "Cadillac": "/manus-storage/image-extractpics-20_bfbf8a84.webp",
-  "Brabus": "/manus-storage/brabus-seeklogo_b14da961.png",
-  "Mansory": "/manus-storage/mansory-seeklogo_04657e8d.png",
+  "Brabus": "/manus-storage/brabus-seeklogo-monogram_03c491c6.png",
+  "Mansory": "/manus-storage/mansory-seeklogo-transparent_40d7641a.png",
 };
 
 export const brandSheetHeaders: Record<string, string> = {

@@ -19,8 +19,8 @@ describe("vehicle brand and image presentation", () => {
     expect(component).toContain('"Audi": "/manus-storage/audi-official_e7f4fc02.webp"');
     expect(component).toContain('"Lamborghini": "/manus-storage/lamborghini-official_f1c7d272.png"');
     expect(component).toContain('"Bentley": "/manus-storage/bentley-official_175d4ef0.webp"');
-    expect(component).toContain('"Brabus": "/manus-storage/brabus-seeklogo_b14da961.png"');
-    expect(component).toContain('"Mansory": "/manus-storage/mansory-seeklogo_04657e8d.png"');
+    expect(component).toContain('"Brabus": "/manus-storage/brabus-seeklogo-monogram_03c491c6.png"');
+    expect(component).toContain('"Mansory": "/manus-storage/mansory-seeklogo-transparent_40d7641a.png"');
   });
 
   it("keeps vehicle photos uncropped and makes marque badges a prominent, consistent marque plate", () => {
@@ -85,7 +85,7 @@ describe("vehicle brand and image presentation", () => {
     expect(glassStyles).toContain('html[data-theme="light"] .fleet-browse-page .brand-logo-rail .brand-filter-icon-well');
     expect(glassStyles).toContain('html:not([data-theme="light"]) .fleet-browse-page .brand-logo-rail .brand-filter-icon-well');
     expect(styles).toContain("Circular automotive icon language");
-    expect(styles).toContain("clip-path: circle(46%)");
+    expect(styles).toContain("Final unified marque language");
     expect(styles).toContain("border-radius: 50% !important");
     expect(styles).toContain(".brand-emblem-well::after");
     expect(styles).toContain(".brand-emblem-well > .brand-filter-mark");
@@ -137,8 +137,9 @@ describe("vehicle brand and image presentation", () => {
     expect(component).toContain('const sourceTreatmentClass = usesBuiltInSeekLogoCanvas ? "brand-mark--seeklogo-canvas" : ""');
     expect(styles).toContain('.brand-emblem-well .brand-mark--ferrari');
     expect(styles).toContain('.brand-mark--seeklogo-canvas');
-    expect(styles).toContain('transform: scale(1.42) !important');
     expect(styles).toContain('transform: scale(1.55) !important');
+    expect(styles).toContain('transform: scale(2.2) !important');
+    expect(styles).toContain('clip-path: inset(6% 12% 4% round 42%)');
     expect(glassStyles).toContain('.brand-mark--mercedes-benz, .brand-mark--aston-martin, .brand-mark--brabus, .brand-mark--mansory');
   });
 

@@ -22,8 +22,8 @@ describe("shared brand emblem well", () => {
     expect(styles).toContain("Circular marque icon");
     expect(styles).toContain("border-radius: 50% !important");
     expect(styles).toContain("aspect-ratio: 1");
-    expect(styles).toContain("transform: scale(1.42) !important");
     expect(styles).toContain("transform: scale(1.55) !important");
+    expect(styles).toContain("transform: scale(2.2) !important");
     expect(styles).toContain("Final theme lock");
     expect(styles).toContain("#fdfaf1");
     expect(styles).toContain("html:not([data-theme=\"light\"]) :is(.brand-emblem-well");
