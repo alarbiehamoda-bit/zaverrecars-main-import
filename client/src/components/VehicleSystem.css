@@ -124,10 +124,11 @@ html:not([data-theme="light"]) .brand-logo-rail :is(button, a).active {
   object-fit: contain !important;
 }
 
-/* Automotive icon language: a single midnight-glass badge makes each marque feel
-   like part of one premium car interface, even when the supplied marks have
-   different silhouettes, aspect ratios, or original colours. */
+/* Circular automotive icon language: each marque is clipped by one crafted disc,
+   so the original source never creates a mismatched square inside the interface. */
 .brand-emblem-well {
+  aspect-ratio: 1;
+  border-radius: 50% !important;
   isolation: isolate;
   overflow: hidden !important;
   position: relative;
@@ -135,22 +136,24 @@ html:not([data-theme="light"]) .brand-logo-rail :is(button, a).active {
 
 .brand-emblem-well::after {
   background:
-    linear-gradient(145deg, rgba(224, 246, 255, .2), transparent 38%, rgba(8, 83, 128, .42)),
-    url("/manus-storage/luxury-car-brand-icon-backplate-flat_d566d058.png") center / cover;
+    repeating-linear-gradient(132deg, transparent 0 15%, rgba(128,102,64,.1) 15.7% 16%, transparent 16.7% 33%),
+    radial-gradient(circle at 28% 20%, rgba(255,255,255,.72) 0 3%, transparent 20%),
+    linear-gradient(145deg, rgba(255,255,255,.68), rgba(224,217,198,.82) 52%, rgba(173,143,94,.86));
+  border-radius: 50%;
   content: "";
-  inset: 0;
-  opacity: .9;
+  inset: 7%;
+  opacity: 1;
   pointer-events: none;
   position: absolute;
   z-index: 0;
 }
 
 .brand-emblem-well::before {
-  border: 1px solid rgba(222, 188, 127, .68);
-  border-radius: inherit;
-  box-shadow: inset 0 0 0 2px rgba(255,255,255,.08), inset 0 -10px 18px rgba(1, 13, 23, .28);
+  border: 1px solid rgba(106,78,39,.44);
+  border-radius: 50%;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.76), inset 0 -8px 12px rgba(85,65,35,.14);
   content: "";
-  inset: 3px;
+  inset: 10%;
   pointer-events: none;
   position: absolute;
   z-index: 1;
@@ -159,7 +162,8 @@ html:not([data-theme="light"]) .brand-logo-rail :is(button, a).active {
 .brand-emblem-well > .brand-filter-mark,
 .brand-emblem-well > .vehicle-brand-ribbon-mark,
 .brand-emblem-well > .brand-mark-fallback {
-  filter: brightness(1.07) contrast(1.13) saturate(1.04) drop-shadow(0 2px 4px rgba(0, 0, 0, .38)) !important;
+  clip-path: circle(46%);
+  filter: brightness(1.03) contrast(1.16) saturate(1.04) drop-shadow(0 2px 3px rgba(0, 0, 0, .34)) !important;
   position: relative;
   z-index: 2;
 }
@@ -185,9 +189,10 @@ html:not([data-theme="light"]) .brand-logo-rail :is(button, a).active {
 }
 
 .brand-logo-rail :is(button, a) .brand-emblem-well {
-  background: #071521 !important;
-  border-color: rgba(227, 193, 132, .72) !important;
-  box-shadow: 0 7px 15px rgba(0, 13, 24, .22), inset 0 1px 0 rgba(255,255,255,.16) !important;
+  background: linear-gradient(145deg, #fffdf7, #d8c59d) !important;
+  border-color: rgba(121,89,43,.82) !important;
+  border-radius: 50% !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.94), 0 6px 12px rgba(38,27,10,.2) !important;
 }
 
 .brand-logo-rail :is(button, a).active .brand-emblem-well,
@@ -199,8 +204,9 @@ html:not([data-theme="light"]) .brand-logo-rail :is(button, a).active {
 
 html[data-theme="light"] .brand-emblem-well::after {
   background:
-    linear-gradient(145deg, rgba(255,255,255,.7), transparent 48%, rgba(63, 176, 230, .24)),
-    url("/manus-storage/luxury-car-brand-icon-backplate-flat_d566d058.png") center / cover;
-  filter: saturate(.72) brightness(1.48);
-  opacity: .78;
+    repeating-linear-gradient(132deg, transparent 0 15%, rgba(109,81,46,.09) 15.7% 16%, transparent 16.7% 33%),
+    radial-gradient(circle at 28% 20%, rgba(255,255,255,.88) 0 3%, transparent 20%),
+    linear-gradient(145deg, #fffdf8, #e6ddc9 58%, #cdb88d);
+  filter: none;
+  opacity: 1;
 }

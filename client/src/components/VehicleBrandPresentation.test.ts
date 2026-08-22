@@ -84,8 +84,9 @@ describe("vehicle brand and image presentation", () => {
     expect(glassStyles).toContain("mix-blend-mode: normal !important");
     expect(glassStyles).toContain('html[data-theme="light"] .fleet-browse-page .brand-logo-rail .brand-filter-icon-well');
     expect(glassStyles).toContain('html:not([data-theme="light"]) .fleet-browse-page .brand-logo-rail .brand-filter-icon-well');
-    expect(styles).toContain("luxury-car-brand-icon-backplate-flat_d566d058.png");
-    expect(styles).toContain("Automotive icon language");
+    expect(styles).toContain("Circular automotive icon language");
+    expect(styles).toContain("clip-path: circle(46%)");
+    expect(styles).toContain("border-radius: 50% !important");
     expect(styles).toContain(".brand-emblem-well::after");
     expect(styles).toContain(".brand-emblem-well > .brand-filter-mark");
   });

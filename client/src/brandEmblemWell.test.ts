@@ -13,15 +13,19 @@ describe("shared brand emblem well", () => {
     expect(read("client/src/pages/AdminVehicles.tsx")).toContain("brand-logo-preview");
   });
 
-  it("defines a single olive well with an inset border and protected light-mark contrast in both themes", () => {
+  it("defines one circular stone-and-metal well with protected contrast in both themes", () => {
     const styles = read("client/src/vehicle-glass.css");
     expect(styles).toContain("Unified marque well");
     expect(styles).toContain(".brand-emblem-well");
     expect(styles).toContain(".brand-card-logo");
     expect(styles).toContain(".brand-logo-preview");
-    expect(styles).toContain("#d6d6a8");
+    expect(styles).toContain("Circular marque icon");
+    expect(styles).toContain("border-radius: 50% !important");
+    expect(styles).toContain("aspect-ratio: 1");
+    expect(styles).toContain("transform: scale(1.42) !important");
+    expect(styles).toContain("transform: scale(1.55) !important");
     expect(styles).toContain("Final theme lock");
-    expect(styles).toContain("#deddb2");
+    expect(styles).toContain("#fdfaf1");
     expect(styles).toContain("html:not([data-theme=\"light\"]) :is(.brand-emblem-well");
     expect(styles).toContain(".brand-mark--high-contrast");
   });
