@@ -132,9 +132,9 @@ describe("fleet browse presentation", () => {
     expect(fleetBrowseSource).toContain("fleet-browse-hero--brand");
   });
 
-  it("keeps a compact fleet browser with search, marque navigation, and deterministic category pages", () => {
+  it("keeps a compact fleet browser with search, marque navigation, and deterministic category routes", () => {
     expect(fleetBrowseSource).not.toContain("fleet-filter-panel\" aria-label");
-    expect(fleetBrowseSource).toContain("fleetCategoryDefinitions");
+    expect(fleetBrowseSource).toContain("fleetCategoryFromSlug");
     expect(fleetBrowseSource).toContain('placeholder="Search brand, model, engine…"');
     expect(fleetBrowseSource).toContain("BrandFilterRail");
     expect(readFileSync(new URL("../client/src/components/VehicleSystem.tsx", import.meta.url), "utf8")).toContain("brand-filter-model-count");
@@ -169,21 +169,17 @@ describe("fleet browse presentation", () => {
     expect(glassStyles).toContain("color: #b97956");
   });
 
-  it("shows category-filter counts with the same readable theme-aware palette", () => {
-    expect(fleetBrowseSource).toContain("const categoryCounts");
-    expect(fleetBrowseSource).toContain('className="fleet-category-count"');
-    expect(fleetBrowseStyles).toContain(".fleet-category-count { color: #edd9b5");
-    expect(glassStyles).toContain('html[data-theme="light"] .fleet-category-count');
+  it("replaces the extra category strip with one clear all-cars action above marque cards", () => {
+    expect(fleetBrowseSource).not.toContain("fleet-category-rail");
+    expect(vehicleSystemSource).toContain('className={`brand-filter-all-button${activeBrand === "All" ? " active" : ""}`}');
+    expect(vehicleSystemSource).toContain("VIEW ALL CARS");
   });
 
-  it("matches category controls to the icon-well system and makes selected filters visually explicit", () => {
-    expect(fleetBrowseSource).toContain("const categoryFilterIcons");
-    expect(fleetBrowseSource).toContain("CategoryFilterLink");
-    expect(fleetBrowseSource).toContain('className="fleet-category-icon-well"');
-    expect(glassStyles).toContain("Category controls inherit the marque icon-well language");
-    expect(glassStyles).toContain(".fleet-category-icon-well");
-    expect(glassStyles).toContain(".brand-logo-rail :is(a, button).active");
-    expect(glassStyles).toContain("#5bd0ff");
+  it("keeps the all-cars action and marquee card rail touch-friendly and visually explicit", () => {
+    expect(vehicleSystemSource).toContain("brand-filter-stack");
+    expect(vehicleSystemSource).toContain("brand-logo-rail brand-filter-rail");
+    expect(readFileSync(new URL("../client/src/components/BrandCards.css", import.meta.url), "utf8")).toContain(".brand-filter-all-button");
+    expect(readFileSync(new URL("../client/src/components/BrandCards.css", import.meta.url), "utf8")).toContain("scrollbar-width: none !important");
   });
 
   it("names the showroom controls as Filter Top, Filter Holder, and Brand Cards", () => {

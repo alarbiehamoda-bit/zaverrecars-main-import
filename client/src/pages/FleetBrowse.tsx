@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { ArrowDownRight, ArrowUp, CarFront, ChevronLeft, Crown, Gauge, MessageCircle, Phone, Search, Wind, type LucideIcon } from "lucide-react";
+import { ArrowDownRight, ArrowUp, ChevronLeft, MessageCircle, Phone, Search } from "lucide-react";
 import { useLocation } from "wouter";
 import "./FleetBrowse.css";
 import { ZaverreMark } from "@/components/ZaverreMark";
@@ -9,7 +9,7 @@ import { BrandFilterRail, BrandMark, MasterVehicleGrid } from "@/components/Vehi
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useTheme } from "@/contexts/ThemeContext";
 import { brandRouteSlug } from "@/lib/fleetRoutes";
-import { fleetCategoryDefinitions, fleetCategoryFromSlug } from "@/lib/fleetPresentation";
+import { fleetCategoryFromSlug } from "@/lib/fleetPresentation";
 import { vehicleSlug } from "@/lib/vehicleDetail";
 import { contact, whatsappUrl } from "@/config/contact";
 
@@ -19,17 +19,6 @@ type FleetReturnTarget = {
   fleetPath: string;
   vehicleId: string;
 };
-
-const categoryFilterIcons: Record<"all" | "performance" | "luxury-suv" | "convertibles", LucideIcon> = {
-  all: CarFront,
-  performance: Gauge,
-  "luxury-suv": Crown,
-  convertibles: Wind,
-};
-
-function CategoryFilterLink({ href, active, label, count, Icon, onSelect }: { href: string; active: boolean; label: string; count: number; Icon: LucideIcon; onSelect: () => void }) {
-  return <a href={href} className={active ? "active" : ""} aria-current={active ? "page" : undefined} onClick={(event) => { event.preventDefault(); onSelect(); }}><span className="fleet-category-icon-well" aria-hidden="true"><Icon size={16} strokeWidth={1.7} /></span><span className="fleet-category-label">{label}</span><b className="fleet-category-count">{count}</b></a>;
-}
 
 function restoreVehicleCard(vehicleId: string) {
   const card = document.getElementById(`vehicle-card-${vehicleId}`);
@@ -61,7 +50,6 @@ export default function FleetBrowse() {
   const activeCategory = fleetCategoryFromSlug(categorySlug);
   const normalized = query.trim().toLowerCase();
   const activeBrandCount = activeBrand ? vehicleCatalog.filter((vehicle) => vehicle.brand === activeBrand || vehicleFilterBrands(vehicle).includes(activeBrand)).length : 0;
-  const categoryCounts = useMemo<Record<string, number>>(() => Object.fromEntries(fleetCategoryDefinitions.map((category) => [category.slug, vehicleCatalog.filter((vehicle) => vehicle.category === category.category).length])), [vehicleCatalog]);
   const vehicles = useMemo(() => vehicleCatalog.filter((vehicle) => {
     const brandMatches = !activeBrand || vehicle.brand === activeBrand || vehicleFilterBrands(vehicle).includes(activeBrand);
     const categoryMatches = !activeCategory || vehicle.category === activeCategory.category;
@@ -73,7 +61,6 @@ export default function FleetBrowse() {
   const collectionTransitionKey = activeBrand ? `brand-${brandRouteSlug(activeBrand)}` : activeCategory ? `category-${activeCategory.slug}` : "all-cars";
 
   const selectBrand = (brandName: string) => navigate(brandName === "All" ? "/cars" : `/cars/${brandRouteSlug(brandName)}`);
-  const selectCategory = (slug: string) => navigate(slug === "all" ? "/cars" : `/cars/category/${slug}`);
   const bookVehicle = (vehicle: Vehicle) => window.open(whatsappUrl(`Hello ZAVERRE, I would like to reserve the ${vehicle.fullName}. Please confirm availability and the final daily rate.`), "_blank", "noopener,noreferrer");
   const openVehicleDetails = (vehicle: Vehicle) => {
     const target: FleetReturnTarget = { fleetPath, vehicleId: vehicle.id };
@@ -139,7 +126,6 @@ export default function FleetBrowse() {
         <label className="search-field"><Search size={17} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search brand, model, engine…" aria-label="Search vehicles by brand, model, category, or verified specification" /></label>
       </div>
       <div className="filter-holder" aria-label="Filter Holder" data-filter-part="filter-holder"><BrandFilterRail activeBrand={activeBrand || "All"} onSelect={selectBrand} brands={brands} vehicles={vehicleCatalog} /></div>
-      <div className="fleet-category-rail" aria-label="Vehicle category filters"><CategoryFilterLink href="/cars" active={!activeCategory} label="ALL CARS" count={vehicleCatalog.length} Icon={categoryFilterIcons.all} onSelect={() => selectCategory("all")} />{fleetCategoryDefinitions.map((category) => <CategoryFilterLink href={`/cars/category/${category.slug}`} key={category.slug} active={activeCategory?.slug === category.slug} label={category.label} count={categoryCounts[category.slug]} Icon={categoryFilterIcons[category.slug]} onSelect={() => selectCategory(category.slug)} />)}</div>
       {vehicles.length ? <div key={collectionTransitionKey} className="fleet-collection-transition" data-active-brand={activeBrand || "all"}><MasterVehicleGrid vehicles={vehicles} layout="vertical" onDetails={openVehicleDetails} onBook={bookVehicle} brandBadge={activeBrand ? { brandName: activeBrand, logoUrl: activeBrandMeta?.logoUrl } : undefined} /></div> : <div className="empty-state">No verified ZAVERRE vehicle matches this search.</div>}
     </section>
     {showBackToTop && <div className="fleet-floating-actions" aria-label="Fleet return and contact actions">

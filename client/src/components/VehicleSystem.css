@@ -526,3 +526,34 @@ html:not([data-theme="light"]) body .brand-cards.brand-logo-rail .brand-filter-c
   max-width: 62% !important;
   transform: scale(1.06) !important;
 }
+
+/* Brabus uses a ruby treatment to keep its otherwise black mark readable on
+   the light and dark neutral marque wells without replacing the source asset. */
+#root .fleet-browse-page :is(.brand-filter-card-icon, .brand-emblem-well) > .brand-mark--brabus,
+.vehicle-brand-ribbon__seal.brand-emblem-well > .brand-mark--brabus {
+  filter: brightness(0) saturate(100%) invert(18%) sepia(93%) saturate(3015%) hue-rotate(346deg) brightness(95%) contrast(108%) !important;
+}
+
+/* Deep-beige dark mode for the marque header, wells, and vehicle cards. */
+html:not([data-theme="light"]) body .fleet-browse-page .brand-name-bar {
+  background: linear-gradient(90deg, #241a13, #59422d 50%, #241a13) !important;
+  border-block: 1px solid rgba(205, 171, 121, .38) !important;
+}
+html:not([data-theme="light"]) body .fleet-browse-page .fleet-browse-hero--brand {
+  background: radial-gradient(circle at 50% 0%, #4e3927 0%, #2b2017 44%, #181310 100%) !important;
+  border-bottom: 1px solid rgba(205, 171, 121, .3) !important;
+}
+html:not([data-theme="light"]) body .fleet-browse-page .brand-emblem-well {
+  background: radial-gradient(circle at 35% 25%, #6a543b 0%, #473424 58%, #2c2018 100%) !important;
+  border-color: rgba(229, 197, 151, .55) !important;
+  box-shadow: inset 0 1px rgba(255, 247, 229, .16), 0 6px 14px rgba(0, 0, 0, .28) !important;
+}
+html:not([data-theme="light"]) body .fleet-browse-page .vehicle-brand-ribbon__identity {
+  background: linear-gradient(105deg, #604832, #34261b) !important;
+  border: 1px solid rgba(220, 184, 134, .46) !important;
+}
+html:not([data-theme="light"]) body .fleet-browse-page .vehicle-card {
+  background: linear-gradient(145deg, #3a2c20, #201812 74%) !important;
+  border-color: rgba(202, 167, 119, .42) !important;
+  box-shadow: inset 0 1px rgba(255, 247, 229, .07), 0 14px 30px rgba(0, 0, 0, .24) !important;
+}

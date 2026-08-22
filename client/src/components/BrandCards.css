@@ -328,3 +328,64 @@ html[data-theme="light"] .brand-cards.brand-logo-rail > a > .brand-filter-model-
   max-width: 62% !important;
   transform: scale(1.06) !important;
 }
+
+/* Mobile filter composition: one clear all-cars action, followed by marque cards
+   only. The scroll affordance stays touch-enabled but its ornamental bar is gone. */
+.brand-filter-stack {
+  display: grid;
+  gap: 12px;
+}
+.brand-filter-all-button {
+  align-items: center;
+  background: linear-gradient(105deg, #1298d5, #07517d) !important;
+  border: 1px solid rgba(222, 248, 255, .55);
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(9, 75, 113, .18);
+  color: #f8fdff !important;
+  display: flex;
+  font-size: 10px;
+  font-weight: 800;
+  justify-content: space-between;
+  letter-spacing: .12em;
+  min-height: 50px;
+  padding: 0 17px;
+  text-decoration: none;
+}
+.brand-filter-all-button b {
+  color: rgba(248, 253, 255, .78);
+  font-size: 7px;
+  letter-spacing: .1em;
+}
+.brand-filter-stack .brand-logo-rail {
+  padding-bottom: 0 !important;
+  scrollbar-color: transparent transparent;
+  scrollbar-width: none !important;
+}
+.brand-filter-stack .brand-logo-rail::-webkit-scrollbar { display: none !important; height: 0 !important; }
+#root .fleet-browse-page .brand-cards.brand-logo-rail > a .brand-filter-card-icon .brand-filter-mark.brand-mark--brabus {
+  filter: brightness(0) saturate(100%) invert(18%) sepia(93%) saturate(3015%) hue-rotate(346deg) brightness(95%) contrast(108%) !important;
+  transform: scale(1.08) !important;
+}
+@media (max-width: 620px) {
+  .brand-filter-stack { gap: 10px; }
+  .brand-filter-all-button { border-radius: 14px; min-height: 48px; padding-inline: 15px; }
+  .brand-filter-stack .brand-logo-rail { gap: 12px !important; }
+  .brand-filter-stack .brand-logo-rail > a { flex-basis: 76px !important; min-height: 92px !important; }
+}
+
+/* Dark-theme marquee surface: one deep beige material for the brand controls. */
+html:not([data-theme="light"]) body .fleet-browse-page .filter-holder {
+  background: linear-gradient(145deg, #30251b, #211913) !important;
+  border: 1px solid rgba(192, 157, 108, .46) !important;
+  box-shadow: inset 0 1px rgba(255, 245, 226, .08), 0 10px 24px rgba(0, 0, 0, .18) !important;
+}
+html:not([data-theme="light"]) body .fleet-browse-page .brand-filter-all-button {
+  background: linear-gradient(105deg, #6a5038, #38291e) !important;
+  border-color: rgba(229, 202, 162, .5) !important;
+  box-shadow: inset 0 1px rgba(255, 248, 231, .13), 0 8px 16px rgba(0, 0, 0, .22) !important;
+}
+html:not([data-theme="light"]) body .fleet-browse-page .brand-cards.brand-logo-rail .brand-filter-card-icon {
+  background: radial-gradient(circle at 35% 25%, #66513a 0%, #473625 58%, #302219 100%) !important;
+  border-color: rgba(222, 190, 145, .48) !important;
+  box-shadow: inset 0 1px rgba(255, 247, 229, .13), 0 3px 8px rgba(0, 0, 0, .22) !important;
+}
