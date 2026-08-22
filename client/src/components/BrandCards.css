@@ -132,11 +132,12 @@ html:not([data-theme="light"]) .brand-cards.brand-logo-rail .brand-filter-card-i
 .brand-cards.brand-cards--dark.brand-logo-rail > a.active .brand-filter-card-icon { border-color: #d7f5ff; box-shadow: inset 0 1px 0 rgba(255,255,255,.55), 0 0 0 2px rgba(84,204,250,.28), 0 6px 12px rgba(0,0,0,.44); }
 
 @media (max-width: 620px) {
-  .brand-cards.brand-logo-rail { gap: 7px !important; padding-bottom: 9px !important; }
-  .brand-cards.brand-logo-rail > a { flex-basis: 55px !important; grid-template-rows: 37px minmax(7px, auto) minmax(7px, auto) !important; min-height: 61px !important; }
-  .brand-cards.brand-logo-rail .brand-filter-card-icon { height: 37px; width: 37px; }
-  .brand-cards.brand-logo-rail > a > small { font-size: 4.8px !important; max-width: 55px !important; }
-  .brand-cards.brand-logo-rail > a > .brand-filter-model-count { font-size: 4.5px !important; }
+  .brand-cards.brand-logo-rail { gap: 9px !important; padding-bottom: 11px !important; }
+  .brand-cards.brand-logo-rail > a { flex-basis: 76px !important; grid-template-rows: 60px minmax(9px, auto) minmax(9px, auto) !important; min-height: 86px !important; }
+  .brand-cards.brand-logo-rail .brand-filter-card-icon { height: 60px; width: 60px; }
+  .brand-cards.brand-logo-rail .brand-filter-card-icon::before { inset: 11% !important; }
+  .brand-cards.brand-logo-rail > a > small { font-size: 6px !important; max-width: 76px !important; }
+  .brand-cards.brand-logo-rail > a > .brand-filter-model-count { font-size: 5px !important; }
 }
 
 /* Final reference surface: this sits last because older page-level theme rules

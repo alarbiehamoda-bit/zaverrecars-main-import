@@ -14,21 +14,21 @@ import { vehicleSpecificationValue } from "@/lib/fleetPresentation";
 
 // Single editable source for each marque icon. Updating one URL here updates brand cards, vehicle cards, and brand headers.
 export const brandHeaderAssets: Record<string, string> = {
-  "Lamborghini": "/manus-storage/lamborghini_3d05649c.webp",
-  "Maserati": "/manus-storage/maserati_3bed1dcf.webp",
-  "Ferrari": "/manus-storage/ferrari_6b2a95e0.webp",
-  "McLaren": "/manus-storage/mclaren_89f970d9.webp",
-  "Mercedes-Benz": "/manus-storage/mercedes-benz_c827413f.png",
-  "Porsche": "/manus-storage/porsche_e53b4a95.webp",
-  "Rolls-Royce": "/manus-storage/rolls-royce_34550af7.png",
-  "Range Rover": "/manus-storage/range-rover_6c153aa4.webp",
-  "Audi": "/manus-storage/audi_4903d7ea.png",
-  "BMW": "/manus-storage/bmw_dd189652.webp",
-  "Bentley": "/manus-storage/bentley_e2a200f5.png",
-  "Aston Martin": "/manus-storage/aston-martin_d23094b1.png",
-  "Cadillac": "/manus-storage/cadillac_19bee233.webp",
-  "Brabus": "/manus-storage/brabus_01b948c8.png",
-  "Mansory": "/manus-storage/mansory_e051e234.png",
+  "Lamborghini": "/manus-storage/lamborghini_28d5ee79.webp",
+  "Maserati": "/manus-storage/maserati_63a12301.webp",
+  "Ferrari": "/manus-storage/ferrari_76367fe2.webp",
+  "McLaren": "/manus-storage/mclaren_562a6f2c.webp",
+  "Mercedes-Benz": "/manus-storage/mercedes-benz_e6c76c17.webp",
+  "Porsche": "/manus-storage/porsche_9f7e8dd2.webp",
+  "Rolls-Royce": "/manus-storage/rolls-royce_4c877ceb.webp",
+  "Range Rover": "/manus-storage/range-rover_efe196c3.webp",
+  "Audi": "/manus-storage/audi_050ae235.webp",
+  "BMW": "/manus-storage/bmw_596ae7a5.webp",
+  "Bentley": "/manus-storage/bentley_d68a814c.webp",
+  "Aston Martin": "/manus-storage/aston-martin_e2751bba.webp",
+  "Cadillac": "/manus-storage/cadillac_d56f8ccd.webp",
+  "Brabus": "/manus-storage/brabus_60a83651.webp",
+  "Mansory": "/manus-storage/mansory_b1d8c549.webp",
 };
 
 export const brandSheetHeaders: Record<string, string> = {

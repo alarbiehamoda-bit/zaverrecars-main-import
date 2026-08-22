@@ -12,16 +12,16 @@ const zaverreMark = readFileSync(new URL("./ZaverreMark.tsx", import.meta.url), 
 
 describe("vehicle brand and image presentation", () => {
   it("uses a source for every catalogue marque that needs a visual mark", () => {
-    expect(component).toContain('"Maserati": "/manus-storage/maserati_3bed1dcf.webp"');
+    expect(component).toContain('"Maserati": "/manus-storage/maserati_63a12301.webp"');
   });
 
   it("prioritizes the supplied official icon assets for every supported catalogue marque", () => {
-    expect(component).toContain('"Ferrari": "/manus-storage/ferrari_6b2a95e0.webp"');
-    expect(component).toContain('"Audi": "/manus-storage/audi_4903d7ea.png"');
-    expect(component).toContain('"Lamborghini": "/manus-storage/lamborghini_3d05649c.webp"');
-    expect(component).toContain('"Bentley": "/manus-storage/bentley_e2a200f5.png"');
-    expect(component).toContain('"Brabus": "/manus-storage/brabus_01b948c8.png"');
-    expect(component).toContain('"Mansory": "/manus-storage/mansory_e051e234.png"');
+    expect(component).toContain('"Ferrari": "/manus-storage/ferrari_76367fe2.webp"');
+    expect(component).toContain('"Audi": "/manus-storage/audi_050ae235.webp"');
+    expect(component).toContain('"Lamborghini": "/manus-storage/lamborghini_28d5ee79.webp"');
+    expect(component).toContain('"Bentley": "/manus-storage/bentley_d68a814c.webp"');
+    expect(component).toContain('"Brabus": "/manus-storage/brabus_60a83651.webp"');
+    expect(component).toContain('"Mansory": "/manus-storage/mansory_b1d8c549.webp"');
   });
 
   it("keeps vehicle photos uncropped and makes marque badges a prominent, consistent marque plate", () => {
@@ -91,9 +91,9 @@ describe("vehicle brand and image presentation", () => {
     expect(component).toContain("<span className=\"brand-filter-card-icon\" style={iconWellStyle}><BrandMark brandName={brand.brandName}");
     expect(rebuiltCardStyles).toContain(".brand-filter-card-icon > :is(.brand-filter-mark");
     expect(rebuiltCardStyles).toContain("filter: contrast(1.14) saturate(1.06)");
-    expect(component).toContain('"Rolls-Royce": "/manus-storage/rolls-royce_34550af7.png"');
-    expect(component).toContain('"Maserati": "/manus-storage/maserati_3bed1dcf.webp"');
-    expect(component).toContain('"Mercedes-Benz": "/manus-storage/mercedes-benz_c827413f.png"');
+    expect(component).toContain('"Rolls-Royce": "/manus-storage/rolls-royce_4c877ceb.webp"');
+    expect(component).toContain('"Maserati": "/manus-storage/maserati_63a12301.webp"');
+    expect(component).toContain('"Mercedes-Benz": "/manus-storage/mercedes-benz_e6c76c17.webp"');
   });
 
   it("maps every branded filter through one independent icon and the same BrandMark source", () => {
