@@ -73,24 +73,22 @@ describe("vehicle brand and image presentation", () => {
     expect(glassStyles).toContain("#0b385a");
   });
 
-  it("uses a contrast-safe independent filter source for both themes", () => {
+  it("uses the same original marque source inside one contrast-safe independent icon for both themes", () => {
     expect(component).toContain('className="brand-filter-card-icon"');
-    expect(component).toContain('const brandFilterAssets: Record<string, string>');
-    expect(component).toContain('"Aston Martin": "/manus-storage/aston-martin-filter-wing-crop_36877b8b.png"');
-    expect(component).toContain('<BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} sourceOverride={brandFilterAssets[brand.brandName]} className="brand-filter-mark" />');
+    expect(component).toContain('<BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} className="brand-filter-mark" />');
     expect(rebuiltCardStyles).toContain("Independent filter icon primitive");
     expect(rebuiltCardStyles).toContain("object-fit: contain");
     expect(rebuiltCardStyles).toContain(".brand-filter-card-icon::before");
     expect(rebuiltCardStyles).toContain("#0b4f78");
   });
 
-  it("keeps every sensitive light or dark marque on a protected filter source", () => {
-    expect(component).toContain("const source = sourceOverride || brandHeaderAssets[brandName] || logoUrl");
+  it("keeps every sensitive light or dark marque on the same protected filter source", () => {
+    expect(component).toContain("const source = brandHeaderAssets[brandName] || logoUrl");
     for (const marque of ["Rolls-Royce", "Mercedes-Benz", "Bentley", "Aston Martin", "Audi", "Porsche", "Maserati", "Lamborghini"]) {
       expect(component).toContain(`\"${marque}\": \"/manus-storage/`);
     }
     expect(component).toContain("filterBrands.map((brand) => <a href={`/cars/${brandRouteSlug(brand.brandName)}`");
-    expect(component).toContain("<span className=\"brand-filter-card-icon\" style={iconWellStyle}><BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} sourceOverride={brandFilterAssets[brand.brandName]}");
+    expect(component).toContain("<span className=\"brand-filter-card-icon\" style={iconWellStyle}><BrandMark brandName={brand.brandName}");
     expect(rebuiltCardStyles).toContain(".brand-filter-card-icon > :is(.brand-filter-mark");
     expect(rebuiltCardStyles).toContain("filter: contrast(1.14) saturate(1.06)");
     expect(component).toContain('"Rolls-Royce": "/manus-storage/rolls-royce_4c877ceb.webp"');
@@ -103,20 +101,20 @@ describe("vehicle brand and image presentation", () => {
     for (const marque of requiredMarques) {
       expect(component).toContain(`\"${marque}\": \"/manus-storage/`);
     }
-    expect(component).toContain("const source = sourceOverride || brandHeaderAssets[brandName] || logoUrl");
-    expect(component).toContain('<span className="brand-filter-card-icon" style={iconWellStyle}><BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} sourceOverride={brandFilterAssets[brand.brandName]} className="brand-filter-mark" /></span>');
+    expect(component).toContain("const source = brandHeaderAssets[brandName] || logoUrl");
+    expect(component).toContain('<span className="brand-filter-card-icon" style={iconWellStyle}><BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} className="brand-filter-mark" /></span>');
     expect(rebuiltCardStyles).toContain(".brand-filter-card-icon");
     expect(rebuiltCardStyles).toContain("object-fit: contain");
   });
 
   it("keeps marque icon changes centralized and reflected in filter cards, vehicle cards, and brand headers", () => {
     expect(component).toContain("Single editable source for each marque icon");
-    expect(component).toContain("const source = sourceOverride || brandHeaderAssets[brandName] || logoUrl");
+    expect(component).toContain("const source = brandHeaderAssets[brandName] || logoUrl");
     expect(component).toContain("useEffect(() => setAvailable(Boolean(source)), [source])");
     expect(component).toContain('<BrandMark brandName={displayedBrand} logoUrl={displayedBrandLogo} className="vehicle-brand-ribbon-mark" />');
     expect(component).toContain('const displayedBrand = brandBadge?.brandName || vehicle.brand');
     expect(component).toContain('brandBadge={brandBadge}');
-    expect(component).toContain('<BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} sourceOverride={brandFilterAssets[brand.brandName]} className="brand-filter-mark" />');
+    expect(component).toContain('<BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} className="brand-filter-mark" />');
     expect(component).toContain('loading="lazy"');
     expect(glassStyles).toContain('object-fit: contain');
   });
@@ -129,8 +127,7 @@ describe("vehicle brand and image presentation", () => {
     expect(glassStyles).toContain(':is(.brand-mark--bmw, .brand-mark--lamborghini)');
     expect(glassStyles).toContain('height: 76% !important');
     expect(component).toContain('const usesSeekLogoCanvas = (source: string | undefined) => Boolean(source?.includes("seeklogo"));');
-    expect(component).toContain('const usesUserAstonFilterMark = Boolean(source?.includes("aston-martin-filter-wing-crop"));');
-    expect(component).toContain('brand-mark--user-aston-filter');
+    expect(component).toContain('const sourceTreatmentClass = usesBuiltInSeekLogoCanvas ? "brand-mark--seeklogo-canvas" : ""');
     expect(styles).toContain('.brand-emblem-well .brand-mark--ferrari');
     expect(styles).toContain('.brand-mark--seeklogo-canvas');
     expect(styles).toContain('transform: scale(1.55) !important');
