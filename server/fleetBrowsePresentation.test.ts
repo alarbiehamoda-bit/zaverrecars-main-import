@@ -60,7 +60,7 @@ describe("fleet browse presentation", () => {
   it("uses transparent mark assets for the verified marque circles and a restrained card-hover scale", () => {
     expect(vehicleSystemSource).toContain("/manus-storage/porsche-official_52f01e47.png");
     expect(vehicleSystemSource).toContain("/manus-storage/lamborghini-official_f1c7d272.png");
-    expect(vehicleSystemSource).toContain("/manus-storage/image-extractpics-17_f4533e21.webp");
+    expect(vehicleSystemSource).toContain("/manus-storage/mercedes-benz-seeklogo_144df8a1.png");
     expect(vehicleSystemSource).toContain("/manus-storage/rolls-royce-official_e602eacf.webp");
     expect(vehicleSystemSource).toContain("/manus-storage/range-rover-official_2a35d952.webp");
     expect(vehicleSystemSource).toContain("brand-mark-fallback");

@@ -45,3 +45,7 @@ The detail-page return control now has a deliberate two-step behavior: one press
 ## Unified marque-icon verification
 
 The supplied official marks for Audi, BMW, Lamborghini, Maserati, Porsche, Range Rover, Rolls-Royce, Cadillac, McLaren, and Bentley are now routed through the shared brand icon wells. Desktop and 375px mobile previews confirmed a single consistent backdrop with readable wide wordmarks and shield/circular marks kept within their boundaries. The Audi fleet route also confirmed that the selected brand mark matches both its filter card and each vehicle card.
+
+## Automotive-icon language refinement
+
+The initial generated backplate was replaced because its central three-dimensional object competed with the marque artwork. The refined 375px mobile preview shows the updated flat midnight-blue automotive surface with an empty center, subtle gold rim, and original mark layered above it. This keeps the Audi wordmark and compact filter icon visually aligned without adding an invented badge or text.

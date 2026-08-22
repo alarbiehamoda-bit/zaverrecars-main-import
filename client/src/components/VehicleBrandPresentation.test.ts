@@ -15,12 +15,12 @@ describe("vehicle brand and image presentation", () => {
   });
 
   it("prioritizes the supplied official icon assets for every supported catalogue marque", () => {
-    expect(component).toContain('"Ferrari": "/manus-storage/ferrari-optimized_317e7910.webp"');
+    expect(component).toContain('"Ferrari": "/manus-storage/ferrari-seeklogo_a02187e7.png"');
     expect(component).toContain('"Audi": "/manus-storage/audi-official_e7f4fc02.webp"');
     expect(component).toContain('"Lamborghini": "/manus-storage/lamborghini-official_f1c7d272.png"');
     expect(component).toContain('"Bentley": "/manus-storage/bentley-official_175d4ef0.webp"');
-    expect(component).toContain('"Brabus": "/manus-storage/image-extractpics-27_43c08169.webp"');
-    expect(component).toContain('"Mansory": "/manus-storage/image-extractpics-25_e551cd05.webp"');
+    expect(component).toContain('"Brabus": "/manus-storage/brabus-seeklogo_b14da961.png"');
+    expect(component).toContain('"Mansory": "/manus-storage/mansory-seeklogo_04657e8d.png"');
   });
 
   it("keeps vehicle photos uncropped and makes marque badges a prominent, consistent marque plate", () => {
@@ -84,6 +84,10 @@ describe("vehicle brand and image presentation", () => {
     expect(glassStyles).toContain("mix-blend-mode: normal !important");
     expect(glassStyles).toContain('html[data-theme="light"] .fleet-browse-page .brand-logo-rail .brand-filter-icon-well');
     expect(glassStyles).toContain('html:not([data-theme="light"]) .fleet-browse-page .brand-logo-rail .brand-filter-icon-well');
+    expect(styles).toContain("luxury-car-brand-icon-backplate-flat_d566d058.png");
+    expect(styles).toContain("Automotive icon language");
+    expect(styles).toContain(".brand-emblem-well::after");
+    expect(styles).toContain(".brand-emblem-well > .brand-filter-mark");
   });
 
   it("keeps every sensitive light or dark marque on the same protected filter source", () => {
@@ -97,7 +101,7 @@ describe("vehicle brand and image presentation", () => {
     expect(glassStyles).toContain("filter: contrast(1.12) saturate(1.08)");
     expect(component).toContain('"Rolls-Royce": "/manus-storage/rolls-royce-official_e602eacf.webp"');
     expect(component).toContain('"Maserati": "/manus-storage/maserati-official_d4054f33.png"');
-    expect(component).toContain('"Mercedes-Benz": "/manus-storage/image-extractpics-17_f4533e21.webp"');
+    expect(component).toContain('"Mercedes-Benz": "/manus-storage/mercedes-benz-seeklogo_144df8a1.png"');
   });
 
   it("maps every branded filter through one icon-well and the same BrandMark source", () => {
@@ -128,6 +132,13 @@ describe("vehicle brand and image presentation", () => {
     expect(glassStyles).toContain('max-height: 54% !important');
     expect(glassStyles).toContain(':is(.brand-mark--bmw, .brand-mark--lamborghini)');
     expect(glassStyles).toContain('height: 76% !important');
+    expect(component).toContain('const seekLogoCanvasBrands = new Set(["Ferrari", "Mercedes-Benz", "Aston Martin", "Brabus", "Mansory"])');
+    expect(component).toContain('const sourceTreatmentClass = usesBuiltInSeekLogoCanvas ? "brand-mark--seeklogo-canvas" : ""');
+    expect(styles).toContain('.brand-emblem-well .brand-mark--ferrari');
+    expect(styles).toContain('.brand-mark--seeklogo-canvas');
+    expect(styles).toContain('transform: scale(1.42) !important');
+    expect(styles).toContain('transform: scale(1.55) !important');
+    expect(glassStyles).toContain('.brand-mark--mercedes-benz, .brand-mark--aston-martin, .brand-mark--brabus, .brand-mark--mansory');
   });
 
   it("visually elevates the selected marque without changing its filter route", () => {

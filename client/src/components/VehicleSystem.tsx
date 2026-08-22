@@ -14,19 +14,19 @@ import { vehicleSpecificationValue } from "@/lib/fleetPresentation";
 export const brandHeaderAssets: Record<string, string> = {
   "Lamborghini": "/manus-storage/lamborghini-official_f1c7d272.png",
   "Maserati": "/manus-storage/maserati-official_d4054f33.png",
-  "Ferrari": "/manus-storage/ferrari-optimized_317e7910.webp",
+  "Ferrari": "/manus-storage/ferrari-seeklogo_a02187e7.png",
   "McLaren": "/manus-storage/mclaren-official_7f02052d.webp",
-  "Mercedes-Benz": "/manus-storage/image-extractpics-17_f4533e21.webp",
+  "Mercedes-Benz": "/manus-storage/mercedes-benz-seeklogo_144df8a1.png",
   "Porsche": "/manus-storage/porsche-official_52f01e47.png",
   "Rolls-Royce": "/manus-storage/rolls-royce-official_e602eacf.webp",
   "Range Rover": "/manus-storage/range-rover-official_2a35d952.webp",
   "Audi": "/manus-storage/audi-official_e7f4fc02.webp",
   "BMW": "/manus-storage/bmw-official_f00ece9d.png",
   "Bentley": "/manus-storage/bentley-official_175d4ef0.webp",
-  "Aston Martin": "/manus-storage/image-extractpics-4_8b34e11c.webp",
+  "Aston Martin": "/manus-storage/aston-martin-seeklogo_9b2c0c6c.png",
   "Cadillac": "/manus-storage/image-extractpics-20_bfbf8a84.webp",
-  "Brabus": "/manus-storage/image-extractpics-27_43c08169.webp",
-  "Mansory": "/manus-storage/image-extractpics-25_e551cd05.webp",
+  "Brabus": "/manus-storage/brabus-seeklogo_b14da961.png",
+  "Mansory": "/manus-storage/mansory-seeklogo_04657e8d.png",
 };
 
 export const brandSheetHeaders: Record<string, string> = {
@@ -44,13 +44,16 @@ export const brandSheetHeaders: Record<string, string> = {
 };
 
 const highContrastMarkBrands = new Set([
-  "Aston Martin",
   "Bentley",
   "Maserati",
   "McLaren",
-  "Mercedes-Benz",
   "Range Rover",
 ]);
+
+// SeekLogo's displayed PNG previews use a white canvas around an otherwise
+// high-quality mark. This class is applied only to built-in imports so user
+// uploads keep their source pixels and are never altered by the static map.
+const seekLogoCanvasBrands = new Set(["Ferrari", "Mercedes-Benz", "Aston Martin", "Brabus", "Mansory"]);
 
 const categoryLabel: Record<Vehicle["category"], string> = { Performance: "Performance", "Luxury SUV": "Luxury SUV", Convertible: "Convertible" };
 const price = (value: number) => new Intl.NumberFormat("en-AE", { maximumFractionDigits: 0 }).format(value);
@@ -59,11 +62,13 @@ export function BrandMark({ brandName, logoUrl, className = "" }: { brandName: s
   // The administrative source intentionally wins over the built-in catalogue mark.
   // This keeps one user-approved logo consistent in filters, vehicle cards and headers.
   const source = logoUrl || brandHeaderAssets[brandName];
+  const usesBuiltInSeekLogoCanvas = Boolean(source && source === brandHeaderAssets[brandName] && seekLogoCanvasBrands.has(brandName));
   const [available, setAvailable] = useState(Boolean(source));
   useEffect(() => setAvailable(Boolean(source)), [source]);
   const identityClass = `brand-mark--${brandName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`;
   const contrastClass = highContrastMarkBrands.has(brandName) ? "brand-mark--high-contrast" : "";
-  if (available && source) return <img className={`${identityClass} ${contrastClass} ${className}`.trim()} src={source} alt={`${brandName} mark`} loading="lazy" decoding="async" onError={() => setAvailable(false)} />;
+  const sourceTreatmentClass = usesBuiltInSeekLogoCanvas ? "brand-mark--seeklogo-canvas" : "";
+  if (available && source) return <img className={`${identityClass} ${contrastClass} ${sourceTreatmentClass} ${className}`.trim()} src={source} alt={`${brandName} mark`} loading="lazy" decoding="async" onError={() => setAvailable(false)} />;
   const initials = brandName.split(/\s|-/).filter(Boolean).map((word) => word[0]).join("").slice(0, 2).toUpperCase();
   return <span className={`brand-mark-fallback ${identityClass} ${className}`.trim()} aria-label={`${brandName} mark`} title={brandName}>{initials}</span>;
 }
