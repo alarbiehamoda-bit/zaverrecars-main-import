@@ -31,6 +31,10 @@ export const brandHeaderAssets: Record<string, string> = {
   "Mansory": "/manus-storage/mansory_b1d8c549.webp",
 };
 
+const brandFilterAssets: Record<string, string> = {
+  "Aston Martin": "/manus-storage/aston-martin-filter-wing-crop_36877b8b.png",
+};
+
 export const brandSheetHeaders: Record<string, string> = {
   "Lamborghini": "/manus-storage/lamborghini-brand-header-from-user-reference_4e144aba.jpg",
   "Ferrari": "/manus-storage/ferrari-brand-header-from-user-reference_e6ebcd07.jpg",
@@ -59,17 +63,18 @@ const usesSeekLogoCanvas = (source: string | undefined) => Boolean(source?.inclu
 const categoryLabel: Record<Vehicle["category"], string> = { Performance: "Performance", "Luxury SUV": "Luxury SUV", Convertible: "Convertible" };
 const price = (value: number) => new Intl.NumberFormat("en-AE", { maximumFractionDigits: 0 }).format(value);
 
-export function BrandMark({ brandName, logoUrl, className = "" }: { brandName: string; logoUrl?: string | null; className?: string }) {
+export function BrandMark({ brandName, logoUrl, className = "", sourceOverride }: { brandName: string; logoUrl?: string | null; className?: string; sourceOverride?: string }) {
   // The verified reference asset is authoritative for the catalogue brands so
   // filters, headers and cards always share the same original source. An
   // administrator-provided asset remains the fallback for unlisted marques.
-  const source = brandHeaderAssets[brandName] || logoUrl;
+  const source = sourceOverride || brandHeaderAssets[brandName] || logoUrl;
   const usesBuiltInSeekLogoCanvas = Boolean(source && source === brandHeaderAssets[brandName] && usesSeekLogoCanvas(source));
+  const usesUserAstonFilterMark = Boolean(source?.includes("aston-martin-filter-wing-crop"));
   const [available, setAvailable] = useState(Boolean(source));
   useEffect(() => setAvailable(Boolean(source)), [source]);
   const identityClass = `brand-mark--${brandName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`;
   const contrastClass = highContrastMarkBrands.has(brandName) ? "brand-mark--high-contrast" : "";
-  const sourceTreatmentClass = usesBuiltInSeekLogoCanvas ? "brand-mark--seeklogo-canvas" : "";
+  const sourceTreatmentClass = `${usesBuiltInSeekLogoCanvas ? "brand-mark--seeklogo-canvas" : ""} ${usesUserAstonFilterMark ? "brand-mark--user-aston-filter" : ""}`.trim();
   if (available && source) return <img className={`${identityClass} ${contrastClass} ${sourceTreatmentClass} ${className}`.trim()} src={source} alt={`${brandName} mark`} loading="lazy" decoding="async" onError={() => setAvailable(false)} />;
   const initials = brandName.split(/\s|-/).filter(Boolean).map((word) => word[0]).join("").slice(0, 2).toUpperCase();
   return <span className={`brand-mark-fallback ${identityClass} ${className}`.trim()} aria-label={`${brandName} mark`} title={brandName}>{initials}</span>;
@@ -169,9 +174,9 @@ export function BrandFilterRail({ activeBrand, onSelect, brands, vehicles }: { a
   };
 
   return <div ref={railRef} className={`brand-cards brand-cards--${theme} brand-logo-rail brand-filter-rail${isDragging ? " is-dragging" : ""}`} aria-label="Brand Cards" data-filter-part="brand-cards" onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={endDrag}>
-    <a href="/cars" key="All" className={activeBrand === "All" ? "active" : ""} style={brandCardStyle} onClick={(event) => selectBrand(event, "All")} aria-current={activeBrand === "All" ? "page" : undefined} aria-label={`Show all ${brandVehicleCounts.All} vehicles`}><span className="brand-filter-card-surface" aria-hidden="true" /><span className="brand-filter-card-icon" style={iconWellStyle} aria-hidden="true"><CarFront size={28} strokeWidth={1.45} /></span><small>ALL</small><b className="brand-filter-model-count">{brandVehicleCounts.All} {brandVehicleCounts.All === 1 ? "MODEL" : "MODELS"}</b></a>
+    <a href="/cars" key="All" className={activeBrand === "All" ? "active" : ""} style={brandCardStyle} onClick={(event) => selectBrand(event, "All")} aria-current={activeBrand === "All" ? "page" : undefined} aria-label={`Show all ${brandVehicleCounts.All} vehicles`}><span className="brand-filter-card-icon" style={iconWellStyle} aria-hidden="true"><CarFront size={28} strokeWidth={1.45} /></span><small>ALL</small><b className="brand-filter-model-count">{brandVehicleCounts.All} {brandVehicleCounts.All === 1 ? "MODEL" : "MODELS"}</b></a>
     {filterBrands.map((brand) => <a href={`/cars/${brandRouteSlug(brand.brandName)}`} key={brand.brandName} className={activeBrand === brand.brandName ? "active" : ""} style={brandCardStyle} onClick={(event) => selectBrand(event, brand.brandName)} aria-current={activeBrand === brand.brandName ? "page" : undefined} aria-label={`Show ${brandVehicleCounts[brand.brandName]} ${brand.displayName} vehicles`}>
-      <span className="brand-filter-card-surface" aria-hidden="true" /><span className="brand-filter-card-icon" style={iconWellStyle}><BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} className="brand-filter-mark" /></span>
+      <span className="brand-filter-card-icon" style={iconWellStyle}><BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} sourceOverride={brandFilterAssets[brand.brandName]} className="brand-filter-mark" /></span>
       <small>{brand.displayName}</small><b className="brand-filter-model-count">{brandVehicleCounts[brand.brandName]} {brandVehicleCounts[brand.brandName] === 1 ? "MODEL" : "MODELS"}</b>
     </a>)}
   </div>;
