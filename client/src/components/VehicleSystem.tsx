@@ -167,7 +167,11 @@ export function BrandFilterRail({ activeBrand, onSelect, brands, vehicles }: { a
   };
 
   const selectBrand = (event: React.MouseEvent<HTMLAnchorElement>, brandName: string) => {
-    if (dragRef.current.moved) { event.preventDefault(); return; }
+    if (dragRef.current.moved) {
+      dragRef.current.moved = false;
+      event.preventDefault();
+      return;
+    }
     event.preventDefault();
     onSelect(brandName);
   };
@@ -177,7 +181,7 @@ export function BrandFilterRail({ activeBrand, onSelect, brands, vehicles }: { a
     <div ref={railRef} className={`brand-cards brand-cards--${theme} brand-logo-rail brand-filter-rail${isDragging ? " is-dragging" : ""}`} aria-label="Brand Cards" onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={endDrag}>
       {filterBrands.map((brand) => <a href={`/cars/${brandRouteSlug(brand.brandName)}`} key={brand.brandName} className={activeBrand === brand.brandName ? "active" : ""} style={brandCardStyle} onClick={(event) => selectBrand(event, brand.brandName)} aria-current={activeBrand === brand.brandName ? "page" : undefined} aria-label={`Show ${brandVehicleCounts[brand.brandName]} ${brand.displayName} vehicles`}>
         <span className="brand-filter-card-icon" style={iconWellStyle}><BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} sourceOverride={brandFilterAssets[brand.brandName]} className="brand-filter-mark" /></span>
-        <small>{brand.displayName}</small><b className="brand-filter-model-count">{brandVehicleCounts[brand.brandName]} {brandVehicleCounts[brand.brandName] === 1 ? "MODEL" : "MODELS"}</b>
+        <span className="brand-filter-card-meta"><small>{brand.displayName}</small><b className="brand-filter-model-count">{brandVehicleCounts[brand.brandName]} {brandVehicleCounts[brand.brandName] === 1 ? "MODEL" : "MODELS"}</b></span>
       </a>)}
     </div>
   </div>;

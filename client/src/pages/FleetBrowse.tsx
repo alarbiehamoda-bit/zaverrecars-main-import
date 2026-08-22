@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { ArrowDownRight, ArrowUp, ChevronLeft, MessageCircle, Phone, Search } from "lucide-react";
+import { ArrowDownRight, ArrowUp, ChevronLeft, MessageCircle, Phone } from "lucide-react";
 import { useLocation } from "wouter";
 import "./FleetBrowse.css";
 import { ZaverreMark } from "@/components/ZaverreMark";
@@ -43,20 +43,16 @@ export default function FleetBrowse() {
   const isCategoryRoute = pathSegments[1] === "category";
   const brandSlug = isCategoryRoute ? undefined : pathSegments[1];
   const categorySlug = isCategoryRoute ? pathSegments[2] : undefined;
-  const [query, setQuery] = useState("");
   const [showBackToTop, setShowBackToTop] = useState(false);
   const activeBrand = brandSlug ? brands.find((brand) => brandRouteSlug(brand.brandName) === brandSlug)?.brandName : undefined;
   const activeBrandMeta = activeBrand ? brands.find((brand) => brand.brandName === activeBrand) : undefined;
   const activeCategory = fleetCategoryFromSlug(categorySlug);
-  const normalized = query.trim().toLowerCase();
   const activeBrandCount = activeBrand ? vehicleCatalog.filter((vehicle) => vehicle.brand === activeBrand || vehicleFilterBrands(vehicle).includes(activeBrand)).length : 0;
   const vehicles = useMemo(() => vehicleCatalog.filter((vehicle) => {
     const brandMatches = !activeBrand || vehicle.brand === activeBrand || vehicleFilterBrands(vehicle).includes(activeBrand);
     const categoryMatches = !activeCategory || vehicle.category === activeCategory.category;
-    const searchSource = [vehicle.brand, vehicle.model, vehicle.fullName, vehicle.category, vehicle.color, ...vehicle.specifications.map((item) => `${item.label} ${item.value}`)].filter(Boolean).join(" ").toLowerCase();
-    const searchMatches = !normalized || searchSource.includes(normalized);
-    return brandMatches && categoryMatches && searchMatches;
-  }).sort((a, b) => a.index - b.index), [activeBrand, activeCategory, normalized, vehicleCatalog]);
+    return brandMatches && categoryMatches;
+  }).sort((a, b) => a.index - b.index), [activeBrand, activeCategory, vehicleCatalog]);
   const pageTitle = activeBrand || activeCategory?.label || "All cars";
   const collectionTransitionKey = activeBrand ? `brand-${brandRouteSlug(activeBrand)}` : activeCategory ? `category-${activeCategory.slug}` : "all-cars";
 
@@ -122,11 +118,10 @@ export default function FleetBrowse() {
     </section>
     <section className="fleet-browse-content" aria-labelledby="fleet-browse-title">
       <div className="fleet-browse-toolbar filter-top" aria-label="Filter Top" data-filter-part="filter-top">
-        <div><p className="eyebrow"><span>FILTER TOP</span><i aria-hidden="true">/</i><span>BRAND CARDS</span></p><h2 id="fleet-browse-title">Browse <em>the fleet.</em></h2></div>
-        <label className="search-field"><Search size={17} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search brand, model, engine…" aria-label="Search vehicles by brand, model, category, or verified specification" /></label>
+        <div><p className="eyebrow"><span>FILTER TOP</span><i aria-hidden="true">/</i><span>BRAND CARDS</span></p><h2 id="fleet-browse-title">Browse <em>the fleet.</em></h2><p className="fleet-brand-filter-note">Select a marque to filter the collection.</p></div>
       </div>
       <div className="filter-holder" aria-label="Filter Holder" data-filter-part="filter-holder"><BrandFilterRail activeBrand={activeBrand || "All"} onSelect={selectBrand} brands={brands} vehicles={vehicleCatalog} /></div>
-      {vehicles.length ? <div key={collectionTransitionKey} className="fleet-collection-transition" data-active-brand={activeBrand || "all"}><MasterVehicleGrid vehicles={vehicles} layout="vertical" onDetails={openVehicleDetails} onBook={bookVehicle} brandBadge={activeBrand ? { brandName: activeBrand, logoUrl: activeBrandMeta?.logoUrl } : undefined} /></div> : <div className="empty-state">No verified ZAVERRE vehicle matches this search.</div>}
+      {vehicles.length ? <div key={collectionTransitionKey} className="fleet-collection-transition" data-active-brand={activeBrand || "all"}><MasterVehicleGrid vehicles={vehicles} layout="vertical" onDetails={openVehicleDetails} onBook={bookVehicle} brandBadge={activeBrand ? { brandName: activeBrand, logoUrl: activeBrandMeta?.logoUrl } : undefined} /></div> : <div className="empty-state">No verified ZAVERRE vehicle matches this marque.</div>}
     </section>
     {showBackToTop && <div className="fleet-floating-actions" aria-label="Fleet return and contact actions">
       <button type="button" className="fleet-back-to-top" onClick={backToTop} aria-label="Back to the top of the vehicle collection"><ArrowUp size={16} /><span>BACK TO TOP</span></button>
