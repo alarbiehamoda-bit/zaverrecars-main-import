@@ -12,16 +12,16 @@ const zaverreMark = readFileSync(new URL("./ZaverreMark.tsx", import.meta.url), 
 
 describe("vehicle brand and image presentation", () => {
   it("uses a source for every catalogue marque that needs a visual mark", () => {
-    expect(component).toContain('"Maserati": "/manus-storage/maserati-official_d4054f33.png"');
+    expect(component).toContain('"Maserati": "/manus-storage/maserati_3864a3a5.webp"');
   });
 
   it("prioritizes the supplied official icon assets for every supported catalogue marque", () => {
-    expect(component).toContain('"Ferrari": "/manus-storage/ferrari-seeklogo_a02187e7.png"');
-    expect(component).toContain('"Audi": "/manus-storage/audi-official_e7f4fc02.webp"');
-    expect(component).toContain('"Lamborghini": "/manus-storage/lamborghini-official_f1c7d272.png"');
-    expect(component).toContain('"Bentley": "/manus-storage/bentley-transparent_6830e836.png"');
-    expect(component).toContain('"Brabus": "/manus-storage/brabus-seeklogo-monogram_03c491c6.png"');
-    expect(component).toContain('"Mansory": "/manus-storage/mansory-seeklogo-transparent_40d7641a.png"');
+    expect(component).toContain('"Ferrari": "/manus-storage/ferrari_7bfeaa4b.webp"');
+    expect(component).toContain('"Audi": "/manus-storage/audi_b18b1c69.png"');
+    expect(component).toContain('"Lamborghini": "/manus-storage/lamborghini_61e83cab.webp"');
+    expect(component).toContain('"Bentley": "/manus-storage/bentley_3079b1ac.png"');
+    expect(component).toContain('"Brabus": "/manus-storage/brabus_8387aead.png"');
+    expect(component).toContain('"Mansory": "/manus-storage/mansory_66cf7105.png"');
   });
 
   it("keeps vehicle photos uncropped and makes marque badges a prominent, consistent marque plate", () => {
@@ -54,13 +54,13 @@ describe("vehicle brand and image presentation", () => {
   });
 
   it("gives rebuilt Brand Cards a neutral daylight surface and blue dark-mode icon wells", () => {
-    expect(rebuiltCardStyles).toContain("Brand Cards 2.0");
-    expect(rebuiltCardStyles).toContain("#dce9e8");
+    expect(rebuiltCardStyles).toContain("Brand Cards 3.0");
+    expect(rebuiltCardStyles).toContain("#b9cbd2");
     expect(rebuiltCardStyles).toContain("#0b4f78");
     expect(rebuiltCardStyles).toContain(".brand-cards.brand-cards--dark.brand-logo-rail .brand-filter-card-icon");
     expect(component).toContain('className={`brand-cards brand-cards--${theme} brand-logo-rail brand-filter-rail');
     expect(component).toContain('<a href={`/cars/${brandRouteSlug(brand.brandName)}`}');
-    expect(rebuiltCardStyles).toContain("No mark receives a green or square backdrop");
+    expect(rebuiltCardStyles).toContain("No mark receives a green or square");
   });
 
   it("keeps showroom filter links on a neutral glass surface with enlarged contained marks", () => {
@@ -88,12 +88,12 @@ describe("vehicle brand and image presentation", () => {
       expect(component).toContain(`\"${marque}\": \"/manus-storage/`);
     }
     expect(component).toContain("filterBrands.map((brand) => <a href={`/cars/${brandRouteSlug(brand.brandName)}`");
-    expect(component).toContain("<span className=\"brand-filter-card-icon\"><BrandMark brandName={brand.brandName}");
+    expect(component).toContain("<span className=\"brand-filter-card-icon\" style={iconWellStyle}><BrandMark brandName={brand.brandName}");
     expect(rebuiltCardStyles).toContain(".brand-filter-card-icon > :is(.brand-filter-mark");
-    expect(rebuiltCardStyles).toContain("filter: contrast(1.12) saturate(1.05)");
-    expect(component).toContain('"Rolls-Royce": "/manus-storage/rolls-royce-official_e602eacf.webp"');
-    expect(component).toContain('"Maserati": "/manus-storage/maserati-official_d4054f33.png"');
-    expect(component).toContain('"Mercedes-Benz": "/manus-storage/mercedes-benz-seeklogo_144df8a1.png"');
+    expect(rebuiltCardStyles).toContain("filter: contrast(1.14) saturate(1.06)");
+    expect(component).toContain('"Rolls-Royce": "/manus-storage/rolls-royce_83ca54b8.png"');
+    expect(component).toContain('"Maserati": "/manus-storage/maserati_3864a3a5.webp"');
+    expect(component).toContain('"Mercedes-Benz": "/manus-storage/mercedes-benz_742c8a5e.png"');
   });
 
   it("maps every branded filter through one independent icon and the same BrandMark source", () => {
@@ -102,7 +102,7 @@ describe("vehicle brand and image presentation", () => {
       expect(component).toContain(`\"${marque}\": \"/manus-storage/`);
     }
     expect(component).toContain("const source = logoUrl || brandHeaderAssets[brandName]");
-    expect(component).toContain('<span className="brand-filter-card-icon"><BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} className="brand-filter-mark" /></span>');
+    expect(component).toContain('<span className="brand-filter-card-icon" style={iconWellStyle}><BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} className="brand-filter-mark" /></span>');
     expect(rebuiltCardStyles).toContain(".brand-filter-card-icon");
     expect(rebuiltCardStyles).toContain("object-fit: contain");
   });
@@ -124,7 +124,7 @@ describe("vehicle brand and image presentation", () => {
     expect(glassStyles).toContain('max-height: 54% !important');
     expect(glassStyles).toContain(':is(.brand-mark--bmw, .brand-mark--lamborghini)');
     expect(glassStyles).toContain('height: 76% !important');
-    expect(component).toContain('const seekLogoCanvasBrands = new Set(["Ferrari", "Mercedes-Benz", "Aston Martin", "Brabus", "Mansory"])');
+    expect(component).toContain('const usesSeekLogoCanvas = (source: string | undefined) => Boolean(source?.includes("seeklogo"));');
     expect(component).toContain('const sourceTreatmentClass = usesBuiltInSeekLogoCanvas ? "brand-mark--seeklogo-canvas" : ""');
     expect(styles).toContain('.brand-emblem-well .brand-mark--ferrari');
     expect(styles).toContain('.brand-mark--seeklogo-canvas');
@@ -144,8 +144,8 @@ describe("vehicle brand and image presentation", () => {
 
   it("uses Brand Cards semantics and the rebuilt neutral/blue palette", () => {
     expect(component).toContain('aria-label="Brand Cards"');
-    expect(rebuiltCardStyles).toContain("#dce9e8");
-    expect(rebuiltCardStyles).toContain("#9be0fb");
+    expect(rebuiltCardStyles).toContain("#b9cbd2");
+    expect(rebuiltCardStyles).toContain("#5ebce8");
     expect(rebuiltCardStyles).toContain("#0b4f78");
   });
 

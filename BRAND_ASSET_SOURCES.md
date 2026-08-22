@@ -15,6 +15,10 @@
 
 The visual system uses each original automotive mark as the content layer. A consistent ZAVERRE container supplies the backdrop, padding, contrast, and state treatment so that logos from different origins remain visually balanced.
 
+## Approved source collection
+
+استجابةً لطلب المستخدم، نُقلت النسخ الأصلية الشفافة المستخدمة في موقع ZAVERRE المرجعي إلى تخزين مشروع ZAVERRE الحالي لكل العلامات الخمس عشرة، بما فيها Aston Martin وAudi وBentley وBMW وFerrari وMercedes-Benz وMansory. لا تُطبّق معالجة SeekLogo على هذه المجموعة، لأنها أصول مصدر مهيأة بألفا شفافة ومسارات محلية ثابتة.
+
 ## Visual validation
 
 The imported Ferrari emblem and the Mercedes-Benz, Aston Martin, Brabus, and Mansory marks were checked in the public fleet interface on desktop and mobile. The same protected ZAVERRE well is used in brand headers, filter cards, and vehicle marque ribbons. Its light-theme olive surface and dark-theme midnight-glass surface retain readable contrast; the white display canvas of imported SeekLogo preview PNGs is neutralized only for built-in static sources, leaving later administrator uploads untouched.

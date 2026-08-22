@@ -1,236 +1,140 @@
-/* Brand Cards 2.0 — a clean rebuild that intentionally overrides the legacy
-   stacked treatments. The card owns spacing and hierarchy; the circular well
-   owns logo contrast. No mark receives a green or square backdrop. */
+/* Brand Cards 3.0
+   A source-first marque rail: the logo is the only visual subject. The card
+   itself stays quiet, while a precise circular icon well gives every source
+   asset equal visual weight. This replaces every stacked/olive legacy layer. */
 .brand-cards.brand-logo-rail {
-  align-items: stretch !important;
-  gap: 10px !important;
-  padding: 4px 2px 12px !important;
+  align-items: flex-start !important;
+  gap: 8px !important;
+  padding: 5px 1px 11px !important;
 }
 
 .brand-cards.brand-logo-rail > a {
-  align-content: center !important;
-  background: linear-gradient(155deg, #dce9e8 0%, #b9ced0 100%) !important;
-  border: 1px solid rgba(34, 72, 88, .28) !important;
-  border-radius: 18px !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.72), 0 7px 14px rgba(31, 65, 79, .14) !important;
-  color: #173b4e !important;
-  display: grid !important;
-  flex: 0 0 78px !important;
-  gap: 5px !important;
-  grid-template-rows: 48px minmax(9px, auto) minmax(9px, auto) !important;
-  justify-items: center !important;
-  min-height: 88px !important;
-  padding: 8px 5px 7px !important;
-  text-decoration: none !important;
-}
-
-.brand-cards.brand-logo-rail > a > small {
-  color: inherit !important;
-  font-size: 6px !important;
-  font-weight: 900 !important;
-  letter-spacing: .08em !important;
-  line-height: 1 !important;
-  max-width: 68px !important;
-  text-align: center !important;
-}
-
-.brand-cards.brand-logo-rail > a > .brand-filter-model-count {
-  color: rgba(18, 52, 68, .76) !important;
-  font-size: 5.5px !important;
-  font-weight: 900 !important;
-  letter-spacing: .08em !important;
-  line-height: 1 !important;
-  text-align: center !important;
-}
-
-.brand-cards.brand-logo-rail .brand-filter-icon-well.brand-emblem-well {
-  align-items: center !important;
-  aspect-ratio: 1 !important;
-  background: radial-gradient(circle at 30% 23%, rgba(255,255,255,.96) 0 6%, transparent 27%), linear-gradient(145deg, #fffdf7 0%, #ece2cd 52%, #cfb27c 100%) !important;
-  border: 1.5px solid rgba(132, 96, 41, .76) !important;
-  border-radius: 50% !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.96), inset 0 -7px 11px rgba(75,57,31,.16), 0 4px 9px rgba(40,30,15,.16) !important;
-  display: flex !important;
-  height: 48px !important;
-  isolation: isolate !important;
-  justify-content: center !important;
-  overflow: hidden !important;
-  padding: 0 !important;
-  position: relative !important;
-  width: 48px !important;
-}
-
-.brand-cards.brand-logo-rail .brand-filter-icon-well.brand-emblem-well::before {
-  border: 1px solid rgba(115, 81, 32, .32) !important;
-  border-radius: 50% !important;
-  content: "" !important;
-  inset: 8% !important;
-  position: absolute !important;
-  z-index: 0 !important;
-}
-
-.brand-cards.brand-logo-rail .brand-filter-icon-well.brand-emblem-well::after {
-  background: none !important;
-  content: none !important;
-}
-
-.brand-cards.brand-logo-rail .brand-filter-icon-well .brand-filter-mark,
-.brand-cards.brand-logo-rail .brand-filter-icon-well .brand-mark-fallback,
-.brand-cards.brand-logo-rail .brand-filter-icon-well > svg {
+  align-content: start !important;
   background: transparent !important;
   border: 0 !important;
   border-radius: 0 !important;
   box-shadow: none !important;
-  clip-path: none !important;
-  filter: contrast(1.12) saturate(1.05) drop-shadow(0 1px 2px rgba(0,0,0,.24)) !important;
-  height: auto !important;
-  max-height: 73% !important;
-  max-width: 82% !important;
-  mix-blend-mode: normal !important;
-  object-fit: contain !important;
-  padding: 0 !important;
-  position: relative !important;
-  width: auto !important;
-  z-index: 1 !important;
+  color: #12354a !important;
+  display: grid !important;
+  flex: 0 0 62px !important;
+  gap: 4px !important;
+  grid-template-rows: 42px minmax(7px, auto) minmax(7px, auto) !important;
+  justify-items: center !important;
+  min-height: 67px !important;
+  padding: 2px 0 3px !important;
+  text-decoration: none !important;
+  transform: none !important;
 }
 
-.brand-cards.brand-logo-rail .brand-filter-icon-well .brand-mark--seeklogo-canvas { mix-blend-mode: darken !important; }
-.brand-cards.brand-logo-rail .brand-filter-icon-well .brand-mark--ferrari { clip-path: inset(6% 12% 4% round 42%) !important; max-height: 80% !important; max-width: 64% !important; transform: scale(1.06) !important; }
-.brand-cards.brand-logo-rail .brand-filter-icon-well :is(.brand-mark--mercedes-benz, .brand-mark--aston-martin) { max-height: 64% !important; max-width: 94% !important; transform: scale(1.42) !important; }
-.brand-cards.brand-logo-rail .brand-filter-icon-well .brand-mark--mansory { max-height: 59% !important; max-width: 96% !important; transform: scale(2.05) !important; }
-.brand-cards.brand-logo-rail .brand-filter-icon-well .brand-mark--brabus { max-height: 72% !important; max-width: 72% !important; }
-
-.brand-cards.brand-logo-rail > a:hover,
-.brand-cards.brand-logo-rail > a:focus-visible,
-.brand-cards.brand-logo-rail > a.active {
-  background: linear-gradient(155deg, #c9dfe1 0%, #99bdc4 100%) !important;
-  border-color: #246b87 !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.8), 0 0 0 2px rgba(55,161,202,.18), 0 9px 17px rgba(18,74,97,.2) !important;
-  color: #0f3245 !important;
-  transform: translateY(-2px) !important;
+.brand-cards.brand-logo-rail > a > small {
+  color: currentColor !important;
+  font-size: 5.5px !important;
+  font-weight: 900 !important;
+  letter-spacing: .075em !important;
+  line-height: 1 !important;
+  max-width: 62px !important;
+  text-align: center !important;
+  white-space: nowrap !important;
 }
 
-/* Dark mode deliberately uses blue wells. This replaces all legacy olive/green
-   treatments while retaining sufficient contrast for black, white, and colour marks. */
-html[data-theme="dark"] .brand-cards.brand-logo-rail > a,
-html.dark .brand-cards.brand-logo-rail > a,
-html:not([data-theme="light"]) .brand-cards.brand-logo-rail > a {
-  background: linear-gradient(155deg, #132b3d 0%, #0b1d2a 100%) !important;
-  border-color: rgba(103, 190, 233, .36) !important;
-  box-shadow: inset 0 1px 0 rgba(205,244,255,.11), 0 8px 16px rgba(0,0,0,.26) !important;
-  color: #d9f3ff !important;
+.brand-cards.brand-logo-rail > a > .brand-filter-model-count {
+  color: color-mix(in srgb, currentColor 68%, transparent) !important;
+  font-size: 5px !important;
+  font-weight: 900 !important;
+  letter-spacing: .07em !important;
+  line-height: 1 !important;
+  text-align: center !important;
 }
 
-html[data-theme="dark"] .brand-cards.brand-logo-rail > a > .brand-filter-model-count,
-html.dark .brand-cards.brand-logo-rail > a > .brand-filter-model-count,
-html:not([data-theme="light"]) .brand-cards.brand-logo-rail > a > .brand-filter-model-count { color: rgba(207, 238, 251, .74) !important; }
-
-html[data-theme="dark"] .brand-cards.brand-logo-rail .brand-filter-icon-well.brand-emblem-well,
-html.dark .brand-cards.brand-logo-rail .brand-filter-icon-well.brand-emblem-well,
-html:not([data-theme="light"]) .brand-cards.brand-logo-rail .brand-filter-icon-well.brand-emblem-well {
-  background: radial-gradient(circle at 30% 22%, rgba(240,252,255,.92) 0 6%, transparent 28%), linear-gradient(145deg, #9be0fb 0%, #2c91c3 54%, #0b4f78 100%) !important;
-  border-color: rgba(130, 219, 255, .94) !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.94), inset 0 -8px 12px rgba(2,53,88,.34), 0 5px 11px rgba(0,0,0,.26) !important;
-}
-
-html[data-theme="dark"] .brand-cards.brand-logo-rail .brand-filter-icon-well.brand-emblem-well::before,
-html.dark .brand-cards.brand-logo-rail .brand-filter-icon-well.brand-emblem-well::before,
-html:not([data-theme="light"]) .brand-cards.brand-logo-rail .brand-filter-icon-well.brand-emblem-well::before { border-color: rgba(2, 55, 86, .42) !important; }
-
-html[data-theme="dark"] .brand-cards.brand-logo-rail > a:hover,
-html[data-theme="dark"] .brand-cards.brand-logo-rail > a:focus-visible,
-html[data-theme="dark"] .brand-cards.brand-logo-rail > a.active,
-html.dark .brand-cards.brand-logo-rail > a:hover,
-html.dark .brand-cards.brand-logo-rail > a:focus-visible,
-html.dark .brand-cards.brand-logo-rail > a.active,
-html:not([data-theme="light"]) .brand-cards.brand-logo-rail > a:hover,
-html:not([data-theme="light"]) .brand-cards.brand-logo-rail > a:focus-visible,
-html:not([data-theme="light"]) .brand-cards.brand-logo-rail > a.active {
-  background: linear-gradient(155deg, #1c4963 0%, #0c2b3e 100%) !important;
-  border-color: #7bd8ff !important;
-  box-shadow: inset 0 1px 0 rgba(231,250,255,.18), 0 0 0 2px rgba(94,204,247,.2), 0 10px 20px rgba(0,0,0,.32) !important;
-  color: #effbff !important;
-}
-
-/* The rail class is provided by ThemeContext, so cards do not depend on when
-   the global html attribute hydrates. It decisively replaces the legacy green
-   treatment in every dark-mode render. */
-.brand-cards.brand-cards--dark.brand-logo-rail > a {
-  background: linear-gradient(155deg, #132b3d 0%, #0b1d2a 100%) !important;
-  border-color: rgba(103, 190, 233, .36) !important;
-  box-shadow: inset 0 1px 0 rgba(205,244,255,.11), 0 8px 16px rgba(0,0,0,.26) !important;
-  color: #d9f3ff !important;
-}
-.brand-cards.brand-cards--dark.brand-logo-rail > a > .brand-filter-model-count { color: rgba(207, 238, 251, .74) !important; }
-.brand-cards.brand-cards--dark.brand-logo-rail .brand-filter-icon-well.brand-emblem-well {
-  background: radial-gradient(circle at 30% 22%, rgba(240,252,255,.92) 0 6%, transparent 28%), linear-gradient(145deg, #9be0fb 0%, #2c91c3 54%, #0b4f78 100%) !important;
-  border-color: rgba(130, 219, 255, .94) !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.94), inset 0 -8px 12px rgba(2,53,88,.34), 0 5px 11px rgba(0,0,0,.26) !important;
-}
-.brand-cards.brand-cards--dark.brand-logo-rail .brand-filter-icon-well.brand-emblem-well::before { border-color: rgba(2, 55, 86, .42) !important; }
-.brand-cards.brand-cards--dark.brand-logo-rail > a:hover,
-.brand-cards.brand-cards--dark.brand-logo-rail > a:focus-visible,
-.brand-cards.brand-cards--dark.brand-logo-rail > a.active {
-  background: linear-gradient(155deg, #1c4963 0%, #0c2b3e 100%) !important;
-  border-color: #7bd8ff !important;
-  box-shadow: inset 0 1px 0 rgba(231,250,255,.18), 0 0 0 2px rgba(94,204,247,.2), 0 10px 20px rgba(0,0,0,.32) !important;
-  color: #effbff !important;
-}
-
-@media (max-width: 620px) {
-  .brand-cards.brand-logo-rail { gap: 8px !important; padding-bottom: 10px !important; }
-  .brand-cards.brand-logo-rail > a { flex-basis: 70px !important; grid-template-rows: 42px minmax(8px, auto) minmax(8px, auto) !important; min-height: 80px !important; padding: 7px 4px 6px !important; }
-  .brand-cards.brand-logo-rail .brand-filter-icon-well.brand-emblem-well { height: 42px !important; width: 42px !important; }
-  .brand-cards.brand-logo-rail > a > small { font-size: 5.5px !important; max-width: 62px !important; }
-  .brand-cards.brand-logo-rail > a > .brand-filter-model-count { font-size: 5px !important; }
-}
-
-/* Independent filter icon primitive: it deliberately does not use
-   .brand-emblem-well or .brand-filter-icon-well, so no historic card surface,
-   pseudo-layer, or olive colouring can leak into the rebuilt strip. */
+/* Independent filter icon primitive. No mark receives a green or square
+   backdrop; the circular disc is the only backdrop in every state. */
 .brand-cards.brand-logo-rail .brand-filter-card-icon {
   align-items: center;
   aspect-ratio: 1;
-  background: linear-gradient(145deg, #fffdf7 0%, #eee4d0 55%, #cdb17e 100%);
-  border: 1.5px solid rgba(132, 96, 41, .76);
+  background: radial-gradient(circle at 32% 25%, #ffffff 0 8%, #e7edf0 42%, #b9cbd2 100%);
+  border: 1px solid #315d78;
   border-radius: 50%;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.96), inset 0 -7px 11px rgba(75,57,31,.16), 0 4px 9px rgba(40,30,15,.16);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.94), 0 3px 7px rgba(16,54,77,.18);
   display: flex;
-  height: 48px;
+  height: 42px;
+  isolation: isolate;
   justify-content: center;
   overflow: hidden;
   position: relative;
-  width: 48px;
+  width: 42px;
 }
+
 .brand-cards.brand-logo-rail .brand-filter-card-icon::before {
-  border: 1px solid rgba(115, 81, 32, .32);
+  border: 1px solid rgba(20, 63, 89, .3);
   border-radius: 50%;
   content: "";
   inset: 8%;
+  pointer-events: none;
   position: absolute;
+  z-index: 0;
 }
+
 .brand-cards.brand-logo-rail .brand-filter-card-icon > :is(.brand-filter-mark, .brand-mark-fallback, svg) {
   background: transparent !important;
   border: 0 !important;
   box-shadow: none !important;
-  filter: contrast(1.12) saturate(1.05) drop-shadow(0 1px 2px rgba(0,0,0,.24));
+  filter: contrast(1.14) saturate(1.06) drop-shadow(0 1px 1px rgba(0,0,0,.22));
   height: auto;
-  max-height: 73%;
-  max-width: 82%;
+  max-height: 69%;
+  max-width: 78%;
   object-fit: contain;
   position: relative;
   width: auto;
   z-index: 1;
 }
-.brand-cards.brand-logo-rail .brand-filter-card-icon .brand-mark--seeklogo-canvas { mix-blend-mode: darken; }
-.brand-cards.brand-logo-rail .brand-filter-card-icon .brand-mark--ferrari { clip-path: inset(6% 12% 4% round 42%); max-height: 80%; max-width: 64%; transform: scale(1.06); }
-.brand-cards.brand-logo-rail .brand-filter-card-icon :is(.brand-mark--mercedes-benz, .brand-mark--aston-martin) { max-height: 64%; max-width: 94%; transform: scale(1.42); }
-.brand-cards.brand-logo-rail .brand-filter-card-icon .brand-mark--mansory { max-height: 59%; max-width: 96%; transform: scale(2.05); }
-.brand-cards.brand-logo-rail .brand-filter-card-icon .brand-mark--brabus { max-height: 72%; max-width: 72%; }
-.brand-cards.brand-cards--dark.brand-logo-rail .brand-filter-card-icon {
-  background: linear-gradient(145deg, #9be0fb 0%, #2c91c3 54%, #0b4f78 100%);
-  border-color: #8edfff;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.94), inset 0 -8px 12px rgba(2,53,88,.34), 0 5px 11px rgba(0,0,0,.26);
+
+/* Source-asset proportions: wide wordmarks are enlarged without distorting
+   them; the Ferrari shield remains softly clipped within its circular field. */
+.brand-cards.brand-logo-rail .brand-filter-card-icon .brand-mark--ferrari { clip-path: inset(5% 12% 4% round 42%); max-height: 78%; max-width: 61%; transform: scale(1.05); }
+.brand-cards.brand-logo-rail .brand-filter-card-icon :is(.brand-mark--mercedes-benz, .brand-mark--aston-martin) { max-height: 61%; max-width: 91%; transform: scale(1.34); }
+.brand-cards.brand-logo-rail .brand-filter-card-icon .brand-mark--mansory { max-height: 56%; max-width: 94%; transform: scale(1.8); }
+.brand-cards.brand-logo-rail .brand-filter-card-icon .brand-mark--brabus { max-height: 68%; max-width: 72%; transform: scale(1.06); }
+
+.brand-cards.brand-logo-rail > a:hover .brand-filter-card-icon,
+.brand-cards.brand-logo-rail > a:focus-visible .brand-filter-card-icon,
+.brand-cards.brand-logo-rail > a.active .brand-filter-card-icon {
+  border-color: #0b4f78;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.96), 0 0 0 2px rgba(37,150,208,.2), 0 5px 10px rgba(13,78,114,.24);
+  transform: translateY(-1px) scale(1.05);
 }
-.brand-cards.brand-cards--dark.brand-logo-rail .brand-filter-card-icon::before { border-color: rgba(2, 55, 86, .42); }
-@media (max-width: 620px) { .brand-cards.brand-logo-rail .brand-filter-card-icon { height: 42px; width: 42px; } }
+
+/* Dark mode: a controlled ZAVERRE blue disc inspired by the reference's quiet
+   dark rail. The outer card stays transparent, so the icon is the focal point. */
+.brand-cards.brand-cards--dark.brand-logo-rail > a,
+html[data-theme="dark"] .brand-cards.brand-logo-rail > a,
+html.dark .brand-cards.brand-logo-rail > a,
+html:not([data-theme="light"]) .brand-cards.brand-logo-rail > a {
+  background: transparent !important;
+  color: #d8f4ff !important;
+}
+
+.brand-cards.brand-cards--dark.brand-logo-rail .brand-filter-card-icon,
+html[data-theme="dark"] .brand-cards.brand-logo-rail .brand-filter-card-icon,
+html.dark .brand-cards.brand-logo-rail .brand-filter-card-icon,
+html:not([data-theme="light"]) .brand-cards.brand-logo-rail .brand-filter-card-icon {
+  background: radial-gradient(circle at 33% 23%, #5ebce8 0 7%, #176b9a 39%, #0b3454 100%);
+  border-color: #69c7f0;
+  box-shadow: inset 0 1px 0 rgba(225,248,255,.42), inset 0 -5px 9px rgba(0,26,49,.35), 0 3px 8px rgba(0,0,0,.38);
+}
+
+.brand-cards.brand-cards--dark.brand-logo-rail .brand-filter-card-icon::before,
+html[data-theme="dark"] .brand-cards.brand-logo-rail .brand-filter-card-icon::before,
+html.dark .brand-cards.brand-logo-rail .brand-filter-card-icon::before,
+html:not([data-theme="light"]) .brand-cards.brand-logo-rail .brand-filter-card-icon::before { border-color: rgba(207,243,255,.34); }
+
+.brand-cards.brand-cards--dark.brand-logo-rail > a:hover .brand-filter-card-icon,
+.brand-cards.brand-cards--dark.brand-logo-rail > a:focus-visible .brand-filter-card-icon,
+.brand-cards.brand-cards--dark.brand-logo-rail > a.active .brand-filter-card-icon { border-color: #d7f5ff; box-shadow: inset 0 1px 0 rgba(255,255,255,.55), 0 0 0 2px rgba(84,204,250,.28), 0 6px 12px rgba(0,0,0,.44); }
+
+@media (max-width: 620px) {
+  .brand-cards.brand-logo-rail { gap: 7px !important; padding-bottom: 9px !important; }
+  .brand-cards.brand-logo-rail > a { flex-basis: 55px !important; grid-template-rows: 37px minmax(7px, auto) minmax(7px, auto) !important; min-height: 61px !important; }
+  .brand-cards.brand-logo-rail .brand-filter-card-icon { height: 37px; width: 37px; }
+  .brand-cards.brand-logo-rail > a > small { font-size: 4.8px !important; max-width: 55px !important; }
+  .brand-cards.brand-logo-rail > a > .brand-filter-model-count { font-size: 4.5px !important; }
+}

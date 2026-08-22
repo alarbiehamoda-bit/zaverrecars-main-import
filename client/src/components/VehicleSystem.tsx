@@ -14,21 +14,21 @@ import { vehicleSpecificationValue } from "@/lib/fleetPresentation";
 
 // Single editable source for each marque icon. Updating one URL here updates brand cards, vehicle cards, and brand headers.
 export const brandHeaderAssets: Record<string, string> = {
-  "Lamborghini": "/manus-storage/lamborghini-official_f1c7d272.png",
-  "Maserati": "/manus-storage/maserati-official_d4054f33.png",
-  "Ferrari": "/manus-storage/ferrari-seeklogo_a02187e7.png",
-  "McLaren": "/manus-storage/mclaren-official_7f02052d.webp",
-  "Mercedes-Benz": "/manus-storage/mercedes-benz-seeklogo_144df8a1.png",
-  "Porsche": "/manus-storage/porsche-official_52f01e47.png",
-  "Rolls-Royce": "/manus-storage/rolls-royce-official_e602eacf.webp",
-  "Range Rover": "/manus-storage/range-rover-official_2a35d952.webp",
-  "Audi": "/manus-storage/audi-official_e7f4fc02.webp",
-  "BMW": "/manus-storage/bmw-official_f00ece9d.png",
-  "Bentley": "/manus-storage/bentley-transparent_6830e836.png",
-  "Aston Martin": "/manus-storage/aston-martin-seeklogo_9b2c0c6c.png",
-  "Cadillac": "/manus-storage/image-extractpics-20_bfbf8a84.webp",
-  "Brabus": "/manus-storage/brabus-seeklogo-monogram_03c491c6.png",
-  "Mansory": "/manus-storage/mansory-seeklogo-transparent_40d7641a.png",
+  "Lamborghini": "/manus-storage/lamborghini_61e83cab.webp",
+  "Maserati": "/manus-storage/maserati_3864a3a5.webp",
+  "Ferrari": "/manus-storage/ferrari_7bfeaa4b.webp",
+  "McLaren": "/manus-storage/mclaren_7b2c2165.webp",
+  "Mercedes-Benz": "/manus-storage/mercedes-benz_742c8a5e.png",
+  "Porsche": "/manus-storage/porsche_2046e63c.webp",
+  "Rolls-Royce": "/manus-storage/rolls-royce_83ca54b8.png",
+  "Range Rover": "/manus-storage/range-rover_f2b46b22.webp",
+  "Audi": "/manus-storage/audi_b18b1c69.png",
+  "BMW": "/manus-storage/bmw_6ac6392b.webp",
+  "Bentley": "/manus-storage/bentley_3079b1ac.png",
+  "Aston Martin": "/manus-storage/aston-martin_4c37d5b3.png",
+  "Cadillac": "/manus-storage/cadillac_2cc6c9fc.webp",
+  "Brabus": "/manus-storage/brabus_8387aead.png",
+  "Mansory": "/manus-storage/mansory_66cf7105.png",
 };
 
 export const brandSheetHeaders: Record<string, string> = {
@@ -52,10 +52,9 @@ const highContrastMarkBrands = new Set([
   "Range Rover",
 ]);
 
-// SeekLogo's displayed PNG previews use a white canvas around an otherwise
-// high-quality mark. This class is applied only to built-in imports so user
-// uploads keep their source pixels and are never altered by the static map.
-const seekLogoCanvasBrands = new Set(["Ferrari", "Mercedes-Benz", "Aston Martin", "Brabus", "Mansory"]);
+// Only the old SeekLogo preview images need a blend-mode correction. The
+// approved source assets below already have an alpha channel and stay unaltered.
+const usesSeekLogoCanvas = (source: string | undefined) => Boolean(source?.includes("seeklogo"));
 
 const categoryLabel: Record<Vehicle["category"], string> = { Performance: "Performance", "Luxury SUV": "Luxury SUV", Convertible: "Convertible" };
 const price = (value: number) => new Intl.NumberFormat("en-AE", { maximumFractionDigits: 0 }).format(value);
@@ -64,7 +63,7 @@ export function BrandMark({ brandName, logoUrl, className = "" }: { brandName: s
   // The administrative source intentionally wins over the built-in catalogue mark.
   // This keeps one user-approved logo consistent in filters, vehicle cards and headers.
   const source = logoUrl || brandHeaderAssets[brandName];
-  const usesBuiltInSeekLogoCanvas = Boolean(source && source === brandHeaderAssets[brandName] && seekLogoCanvasBrands.has(brandName));
+  const usesBuiltInSeekLogoCanvas = Boolean(source && source === brandHeaderAssets[brandName] && usesSeekLogoCanvas(source));
   const [available, setAvailable] = useState(Boolean(source));
   useEffect(() => setAvailable(Boolean(source)), [source]);
   const identityClass = `brand-mark--${brandName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`;
@@ -127,6 +126,12 @@ export function BrandFilterRail({ activeBrand, onSelect, brands, vehicles }: { a
   const filterBrands = useMemo<ManagedBrand[]>(() => brands ?? vehicleBrands.filter((brandName) => brandName !== "All").map((brandName) => ({ brandName, displayName: brandName })), [brands]);
   const filterVehicles = vehicles ?? vehicleCatalog;
   const brandVehicleCounts = useMemo(() => Object.fromEntries([["All", filterVehicles.length], ...filterBrands.map((brand) => [brand.brandName, filterVehicles.filter((vehicle) => vehicle.brand === brand.brandName || vehicleFilterBrands(vehicle).includes(brand.brandName)).length])]), [filterBrands, filterVehicles]);
+  const iconWellStyle = {
+    background: theme === "dark" ? "radial-gradient(circle at 34% 25%, #5bb9e6 0 6%, #176d9d 42%, #0a3555 100%)" : "radial-gradient(circle at 34% 25%, #ffffff 0 8%, #dbe9ef 48%, #b7ccd6 100%)",
+    borderRadius: "999px",
+    overflow: "hidden",
+  };
+  const brandCardStyle = { background: "transparent", backgroundImage: "none", border: "0", borderRadius: "0", boxShadow: "none", padding: "0" };
 
   const startDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
     if (event.pointerType === "mouse" && event.button !== 0) return;
@@ -161,9 +166,9 @@ export function BrandFilterRail({ activeBrand, onSelect, brands, vehicles }: { a
   };
 
   return <div ref={railRef} className={`brand-cards brand-cards--${theme} brand-logo-rail brand-filter-rail${isDragging ? " is-dragging" : ""}`} aria-label="Brand Cards" data-filter-part="brand-cards" onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={endDrag}>
-    <a href="/cars" key="All" className={activeBrand === "All" ? "active" : ""} onClick={(event) => selectBrand(event, "All")} aria-current={activeBrand === "All" ? "page" : undefined} aria-label={`Show all ${brandVehicleCounts.All} vehicles`}><span className="brand-filter-card-icon" aria-hidden="true"><CarFront size={28} strokeWidth={1.45} /></span><small>ALL</small><b className="brand-filter-model-count">{brandVehicleCounts.All} {brandVehicleCounts.All === 1 ? "MODEL" : "MODELS"}</b></a>
-    {filterBrands.map((brand) => <a href={`/cars/${brandRouteSlug(brand.brandName)}`} key={brand.brandName} className={activeBrand === brand.brandName ? "active" : ""} onClick={(event) => selectBrand(event, brand.brandName)} aria-current={activeBrand === brand.brandName ? "page" : undefined} aria-label={`Show ${brandVehicleCounts[brand.brandName]} ${brand.displayName} vehicles`}>
-      <span className="brand-filter-card-icon"><BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} className="brand-filter-mark" /></span>
+    <a href="/cars" key="All" className={activeBrand === "All" ? "active" : ""} style={brandCardStyle} onClick={(event) => selectBrand(event, "All")} aria-current={activeBrand === "All" ? "page" : undefined} aria-label={`Show all ${brandVehicleCounts.All} vehicles`}><span className="brand-filter-card-icon" style={iconWellStyle} aria-hidden="true"><CarFront size={28} strokeWidth={1.45} /></span><small>ALL</small><b className="brand-filter-model-count">{brandVehicleCounts.All} {brandVehicleCounts.All === 1 ? "MODEL" : "MODELS"}</b></a>
+    {filterBrands.map((brand) => <a href={`/cars/${brandRouteSlug(brand.brandName)}`} key={brand.brandName} className={activeBrand === brand.brandName ? "active" : ""} style={brandCardStyle} onClick={(event) => selectBrand(event, brand.brandName)} aria-current={activeBrand === brand.brandName ? "page" : undefined} aria-label={`Show ${brandVehicleCounts[brand.brandName]} ${brand.displayName} vehicles`}>
+      <span className="brand-filter-card-icon" style={iconWellStyle}><BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} className="brand-filter-mark" /></span>
       <small>{brand.displayName}</small><b className="brand-filter-model-count">{brandVehicleCounts[brand.brandName]} {brandVehicleCounts[brand.brandName] === 1 ? "MODEL" : "MODELS"}</b>
     </a>)}
   </div>;

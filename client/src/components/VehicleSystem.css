@@ -232,3 +232,39 @@ html[data-theme="light"] .brand-emblem-well::after {
 html[data-theme="light"] .vehicle-card { --catalogue-marque-well-background: radial-gradient(circle at 30% 24%, rgba(255,255,255,.94) 0 5%, transparent 25%), linear-gradient(135deg, #f5efdf 0%, #d9c8a6 50%, #b89a69 100%); --catalogue-marque-well-border: rgba(107,79,37,.82); --catalogue-marque-well-shadow: inset 0 1px 0 rgba(255,255,255,.9), inset 0 -10px 16px rgba(73,57,33,.22), 0 8px 16px rgba(43,31,13,.22); }
 html[data-theme="light"] .vehicle-brand-ribbon { background: linear-gradient(102deg, #dce8e9, #b9cdd1 52%, #d4e1e2) !important; border-color: rgba(36,73,91,.34) !important; }
 @media (max-width: 620px) { .vehicle-brand-ribbon__seal.brand-emblem-well { height: 40px; width: 40px; } }
+
+/* Final isolated rail: legacy plate rules above serve card ribbons only. The
+   filter rail intentionally renders no rectangular surface behind a marque. */
+body .brand-cards.brand-logo-rail > a,
+html:not([data-theme="light"]) body .brand-cards.brand-logo-rail > a {
+  background: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+body .brand-cards.brand-logo-rail > a::before,
+body .brand-cards.brand-logo-rail > a::after { content: none !important; }
+body .brand-cards.brand-logo-rail .brand-filter-card-icon {
+  border-radius: 50% !important;
+  overflow: hidden !important;
+}
+body .brand-cards.brand-logo-rail .brand-filter-card-icon > .brand-filter-mark,
+body .brand-cards.brand-logo-rail .brand-filter-card-icon > .brand-mark-fallback {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 50% !important;
+  box-shadow: none !important;
+  clip-path: circle(50%) !important;
+  height: 72% !important;
+  max-height: 72% !important;
+  max-width: 72% !important;
+  mix-blend-mode: normal !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  width: 72% !important;
+}
+html:not([data-theme="light"]) body .brand-cards.brand-logo-rail .brand-filter-card-icon > .brand-filter-mark {
+  mix-blend-mode: multiply !important;
+}

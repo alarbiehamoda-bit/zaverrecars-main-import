@@ -9,6 +9,7 @@ import App from "./App";
 import { startLogin } from "./const";
 import "./index.css";
 import "./vehicle-glass.css";
+import "./components/BrandCards.css";
 
 const queryClient = new QueryClient({ defaultOptions: { queries: { staleTime: 30_000 } } });
 const isAdminRoute = () => window.location.pathname.startsWith("/admin");

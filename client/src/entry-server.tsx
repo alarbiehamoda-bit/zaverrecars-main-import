@@ -7,6 +7,7 @@ import { Router } from "wouter";
 import App from "./App";
 import { trpc } from "./lib/trpc";
 import { getSsrHead, type SsrHead } from "./ssr/metadata";
+import "./components/BrandCards.css";
 
 export type SsrRenderResult = { html: string; dehydratedState: unknown; head: SsrHead };
 export type SsrPublicData = {
