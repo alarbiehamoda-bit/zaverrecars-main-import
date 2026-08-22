@@ -498,3 +498,31 @@ html:not([data-theme="light"]) body .brand-cards.brand-logo-rail .brand-filter-c
   max-height: 82% !important;
   max-width: 58% !important;
 }
+
+/* Reference-source optical fit. Each imported source keeps its native aspect
+   ratio; only transparent canvas differences are compensated per identity. */
+#root .fleet-browse-page :is(.brand-filter-card-icon, .brand-emblem-well) > :is(.brand-mark--aston-martin, .brand-mark--audi, .brand-mark--bentley) {
+  max-height: 76% !important;
+  max-width: 94% !important;
+  transform: scale(1.14) !important;
+}
+#root .fleet-browse-page :is(.brand-filter-card-icon, .brand-emblem-well) > :is(.brand-mark--mclaren, .brand-mark--range-rover) {
+  max-height: 68% !important;
+  max-width: 94% !important;
+  transform: scale(1.10) !important;
+}
+#root .fleet-browse-page :is(.brand-filter-card-icon, .brand-emblem-well) > :is(.brand-mark--cadillac, .brand-mark--ferrari, .brand-mark--lamborghini, .brand-mark--maserati, .brand-mark--porsche) {
+  max-height: 82% !important;
+  max-width: 72% !important;
+  transform: scale(1.05) !important;
+}
+#root .fleet-browse-page :is(.brand-filter-card-icon, .brand-emblem-well) > :is(.brand-mark--bmw, .brand-mark--brabus, .brand-mark--mansory, .brand-mark--mercedes-benz) {
+  max-height: 76% !important;
+  max-width: 76% !important;
+  transform: scale(1) !important;
+}
+#root .fleet-browse-page :is(.brand-filter-card-icon, .brand-emblem-well) > .brand-mark--rolls-royce {
+  max-height: 88% !important;
+  max-width: 62% !important;
+  transform: scale(1.06) !important;
+}

@@ -14,25 +14,25 @@ import { vehicleSpecificationValue } from "@/lib/fleetPresentation";
 
 // Single editable source for each marque icon. Updating one URL here updates brand cards, vehicle cards, and brand headers.
 export const brandHeaderAssets: Record<string, string> = {
-  "Lamborghini": "/manus-storage/lamborghini-original-colour_c7383ec4.png",
-  "Maserati": "/manus-storage/maserati-original-colour_ecf270dd.png",
-  "Ferrari": "/manus-storage/ferrari-original-colour_aefbe85f.png",
-  "McLaren": "/manus-storage/mclaren-original-colour_8c1d2ec5.png",
-  "Mercedes-Benz": "/manus-storage/mercedes-benz-original-colour_f9505a1b.png",
-  "Porsche": "/manus-storage/porsche-original-colour_79eb5d89.png",
-  "Rolls-Royce": "/manus-storage/rolls-royce-original-colour_9926779b.png",
-  "Range Rover": "/manus-storage/range-rover-original-colour_12c5ed46.png",
-  "Audi": "/manus-storage/audi-original-colour_9e7f3b1a.png",
-  "BMW": "/manus-storage/bmw-original-colour_928d429c.png",
-  "Bentley": "/manus-storage/bentley-original-colour_a5a29ca1.png",
-  "Aston Martin": "/manus-storage/aston-martin-original-colour_e269a13f.png",
-  "Cadillac": "/manus-storage/cadillac-original-colour_30e673f6.png",
-  "Brabus": "/manus-storage/brabus-original-colour_ddc1c1d2.png",
-  "Mansory": "/manus-storage/mansory-original-colour_61da4584.png",
+  "Lamborghini": "/manus-storage/lamborghini_1a09a414.webp",
+  "Maserati": "/manus-storage/maserati_db4cfabc.webp",
+  "Ferrari": "/manus-storage/ferrari_9c771aa0.webp",
+  "McLaren": "/manus-storage/mclaren_6be37f25.webp",
+  "Mercedes-Benz": "/manus-storage/mercedes-benz_a8a53dc1.png",
+  "Porsche": "/manus-storage/porsche_3b231689.webp",
+  "Rolls-Royce": "/manus-storage/rolls-royce_3e890ee3.png",
+  "Range Rover": "/manus-storage/range-rover_806e06eb.webp",
+  "Audi": "/manus-storage/audi_d161c3dd.png",
+  "BMW": "/manus-storage/bmw_a13e899f.webp",
+  "Bentley": "/manus-storage/bentley_8e16a311.png",
+  "Aston Martin": "/manus-storage/aston-martin_6856bdc9.png",
+  "Cadillac": "/manus-storage/cadillac_d283e8ec.webp",
+  "Brabus": "/manus-storage/brabus_20ae8b66.png",
+  "Mansory": "/manus-storage/mansory_e70e839a.png",
 };
 
 const brandFilterAssets: Record<string, string> = {
-  "Aston Martin": "/manus-storage/aston-martin-filter-wing-transparent_fb730da6.png",
+  "Aston Martin": "/manus-storage/aston-martin_6856bdc9.png",
 };
 
 export const brandSheetHeaders: Record<string, string> = {

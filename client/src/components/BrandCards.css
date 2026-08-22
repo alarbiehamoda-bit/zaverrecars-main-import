@@ -300,3 +300,31 @@ html[data-theme="light"] .brand-cards.brand-logo-rail > a > .brand-filter-model-
   transform: none !important;
   width: 48px !important;
 }
+
+/* Reference-source optical fit: keep every imported mark in its natural aspect
+   ratio and compensate only for its source canvas, never by cropping a logo. */
+#root .fleet-browse-page .brand-cards.brand-logo-rail > a .brand-filter-card-icon .brand-filter-mark:is(.brand-mark--aston-martin, .brand-mark--audi, .brand-mark--bentley) {
+  max-height: 76% !important;
+  max-width: 94% !important;
+  transform: scale(1.14) !important;
+}
+#root .fleet-browse-page .brand-cards.brand-logo-rail > a .brand-filter-card-icon .brand-filter-mark:is(.brand-mark--mclaren, .brand-mark--range-rover) {
+  max-height: 68% !important;
+  max-width: 94% !important;
+  transform: scale(1.10) !important;
+}
+#root .fleet-browse-page .brand-cards.brand-logo-rail > a .brand-filter-card-icon .brand-filter-mark:is(.brand-mark--cadillac, .brand-mark--ferrari, .brand-mark--lamborghini, .brand-mark--maserati, .brand-mark--porsche) {
+  max-height: 82% !important;
+  max-width: 72% !important;
+  transform: scale(1.05) !important;
+}
+#root .fleet-browse-page .brand-cards.brand-logo-rail > a .brand-filter-card-icon .brand-filter-mark:is(.brand-mark--bmw, .brand-mark--brabus, .brand-mark--mansory, .brand-mark--mercedes-benz) {
+  max-height: 76% !important;
+  max-width: 76% !important;
+  transform: scale(1) !important;
+}
+#root .fleet-browse-page .brand-cards.brand-logo-rail > a .brand-filter-card-icon .brand-filter-mark.brand-mark--rolls-royce {
+  max-height: 88% !important;
+  max-width: 62% !important;
+  transform: scale(1.06) !important;
+}
