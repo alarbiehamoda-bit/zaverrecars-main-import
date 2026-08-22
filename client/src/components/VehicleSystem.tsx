@@ -45,9 +45,7 @@ export const brandSheetHeaders: Record<string, string> = {
 
 const highContrastMarkBrands = new Set([
   "Aston Martin",
-  "Audi",
   "Bentley",
-  "BMW",
   "Maserati",
   "McLaren",
   "Mercedes-Benz",

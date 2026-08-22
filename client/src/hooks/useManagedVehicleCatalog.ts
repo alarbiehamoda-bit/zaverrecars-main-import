@@ -118,8 +118,8 @@ export function useManagedVehicleCatalog() {
   const publicContent = trpc.vehicle.publicContent.useQuery(undefined, {
     staleTime: 30_000,
   });
-  const publicBrands = trpc.brand.publicList.useQuery(undefined, { staleTime: 0, refetchOnMount: "always" });
-  const publicBrandPresentations = trpc.brand.publicPresentationList.useQuery(undefined, { staleTime: 0, refetchOnMount: "always" });
+  const publicBrands = trpc.brand.publicList.useQuery(undefined, { staleTime: 30_000, refetchOnMount: false });
+  const publicBrandPresentations = trpc.brand.publicPresentationList.useQuery(undefined, { staleTime: 30_000, refetchOnMount: false });
 
   return useMemo(() => {
     const managed = mergeManagedVehicleCatalog(vehicleCatalog, publicContent.data ?? []);

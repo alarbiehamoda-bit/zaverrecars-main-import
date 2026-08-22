@@ -121,6 +121,15 @@ describe("vehicle brand and image presentation", () => {
     expect(glassStyles).toContain('object-fit: contain');
   });
 
+  it("keeps wide and crest-shaped uploaded marks contained on the neutral marque well", () => {
+    expect(component).not.toContain('  "Audi",\n  "Bentley"');
+    expect(component).not.toContain('  "BMW",\n  "Maserati"');
+    expect(glassStyles).toContain('.brand-mark--audi');
+    expect(glassStyles).toContain('max-height: 54% !important');
+    expect(glassStyles).toContain(':is(.brand-mark--bmw, .brand-mark--lamborghini)');
+    expect(glassStyles).toContain('height: 76% !important');
+  });
+
   it("visually elevates the selected marque without changing its filter route", () => {
     expect(component).toContain('className={activeBrand === brand.brandName ? "active" : ""}');
     expect(component).toContain('aria-current={activeBrand === brand.brandName ? "page" : undefined}');

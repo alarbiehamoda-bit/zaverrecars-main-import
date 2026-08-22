@@ -7,7 +7,9 @@ import superjson from "superjson";
 import { createServer as createViteServer } from "vite";
 import viteConfig from "../../vite.config";
 import type { SsrHead } from "../../client/src/ssr/metadata";
+import { appRouter } from "../routers";
 import { robotsText, sitemapXml } from "../seo";
+import { createContext } from "./context";
 
 const configuredCanonicalOrigin = (process.env.CANONICAL_ORIGIN || "").replace(/\/+$/, "");
 const siteName = process.env.SITE_NAME || "ZAVERRE";
@@ -86,6 +88,28 @@ function composeHtml(template: string, appHtml: string, head: SsrHead, origin: s
     .replace("<!--app-html-->", () => appHtml);
 }
 
+async function buildPublicSsrData(
+  req: Parameters<typeof createContext>[0]["req"],
+  res: Parameters<typeof createContext>[0]["res"],
+) {
+  try {
+    const context = await createContext({ req, res } as Parameters<typeof createContext>[0]);
+    const caller = appRouter.createCaller(context);
+    const [cms, vehicleContent, brands, brandPresentations] = await Promise.all([
+      caller.cms.public(),
+      caller.vehicle.publicContent(),
+      caller.brand.publicList(),
+      caller.brand.publicPresentationList(),
+    ]);
+    return { cms, vehicleContent, brands, brandPresentations };
+  } catch (error) {
+    // Leave the safe fallback visible during a transient public-data outage
+    // instead of converting an otherwise public page into a server failure.
+    console.warn("[SSR] public data prefetch failed:", error);
+    return undefined;
+  }
+}
+
 export async function setupVite(app: Express, server: Server) {
   const configuredHmr = typeof viteConfig.server?.hmr === "object" ? viteConfig.server.hmr : {};
   const vite = await createViteServer({ ...viteConfig, configFile: false, server: { middlewareMode: true, hmr: { ...configuredHmr, server }, allowedHosts: true as const }, appType: "custom" });
@@ -100,7 +124,8 @@ export async function setupVite(app: Express, server: Server) {
       template = template.replace("</head>", '<link rel="stylesheet" href="/src/index.css?direct" data-ssr-dev-css></head>');
       const { render } = await vite.ssrLoadModule("/src/entry-server.tsx");
       const origin = canonicalOrigin(req);
-      const result = await render(req.originalUrl, origin);
+      const publicData = await buildPublicSsrData(req, res);
+      const result = await render(req.originalUrl, origin, publicData);
       res.status(result.head.notFound ? 404 : 200).set("Cache-Control", "no-cache").type("html").end(composeHtml(template, result.html, result.head, origin, result.dehydratedState));
     } catch (error) {
       vite.ssrFixStacktrace(error as Error);
@@ -122,7 +147,8 @@ export function serveStatic(app: Express) {
       const template = await fs.promises.readFile(templatePath, "utf-8");
       const serverEntryPath = path.resolve(import.meta.dirname, "server-ssr", "entry-server.js");
       const { render } = await import(serverEntryPath);
-      const result = await render(req.originalUrl, origin);
+      const publicData = await buildPublicSsrData(req, res);
+      const result = await render(req.originalUrl, origin, publicData);
       res.status(result.head.notFound ? 404 : 200).set("Cache-Control", "no-cache").type("html").end(composeHtml(template, result.html, result.head, origin, result.dehydratedState));
     } catch (error) {
       console.error("[SSR] render failed, serving shell:", error);
