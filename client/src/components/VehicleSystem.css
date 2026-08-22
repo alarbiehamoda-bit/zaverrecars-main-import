@@ -89,3 +89,23 @@ html:not([data-theme="light"]) .brand-logo-rail :is(button, a).active {
   box-shadow: inset 0 1px 0 #fff, 0 9px 20px rgba(16, 119, 170, .24);
   color: #062a4a;
 }
+
+/* Official marque icon set: every badge occupies the same visual field without
+   turning a wide wordmark or shield into a cropped square. */
+.brand-emblem-well .brand-mark--audi,
+.brand-emblem-well .brand-mark--cadillac,
+.brand-emblem-well .brand-mark--mclaren,
+.brand-emblem-well .brand-mark--range-rover {
+  max-height: 58% !important;
+  max-width: 88% !important;
+  object-fit: contain !important;
+}
+
+.brand-emblem-well .brand-mark--bmw,
+.brand-emblem-well .brand-mark--lamborghini,
+.brand-emblem-well .brand-mark--maserati,
+.brand-emblem-well .brand-mark--porsche {
+  max-height: 82% !important;
+  max-width: 76% !important;
+  object-fit: contain !important;
+}

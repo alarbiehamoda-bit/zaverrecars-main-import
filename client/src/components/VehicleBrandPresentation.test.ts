@@ -11,14 +11,14 @@ const zaverreMark = readFileSync(new URL("./ZaverreMark.tsx", import.meta.url), 
 
 describe("vehicle brand and image presentation", () => {
   it("uses a source for every catalogue marque that needs a visual mark", () => {
-    expect(component).toContain('"Maserati": "/manus-storage/maserati-filter-icon-transparent_4de88744.png"');
+    expect(component).toContain('"Maserati": "/manus-storage/maserati-official_d4054f33.png"');
   });
 
-  it("prioritizes the supplied and background-cleaned assets for every catalogue marque", () => {
+  it("prioritizes the supplied official icon assets for every supported catalogue marque", () => {
     expect(component).toContain('"Ferrari": "/manus-storage/ferrari-optimized_317e7910.webp"');
-    expect(component).toContain('"Audi": "/manus-storage/audi-optimized_42f6ed84.webp"');
-    expect(component).toContain('"Lamborghini": "/manus-storage/lamborghini-optimized_c206dfb4.webp"');
-    expect(component).toContain('"Bentley": "/manus-storage/bentley-optimized_2dc7a26d.webp"');
+    expect(component).toContain('"Audi": "/manus-storage/audi-official_e7f4fc02.webp"');
+    expect(component).toContain('"Lamborghini": "/manus-storage/lamborghini-official_f1c7d272.png"');
+    expect(component).toContain('"Bentley": "/manus-storage/bentley-official_175d4ef0.webp"');
     expect(component).toContain('"Brabus": "/manus-storage/image-extractpics-27_43c08169.webp"');
     expect(component).toContain('"Mansory": "/manus-storage/image-extractpics-25_e551cd05.webp"');
   });
@@ -95,8 +95,8 @@ describe("vehicle brand and image presentation", () => {
     expect(component).toContain("<span className=\"brand-filter-icon-well brand-emblem-well brand-emblem-well--filter\"><BrandMark brandName={brand.brandName}");
     expect(glassStyles).toContain(".brand-filter-icon-well .brand-filter-mark");
     expect(glassStyles).toContain("filter: contrast(1.12) saturate(1.08)");
-    expect(component).toContain('"Rolls-Royce": "/manus-storage/image-extractpics-10_c0973c01.webp"');
-    expect(component).toContain('"Maserati": "/manus-storage/maserati-filter-icon-transparent_4de88744.png"');
+    expect(component).toContain('"Rolls-Royce": "/manus-storage/rolls-royce-official_e602eacf.webp"');
+    expect(component).toContain('"Maserati": "/manus-storage/maserati-official_d4054f33.png"');
     expect(component).toContain('"Mercedes-Benz": "/manus-storage/image-extractpics-17_f4533e21.webp"');
   });
 

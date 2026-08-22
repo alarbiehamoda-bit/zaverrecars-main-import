@@ -41,3 +41,7 @@ The initial public CMS source was empty, so the existing contact configuration, 
 ## Vehicle-detail return behavior
 
 The detail-page return control now has a deliberate two-step behavior: one press returns to the saved fleet context, while a second press within a 650 ms confirmation window returns to the ZAVERRE homepage. The header label changes accessibly during that brief window to state **Press again for home**. The Aston Martin DBX 707 detail page was reviewed on a mobile viewport after the change.
+
+## Unified marque-icon verification
+
+The supplied official marks for Audi, BMW, Lamborghini, Maserati, Porsche, Range Rover, Rolls-Royce, Cadillac, McLaren, and Bentley are now routed through the shared brand icon wells. Desktop and 375px mobile previews confirmed a single consistent backdrop with readable wide wordmarks and shield/circular marks kept within their boundaries. The Audi fleet route also confirmed that the selected brand mark matches both its filter card and each vehicle card.
