@@ -39,6 +39,7 @@ describe("shared brand emblem well", () => {
     expect(brandCardStyles).toContain("Final reference surface");
     expect(brandCardStyles).toContain("#413a2e 0%, #171511 73%");
     expect(brandCardStyles).toContain("brand-filter-card-surface");
-    expect(vehicleSystemStyles).toContain("invert(.92)");
+    expect(vehicleSystemStyles).toContain("invert(60%) sepia(38%)");
+    expect(vehicleSystemStyles).toContain("brand-mark--aston-martin");
   });
 });

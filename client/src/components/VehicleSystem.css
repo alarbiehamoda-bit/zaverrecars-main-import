@@ -328,6 +328,32 @@ html[data-theme="light"] :is(.brand-emblem-well, .brand-filter-card-icon) > .bra
   max-height: 70% !important;
   max-width: 84% !important;
 }
-html:not([data-theme="light"]) body .brand-cards.brand-logo-rail .brand-filter-card-icon > :is(.brand-mark--audi, .brand-mark--aston-martin, .brand-mark--mansory, .brand-mark--rolls-royce) {
-  filter: brightness(0) invert(.92) contrast(1.18) drop-shadow(0 1px 3px rgba(0,0,0,.72)) !important;
+/* Source files for these marques are intentionally monochrome. Their shared
+   treatment adds a restrained marque-colour signal without redrawing a logo. */
+:is(.brand-emblem-well, .brand-filter-card-icon) > .brand-mark--aston-martin {
+  max-height: 74% !important;
+  max-width: 96% !important;
+  transform: scale(1.30) !important;
+}
+html:not([data-theme="light"]) :is(.brand-emblem-well, .brand-filter-card-icon) > .brand-mark--aston-martin {
+  filter: brightness(0) saturate(100%) invert(60%) sepia(38%) saturate(570%) hue-rotate(91deg) brightness(89%) contrast(89%) drop-shadow(0 1px 3px rgba(0,0,0,.72)) !important;
+}
+html:not([data-theme="light"]) :is(.brand-emblem-well, .brand-filter-card-icon) > .brand-mark--audi {
+  filter: brightness(0) saturate(100%) invert(67%) sepia(22%) saturate(850%) hue-rotate(157deg) brightness(101%) contrast(95%) drop-shadow(0 1px 3px rgba(0,0,0,.72)) !important;
+}
+html:not([data-theme="light"]) :is(.brand-emblem-well, .brand-filter-card-icon) > .brand-mark--mansory {
+  filter: brightness(0) saturate(100%) invert(72%) sepia(33%) saturate(777%) hue-rotate(353deg) brightness(96%) contrast(91%) drop-shadow(0 1px 3px rgba(0,0,0,.72)) !important;
+}
+html:not([data-theme="light"]) :is(.brand-emblem-well, .brand-filter-card-icon) > .brand-mark--rolls-royce {
+  filter: brightness(0) saturate(100%) invert(78%) sepia(31%) saturate(701%) hue-rotate(358deg) brightness(93%) contrast(92%) drop-shadow(0 1px 3px rgba(0,0,0,.72)) !important;
+}
+html[data-theme="light"] :is(.brand-emblem-well, .brand-filter-card-icon) > .brand-mark--aston-martin {
+  filter: brightness(0) saturate(100%) invert(33%) sepia(31%) saturate(988%) hue-rotate(90deg) brightness(82%) contrast(94%) drop-shadow(0 1px 1px rgba(255,255,255,.42)) !important;
+}
+html[data-theme="light"] :is(.brand-emblem-well, .brand-filter-card-icon) > .brand-mark--audi {
+  filter: brightness(0) saturate(100%) invert(19%) sepia(61%) saturate(1537%) hue-rotate(167deg) brightness(88%) contrast(92%) drop-shadow(0 1px 1px rgba(255,255,255,.42)) !important;
+}
+html[data-theme="light"] :is(.brand-emblem-well, .brand-filter-card-icon) > .brand-mark--mansory,
+html[data-theme="light"] :is(.brand-emblem-well, .brand-filter-card-icon) > .brand-mark--rolls-royce {
+  filter: brightness(0) saturate(100%) invert(41%) sepia(39%) saturate(874%) hue-rotate(3deg) brightness(89%) contrast(89%) drop-shadow(0 1px 1px rgba(255,255,255,.42)) !important;
 }
