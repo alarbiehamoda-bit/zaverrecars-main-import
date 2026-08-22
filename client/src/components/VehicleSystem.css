@@ -479,3 +479,22 @@ html:not([data-theme="light"]) body .brand-cards.brand-logo-rail .brand-filter-c
     max-height: 66% !important;
   }
 }
+
+/* Native-colour contract for the non-filter marque contexts. The filter has its
+   own audited source treatment; headers and vehicle cards must not recolour the
+   same original asset into white or monochrome. */
+#root .fleet-browse-page :is(.fleet-browse-brand-logo, .vehicle-brand-ribbon__seal) > :is(img, .brand-mark-fallback) {
+  clip-path: none !important;
+  filter: saturate(1.12) contrast(1.12) drop-shadow(0 1px 2px rgba(28, 22, 12, .28)) !important;
+  mix-blend-mode: normal !important;
+}
+#root .fleet-browse-page .fleet-browse-brand-logo.brand-emblem-well,
+#root .fleet-browse-page .vehicle-brand-ribbon__seal.brand-emblem-well {
+  background: radial-gradient(circle at 34% 26%, #fffdf8 0 7%, #f2ebdf 56%, #d8c8ad 100%) !important;
+  border-color: rgba(115, 91, 53, .46) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.94), 0 5px 12px rgba(22, 18, 12, .18) !important;
+}
+#root .fleet-browse-page .vehicle-brand-ribbon__seal.brand-emblem-well > .brand-mark--rolls-royce {
+  max-height: 82% !important;
+  max-width: 58% !important;
+}

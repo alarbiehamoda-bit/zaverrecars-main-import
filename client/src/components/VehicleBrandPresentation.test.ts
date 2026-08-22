@@ -80,6 +80,16 @@ describe("vehicle brand and image presentation", () => {
     expect(rebuiltCardStyles).toContain("#0b4f78");
   });
 
+  it("keeps native marque colour in brand-page headers and catalogue cards while filters retain their dedicated source treatment", () => {
+    expect(styles).toContain("Native-colour contract for the non-filter marque contexts");
+    expect(styles).toContain("filter: saturate(1.12) contrast(1.12)");
+    expect(styles).toContain("mix-blend-mode: normal !important");
+    expect(styles).toContain(".fleet-browse-brand-logo.brand-emblem-well");
+    expect(styles).toContain(".vehicle-brand-ribbon__seal.brand-emblem-well");
+    expect(component).toContain("const source = sourceOverride || brandHeaderAssets[brandName] || logoUrl");
+    expect(component).toContain('"Aston Martin": "/manus-storage/aston-martin-filter-wing-transparent_');
+  });
+
   it("keeps every sensitive light or dark marque on the same protected filter source", () => {
     expect(component).toContain("const source = sourceOverride || brandHeaderAssets[brandName] || logoUrl");
     for (const marque of ["Rolls-Royce", "Mercedes-Benz", "Bentley", "Aston Martin", "Audi", "Porsche", "Maserati", "Lamborghini"]) {
