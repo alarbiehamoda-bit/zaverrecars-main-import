@@ -21,4 +21,4 @@ The visual system uses each original automotive mark as the content layer. A con
 
 ## Visual validation
 
-The imported Ferrari emblem and the Mercedes-Benz, Aston Martin, Brabus, and Mansory marks were checked in the public fleet interface on desktop and mobile. The same protected ZAVERRE well is used in brand headers, filter cards, and vehicle marque ribbons. Its light-theme olive surface and dark-theme midnight-glass surface retain readable contrast; the white display canvas of imported SeekLogo preview PNGs is neutralized only for built-in static sources, leaving later administrator uploads untouched.
+The imported Ferrari emblem and the Mercedes-Benz, Aston Martin, Brabus, and Mansory marks were checked in the public fleet interface on desktop and mobile. The shared ZAVERRE well remains the source of geometry and containment across brand contexts. Within the filter cards, the current standalone circular icon uses a neutral light-theme surface and a blue dark-theme surface. White baked-in canvases from imported static sources are neutralized only within that dark filter icon, leaving later administrator uploads untouched.
