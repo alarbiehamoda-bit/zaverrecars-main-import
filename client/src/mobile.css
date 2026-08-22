@@ -91,4 +91,34 @@
   .zaverre-not-found::before, .zaverre-not-found::after { height: 76vw; width: 76vw; }
   .zaverre-not-found::before { top: -36vw; }.zaverre-not-found::after { bottom: -42vw; }
   .zaverre-not-found h1 { font-size: 100px; }.zaverre-not-found h2 { font-size: 48px; }.zaverre-not-found__copy { font-size: 13px; }
+
+  /* Mobile comfort scale: smaller editorial blocks, while active controls
+     retain at least a 40px touch height. */
+  .hero-section, .hero-cinematic { min-height: 64vh !important; }
+  .hero-cinematic .hero-layout { min-height: calc(64vh - 88px) !important; }
+  .hero-cinematic .hero-copy { padding-top: 16px !important; }
+  .fleet-section, .featured-vehicles-section, .editorial-section, .booking-section, .contact-section, .delivery-section, .home-faq-section, .journal-preview-section { padding: 42px 14px !important; }
+  .section-heading, .featured-section-heading, .journal-preview-head { gap: 14px !important; margin-bottom: 22px !important; }
+  .section-heading h2, .editorial-copy h2, .booking-intro h2, .contact-section h2, .featured-section-heading h2, .delivery-intro h2, .home-faq-intro h2, .journal-preview-head h2 { font-size: clamp(40px,11.5vw,52px) !important; }
+  .horizontal-fleet .vehicle-card, .vertical-fleet .vehicle-card, .brand-stack-card .vehicle-card, .brand-free-scroll-card .vehicle-card { height: 484px !important; }
+  .horizontal-fleet .vehicle-image-wrap, .vertical-fleet .vehicle-image-wrap, .brand-stack-card .vehicle-image-wrap, .brand-free-scroll-card .vehicle-image-wrap { flex-basis: 50% !important; }
+  .fleet-browse-header { min-height: 56px !important; }
+  .brand-name-bar { height: 58px !important; }
+  .fleet-browse-hero--brand { min-height: 124px !important; padding: 18px 12px !important; }
+  .fleet-browse-content { padding: 22px 12px 92px !important; }
+  .fleet-browse-toolbar { gap: 11px !important; margin-bottom: 13px !important; }
+  .fleet-browse-toolbar h2 { font-size: 34px !important; }
+  .fleet-browse-page .master-vehicle-grid--vertical { gap: 9px !important; max-width: 302px !important; }
+  .fleet-browse-page .vehicle-card-body { padding: 10px !important; }
+  .fleet-browse-page .vehicle-image-wrap { padding: 8px !important; }
+  .fleet-browse-page .vehicle-card-body h3 { font-size: 1.35rem !important; }
+  .fleet-browse-page .card-spec-list { margin-block: 8px !important; }
+  .fleet-browse-page .card-spec-item { min-height: 39px !important; }
+  .detail-gallery, .detail-main-image-trigger { min-height: 222px !important; }
+  .gallery-thumbnails { gap: 6px !important; padding-top: 7px !important; }
+  .gallery-thumbnails button { flex-basis: 54px !important; height: 40px !important; }
+  .detail-section { padding: 40px 14px !important; }
+  .detail-booking-section { padding: 44px 14px !important; }
+  .detail-section-heading { margin-bottom: 19px !important; }
+  .detail-spec-grid--iconic > div, .detail-rental-grid > div { min-height: 92px !important; padding: 11px 9px !important; }
 }

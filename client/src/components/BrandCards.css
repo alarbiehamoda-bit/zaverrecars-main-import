@@ -138,3 +138,43 @@ html:not([data-theme="light"]) .brand-cards.brand-logo-rail .brand-filter-card-i
   .brand-cards.brand-logo-rail > a > small { font-size: 4.8px !important; max-width: 55px !important; }
   .brand-cards.brand-logo-rail > a > .brand-filter-model-count { font-size: 4.5px !important; }
 }
+
+/* Final reference surface: this sits last because older page-level theme rules
+   also address rail anchors. */
+.brand-cards.brand-logo-rail > a,
+.brand-cards.brand-cards--dark.brand-logo-rail > a,
+html[data-theme="dark"] .brand-cards.brand-logo-rail > a,
+html.dark .brand-cards.brand-logo-rail > a,
+html:not([data-theme="light"]) .brand-cards.brand-logo-rail > a {
+  background: rgba(255,255,255,.016) !important;
+  border: 1px solid rgba(199,167,120,.20) !important;
+  border-radius: 16px !important;
+  box-shadow: none !important;
+  color: #d8c6a5 !important;
+  padding: 7px 4px !important;
+}
+.brand-cards.brand-logo-rail .brand-filter-card-icon,
+.brand-cards.brand-cards--dark.brand-logo-rail .brand-filter-card-icon,
+html[data-theme="dark"] .brand-cards.brand-logo-rail .brand-filter-card-icon,
+html.dark .brand-cards.brand-logo-rail .brand-filter-card-icon,
+html:not([data-theme="light"]) .brand-cards.brand-logo-rail .brand-filter-card-icon {
+  background: radial-gradient(circle at 50% 40%, #413a2e 0%, #171511 73%) !important;
+  border-color: rgba(226,193,139,.48) !important;
+  box-shadow: inset 0 0 0 4px rgba(199,167,120,.06), inset 0 1px 0 rgba(255,255,255,.12) !important;
+}
+.brand-cards.brand-logo-rail .brand-filter-card-icon::before,
+html:not([data-theme="light"]) .brand-cards.brand-logo-rail .brand-filter-card-icon::before { border-color: rgba(226,193,139,.48) !important; }
+.brand-cards.brand-logo-rail > a:hover .brand-filter-card-icon,
+.brand-cards.brand-logo-rail > a:focus-visible .brand-filter-card-icon,
+.brand-cards.brand-logo-rail > a.active .brand-filter-card-icon { border-color: #efd19b !important; box-shadow: inset 0 0 0 4px rgba(199,167,120,.1), inset 0 1px 0 rgba(255,255,255,.22), 0 0 0 2px rgba(199,167,120,.16) !important; }
+html[data-theme="light"] .brand-cards.brand-logo-rail > a {
+  background: rgba(74,59,39,.055) !important;
+  border-color: rgba(122,92,49,.26) !important;
+  color: #4d3824 !important;
+}
+html[data-theme="light"] .brand-cards.brand-logo-rail .brand-filter-card-icon {
+  background: radial-gradient(circle at 50% 40%, #eee7d8 0%, #cbc0aa 73%) !important;
+  border-color: rgba(122,92,49,.50) !important;
+  box-shadow: inset 0 0 0 4px rgba(127,96,54,.08), inset 0 1px 0 rgba(255,255,255,.72) !important;
+}
+html[data-theme="light"] .brand-cards.brand-logo-rail .brand-filter-card-icon::before { border-color: rgba(122,92,49,.42) !important; }

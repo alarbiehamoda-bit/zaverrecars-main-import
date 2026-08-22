@@ -127,7 +127,7 @@ export function BrandFilterRail({ activeBrand, onSelect, brands, vehicles }: { a
   const filterVehicles = vehicles ?? vehicleCatalog;
   const brandVehicleCounts = useMemo(() => Object.fromEntries([["All", filterVehicles.length], ...filterBrands.map((brand) => [brand.brandName, filterVehicles.filter((vehicle) => vehicle.brand === brand.brandName || vehicleFilterBrands(vehicle).includes(brand.brandName)).length])]), [filterBrands, filterVehicles]);
   const iconWellStyle = {
-    background: theme === "dark" ? "radial-gradient(circle at 34% 25%, #5bb9e6 0 6%, #176d9d 42%, #0a3555 100%)" : "radial-gradient(circle at 34% 25%, #ffffff 0 8%, #dbe9ef 48%, #b7ccd6 100%)",
+    background: theme === "dark" ? "radial-gradient(circle at 50% 40%, #413a2e 0%, #171511 73%)" : "radial-gradient(circle at 50% 40%, #eee7d8 0%, #cbc0aa 73%)",
     borderRadius: "999px",
     overflow: "hidden",
   };

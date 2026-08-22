@@ -12,6 +12,9 @@ describe("mobile presentation rules", () => {
     expect(stylesheet).toContain(".brand-mark { background: #12110f");
     expect(stylesheet).toContain(".hero-cta .button { font-size: 9px");
     expect(stylesheet).toContain(".vehicle-card-body h3, .featured-vehicle-card .vehicle-card-body h3 { font-size: 1.6rem");
+    expect(stylesheet).toContain("/* Mobile comfort scale");
+    expect(stylesheet).toContain(".horizontal-fleet .vehicle-card, .vertical-fleet .vehicle-card, .brand-stack-card .vehicle-card, .brand-free-scroll-card .vehicle-card { height: 484px");
+    expect(stylesheet).toContain(".fleet-browse-page .master-vehicle-grid--vertical { gap: 9px !important; max-width: 302px !important;");
   });
 
   it("centres fleet-detail content with the established display font", () => {

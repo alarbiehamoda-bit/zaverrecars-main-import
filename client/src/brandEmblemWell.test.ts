@@ -15,6 +15,7 @@ describe("shared brand emblem well", () => {
 
   it("defines one circular stone-and-metal well with protected contrast in both themes", () => {
     const styles = read("client/src/vehicle-glass.css");
+    const vehicleSystemStyles = read("client/src/components/VehicleSystem.css");
     const brandCardStyles = read("client/src/components/BrandCards.css");
     expect(styles).toContain("Unified marque well");
     expect(styles).toContain(".brand-emblem-well");
@@ -32,5 +33,10 @@ describe("shared brand emblem well", () => {
     expect(brandCardStyles).toContain("Independent filter icon primitive");
     expect(brandCardStyles).toContain(".brand-filter-card-icon");
     expect(brandCardStyles).toContain("#0b4f78");
+    expect(vehicleSystemStyles).toContain("Reference-aligned marquee");
+    expect(vehicleSystemStyles).toContain(".brand-emblem-well,");
+    expect(vehicleSystemStyles).toContain("#413a2e 0%, #171511 73%");
+    expect(brandCardStyles).toContain("Final reference surface");
+    expect(brandCardStyles).toContain("#413a2e 0%, #171511 73%");
   });
 });
