@@ -213,3 +213,90 @@ html[data-theme="light"] .brand-cards.brand-logo-rail .brand-filter-card-surface
 html:not([data-theme="light"]) .brand-cards.brand-logo-rail .brand-filter-card-icon > :is(.brand-filter-mark, .brand-mark-fallback) { filter: brightness(1.42) contrast(1.42) saturate(1.52) drop-shadow(0 2px 3px rgba(0,0,0,.64)) !important; }
 html:not([data-theme="light"]) .brand-cards.brand-logo-rail .brand-filter-card-icon > :is(.brand-mark--audi, .brand-mark--aston-martin, .brand-mark--mansory, .brand-mark--rolls-royce) { filter: brightness(0) invert(.92) contrast(1.18) drop-shadow(0 1px 3px rgba(0,0,0,.72)) !important; }
 html[data-theme="light"] .brand-cards.brand-logo-rail .brand-filter-card-icon > :is(.brand-filter-mark, .brand-mark-fallback) { filter: brightness(.74) contrast(1.46) saturate(1.46) drop-shadow(0 1px 2px rgba(54,38,20,.28)) !important; }
+
+/* Final simplified rail: no card-colour layer, just one clear neutral disc per
+   original logo. This overrides the legacy beige/blue card surfaces. */
+.brand-cards.brand-logo-rail {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  gap: 10px !important;
+  padding: 8px 2px 12px !important;
+}
+.brand-cards.brand-logo-rail > a,
+html:not([data-theme="light"]) body .fleet-browse-page .brand-cards.brand-logo-rail > a,
+html[data-theme="light"] body .fleet-browse-page .brand-cards.brand-logo-rail > a {
+  background: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  flex: 0 0 66px !important;
+  grid-template-rows: 52px minmax(8px, auto) minmax(8px, auto) !important;
+  min-height: 74px !important;
+  padding: 0 0 3px !important;
+}
+.brand-cards.brand-logo-rail .brand-filter-card-surface { display: none !important; }
+.brand-cards.brand-logo-rail .brand-filter-card-icon,
+html:not([data-theme="light"]) body .fleet-browse-page .brand-cards.brand-logo-rail .brand-filter-card-icon,
+html[data-theme="light"] body .fleet-browse-page .brand-cards.brand-logo-rail .brand-filter-card-icon {
+  background: #f1eadf !important;
+  background-image: none !important;
+  border: 1px solid rgba(89,76,57,.36) !important;
+  border-radius: 50% !important;
+  box-shadow: 0 1px 2px rgba(0,0,0,.14) !important;
+  height: 52px !important;
+  width: 52px !important;
+}
+.brand-cards.brand-logo-rail .brand-filter-card-icon::before { display: none !important; }
+.brand-cards.brand-logo-rail .brand-filter-card-icon > :is(.brand-filter-mark, .brand-mark-fallback) {
+  filter: none !important;
+  mix-blend-mode: normal !important;
+  max-height: 68% !important;
+  max-width: 76% !important;
+  transform: none !important;
+}
+.brand-cards.brand-logo-rail > a > small { color: #e6dcc9 !important; font-size: 5.8px !important; max-width: 66px !important; }
+.brand-cards.brand-logo-rail > a > .brand-filter-model-count { color: rgba(226,212,190,.72) !important; font-size: 5px !important; }
+.brand-cards.brand-logo-rail > a.active .brand-filter-card-icon,
+.brand-cards.brand-logo-rail > a:hover .brand-filter-card-icon,
+.brand-cards.brand-logo-rail > a:focus-visible .brand-filter-card-icon { border-color: #4b9ec6 !important; box-shadow: 0 0 0 2px rgba(75,158,198,.20) !important; transform: none !important; }
+html[data-theme="light"] .brand-cards.brand-logo-rail > a > small { color: #183a4f !important; }
+html[data-theme="light"] .brand-cards.brand-logo-rail > a > .brand-filter-model-count { color: rgba(24,58,79,.68) !important; }
+.brand-cards.brand-logo-rail .brand-filter-card-icon > .brand-mark--user-aston-filter {
+  clip-path: none !important;
+  filter: none !important;
+  height: auto !important;
+  max-height: 58% !important;
+  max-width: 86% !important;
+  mix-blend-mode: screen !important;
+  transform: none !important;
+  width: 86% !important;
+}
+@media (max-width: 620px) {
+  .brand-cards.brand-logo-rail { gap: 9px !important; }
+  .brand-cards.brand-logo-rail > a { flex-basis: 66px !important; min-height: 74px !important; }
+}
+
+/* The fleet filter alone opts out of old theme recolouring and circular crops. */
+#root .fleet-browse-page .brand-cards.brand-logo-rail > a .brand-filter-card-icon .brand-filter-mark {
+  clip-path: none !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+  object-fit: contain !important;
+  transform: none !important;
+}
+#root .fleet-browse-page .brand-cards.brand-logo-rail > a .brand-filter-card-icon .brand-filter-mark.brand-mark--rolls-royce {
+  max-height: 76% !important;
+  max-width: 52% !important;
+}
+#root .fleet-browse-page .brand-cards.brand-logo-rail > a .brand-filter-card-icon .brand-filter-mark.brand-mark--user-aston-filter {
+  clip-path: none !important;
+  filter: none !important;
+  height: auto !important;
+  max-height: 58% !important;
+  max-width: none !important;
+  mix-blend-mode: normal !important;
+  transform: none !important;
+  width: 48px !important;
+}

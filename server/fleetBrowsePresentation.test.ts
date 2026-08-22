@@ -58,11 +58,11 @@ describe("fleet browse presentation", () => {
   });
 
   it("uses transparent mark assets for the verified marque circles and a restrained card-hover scale", () => {
-    expect(vehicleSystemSource).toContain("/manus-storage/porsche_9f7e8dd2.webp");
-    expect(vehicleSystemSource).toContain("/manus-storage/lamborghini_28d5ee79.webp");
-    expect(vehicleSystemSource).toContain("/manus-storage/mercedes-benz_e6c76c17.webp");
-    expect(vehicleSystemSource).toContain("/manus-storage/rolls-royce_4c877ceb.webp");
-    expect(vehicleSystemSource).toContain("/manus-storage/range-rover_efe196c3.webp");
+    expect(vehicleSystemSource).toContain("/manus-storage/porsche-original-colour_");
+    expect(vehicleSystemSource).toContain("/manus-storage/lamborghini-original-colour_");
+    expect(vehicleSystemSource).toContain("/manus-storage/mercedes-benz-original-colour_");
+    expect(vehicleSystemSource).toContain("/manus-storage/rolls-royce-original-colour_");
+    expect(vehicleSystemSource).toContain("/manus-storage/range-rover-original-colour_");
     expect(vehicleSystemSource).toContain("brand-mark-fallback");
     expect(vehicleSystemSource).toContain('"--vehicle-image-hover-scale": String(imageSettings.scale)');
     expect(glassStyles).toContain("box-shadow: inset 0 -28px 40px rgba(0, 0, 0, .32), 0 16px 30px rgba(0, 0, 0, .18)");

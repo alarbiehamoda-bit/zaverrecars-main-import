@@ -14,21 +14,25 @@ import { vehicleSpecificationValue } from "@/lib/fleetPresentation";
 
 // Single editable source for each marque icon. Updating one URL here updates brand cards, vehicle cards, and brand headers.
 export const brandHeaderAssets: Record<string, string> = {
-  "Lamborghini": "/manus-storage/lamborghini_28d5ee79.webp",
-  "Maserati": "/manus-storage/maserati_63a12301.webp",
-  "Ferrari": "/manus-storage/ferrari_76367fe2.webp",
-  "McLaren": "/manus-storage/mclaren_562a6f2c.webp",
-  "Mercedes-Benz": "/manus-storage/mercedes-benz_e6c76c17.webp",
-  "Porsche": "/manus-storage/porsche_9f7e8dd2.webp",
-  "Rolls-Royce": "/manus-storage/rolls-royce_4c877ceb.webp",
-  "Range Rover": "/manus-storage/range-rover_efe196c3.webp",
-  "Audi": "/manus-storage/audi_050ae235.webp",
-  "BMW": "/manus-storage/bmw_596ae7a5.webp",
-  "Bentley": "/manus-storage/bentley_d68a814c.webp",
-  "Aston Martin": "/manus-storage/aston-martin_e2751bba.webp",
-  "Cadillac": "/manus-storage/cadillac_d56f8ccd.webp",
-  "Brabus": "/manus-storage/brabus_60a83651.webp",
-  "Mansory": "/manus-storage/mansory_b1d8c549.webp",
+  "Lamborghini": "/manus-storage/lamborghini-original-colour_c7383ec4.png",
+  "Maserati": "/manus-storage/maserati-original-colour_ecf270dd.png",
+  "Ferrari": "/manus-storage/ferrari-original-colour_aefbe85f.png",
+  "McLaren": "/manus-storage/mclaren-original-colour_8c1d2ec5.png",
+  "Mercedes-Benz": "/manus-storage/mercedes-benz-original-colour_f9505a1b.png",
+  "Porsche": "/manus-storage/porsche-original-colour_79eb5d89.png",
+  "Rolls-Royce": "/manus-storage/rolls-royce-original-colour_9926779b.png",
+  "Range Rover": "/manus-storage/range-rover-original-colour_12c5ed46.png",
+  "Audi": "/manus-storage/audi-original-colour_9e7f3b1a.png",
+  "BMW": "/manus-storage/bmw-original-colour_928d429c.png",
+  "Bentley": "/manus-storage/bentley-original-colour_a5a29ca1.png",
+  "Aston Martin": "/manus-storage/aston-martin-original-colour_e269a13f.png",
+  "Cadillac": "/manus-storage/cadillac-original-colour_30e673f6.png",
+  "Brabus": "/manus-storage/brabus-original-colour_ddc1c1d2.png",
+  "Mansory": "/manus-storage/mansory-original-colour_61da4584.png",
+};
+
+const brandFilterAssets: Record<string, string> = {
+  "Aston Martin": "/manus-storage/aston-martin-filter-wing-transparent_fb730da6.png",
 };
 
 export const brandSheetHeaders: Record<string, string> = {
@@ -59,17 +63,17 @@ const usesSeekLogoCanvas = (source: string | undefined) => Boolean(source?.inclu
 const categoryLabel: Record<Vehicle["category"], string> = { Performance: "Performance", "Luxury SUV": "Luxury SUV", Convertible: "Convertible" };
 const price = (value: number) => new Intl.NumberFormat("en-AE", { maximumFractionDigits: 0 }).format(value);
 
-export function BrandMark({ brandName, logoUrl, className = "" }: { brandName: string; logoUrl?: string | null; className?: string }) {
+export function BrandMark({ brandName, logoUrl, className = "", sourceOverride }: { brandName: string; logoUrl?: string | null; className?: string; sourceOverride?: string }) {
   // The verified reference asset is authoritative for the catalogue brands so
   // filters, headers and cards always share the same original source. An
   // administrator-provided asset remains the fallback for unlisted marques.
-  const source = brandHeaderAssets[brandName] || logoUrl;
+  const source = sourceOverride || brandHeaderAssets[brandName] || logoUrl;
   const usesBuiltInSeekLogoCanvas = Boolean(source && source === brandHeaderAssets[brandName] && usesSeekLogoCanvas(source));
   const [available, setAvailable] = useState(Boolean(source));
   useEffect(() => setAvailable(Boolean(source)), [source]);
   const identityClass = `brand-mark--${brandName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`;
   const contrastClass = highContrastMarkBrands.has(brandName) ? "brand-mark--high-contrast" : "";
-  const sourceTreatmentClass = usesBuiltInSeekLogoCanvas ? "brand-mark--seeklogo-canvas" : "";
+  const sourceTreatmentClass = `${usesBuiltInSeekLogoCanvas ? "brand-mark--seeklogo-canvas" : ""} ${source?.includes("aston-martin-filter-wing") ? "brand-mark--user-aston-filter" : ""}`.trim();
   if (available && source) return <img className={`${identityClass} ${contrastClass} ${sourceTreatmentClass} ${className}`.trim()} src={source} alt={`${brandName} mark`} loading="lazy" decoding="async" onError={() => setAvailable(false)} />;
   const initials = brandName.split(/\s|-/).filter(Boolean).map((word) => word[0]).join("").slice(0, 2).toUpperCase();
   return <span className={`brand-mark-fallback ${identityClass} ${className}`.trim()} aria-label={`${brandName} mark`} title={brandName}>{initials}</span>;
@@ -169,9 +173,9 @@ export function BrandFilterRail({ activeBrand, onSelect, brands, vehicles }: { a
   };
 
   return <div ref={railRef} className={`brand-cards brand-cards--${theme} brand-logo-rail brand-filter-rail${isDragging ? " is-dragging" : ""}`} aria-label="Brand Cards" data-filter-part="brand-cards" onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={endDrag}>
-    <a href="/cars" key="All" className={activeBrand === "All" ? "active" : ""} style={brandCardStyle} onClick={(event) => selectBrand(event, "All")} aria-current={activeBrand === "All" ? "page" : undefined} aria-label={`Show all ${brandVehicleCounts.All} vehicles`}><span className="brand-filter-card-surface" aria-hidden="true" /><span className="brand-filter-card-icon" style={iconWellStyle} aria-hidden="true"><CarFront size={28} strokeWidth={1.45} /></span><small>ALL</small><b className="brand-filter-model-count">{brandVehicleCounts.All} {brandVehicleCounts.All === 1 ? "MODEL" : "MODELS"}</b></a>
+    <a href="/cars" key="All" className={activeBrand === "All" ? "active" : ""} style={brandCardStyle} onClick={(event) => selectBrand(event, "All")} aria-current={activeBrand === "All" ? "page" : undefined} aria-label={`Show all ${brandVehicleCounts.All} vehicles`}><span className="brand-filter-card-icon" style={iconWellStyle} aria-hidden="true"><CarFront size={28} strokeWidth={1.45} /></span><small>ALL</small><b className="brand-filter-model-count">{brandVehicleCounts.All} {brandVehicleCounts.All === 1 ? "MODEL" : "MODELS"}</b></a>
     {filterBrands.map((brand) => <a href={`/cars/${brandRouteSlug(brand.brandName)}`} key={brand.brandName} className={activeBrand === brand.brandName ? "active" : ""} style={brandCardStyle} onClick={(event) => selectBrand(event, brand.brandName)} aria-current={activeBrand === brand.brandName ? "page" : undefined} aria-label={`Show ${brandVehicleCounts[brand.brandName]} ${brand.displayName} vehicles`}>
-      <span className="brand-filter-card-surface" aria-hidden="true" /><span className="brand-filter-card-icon" style={iconWellStyle}><BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} className="brand-filter-mark" /></span>
+      <span className="brand-filter-card-icon" style={iconWellStyle}><BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} sourceOverride={brandFilterAssets[brand.brandName]} className="brand-filter-mark" /></span>
       <small>{brand.displayName}</small><b className="brand-filter-model-count">{brandVehicleCounts[brand.brandName]} {brandVehicleCounts[brand.brandName] === 1 ? "MODEL" : "MODELS"}</b>
     </a>)}
   </div>;
