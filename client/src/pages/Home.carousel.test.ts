@@ -22,7 +22,8 @@ describe("unified vehicle system safeguards", () => {
     expect(systemSource).toContain("export function VehicleCard");
     expect(systemSource).toContain("resolveVehicleImageSettings");
     expect(systemSource).toContain("export function BrandMark");
-    expect(systemSource).toContain("<BrandMark brandName={vehicle.brand}");
+    expect(systemSource).toContain("<BrandMark brandName={displayedBrand}");
+    expect(fleetSource).toContain('brandBadge={activeBrand ? { brandName: activeBrand, logoUrl: activeBrandMeta?.logoUrl } : undefined}');
     expect(systemSource).toContain("VERIFIED SOURCE");
     expect(systemSource).toContain("TEMPORARILY UNAVAILABLE");
     expect(systemSource).toContain("BOOK NOW");

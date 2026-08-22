@@ -7,7 +7,8 @@ const styles = readFileSync(new URL("./components/VehicleSystem.css", import.met
 describe("catalogue marque well", () => {
   it("uses one reusable Aston Martin-style seal for every vehicle card", () => {
     expect(component).toContain('className="vehicle-brand-ribbon__seal brand-emblem-well brand-emblem-well--catalogue"');
-    expect(component).toContain('<BrandMark brandName={vehicle.brand}');
+    expect(component).toContain('<BrandMark brandName={displayedBrand} logoUrl={displayedBrandLogo} className="vehicle-brand-ribbon-mark" />');
+    expect(component).toContain('const displayedBrand = brandBadge?.brandName || vehicle.brand');
     expect(styles).toContain("Catalogue marque well");
     expect(styles).toContain(".vehicle-card .vehicle-brand-ribbon__seal");
   });

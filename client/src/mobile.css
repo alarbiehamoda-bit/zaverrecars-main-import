@@ -121,4 +121,46 @@
   .detail-booking-section { padding: 44px 14px !important; }
   .detail-section-heading { margin-bottom: 19px !important; }
   .detail-spec-grid--iconic > div, .detail-rental-grid > div { min-height: 92px !important; padding: 11px 9px !important; }
+
+  /* Detail-page phone density: this deliberately excludes .detail-gallery,
+     .detail-main-image-trigger, and .gallery-thumbnails. */
+  .vehicle-detail-page .detail-intro { gap: 12px !important; padding: 18px 12px !important; }
+  .vehicle-detail-page .detail-intro h1 { font-size: clamp(34px, 9.8vw, 43px) !important; line-height: .9 !important; }
+  .vehicle-detail-page .detail-colour { font-size: 8px !important; margin-top: 6px !important; }
+  .vehicle-detail-page .detail-price-panel { border-radius: 13px !important; padding: 12px !important; }
+  .vehicle-detail-page .detail-price-panel > p,
+  .vehicle-detail-page .detail-price-panel > span,
+  .vehicle-detail-page .detail-price-panel small { font-size: 7px !important; }
+  .vehicle-detail-page .detail-price-value strong { font-size: clamp(29px, 8.6vw, 37px) !important; }
+  .vehicle-detail-page .detail-price-value .dirham-mark { height: 23px !important; width: 20px !important; }
+  .vehicle-detail-page .detail-price-duration { margin-top: 8px !important; padding-top: 7px !important; }
+  .vehicle-detail-page .detail-quick-actions { gap: 7px !important; padding: 0 12px 18px !important; }
+  .vehicle-detail-page .detail-quick-actions .button { font-size: 7px !important; min-height: 38px !important; padding-inline: 9px !important; }
+  .vehicle-detail-page .detail-section { padding: 32px 12px !important; }
+  .vehicle-detail-page .detail-section-heading { gap: 5px !important; margin-bottom: 14px !important; }
+  .vehicle-detail-page .detail-section-heading .eyebrow { font-size: 7px !important; }
+  .vehicle-detail-page .detail-section-heading h2,
+  .vehicle-detail-page .detail-booking-section h2,
+  .vehicle-detail-page .detail-final-cta h2 { font-size: clamp(31px, 9vw, 39px) !important; line-height: .93 !important; }
+  .vehicle-detail-page .detail-spec-grid,
+  .vehicle-detail-page .detail-rental-grid { gap: 7px !important; }
+  .vehicle-detail-page .detail-spec-grid--iconic > div,
+  .vehicle-detail-page .detail-rental-grid > div { min-height: 76px !important; padding: 9px 7px !important; }
+  .vehicle-detail-page .detail-spec-grid--iconic svg { height: 15px !important; width: 15px !important; }
+  .vehicle-detail-page .detail-spec-grid dt,
+  .vehicle-detail-page .detail-rental-grid dt { font-size: 6px !important; }
+  .vehicle-detail-page .detail-spec-grid dd,
+  .vehicle-detail-page .detail-rental-grid dd { font-size: 15px !important; }
+  .vehicle-detail-page .detail-description { font-size: 19px !important; line-height: 1.42 !important; }
+  .vehicle-detail-page .detail-feature-grid { gap: 6px !important; }
+  .vehicle-detail-page .detail-feature-grid span { font-size: 8px !important; min-height: 35px !important; padding: 7px !important; }
+  .vehicle-detail-page .detail-booking-section { gap: 16px !important; padding: 34px 12px !important; }
+  .vehicle-detail-page .detail-booking-section > div > p:last-child,
+  .vehicle-detail-page .detail-reservation-panel > p { font-size: 11px !important; line-height: 1.5 !important; }
+  .vehicle-detail-page .detail-reservation-panel { gap: 12px !important; padding: 15px !important; }
+  .vehicle-detail-page .detail-reservation-panel .button { font-size: 7px !important; min-height: 38px !important; }
+  .vehicle-detail-page .detail-related-section { padding-bottom: 28px !important; }
+  .vehicle-detail-page .detail-faq-section { padding-top: 28px !important; }
+  .vehicle-detail-page .detail-faq-item button { font-size: 10px !important; min-height: 42px !important; padding: 11px 12px !important; }
+  .vehicle-detail-page .detail-final-cta { gap: 8px !important; min-height: 174px !important; padding: 28px 12px !important; }
 }

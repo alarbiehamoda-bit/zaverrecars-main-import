@@ -23,4 +23,12 @@ describe("mobile presentation rules", () => {
     expect(stylesheet).toContain('font-family: "Cormorant Garamond", Georgia, serif !important;');
     expect(stylesheet).toContain(".detail-spec-grid--iconic > div { grid-template-columns: 1fr !important; }");
   });
+
+  it("compacts vehicle-detail content without targeting the gallery in the final density pass", () => {
+    expect(stylesheet).toContain("Detail-page phone density");
+    expect(stylesheet).toContain(".vehicle-detail-page .detail-intro h1 { font-size: clamp(34px, 9.8vw, 43px)");
+    expect(stylesheet).toContain(".vehicle-detail-page .detail-spec-grid--iconic > div,");
+    expect(stylesheet).toContain(".vehicle-detail-page .detail-final-cta");
+    expect(stylesheet).toContain("excludes .detail-gallery");
+  });
 });

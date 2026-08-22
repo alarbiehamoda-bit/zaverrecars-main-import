@@ -111,7 +111,9 @@ describe("vehicle brand and image presentation", () => {
     expect(component).toContain("Single editable source for each marque icon");
     expect(component).toContain("const source = logoUrl || brandHeaderAssets[brandName]");
     expect(component).toContain("useEffect(() => setAvailable(Boolean(source)), [source])");
-    expect(component).toContain('<BrandMark brandName={vehicle.brand} logoUrl={vehicle.brandLogoUrl} className="vehicle-brand-ribbon-mark" />');
+    expect(component).toContain('<BrandMark brandName={displayedBrand} logoUrl={displayedBrandLogo} className="vehicle-brand-ribbon-mark" />');
+    expect(component).toContain('const displayedBrand = brandBadge?.brandName || vehicle.brand');
+    expect(component).toContain('brandBadge={brandBadge}');
     expect(component).toContain('<BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} className="brand-filter-mark" />');
     expect(component).toContain('loading="lazy"');
     expect(glassStyles).toContain('object-fit: contain');

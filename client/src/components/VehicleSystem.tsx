@@ -74,7 +74,7 @@ export function BrandMark({ brandName, logoUrl, className = "" }: { brandName: s
   return <span className={`brand-mark-fallback ${identityClass} ${className}`.trim()} aria-label={`${brandName} mark`} title={brandName}>{initials}</span>;
 }
 
-export function VehicleCard({ vehicle, onDetails, onBook, className = "", imageLoading = "lazy" }: { vehicle: Vehicle; onDetails: (vehicle: Vehicle) => void; onBook: (vehicle: Vehicle) => void; className?: string; imageLoading?: "eager" | "lazy" }) {
+export function VehicleCard({ vehicle, onDetails, onBook, className = "", imageLoading = "lazy", brandBadge }: { vehicle: Vehicle; onDetails: (vehicle: Vehicle) => void; onBook: (vehicle: Vehicle) => void; className?: string; imageLoading?: "eager" | "lazy"; brandBadge?: { brandName: string; logoUrl?: string | null } }) {
   const [imageAvailable, setImageAvailable] = useState(true);
   const imageSettings = resolveVehicleImageSettings(vehicle.imageSettings);
   const imageStyle = {
@@ -96,6 +96,8 @@ export function VehicleCard({ vehicle, onDetails, onBook, className = "", imageL
   });
   const managedFacts = vehicle.cardPresentation?.facts?.length ? vehicle.cardPresentation.facts : undefined;
   const ctaLabel = vehicle.cardPresentation?.ctaLabel || "BOOK NOW";
+  const displayedBrand = brandBadge?.brandName || vehicle.brand;
+  const displayedBrandLogo = brandBadge?.logoUrl ?? vehicle.brandLogoUrl;
 
   return <article id={`vehicle-card-${vehicle.id}`} className={`vehicle-card group ${className}`.trim()}>
     <a href={`/fleet/${vehicleSlug(vehicle)}`} className="vehicle-image-wrap" onClick={(event) => { event.preventDefault(); onDetails(vehicle); }} aria-label={`View details for ${vehicle.fullName}`}>
@@ -103,9 +105,9 @@ export function VehicleCard({ vehicle, onDetails, onBook, className = "", imageL
       <div className="vehicle-image-shade" /><span className="vehicle-number">{String(vehicle.index).padStart(2, "0")}</span><span className="vehicle-arrow"><ArrowUpRight size={15} /></span>
     </a>
       <div className="vehicle-card-body">
-      <div className="vehicle-brand-ribbon" aria-label={`${vehicle.brand} marque`}>
-        <span className="vehicle-brand-ribbon__seal brand-emblem-well brand-emblem-well--catalogue"><BrandMark brandName={vehicle.brand} logoUrl={vehicle.brandLogoUrl} className="vehicle-brand-ribbon-mark" /></span>
-        <span className="vehicle-brand-ribbon__identity"><strong>{vehicle.brand}</strong><i>{vehicle.cardPresentation?.kicker || "CURATED MARQUE"}</i></span>
+      <div className="vehicle-brand-ribbon" aria-label={`${displayedBrand} marque`}>
+        <span className="vehicle-brand-ribbon__seal brand-emblem-well brand-emblem-well--catalogue"><BrandMark brandName={displayedBrand} logoUrl={displayedBrandLogo} className="vehicle-brand-ribbon-mark" /></span>
+        <span className="vehicle-brand-ribbon__identity"><strong>{displayedBrand}</strong><i>{vehicle.cardPresentation?.kicker || "CURATED MARQUE"}</i></span>
       </div>
       <h3 className="font-display text-[#f7f1e5]">{vehicle.cardPresentation?.title || vehicle.model}</h3>
       {managedFacts ? <div className="card-spec-list" aria-label={`${vehicle.fullName} managed quick specifications`}>{managedFacts.map((specification) => <span key={specification.label} className="card-spec-item"><Gauge size={14} aria-hidden="true" /><small>{specification.label}</small><b>{specification.value}</b></span>)}</div> : cardSpecifications.length ? <div className="card-spec-list" aria-label={`${vehicle.fullName} verified quick specifications`}>{cardSpecifications.map((specification) => { const Icon = specification.icon; return <span key={specification.label} className="card-spec-item"><Icon size={14} aria-hidden="true" /><small>{specification.label}</small><b>{specification.value}</b></span>; })}</div> : <div className="card-facts"><span>{categoryLabel[vehicle.category]}</span>{vehicle.color && <span>{vehicle.color}</span>}</div>}
@@ -166,15 +168,15 @@ export function BrandFilterRail({ activeBrand, onSelect, brands, vehicles }: { a
   };
 
   return <div ref={railRef} className={`brand-cards brand-cards--${theme} brand-logo-rail brand-filter-rail${isDragging ? " is-dragging" : ""}`} aria-label="Brand Cards" data-filter-part="brand-cards" onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={endDrag}>
-    <a href="/cars" key="All" className={activeBrand === "All" ? "active" : ""} style={brandCardStyle} onClick={(event) => selectBrand(event, "All")} aria-current={activeBrand === "All" ? "page" : undefined} aria-label={`Show all ${brandVehicleCounts.All} vehicles`}><span className="brand-filter-card-icon" style={iconWellStyle} aria-hidden="true"><CarFront size={28} strokeWidth={1.45} /></span><small>ALL</small><b className="brand-filter-model-count">{brandVehicleCounts.All} {brandVehicleCounts.All === 1 ? "MODEL" : "MODELS"}</b></a>
+    <a href="/cars" key="All" className={activeBrand === "All" ? "active" : ""} style={brandCardStyle} onClick={(event) => selectBrand(event, "All")} aria-current={activeBrand === "All" ? "page" : undefined} aria-label={`Show all ${brandVehicleCounts.All} vehicles`}><span className="brand-filter-card-surface" aria-hidden="true" /><span className="brand-filter-card-icon" style={iconWellStyle} aria-hidden="true"><CarFront size={28} strokeWidth={1.45} /></span><small>ALL</small><b className="brand-filter-model-count">{brandVehicleCounts.All} {brandVehicleCounts.All === 1 ? "MODEL" : "MODELS"}</b></a>
     {filterBrands.map((brand) => <a href={`/cars/${brandRouteSlug(brand.brandName)}`} key={brand.brandName} className={activeBrand === brand.brandName ? "active" : ""} style={brandCardStyle} onClick={(event) => selectBrand(event, brand.brandName)} aria-current={activeBrand === brand.brandName ? "page" : undefined} aria-label={`Show ${brandVehicleCounts[brand.brandName]} ${brand.displayName} vehicles`}>
-      <span className="brand-filter-card-icon" style={iconWellStyle}><BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} className="brand-filter-mark" /></span>
+      <span className="brand-filter-card-surface" aria-hidden="true" /><span className="brand-filter-card-icon" style={iconWellStyle}><BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} className="brand-filter-mark" /></span>
       <small>{brand.displayName}</small><b className="brand-filter-model-count">{brandVehicleCounts[brand.brandName]} {brandVehicleCounts[brand.brandName] === 1 ? "MODEL" : "MODELS"}</b>
     </a>)}
   </div>;
 }
 
-export function MasterVehicleGrid({ vehicles, onDetails, onBook, layout = "grid" }: { vehicles: Vehicle[]; onDetails: (vehicle: Vehicle) => void; onBook: (vehicle: Vehicle) => void; layout?: "grid" | "vertical" | "carousel" }) {
+export function MasterVehicleGrid({ vehicles, onDetails, onBook, layout = "grid", brandBadge }: { vehicles: Vehicle[]; onDetails: (vehicle: Vehicle) => void; onBook: (vehicle: Vehicle) => void; layout?: "grid" | "vertical" | "carousel"; brandBadge?: { brandName: string; logoUrl?: string | null } }) {
   const railRef = useRef<HTMLDivElement>(null);
   const dragRef = useRef({ active: false, moved: false, pointerId: -1, startX: 0, startScrollLeft: 0 });
   const suppressClickRef = useRef(false);
@@ -207,5 +209,5 @@ export function MasterVehicleGrid({ vehicles, onDetails, onBook, layout = "grid"
       window.setTimeout(() => { suppressClickRef.current = false; }, 80);
     }
   };
-  return <div ref={railRef} className={`master-vehicle-grid master-vehicle-grid--${layout}${isDragging ? " is-dragging" : ""}`} aria-label={layout === "carousel" ? "Swipe or drag through similar vehicles" : "Vehicle collection"} role={layout === "carousel" ? "region" : undefined} aria-roledescription={layout === "carousel" ? "horizontal vehicle carousel" : undefined} onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={endDrag} onClickCapture={(event) => { if (suppressClickRef.current) { event.preventDefault(); event.stopPropagation(); } }}>{vehicles.map((vehicle, index) => <VehicleCard key={vehicle.id} vehicle={vehicle} onDetails={onDetails} onBook={onBook} className="featured-vehicle-card master-vehicle-card" imageLoading={index < 3 ? "eager" : "lazy"} />)}</div>;
+  return <div ref={railRef} className={`master-vehicle-grid master-vehicle-grid--${layout}${isDragging ? " is-dragging" : ""}`} aria-label={layout === "carousel" ? "Swipe or drag through similar vehicles" : "Vehicle collection"} role={layout === "carousel" ? "region" : undefined} aria-roledescription={layout === "carousel" ? "horizontal vehicle carousel" : undefined} onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={endDrag} onClickCapture={(event) => { if (suppressClickRef.current) { event.preventDefault(); event.stopPropagation(); } }}>{vehicles.map((vehicle, index) => <VehicleCard key={vehicle.id} vehicle={vehicle} onDetails={onDetails} onBook={onBook} className="featured-vehicle-card master-vehicle-card" imageLoading={index < 3 ? "eager" : "lazy"} brandBadge={brandBadge} />)}</div>;
 }
