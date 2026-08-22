@@ -1,6 +1,8 @@
 import { type CSSProperties, type PointerEvent as ReactPointerEvent, useRef, useState } from "react";
 import { useEffect, useMemo } from "react";
 import "./VehicleSystem.css";
+import "./BrandCards.css";
+import { useTheme } from "../contexts/ThemeContext";
 import { Armchair, ArrowDownRight, ArrowUpRight, CarFront, ChevronRight, DoorOpen, Gauge, Timer } from "lucide-react";
 import { resolveVehicleImageSettings, vehicleBrands, vehicleCatalog, vehicleFilterBrands, type Vehicle } from "@/config/vehicleCatalog";
 import type { ManagedBrand } from "@/hooks/useManagedVehicleCatalog";
@@ -22,7 +24,7 @@ export const brandHeaderAssets: Record<string, string> = {
   "Range Rover": "/manus-storage/range-rover-official_2a35d952.webp",
   "Audi": "/manus-storage/audi-official_e7f4fc02.webp",
   "BMW": "/manus-storage/bmw-official_f00ece9d.png",
-  "Bentley": "/manus-storage/bentley-official_175d4ef0.webp",
+  "Bentley": "/manus-storage/bentley-transparent_6830e836.png",
   "Aston Martin": "/manus-storage/aston-martin-seeklogo_9b2c0c6c.png",
   "Cadillac": "/manus-storage/image-extractpics-20_bfbf8a84.webp",
   "Brabus": "/manus-storage/brabus-seeklogo-monogram_03c491c6.png",
@@ -118,6 +120,7 @@ export function VehicleCard({ vehicle, onDetails, onBook, className = "", imageL
 }
 
 export function BrandFilterRail({ activeBrand, onSelect, brands, vehicles }: { activeBrand: string; onSelect: (brand: string) => void; brands?: ManagedBrand[]; vehicles?: Vehicle[] }) {
+  const { theme } = useTheme();
   const railRef = useRef<HTMLDivElement>(null);
   const dragRef = useRef({ active: false, moved: false, pointerId: -1, startX: 0, scrollLeft: 0 });
   const [isDragging, setIsDragging] = useState(false);
@@ -157,10 +160,10 @@ export function BrandFilterRail({ activeBrand, onSelect, brands, vehicles }: { a
     onSelect(brandName);
   };
 
-  return <div ref={railRef} className={`brand-cards brand-logo-rail brand-filter-rail${isDragging ? " is-dragging" : ""}`} aria-label="Brand Cards" data-filter-part="brand-cards" onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={endDrag}>
-    <a href="/cars" key="All" className={activeBrand === "All" ? "active" : ""} onClick={(event) => selectBrand(event, "All")} aria-current={activeBrand === "All" ? "page" : undefined} aria-label={`Show all ${brandVehicleCounts.All} vehicles`}><span className="brand-filter-icon-well brand-emblem-well brand-emblem-well--filter" aria-hidden="true"><CarFront size={28} strokeWidth={1.45} /></span><small>ALL</small><b className="brand-filter-model-count">{brandVehicleCounts.All} {brandVehicleCounts.All === 1 ? "MODEL" : "MODELS"}</b></a>
+  return <div ref={railRef} className={`brand-cards brand-cards--${theme} brand-logo-rail brand-filter-rail${isDragging ? " is-dragging" : ""}`} aria-label="Brand Cards" data-filter-part="brand-cards" onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={endDrag}>
+    <a href="/cars" key="All" className={activeBrand === "All" ? "active" : ""} onClick={(event) => selectBrand(event, "All")} aria-current={activeBrand === "All" ? "page" : undefined} aria-label={`Show all ${brandVehicleCounts.All} vehicles`}><span className="brand-filter-card-icon" aria-hidden="true"><CarFront size={28} strokeWidth={1.45} /></span><small>ALL</small><b className="brand-filter-model-count">{brandVehicleCounts.All} {brandVehicleCounts.All === 1 ? "MODEL" : "MODELS"}</b></a>
     {filterBrands.map((brand) => <a href={`/cars/${brandRouteSlug(brand.brandName)}`} key={brand.brandName} className={activeBrand === brand.brandName ? "active" : ""} onClick={(event) => selectBrand(event, brand.brandName)} aria-current={activeBrand === brand.brandName ? "page" : undefined} aria-label={`Show ${brandVehicleCounts[brand.brandName]} ${brand.displayName} vehicles`}>
-      <span className="brand-filter-icon-well brand-emblem-well brand-emblem-well--filter"><BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} className="brand-filter-mark" /></span>
+      <span className="brand-filter-card-icon"><BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} className="brand-filter-mark" /></span>
       <small>{brand.displayName}</small><b className="brand-filter-model-count">{brandVehicleCounts[brand.brandName]} {brandVehicleCounts[brand.brandName] === 1 ? "MODEL" : "MODELS"}</b>
     </a>)}
   </div>;

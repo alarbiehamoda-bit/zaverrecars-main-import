@@ -191,20 +191,6 @@ html:not([data-theme="light"]) .brand-logo-rail :is(button, a).active {
   transform: scale(2.2) !important;
 }
 
-.brand-logo-rail :is(button, a) .brand-emblem-well {
-  background: linear-gradient(145deg, #fffdf7, #d8c59d) !important;
-  border-color: rgba(121,89,43,.82) !important;
-  border-radius: 50% !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.94), 0 6px 12px rgba(38,27,10,.2) !important;
-}
-
-.brand-logo-rail :is(button, a).active .brand-emblem-well,
-.brand-logo-rail :is(button, a):hover .brand-emblem-well,
-.brand-logo-rail :is(button, a):focus-visible .brand-emblem-well {
-  border-color: #8bd7ff !important;
-  box-shadow: 0 0 0 2px rgba(108, 208, 255, .28), 0 9px 19px rgba(1, 45, 72, .38) !important;
-}
-
 html[data-theme="light"] .brand-emblem-well::after {
   background:
     repeating-linear-gradient(132deg, transparent 0 15%, rgba(109,81,46,.09) 15.7% 16%, transparent 16.7% 33%),
@@ -216,18 +202,16 @@ html[data-theme="light"] .brand-emblem-well::after {
 
 /* Final unified marque language: one circular mineral disc, no green field or nested square. */
 .vehicle-brand-ribbon__seal.brand-emblem-well,
-.vehicle-card .vehicle-brand-ribbon__seal.brand-emblem-well,
-.brand-logo-rail .brand-filter-icon-well.brand-emblem-well {
+.vehicle-card .vehicle-brand-ribbon__seal.brand-emblem-well {
   background: radial-gradient(circle at 30% 24%, rgba(255,255,255,.96) 0 5%, transparent 25%), linear-gradient(135deg, #fffdf7 0%, #e8e4d8 44%, #c9b890 100%) !important;
   border: 2px solid rgba(139,111,64,.8) !important;
   border-radius: 50% !important;
   box-shadow: inset 0 1px 0 rgba(255,255,255,.92), inset 0 -10px 16px rgba(80,65,42,.18), 0 7px 14px rgba(25,19,11,.24) !important;
   overflow: hidden !important;
 }
-.brand-logo-rail .brand-filter-icon-well.brand-emblem-well { height: 48px; width: 48px; }
 .vehicle-brand-ribbon__seal.brand-emblem-well { height: 50px; width: 50px; }
 .vehicle-brand-ribbon .vehicle-brand-ribbon-mark,
-.brand-logo-rail .brand-filter-icon-well .brand-filter-mark {
+.vehicle-brand-ribbon .vehicle-brand-ribbon-mark {
   background: transparent !important;
   border: 0 !important;
   border-radius: 0 !important;
@@ -247,8 +231,4 @@ html[data-theme="light"] .brand-emblem-well::after {
 .brand-emblem-well > .brand-mark--mansory { max-height: 60% !important; max-width: 96% !important; }
 html[data-theme="light"] .vehicle-card { --catalogue-marque-well-background: radial-gradient(circle at 30% 24%, rgba(255,255,255,.94) 0 5%, transparent 25%), linear-gradient(135deg, #f5efdf 0%, #d9c8a6 50%, #b89a69 100%); --catalogue-marque-well-border: rgba(107,79,37,.82); --catalogue-marque-well-shadow: inset 0 1px 0 rgba(255,255,255,.9), inset 0 -10px 16px rgba(73,57,33,.22), 0 8px 16px rgba(43,31,13,.22); }
 html[data-theme="light"] .vehicle-brand-ribbon { background: linear-gradient(102deg, #dce8e9, #b9cdd1 52%, #d4e1e2) !important; border-color: rgba(36,73,91,.34) !important; }
-html[data-theme="light"] .brand-logo-rail :is(button, a) { background: linear-gradient(145deg, #dfe9e9, #bdcfd1) !important; border-color: rgba(42,77,93,.3) !important; color: #16394d !important; }
-html[data-theme="light"] .brand-logo-rail :is(button, a).active,
-html[data-theme="light"] .brand-logo-rail :is(button, a):hover,
-html[data-theme="light"] .brand-logo-rail :is(button, a):focus-visible { background: linear-gradient(145deg, #c7dcdf, #9ebbc2) !important; border-color: #2f6b83 !important; color: #102f42 !important; }
-@media (max-width: 620px) { .brand-logo-rail .brand-filter-icon-well.brand-emblem-well { height: 40px; width: 40px; } .vehicle-brand-ribbon__seal.brand-emblem-well { height: 40px; width: 40px; } }
+@media (max-width: 620px) { .vehicle-brand-ribbon__seal.brand-emblem-well { height: 40px; width: 40px; } }
