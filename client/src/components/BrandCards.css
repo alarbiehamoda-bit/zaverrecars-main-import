@@ -379,3 +379,32 @@ html:not([data-theme="light"]) body .fleet-browse-page .brand-cards.brand-logo-r
   border-color: rgba(222, 190, 145, .48) !important;
   box-shadow: inset 0 1px rgba(255, 247, 229, .13), 0 3px 8px rgba(0, 0, 0, .22) !important;
 }
+
+/* The home marquee and fleet filters share the same circular head-mark language. */
+html[data-theme="light"] body .brand-cards.brand-logo-rail .brand-filter-card-icon {
+  background: radial-gradient(circle at 35% 25%, #d0ad7b 0%, #a0764b 58%, #704a2e 100%) !important;
+  border-color: rgba(92, 58, 29, .62) !important;
+  box-shadow: inset 0 1px rgba(255, 246, 226, .36), inset 0 -7px 12px rgba(66, 39, 18, .18), 0 4px 10px rgba(46, 28, 12, .18) !important;
+}
+html:not([data-theme="light"]) body .brand-cards.brand-logo-rail .brand-filter-card-icon {
+  background: radial-gradient(circle at 35% 25%, #856141 0%, #5b3e28 58%, #392317 100%) !important;
+  border-color: rgba(227, 194, 145, .56) !important;
+  box-shadow: inset 0 1px rgba(255, 247, 229, .18), inset 0 -7px 12px rgba(38, 21, 10, .24), 0 4px 10px rgba(0, 0, 0, .28) !important;
+}
+.brand-cards.brand-logo-rail > a {
+  cursor: pointer !important;
+  touch-action: manipulation;
+}
+
+/* The page-home rail has page-level legacy selectors, so this final rule locks
+   it to the same head-mark material in both themes. */
+html[data-theme="light"] #root :is(.fleet-browse-page, .brand-catalogue) .brand-cards.brand-logo-rail .brand-filter-card-icon {
+  background: radial-gradient(circle at 35% 25%, #d0ad7b 0%, #a0764b 58%, #704a2e 100%) !important;
+  border-color: rgba(92, 58, 29, .62) !important;
+  box-shadow: inset 0 1px rgba(255, 246, 226, .36), inset 0 -7px 12px rgba(66, 39, 18, .18), 0 4px 10px rgba(46, 28, 12, .18) !important;
+}
+html:not([data-theme="light"]) #root :is(.fleet-browse-page, .brand-catalogue) .brand-cards.brand-logo-rail .brand-filter-card-icon {
+  background: radial-gradient(circle at 35% 25%, #856141 0%, #5b3e28 58%, #392317 100%) !important;
+  border-color: rgba(227, 194, 145, .56) !important;
+  box-shadow: inset 0 1px rgba(255, 247, 229, .18), inset 0 -7px 12px rgba(38, 21, 10, .24), 0 4px 10px rgba(0, 0, 0, .28) !important;
+}

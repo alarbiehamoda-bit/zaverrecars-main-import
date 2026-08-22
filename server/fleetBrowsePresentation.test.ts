@@ -62,7 +62,7 @@ describe("fleet browse presentation", () => {
     expect(vehicleSystemSource).toContain("/manus-storage/lamborghini_1a09a414.webp");
     expect(vehicleSystemSource).toContain("/manus-storage/mercedes-benz_a8a53dc1.png");
     expect(vehicleSystemSource).toContain("/manus-storage/rolls-royce_3e890ee3.png");
-    expect(vehicleSystemSource).toContain("/manus-storage/range-rover_806e06eb.webp");
+    expect(vehicleSystemSource).toContain("/manus-storage/range-rover-original-colour_1cbe01b7.png");
     expect(vehicleSystemSource).toContain("brand-mark-fallback");
     expect(vehicleSystemSource).toContain('"--vehicle-image-hover-scale": String(imageSettings.scale)');
     expect(glassStyles).toContain("box-shadow: inset 0 -28px 40px rgba(0, 0, 0, .32), 0 16px 30px rgba(0, 0, 0, .18)");

@@ -541,13 +541,25 @@ html:not([data-theme="light"]) body .fleet-browse-page .brand-emblem-well {
   box-shadow: inset 0 1px rgba(255, 247, 229, .16), 0 6px 14px rgba(0, 0, 0, .28) !important;
 }
 
+/* The header emblem is the reference well for every non-filter marque context. */
+html[data-theme="light"] #root .fleet-browse-page :is(.fleet-browse-brand-logo, .vehicle-brand-ribbon__seal).brand-emblem-well {
+  background: radial-gradient(circle at 35% 25%, #d0ad7b 0%, #a0764b 58%, #704a2e 100%) !important;
+  border-color: rgba(92, 58, 29, .62) !important;
+  box-shadow: inset 0 1px rgba(255, 246, 226, .36), inset 0 -8px 13px rgba(66, 39, 18, .18), 0 5px 12px rgba(46, 28, 12, .18) !important;
+}
+html:not([data-theme="light"]) #root .fleet-browse-page :is(.fleet-browse-brand-logo, .vehicle-brand-ribbon__seal).brand-emblem-well {
+  background: radial-gradient(circle at 35% 25%, #856141 0%, #5b3e28 58%, #392317 100%) !important;
+  border-color: rgba(227, 194, 145, .56) !important;
+  box-shadow: inset 0 1px rgba(255, 247, 229, .18), inset 0 -8px 13px rgba(38, 21, 10, .24), 0 5px 12px rgba(0, 0, 0, .28) !important;
+}
+
 /* Card marque wells use a warmer brown material only inside vehicle cards. */
-#root .fleet-browse-page .vehicle-card .vehicle-brand-ribbon__seal.brand-emblem-well {
+#root :is(.fleet-browse-page, .featured-vehicles-section) .vehicle-card .vehicle-brand-ribbon__seal.brand-emblem-well {
   background: radial-gradient(circle at 35% 24%, #9a7a52 0%, #65472d 54%, #3b2719 100%) !important;
   border-color: rgba(223, 186, 132, .62) !important;
   box-shadow: inset 0 1px rgba(255, 245, 222, .2), inset 0 -8px 13px rgba(46, 28, 13, .26), 0 5px 12px rgba(19, 11, 6, .26) !important;
 }
-html[data-theme="light"] #root .fleet-browse-page .vehicle-card .vehicle-brand-ribbon__seal.brand-emblem-well {
+html[data-theme="light"] #root :is(.fleet-browse-page, .featured-vehicles-section) .vehicle-card .vehicle-brand-ribbon__seal.brand-emblem-well {
   background: radial-gradient(circle at 35% 24%, #e6cfaa 0%, #bd9362 54%, #815733 100%) !important;
   border-color: rgba(112, 73, 38, .58) !important;
   box-shadow: inset 0 1px rgba(255, 249, 235, .5), inset 0 -8px 13px rgba(79, 48, 22, .18), 0 5px 12px rgba(41, 25, 11, .16) !important;

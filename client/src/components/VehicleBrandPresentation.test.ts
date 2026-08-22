@@ -13,6 +13,7 @@ const zaverreMark = readFileSync(new URL("./ZaverreMark.tsx", import.meta.url), 
 describe("vehicle brand and image presentation", () => {
   it("uses a source for every catalogue marque that needs a visual mark", () => {
     expect(component).toContain('"Maserati": "/manus-storage/maserati_db4cfabc.webp"');
+    expect(component).toContain('"Range Rover": "/manus-storage/range-rover-original-colour_1cbe01b7.png"');
   });
 
   it("prioritizes the supplied official icon assets for every supported catalogue marque", () => {
@@ -174,5 +175,13 @@ describe("vehicle brand and image presentation", () => {
     expect(glassStyles).toContain("A fine neon baseline");
     expect(glassStyles).toContain("#48c8ff");
     expect(glassStyles).toContain("width: 100%");
+  });
+
+  it("matches the head-mark wells across filters and cards with theme-specific brown materials and touch-safe links", () => {
+    expect(rebuiltCardStyles).toContain("touch-action: manipulation");
+    expect(rebuiltCardStyles).toContain("#d0ad7b");
+    expect(rebuiltCardStyles).toContain("#856141");
+    expect(styles).toContain("Card marque wells use a warmer brown material only inside vehicle cards");
+    expect(styles).toContain("The header emblem is the reference well for every non-filter marque context");
   });
 });
