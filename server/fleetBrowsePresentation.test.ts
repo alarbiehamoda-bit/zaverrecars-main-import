@@ -179,7 +179,7 @@ describe("fleet browse presentation", () => {
     expect(vehicleSystemSource).toContain("brand-filter-stack");
     expect(vehicleSystemSource).toContain("brand-logo-rail brand-filter-rail");
     expect(readFileSync(new URL("../client/src/components/BrandCards.css", import.meta.url), "utf8")).toContain(".brand-filter-all-button");
-    expect(readFileSync(new URL("../client/src/components/BrandCards.css", import.meta.url), "utf8")).toContain("scrollbar-width: none !important");
+    expect(readFileSync(new URL("../client/src/components/BrandCards.css", import.meta.url), "utf8")).toContain("scrollbar-width: none;");
   });
 
   it("names the showroom controls as Filter Top, Filter Holder, and Brand Cards", () => {

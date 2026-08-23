@@ -1,571 +1,95 @@
-.brand-mark-fallback { align-items: center; color: #d6b77d; display: inline-flex; font-size: 7px; font-weight: 800; justify-content: center; letter-spacing: .08em; line-height: 1.1; overflow: hidden; text-align: center; text-transform: uppercase; }
-.vehicle-marque-mark.brand-mark-fallback { border: 1px solid rgba(199,167,120,.38); border-radius: 999px; height: 26px; padding: 3px; width: 26px; }
-.brand-logo-rail .brand-mark-fallback { border: 1px solid rgba(199,167,120,.38); border-radius: 999px; height: 38px; padding: 5px; width: 38px; }
-.fleet-browse-brand-logo .brand-mark-fallback { align-items: center; border: 1px solid rgba(199,167,120,.3); border-radius: 999px; display: flex; font-size: 9px; height: 100%; justify-content: center; line-height: 1.2; padding: 8px; text-align: center; width: 100%; }
-.vehicle-brand-ribbon { align-items: center; background: linear-gradient(100deg, rgba(221,187,128,.18), rgba(23,21,18,.88) 42%, rgba(199,167,120,.1)); border: 1px solid rgba(226,193,139,.25); border-radius: 14px; display: grid; gap: 9px; grid-template-columns: 36px minmax(0, 1fr) auto; margin-bottom: 14px; min-height: 46px; overflow: hidden; padding: 5px 10px 5px 6px; position: relative; }
-.vehicle-brand-ribbon::before { background: linear-gradient(105deg, rgba(255,255,255,.12), transparent 38%); content: ""; inset: 0; pointer-events: none; position: absolute; }
-.vehicle-brand-ribbon > * { position: relative; z-index: 1; }.vehicle-brand-ribbon > span { color: #f6ead6; font-family: "Cormorant Garamond", Georgia, serif; font-size: 19px; font-weight: 700; letter-spacing: .035em; line-height: .9; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }.vehicle-brand-ribbon > i { color: #c8ad7d; font-size: 6px; font-style: normal; font-weight: 800; letter-spacing: .11em; text-align: right; }
-.vehicle-brand-ribbon-mark { align-items: center; background: linear-gradient(145deg, #27241f, #11100e); border: 1px solid rgba(233,202,147,.48); border-radius: 10px; box-shadow: inset 0 1px 0 rgba(255,255,255,.1); display: flex; height: 36px; justify-content: center; object-fit: contain; overflow: visible; padding: 5px; transform: none; width: 36px; }
-.vehicle-brand-ribbon-mark.brand-mark-fallback { font-size: 5px; padding: 3px; }
-.vehicle-image-fallback { align-items: center; background: radial-gradient(circle at 50% 38%, rgba(106,91,61,.72), rgba(29,26,21,.96) 58%, #11100e 100%); color: #f4e7cf; display: flex; flex-direction: column; gap: 10px; height: 100%; justify-content: center; min-height: 100%; overflow: hidden; padding: 24px; position: relative; text-align: center; width: 100%; }.vehicle-image-fallback::before { border: 1px solid rgba(224,191,131,.32); border-radius: 999px; content: ""; height: 42%; max-height: 150px; opacity: .72; position: absolute; width: 42%; }.vehicle-image-fallback > * { position: relative; z-index: 1; }.vehicle-image-fallback span, .vehicle-image-fallback i { color: #d6b675; font-size: 8px; font-style: normal; font-weight: 800; letter-spacing: .16em; }.vehicle-image-fallback strong { color: #f7eee0; font-family: "Cormorant Garamond", Georgia, serif; font-size: clamp(30px,4.4vw,56px); font-weight: 500; line-height: .82; max-width: 12ch; }.vehicle-image-fallback i { color: #bfb3a2; font-size: 7px; line-height: 1.6; }
-.brand-logo-rail { align-items: flex-start; cursor: grab; display: flex; gap: 10px; max-width: 100%; overflow-x: auto; overscroll-behavior-inline: contain; padding: 5px 2px 10px; scrollbar-width: none; scroll-behavior: smooth; scroll-snap-type: x proximity; touch-action: pan-y; user-select: none; -webkit-user-select: none; }.brand-logo-rail::-webkit-scrollbar { display: none; }.brand-logo-rail.is-dragging { cursor: grabbing; scroll-behavior: auto; }.brand-logo-rail :is(button, a) { align-items: center; background: rgba(255,255,255,.015); border: 1px solid rgba(199,167,120,.2); border-radius: 16px; color: #a99f90; display: grid; flex: 0 0 70px; font-size: 7px; font-weight: 800; gap: 5px; justify-items: center; min-height: 72px; padding: 7px 4px; scroll-snap-align: start; text-decoration: none; transition: background 190ms cubic-bezier(.23,1,.32,1), border-color 190ms cubic-bezier(.23,1,.32,1), box-shadow 190ms cubic-bezier(.23,1,.32,1), transform 190ms cubic-bezier(.23,1,.32,1); }.brand-logo-rail :is(button, a):hover, .brand-logo-rail :is(button, a):focus-visible, .brand-logo-rail :is(button, a).active { background: linear-gradient(145deg, rgba(199,167,120,.22), rgba(26,23,19,.8)); border-color: rgba(231,198,138,.78); box-shadow: 0 10px 20px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.12); color: #f5e4c3; transform: translateY(-2px); }.brand-logo-rail :is(button, a):active { transform: scale(.97); }.brand-logo-rail :is(button, a) small { line-height: 1.1; max-width: 62px; overflow: hidden; text-align: center; text-overflow: ellipsis; white-space: nowrap; }
-.brand-logo-rail .brand-filter-mark, .brand-logo-rail .brand-mark-fallback { align-items: center; background: linear-gradient(145deg, #27241f, #11100e); border: 1px solid rgba(226,193,139,.48); border-radius: 12px; box-shadow: inset 0 0 0 3px rgba(199,167,120,.06), inset 0 1px 0 rgba(255,255,255,.12); display: flex; height: 42px; justify-content: center; object-fit: contain; overflow: visible; padding: 6px; transform: none; width: 42px; }
-.vehicle-brand-ribbon-mark, .brand-logo-rail .brand-filter-mark { mix-blend-mode: screen; }
-.brand-mark--range-rover { padding: 4px !important; transform: none !important; }
-.vehicle-brand-ribbon-mark.brand-mark--range-rover, .brand-logo-rail .brand-filter-mark.brand-mark--range-rover { transform: none !important; }
-.brand-logo-rail .brand-filter-mark.brand-mark-fallback { font-size: 6px; padding: 4px; }
-@media (max-width: 620px) { .vehicle-brand-ribbon { grid-template-columns: 28px minmax(0, 1fr); }.vehicle-brand-ribbon > i { display: none; }.vehicle-brand-ribbon-mark { height: 28px; width: 28px; } }
-
-.card-spec-list { border-bottom: 1px solid rgba(199,167,120,.16); border-top: 1px solid rgba(199,167,120,.16); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 16px 0; }.card-spec-item { align-items: center; border-right: 1px solid rgba(199,167,120,.13); color: #eed4a5; display: grid; gap: 3px; justify-items: center; min-height: 56px; padding: 8px 3px; text-align: center; }.card-spec-item:last-child { border-right: 0; }.card-spec-item svg { color: #cfa968; }.card-spec-item small { color: #9b9183; font-size: 6px; font-weight: 800; letter-spacing: .08em; line-height: 1; text-transform: uppercase; }.card-spec-item b { color: #f3e7d4; font-size: 8px; font-weight: 700; line-height: 1.2; max-width: 10ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-@media (max-width: 480px) { .card-spec-item { min-height: 52px; }.card-spec-item b { font-size: 7px; } }
-
-/* Elevated marque plate: the original badge stays the hero, while the brand name remains legible at a glance. */
-.vehicle-brand-ribbon { background: linear-gradient(102deg, rgba(239, 207, 156, .2), rgba(33, 29, 24, .94) 43%, rgba(164, 111, 65, .18)) !important; border-color: rgba(240, 205, 149, .4) !important; gap: 12px !important; grid-template-columns: 54px minmax(0, 1fr) !important; margin-bottom: 12px; min-height: 62px; padding: 6px 13px 6px 6px; }
-.vehicle-brand-ribbon__seal { align-items: center; align-self: stretch; background: radial-gradient(circle at 32% 22%, rgba(255,255,255,.18), transparent 33%), linear-gradient(145deg, rgba(67, 57, 42, .94), rgba(11, 11, 10, .98)); border: 1px solid rgba(250, 216, 160, .62); border-radius: 14px; box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 6px 15px rgba(0,0,0,.22); display: flex; height: 50px; justify-content: center; overflow: hidden; width: 50px; }
-.vehicle-brand-ribbon > .vehicle-brand-ribbon__seal { color: inherit; font-family: inherit; font-size: inherit; letter-spacing: 0; white-space: normal; }
-.vehicle-brand-ribbon .vehicle-brand-ribbon-mark { background: transparent; border: 0; border-radius: 0; box-shadow: none; filter: contrast(1.18) saturate(1.16) drop-shadow(0 2px 5px rgba(0,0,0,.46)); height: 42px; mix-blend-mode: screen; object-fit: contain; padding: 0; width: 42px; }
-.vehicle-brand-ribbon__identity { align-content: center; display: grid; gap: 4px; min-width: 0; }
-.vehicle-brand-ribbon > .vehicle-brand-ribbon__identity { color: inherit; font-family: inherit; font-size: inherit; line-height: 1; overflow: visible; white-space: normal; }
-.vehicle-brand-ribbon__identity strong { color: #fff1d9; font-family: "Cormorant Garamond", Georgia, serif; font-size: clamp(21px, 2.1vw, 27px); font-weight: 700; letter-spacing: .04em; line-height: .82; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.vehicle-brand-ribbon__identity i { color: #e5bd83; font-family: "Manrope", Arial, sans-serif; font-size: 7px; font-style: normal; font-weight: 900; letter-spacing: .14em; line-height: 1.1; text-align: left; }
-.brand-logo-rail :is(button, a) { flex-basis: 78px; min-height: 84px; }
-.brand-logo-rail .brand-filter-mark, .brand-logo-rail .brand-mark-fallback { background: radial-gradient(circle at 32% 22%, rgba(255,255,255,.16), transparent 34%), linear-gradient(145deg, #312a20, #0c0c0b); border-color: rgba(245, 210, 152, .62); border-radius: 14px; box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 5px 13px rgba(0,0,0,.18); filter: contrast(1.12) saturate(1.12); height: 48px; padding: 5px; width: 48px; }
-html[data-theme="light"] .vehicle-brand-ribbon { background: linear-gradient(102deg, #fff9ee, #ead9c5 52%, #f7ead9) !important; border-color: rgba(114, 62, 45, .32) !important; }
-html[data-theme="light"] .vehicle-brand-ribbon__seal { background: radial-gradient(circle at 32% 22%, rgba(255,255,255,.96), transparent 38%), linear-gradient(145deg, #e8eef0, #c5cfd5); border-color: rgba(24, 89, 130, .36); box-shadow: inset 0 1px 0 rgba(255,255,255,.96), 0 5px 13px rgba(24, 65, 93, .12); }
-html[data-theme="light"] .vehicle-brand-ribbon__identity strong { color: #173f63; }
-html[data-theme="light"] .vehicle-brand-ribbon__identity i { color: #8a4a35; }
-
-/* Catalogue marque well: all vehicle cards share this Aston Martin-style seal, with a separate balanced surface per theme. */
-.vehicle-card {
-  --catalogue-marque-well-background: linear-gradient(145deg, #d6d6a8 0%, #aeb47b 100%);
-  --catalogue-marque-well-border: rgba(67, 75, 41, .56);
-  --catalogue-marque-well-shadow: inset 0 1px 0 rgba(255,255,240,.64), inset 0 -6px 12px rgba(78, 84, 41, .18), 0 4px 10px rgba(52, 48, 25, .18);
-}
-.vehicle-card .vehicle-brand-ribbon__seal {
-  background: var(--catalogue-marque-well-background) !important;
-  border-color: var(--catalogue-marque-well-border) !important;
-  box-shadow: var(--catalogue-marque-well-shadow) !important;
-}
-@media (max-width: 620px) { .vehicle-brand-ribbon { gap: 9px !important; grid-template-columns: 43px minmax(0, 1fr) !important; min-height: 51px; padding: 4px 9px 4px 4px; }.vehicle-brand-ribbon__seal { border-radius: 11px; height: 40px; width: 40px; }.vehicle-brand-ribbon .vehicle-brand-ribbon-mark { height: 34px; width: 34px; }.vehicle-brand-ribbon__identity { gap: 3px; }.vehicle-brand-ribbon__identity strong { font-size: 20px; }.vehicle-brand-ribbon__identity i { display: block; font-size: 5.5px; }.brand-logo-rail :is(button, a) { flex-basis: 66px; min-height: 76px; }.brand-logo-rail .brand-filter-mark, .brand-logo-rail .brand-mark-fallback { border-radius: 12px; height: 40px; width: 40px; } }
-
-/* Dark mode brand plates: a light ice-blue field gives every supplied mark a clean, common backdrop. */
-html:not([data-theme="light"]) .vehicle-brand-ribbon {
-  background: linear-gradient(108deg, #fbfdff 0%, #e4f6ff 48%, #bee8ff 100%) !important;
-  border-color: rgba(142, 219, 255, .78) !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.92), 0 8px 18px rgba(2, 52, 84, .26);
-}
-html:not([data-theme="light"]) .vehicle-brand-ribbon::before {
-  background: linear-gradient(105deg, rgba(255,255,255,.78), transparent 42%, rgba(69, 180, 237, .18));
-}
-html:not([data-theme="light"]) .vehicle-brand-ribbon__seal,
-html:not([data-theme="light"]) .brand-logo-rail .brand-filter-mark,
-html:not([data-theme="light"]) .brand-logo-rail .brand-mark-fallback {
-  background: radial-gradient(circle at 32% 20%, #ffffff 0%, #edf9ff 42%, #b9e5fb 100%);
-  border-color: rgba(62, 160, 212, .52);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.98), 0 5px 13px rgba(7, 64, 101, .17);
-}
-html:not([data-theme="light"]) .vehicle-brand-ribbon .vehicle-brand-ribbon-mark,
-html:not([data-theme="light"]) .brand-logo-rail .brand-filter-mark {
-  filter: contrast(1.08) saturate(1.06) drop-shadow(0 1px 2px rgba(5, 45, 74, .18));
-  mix-blend-mode: normal;
-}
-html:not([data-theme="light"]) .vehicle-brand-ribbon__identity strong,
-html:not([data-theme="light"]) .brand-logo-rail :is(button, a) {
-  color: #082f53;
-}
-html:not([data-theme="light"]) .vehicle-brand-ribbon__identity i {
-  color: #176694;
-}
-html:not([data-theme="light"]) .brand-logo-rail :is(button, a) {
-  background: linear-gradient(145deg, rgba(244, 252, 255, .96), rgba(191, 232, 252, .92));
-  border-color: rgba(107, 197, 239, .52);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.9);
-}
-html:not([data-theme="light"]) .brand-logo-rail :is(button, a):hover,
-html:not([data-theme="light"]) .brand-logo-rail :is(button, a):focus-visible,
-html:not([data-theme="light"]) .brand-logo-rail :is(button, a).active {
-  background: linear-gradient(145deg, #ffffff, #a8e0fb);
-  border-color: #55bce9;
-  box-shadow: inset 0 1px 0 #fff, 0 9px 20px rgba(16, 119, 170, .24);
-  color: #062a4a;
+/* Shared vehicle-card and brand-mark primitives. A marque is always sourced
+   through BrandMark and displayed inside one proportional emblem well. */
+.brand-mark-fallback {
+  align-items: center;
+  color: currentColor;
+  display: inline-flex;
+  font-size: 8px;
+  font-weight: 800;
+  justify-content: center;
+  letter-spacing: .08em;
+  line-height: 1;
+  text-align: center;
 }
 
-/* Official marque icon set: every badge occupies the same visual field without
-   turning a wide wordmark or shield into a cropped square. */
-.brand-emblem-well .brand-mark--audi,
-.brand-emblem-well .brand-mark--cadillac,
-.brand-emblem-well .brand-mark--mclaren,
-.brand-emblem-well .brand-mark--range-rover {
-  max-height: 58% !important;
-  max-width: 88% !important;
-  object-fit: contain !important;
-}
-
-.brand-emblem-well .brand-mark--bmw,
-.brand-emblem-well .brand-mark--lamborghini,
-.brand-emblem-well .brand-mark--maserati,
-.brand-emblem-well .brand-mark--porsche {
-  max-height: 82% !important;
-  max-width: 76% !important;
-  object-fit: contain !important;
-}
-
-/* The imported shield stays tall; wide marques keep room for their authentic
-   wordmark and never inherit the square geometry of a crest. */
-.brand-emblem-well .brand-mark--ferrari {
-  max-height: 88% !important;
-  max-width: 66% !important;
-  object-fit: contain !important;
-}
-
-.brand-emblem-well :is(.brand-mark--mercedes-benz, .brand-mark--aston-martin, .brand-mark--brabus, .brand-mark--mansory) {
-  max-height: 58% !important;
-  max-width: 88% !important;
-  object-fit: contain !important;
-}
-
-/* Circular automotive icon language: each marque is clipped by one crafted disc,
-   so the original source never creates a mismatched square inside the interface. */
 .brand-emblem-well {
+  --brand-well-light: radial-gradient(circle at 34% 25%, #f7ebd6 0%, #c89e6a 52%, #795033 100%);
+  --brand-well-dark: radial-gradient(circle at 34% 25%, #886344 0%, #563a27 56%, #352319 100%);
+  align-items: center;
   aspect-ratio: 1;
-  border-radius: 50% !important;
-  isolation: isolate;
-  overflow: hidden !important;
+  background: var(--brand-well-dark);
+  border: 1px solid rgba(231, 198, 149, .54);
+  border-radius: 50%;
+  box-shadow: inset 0 1px 0 rgba(255,247,229,.18), inset 0 -8px 13px rgba(36,21,11,.26), 0 5px 12px rgba(0,0,0,.26);
+  display: inline-flex;
+  justify-content: center;
+  overflow: hidden;
   position: relative;
+  transition: border-color 160ms ease-out, box-shadow 160ms ease-out, transform 160ms ease-out;
 }
 
-.brand-emblem-well::after {
-  background:
-    repeating-linear-gradient(132deg, transparent 0 15%, rgba(128,102,64,.1) 15.7% 16%, transparent 16.7% 33%),
-    radial-gradient(circle at 28% 20%, rgba(255,255,255,.72) 0 3%, transparent 20%),
-    linear-gradient(145deg, rgba(255,255,255,.68), rgba(224,217,198,.82) 52%, rgba(173,143,94,.86));
-  border-radius: 50%;
-  content: "";
-  inset: 7%;
-  opacity: 1;
-  pointer-events: none;
-  position: absolute;
-  z-index: 0;
+html[data-theme="light"] .brand-emblem-well {
+  background: var(--brand-well-light);
+  border-color: rgba(105, 68, 35, .62);
+  box-shadow: inset 0 1px 0 rgba(255,249,235,.5), inset 0 -8px 13px rgba(76,44,18,.18), 0 5px 12px rgba(41,25,11,.16);
 }
 
-.brand-emblem-well::before {
-  border: 1px solid rgba(106,78,39,.44);
-  border-radius: 50%;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.76), inset 0 -8px 12px rgba(85,65,35,.14);
-  content: "";
-  inset: 10%;
-  pointer-events: none;
-  position: absolute;
-  z-index: 1;
-}
-
-.brand-emblem-well > .brand-filter-mark,
-.brand-emblem-well > .vehicle-brand-ribbon-mark,
+.brand-emblem-well > .brand-mark,
 .brand-emblem-well > .brand-mark-fallback {
-  clip-path: circle(46%);
-  filter: brightness(1.03) contrast(1.16) saturate(1.04) drop-shadow(0 2px 3px rgba(0, 0, 0, .34)) !important;
-  position: relative;
-  z-index: 2;
+  display: block;
+  height: auto;
+  max-height: 68%;
+  max-width: 76%;
+  object-fit: contain;
+  object-position: center;
+  width: auto;
 }
 
-/* Hide the white display canvas of verified SeekLogo preview PNGs while
-   preserving the original coloured ink of the brand mark. */
-.brand-emblem-well > .brand-mark--seeklogo-canvas {
-  mix-blend-mode: darken !important;
+.brand-emblem-well > .brand-mark--fit-wide { max-height: 53%; max-width: 90%; }
+.brand-emblem-well > .brand-mark--fit-round { max-height: 69%; max-width: 69%; }
+.brand-emblem-well > .brand-mark--fit-crest { max-height: 78%; max-width: 60%; }
+.brand-emblem-well > .brand-mark--fit-tall { max-height: 82%; max-width: 52%; }
+.brand-emblem-well > .brand-mark--brabus { filter: brightness(0) contrast(1.28); }
+
+.brand-emblem-well--filter { height: 52px; width: 52px; }
+.fleet-browse-brand-logo.brand-emblem-well--hero { height: 112px; width: 112px; }
+.vehicle-brand-ribbon__seal.brand-emblem-well--catalogue { height: 48px; width: 48px; }
+
+.vehicle-brand-ribbon {
+  align-items: center;
+  background: linear-gradient(105deg, rgba(69,49,33,.9), rgba(30,24,19,.96));
+  border: 1px solid rgba(224,187,132,.34);
+  border-radius: 14px;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 48px minmax(0, 1fr);
+  margin-bottom: 12px;
+  min-height: 58px;
+  padding: 5px 11px 5px 5px;
 }
 
-/* Scale only the imported preview canvases: each mark remains proportionate,
-   while its decorative source padding never makes the real emblem look small. */
-.brand-emblem-well > .brand-mark--ferrari.brand-mark--seeklogo-canvas {
-  clip-path: inset(6% 12% 4% round 42%);
-  transform: scale(1.06) !important;
-}
+.vehicle-brand-ribbon__identity { display: grid; gap: 3px; min-width: 0; }
+.vehicle-brand-ribbon__identity strong { color: #fff0d7; font-family: "Cormorant Garamond", Georgia, serif; font-size: clamp(20px, 2vw, 27px); font-weight: 700; letter-spacing: .04em; line-height: .88; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vehicle-brand-ribbon__identity i { color: #e0bc82; font-family: "Manrope", Arial, sans-serif; font-size: 7px; font-style: normal; font-weight: 800; letter-spacing: .12em; line-height: 1.1; }
+.vehicle-brand-ribbon-mark { background: transparent; border: 0; box-shadow: none; padding: 0; }
 
-.brand-emblem-well > :is(.brand-mark--mercedes-benz, .brand-mark--aston-martin, .brand-mark--brabus).brand-mark--seeklogo-canvas {
-  filter: contrast(1.28) saturate(1.08) drop-shadow(0 2px 3px rgba(0,0,0,.3)) !important;
-  transform: scale(1.55) !important;
-}
+html[data-theme="light"] .vehicle-brand-ribbon { background: linear-gradient(105deg, #f7eee0, #dfc8a8); border-color: rgba(107,72,37,.36); }
+html[data-theme="light"] .vehicle-brand-ribbon__identity strong { color: #173d57; }
+html[data-theme="light"] .vehicle-brand-ribbon__identity i { color: #74472c; }
 
-.brand-emblem-well > .brand-mark--mansory.brand-mark--seeklogo-canvas {
-  filter: contrast(1.5) saturate(.94) drop-shadow(0 2px 2px rgba(0,0,0,.3)) !important;
-  transform: scale(2.2) !important;
-}
+.card-spec-list { border-bottom: 1px solid rgba(199,167,120,.16); border-top: 1px solid rgba(199,167,120,.16); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 16px 0; }
+.card-spec-item { align-items: center; border-right: 1px solid rgba(199,167,120,.13); color: #eed4a5; display: grid; gap: 3px; justify-items: center; min-height: 56px; padding: 8px 3px; text-align: center; }
+.card-spec-item:last-child { border-right: 0; }
+.card-spec-item svg { color: #cfa968; }
+.card-spec-item small { color: #9b9183; font-size: 6px; font-weight: 800; letter-spacing: .08em; line-height: 1; text-transform: uppercase; }
+.card-spec-item b { color: #f3e7d4; font-size: 8px; font-weight: 700; line-height: 1.2; max-width: 10ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-html[data-theme="light"] .brand-emblem-well::after {
-  background:
-    repeating-linear-gradient(132deg, transparent 0 15%, rgba(109,81,46,.09) 15.7% 16%, transparent 16.7% 33%),
-    radial-gradient(circle at 28% 20%, rgba(255,255,255,.88) 0 3%, transparent 20%),
-    linear-gradient(145deg, #f6f0df, #d8c8a8 58%, #b99560);
-  filter: none;
-  opacity: 1;
-}
-
-/* Final unified marque language: one circular mineral disc, no green field or nested square. */
-.vehicle-brand-ribbon__seal.brand-emblem-well,
-.vehicle-card .vehicle-brand-ribbon__seal.brand-emblem-well {
-  background: radial-gradient(circle at 30% 24%, rgba(255,255,255,.96) 0 5%, transparent 25%), linear-gradient(135deg, #fffdf7 0%, #e8e4d8 44%, #c9b890 100%) !important;
-  border: 2px solid rgba(139,111,64,.8) !important;
-  border-radius: 50% !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.92), inset 0 -10px 16px rgba(80,65,42,.18), 0 7px 14px rgba(25,19,11,.24) !important;
-  overflow: hidden !important;
-}
-.vehicle-brand-ribbon__seal.brand-emblem-well { height: 50px; width: 50px; }
-.vehicle-brand-ribbon .vehicle-brand-ribbon-mark,
-.vehicle-brand-ribbon .vehicle-brand-ribbon-mark {
-  background: transparent !important;
-  border: 0 !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  clip-path: none !important;
-  height: auto !important;
-  max-height: 78% !important;
-  max-width: 82% !important;
-  mix-blend-mode: normal !important;
-  padding: 0 !important;
-  width: auto !important;
-}
-.brand-emblem-well > .brand-mark--seeklogo-canvas { mix-blend-mode: darken !important; }
-.brand-emblem-well > .brand-mark--ferrari { clip-path: inset(6% 12% 4% round 42%) !important; }
-.brand-emblem-well > :is(.brand-mark--mercedes-benz, .brand-mark--aston-martin) { max-height: 64% !important; max-width: 94% !important; }
-.brand-emblem-well > .brand-mark--brabus { max-height: 72% !important; max-width: 72% !important; }
-.brand-emblem-well > .brand-mark--mansory { max-height: 60% !important; max-width: 96% !important; }
-html[data-theme="light"] .vehicle-card { --catalogue-marque-well-background: radial-gradient(circle at 30% 24%, rgba(255,255,255,.94) 0 5%, transparent 25%), linear-gradient(135deg, #f5efdf 0%, #d9c8a6 50%, #b89a69 100%); --catalogue-marque-well-border: rgba(107,79,37,.82); --catalogue-marque-well-shadow: inset 0 1px 0 rgba(255,255,255,.9), inset 0 -10px 16px rgba(73,57,33,.22), 0 8px 16px rgba(43,31,13,.22); }
-html[data-theme="light"] .vehicle-brand-ribbon { background: linear-gradient(102deg, #dce8e9, #b9cdd1 52%, #d4e1e2) !important; border-color: rgba(36,73,91,.34) !important; }
-@media (max-width: 620px) { .vehicle-brand-ribbon__seal.brand-emblem-well { height: 40px; width: 40px; } }
-
-/* Final isolated rail: legacy plate rules above serve card ribbons only. The
-   filter rail intentionally renders no rectangular surface behind a marque. */
-body .brand-cards.brand-logo-rail > a,
-html:not([data-theme="light"]) body .brand-cards.brand-logo-rail > a {
-  background: transparent !important;
-  background-image: none !important;
-  border: 0 !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  padding: 0 !important;
-}
-body .brand-cards.brand-logo-rail > a::before,
-body .brand-cards.brand-logo-rail > a::after { content: none !important; }
-body .brand-cards.brand-logo-rail .brand-filter-card-icon {
-  border-radius: 50% !important;
-  overflow: hidden !important;
-}
-body .brand-cards.brand-logo-rail .brand-filter-card-icon > .brand-filter-mark,
-body .brand-cards.brand-logo-rail .brand-filter-card-icon > .brand-mark-fallback {
-  background: transparent !important;
-  border: 0 !important;
-  border-radius: 50% !important;
-  box-shadow: none !important;
-  clip-path: circle(50%) !important;
-  height: 72% !important;
-  max-height: 72% !important;
-  max-width: 72% !important;
-  mix-blend-mode: normal !important;
-  overflow: hidden !important;
-  padding: 0 !important;
-  width: 72% !important;
-}
-html:not([data-theme="light"]) body .brand-cards.brand-logo-rail .brand-filter-card-icon > .brand-filter-mark {
-  mix-blend-mode: multiply !important;
-}
-
-/* Reference-aligned marquee: subdued graphite-and-brass wells in every public
-   marque context, replacing the earlier blue and mineral gradients. */
-body .brand-cards.brand-logo-rail > a {
-  background: rgba(255,255,255,.016) !important;
-  border: 1px solid rgba(199,167,120,.20) !important;
-  border-radius: 16px !important;
-  box-shadow: none !important;
-  padding: 7px 4px !important;
-}
-body .brand-cards.brand-logo-rail .brand-filter-card-icon,
-.brand-emblem-well,
-.vehicle-brand-ribbon__seal.brand-emblem-well,
-.vehicle-card .vehicle-brand-ribbon__seal.brand-emblem-well,
-.fleet-browse-brand-logo.brand-emblem-well {
-  background: radial-gradient(circle at 50% 40%, #413a2e 0%, #171511 73%) !important;
-  border: 1px solid rgba(226,193,139,.48) !important;
-  border-radius: 999px !important;
-  box-shadow: inset 0 0 0 4px rgba(199,167,120,.06), inset 0 1px 0 rgba(255,255,255,.12) !important;
-}
-body .brand-cards.brand-logo-rail .brand-filter-card-icon::before,
-.brand-emblem-well::before { border-color: rgba(226,193,139,.48) !important; box-shadow: none !important; }
-.brand-emblem-well::after { content: none !important; }
-html[data-theme="light"] body .brand-cards.brand-logo-rail > a {
-  background: rgba(74,59,39,.055) !important;
-  border-color: rgba(122,92,49,.26) !important;
-}
-html[data-theme="light"] body .brand-cards.brand-logo-rail .brand-filter-card-icon,
-html[data-theme="light"] .brand-emblem-well,
-html[data-theme="light"] .vehicle-brand-ribbon__seal.brand-emblem-well,
-html[data-theme="light"] .vehicle-card .vehicle-brand-ribbon__seal.brand-emblem-well,
-html[data-theme="light"] .fleet-browse-brand-logo.brand-emblem-well {
-  background: radial-gradient(circle at 50% 40%, #eee7d8 0%, #cbc0aa 73%) !important;
-  border-color: rgba(122,92,49,.50) !important;
-  box-shadow: inset 0 0 0 4px rgba(127,96,54,.08), inset 0 1px 0 rgba(255,255,255,.72) !important;
-}
-html[data-theme="light"] .brand-emblem-well::before,
-html[data-theme="light"] body .brand-cards.brand-logo-rail .brand-filter-card-icon::before { border-color: rgba(122,92,49,.42) !important; }
-
-/* Vivid source treatment: ink stays legible over the shared reference well.
-   Brabus is intentionally stronger because its fine monochrome roundel needs
-   more separation than the coloured crest marks. */
-html:not([data-theme="light"]) .brand-emblem-well > :is(img, .brand-mark-fallback),
-html:not([data-theme="light"]) body .brand-cards.brand-logo-rail .brand-filter-card-icon > :is(img, .brand-mark-fallback) {
-  filter: brightness(1.42) contrast(1.42) saturate(1.52) drop-shadow(0 2px 3px rgba(0,0,0,.64)) !important;
-}
-html[data-theme="light"] .brand-emblem-well > :is(img, .brand-mark-fallback),
-html[data-theme="light"] body .brand-cards.brand-logo-rail .brand-filter-card-icon > :is(img, .brand-mark-fallback) {
-  filter: brightness(.74) contrast(1.46) saturate(1.46) drop-shadow(0 1px 2px rgba(54,38,20,.28)) !important;
-}
-html:not([data-theme="light"]) :is(.brand-emblem-well, .brand-filter-card-icon) > .brand-mark--brabus {
-  filter: brightness(2.05) contrast(1.62) saturate(1.18) drop-shadow(0 0 4px rgba(255,237,193,.34)) !important;
-  max-height: 70% !important;
-  max-width: 84% !important;
-}
-html[data-theme="light"] :is(.brand-emblem-well, .brand-filter-card-icon) > .brand-mark--brabus {
-  filter: brightness(.26) contrast(1.72) saturate(1.24) drop-shadow(0 1px 1px rgba(255,255,255,.42)) !important;
-  max-height: 70% !important;
-  max-width: 84% !important;
-}
-/* Source files for these marques are intentionally monochrome. Their shared
-   treatment adds a restrained marque-colour signal without redrawing a logo. */
-:is(.brand-emblem-well, .brand-filter-card-icon) > .brand-mark--aston-martin {
-  max-height: 74% !important;
-  max-width: 96% !important;
-  transform: scale(1.30) !important;
-}
-html:not([data-theme="light"]) :is(.brand-emblem-well, .brand-filter-card-icon) > .brand-mark--aston-martin {
-  filter: brightness(0) saturate(100%) invert(60%) sepia(38%) saturate(570%) hue-rotate(91deg) brightness(89%) contrast(89%) drop-shadow(0 1px 3px rgba(0,0,0,.72)) !important;
-}
-html:not([data-theme="light"]) :is(.brand-emblem-well, .brand-filter-card-icon) > .brand-mark--audi {
-  filter: brightness(0) saturate(100%) invert(67%) sepia(22%) saturate(850%) hue-rotate(157deg) brightness(101%) contrast(95%) drop-shadow(0 1px 3px rgba(0,0,0,.72)) !important;
-}
-html:not([data-theme="light"]) :is(.brand-emblem-well, .brand-filter-card-icon) > .brand-mark--mansory {
-  filter: brightness(0) saturate(100%) invert(72%) sepia(33%) saturate(777%) hue-rotate(353deg) brightness(96%) contrast(91%) drop-shadow(0 1px 3px rgba(0,0,0,.72)) !important;
-}
-html:not([data-theme="light"]) :is(.brand-emblem-well, .brand-filter-card-icon) > .brand-mark--rolls-royce {
-  filter: brightness(0) saturate(100%) invert(78%) sepia(31%) saturate(701%) hue-rotate(358deg) brightness(93%) contrast(92%) drop-shadow(0 1px 3px rgba(0,0,0,.72)) !important;
-}
-html[data-theme="light"] :is(.brand-emblem-well, .brand-filter-card-icon) > .brand-mark--aston-martin {
-  filter: brightness(0) saturate(100%) invert(33%) sepia(31%) saturate(988%) hue-rotate(90deg) brightness(82%) contrast(94%) drop-shadow(0 1px 1px rgba(255,255,255,.42)) !important;
-}
-html[data-theme="light"] :is(.brand-emblem-well, .brand-filter-card-icon) > .brand-mark--audi {
-  filter: brightness(0) saturate(100%) invert(19%) sepia(61%) saturate(1537%) hue-rotate(167deg) brightness(88%) contrast(92%) drop-shadow(0 1px 1px rgba(255,255,255,.42)) !important;
-}
-html[data-theme="light"] :is(.brand-emblem-well, .brand-filter-card-icon) > .brand-mark--mansory,
-html[data-theme="light"] :is(.brand-emblem-well, .brand-filter-card-icon) > .brand-mark--rolls-royce {
-  filter: brightness(0) saturate(100%) invert(41%) sepia(39%) saturate(874%) hue-rotate(3deg) brightness(89%) contrast(89%) drop-shadow(0 1px 1px rgba(255,255,255,.42)) !important;
-}
-
-/* Precision placement for the cropped reference assets. The limits describe
-   visible logo mass, not the former transparent canvas, so every marque reads
-   clearly from the same centered optical line. */
-:is(.brand-emblem-well, .brand-card-identifier, .brand-card-logo, .brand-logo-preview, .brand-filter-card-icon) > .brand-mark {
-  object-position: center center !important;
-  transform-origin: center center !important;
-}
-:is(.brand-emblem-well, .brand-card-identifier, .brand-card-logo, .brand-logo-preview, .brand-filter-card-icon) > :is(.brand-mark--aston-martin, .brand-mark--audi, .brand-mark--bentley) {
-  max-width: 82% !important;
-  max-height: 58% !important;
-  transform: scale(1.08) !important;
-}
-:is(.brand-emblem-well, .brand-card-identifier, .brand-card-logo, .brand-logo-preview, .brand-filter-card-icon) > .brand-mark--aston-martin {
-  max-width: 78% !important;
-  max-height: 55% !important;
-  transform: scale(1.05) !important;
-}
-:is(.brand-emblem-well, .brand-card-identifier, .brand-card-logo, .brand-logo-preview, .brand-filter-card-icon) > :is(.brand-mark--bmw, .brand-mark--mercedes-benz, .brand-mark--brabus, .brand-mark--mansory) {
-  max-width: 62% !important;
-  max-height: 62% !important;
-  transform: scale(1) !important;
-}
-:is(.brand-emblem-well, .brand-card-identifier, .brand-card-logo, .brand-logo-preview, .brand-filter-card-icon) > :is(.brand-mark--ferrari, .brand-mark--lamborghini, .brand-mark--porsche) {
-  max-width: 58% !important;
-  max-height: 70% !important;
-  transform: scale(1) !important;
-}
-:is(.brand-emblem-well, .brand-card-identifier, .brand-card-logo, .brand-logo-preview, .brand-filter-card-icon) > .brand-mark--maserati {
-  max-width: 52% !important;
-  max-height: 66% !important;
-  transform: scale(1) !important;
-}
-:is(.brand-emblem-well, .brand-card-identifier, .brand-card-logo, .brand-logo-preview, .brand-filter-card-icon) > .brand-mark--mclaren {
-  max-width: 78% !important;
-  max-height: 50% !important;
-  transform: scale(1) !important;
-}
-:is(.brand-emblem-well, .brand-card-identifier, .brand-card-logo, .brand-logo-preview, .brand-filter-card-icon) > .brand-mark--cadillac {
-  max-width: 76% !important;
-  max-height: 56% !important;
-  transform: scale(1) !important;
-}
-:is(.brand-emblem-well, .brand-card-identifier, .brand-card-logo, .brand-logo-preview, .brand-filter-card-icon) > .brand-mark--range-rover {
-  max-width: 84% !important;
-  max-height: 46% !important;
-  transform: scale(1) !important;
-}
-:is(.brand-emblem-well, .brand-card-identifier, .brand-card-logo, .brand-logo-preview, .brand-filter-card-icon) > .brand-mark--rolls-royce {
-  max-width: 56% !important;
-  max-height: 70% !important;
-  transform: scale(1) !important;
-}
-html:not([data-theme="light"]) :is(.brand-emblem-well, .brand-card-identifier, .brand-card-logo, .brand-logo-preview, .brand-filter-card-icon) > :is(.brand-mark--aston-martin, .brand-mark--audi, .brand-mark--bentley, .brand-mark--mercedes-benz, .brand-mark--brabus, .brand-mark--mansory, .brand-mark--rolls-royce) {
-  filter: brightness(0) invert(.98) contrast(1.12) drop-shadow(0 1px 3px rgba(0,0,0,.78)) !important;
-}
-
-/* The Brand Cards stylesheet is intentionally more specific than the generic
-   well. Reassert the calibrated image geometry at that exact card layer. */
-html:not([data-theme="light"]) body .brand-cards.brand-logo-rail .brand-filter-card-icon > :is(.brand-filter-mark, .brand-mark-fallback) {
-  max-width: 76% !important;
-  max-height: 58% !important;
-  transform: scale(1) !important;
-  filter: brightness(1.38) contrast(1.32) saturate(1.12) drop-shadow(0 1px 3px rgba(0,0,0,.72)) !important;
-}
-html:not([data-theme="light"]) body .brand-cards.brand-logo-rail .brand-filter-card-icon > :is(.brand-mark--aston-martin, .brand-mark--audi, .brand-mark--bentley, .brand-mark--mercedes-benz, .brand-mark--brabus, .brand-mark--mansory, .brand-mark--rolls-royce) {
-  filter: brightness(0) invert(.98) contrast(1.12) drop-shadow(0 1px 3px rgba(0,0,0,.78)) !important;
-}
-html:not([data-theme="light"]) body .brand-cards.brand-logo-rail .brand-filter-card-icon > .brand-mark--aston-martin {
-  max-width: 78% !important;
-  max-height: 55% !important;
-  transform: scale(1.05) !important;
-  filter: brightness(0) invert(1) contrast(1.12) drop-shadow(0 1px 3px rgba(0,0,0,.82)) !important;
-}
-html[data-theme="light"] body .brand-cards.brand-logo-rail .brand-filter-card-icon > :is(.brand-filter-mark, .brand-mark-fallback) {
-  max-width: 76% !important;
-  max-height: 58% !important;
-  transform: scale(1) !important;
-}
-html[data-theme="light"] body .brand-cards.brand-logo-rail .brand-filter-card-icon > .brand-mark--aston-martin {
-  max-width: 78% !important;
-  max-height: 55% !important;
-  transform: scale(1.05) !important;
-}
-html:not([data-theme="light"]) body .fleet-browse-brand-logo.brand-emblem-well > .brand-mark--aston-martin,
-html:not([data-theme="light"]) body .vehicle-brand-ribbon__seal.brand-emblem-well > .brand-mark--aston-martin {
-  max-width: 78% !important;
-  max-height: 55% !important;
-  transform: scale(1.05) !important;
-  filter: brightness(0) invert(1) contrast(1.12) drop-shadow(0 1px 3px rgba(0,0,0,.82)) !important;
-}
-
-/* Reference files with a baked black canvas use screen compositing at night:
-   black becomes optically transparent while each marque keeps its own colour. */
-html:not([data-theme="light"]) body :is(.brand-filter-card-icon, .brand-emblem-well) > :is(.brand-mark--aston-martin, .brand-mark--audi, .brand-mark--bentley, .brand-mark--bmw, .brand-mark--cadillac, .brand-mark--ferrari, .brand-mark--lamborghini, .brand-mark--mansory, .brand-mark--maserati, .brand-mark--mercedes-benz, .brand-mark--porsche, .brand-mark--range-rover, .brand-mark--rolls-royce) {
-  background: transparent !important;
-  filter: brightness(1.46) contrast(1.32) saturate(1.24) drop-shadow(0 1px 3px rgba(0,0,0,.74)) !important;
-  mix-blend-mode: screen !important;
-}
-html:not([data-theme="light"]) body :is(.brand-filter-card-icon, .brand-emblem-well) > .brand-mark--aston-martin {
-  filter: brightness(1.86) contrast(1.36) saturate(.45) drop-shadow(0 1px 3px rgba(0,0,0,.82)) !important;
-  mix-blend-mode: screen !important;
-}
-html:not([data-theme="light"]) body .brand-cards.brand-logo-rail .brand-filter-card-icon > .brand-filter-mark {
-  background: transparent !important;
-  filter: brightness(1.48) contrast(1.34) saturate(1.28) drop-shadow(0 1px 3px rgba(0,0,0,.76)) !important;
-  mix-blend-mode: screen !important;
-}
-html:not([data-theme="light"]) body .brand-cards.brand-logo-rail .brand-filter-card-icon > .brand-mark--aston-martin {
-  filter: brightness(1.92) contrast(1.38) saturate(.36) drop-shadow(0 1px 3px rgba(0,0,0,.84)) !important;
-  mix-blend-mode: screen !important;
-}
 @media (max-width: 620px) {
-  html:not([data-theme="light"]) body .brand-cards.brand-logo-rail .brand-filter-card-icon > :is(.brand-filter-mark, .brand-mark-fallback) {
-    max-width: 90% !important;
-    max-height: 72% !important;
-  }
-  html:not([data-theme="light"]) body .brand-cards.brand-logo-rail .brand-filter-card-icon > .brand-mark--aston-martin {
-    max-width: 94% !important;
-    max-height: 66% !important;
-  }
-}
-
-/* Native-colour contract for the non-filter marque contexts. The filter has its
-   own audited source treatment; headers and vehicle cards must not recolour the
-   same original asset into white or monochrome. */
-#root .fleet-browse-page :is(.fleet-browse-brand-logo, .vehicle-brand-ribbon__seal) > :is(img, .brand-mark-fallback) {
-  clip-path: none !important;
-  filter: saturate(1.12) contrast(1.12) drop-shadow(0 1px 2px rgba(28, 22, 12, .28)) !important;
-  mix-blend-mode: normal !important;
-}
-#root .fleet-browse-page .fleet-browse-brand-logo.brand-emblem-well,
-#root .fleet-browse-page .vehicle-brand-ribbon__seal.brand-emblem-well {
-  background: radial-gradient(circle at 34% 26%, #fffdf8 0 7%, #f2ebdf 56%, #d8c8ad 100%) !important;
-  border-color: rgba(115, 91, 53, .46) !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.94), 0 5px 12px rgba(22, 18, 12, .18) !important;
-}
-#root .fleet-browse-page .vehicle-brand-ribbon__seal.brand-emblem-well > .brand-mark--rolls-royce {
-  max-height: 82% !important;
-  max-width: 58% !important;
-}
-
-/* Reference-source optical fit. Each imported source keeps its native aspect
-   ratio; only transparent canvas differences are compensated per identity. */
-#root .fleet-browse-page :is(.brand-filter-card-icon, .brand-emblem-well) > :is(.brand-mark--aston-martin, .brand-mark--audi, .brand-mark--bentley) {
-  max-height: 76% !important;
-  max-width: 94% !important;
-  transform: scale(1.14) !important;
-}
-#root .fleet-browse-page :is(.brand-filter-card-icon, .brand-emblem-well) > :is(.brand-mark--mclaren, .brand-mark--range-rover) {
-  max-height: 68% !important;
-  max-width: 94% !important;
-  transform: scale(1.10) !important;
-}
-#root .fleet-browse-page :is(.brand-filter-card-icon, .brand-emblem-well) > :is(.brand-mark--cadillac, .brand-mark--ferrari, .brand-mark--lamborghini, .brand-mark--maserati, .brand-mark--porsche) {
-  max-height: 82% !important;
-  max-width: 72% !important;
-  transform: scale(1.05) !important;
-}
-#root .fleet-browse-page :is(.brand-filter-card-icon, .brand-emblem-well) > :is(.brand-mark--bmw, .brand-mark--brabus, .brand-mark--mansory, .brand-mark--mercedes-benz) {
-  max-height: 76% !important;
-  max-width: 76% !important;
-  transform: scale(1) !important;
-}
-#root .fleet-browse-page :is(.brand-filter-card-icon, .brand-emblem-well) > .brand-mark--rolls-royce {
-  max-height: 88% !important;
-  max-width: 62% !important;
-  transform: scale(1.06) !important;
-}
-
-/* Brabus uses a ruby treatment to keep its otherwise black mark readable on
-   the light and dark neutral marque wells without replacing the source asset. */
-#root .fleet-browse-page :is(.brand-filter-card-icon, .brand-emblem-well) > .brand-mark--brabus,
-.vehicle-brand-ribbon__seal.brand-emblem-well > .brand-mark--brabus {
-  filter: brightness(0) saturate(100%) !important;
-}
-
-/* Deep-beige dark mode stays limited to the brand-mark wells themselves. */
-html:not([data-theme="light"]) body .fleet-browse-page .brand-emblem-well {
-  background: radial-gradient(circle at 35% 25%, #6a543b 0%, #473424 58%, #2c2018 100%) !important;
-  border-color: rgba(229, 197, 151, .55) !important;
-  box-shadow: inset 0 1px rgba(255, 247, 229, .16), 0 6px 14px rgba(0, 0, 0, .28) !important;
-}
-
-/* The header emblem is the reference well for every non-filter marque context. */
-html[data-theme="light"] #root .fleet-browse-page :is(.fleet-browse-brand-logo, .vehicle-brand-ribbon__seal).brand-emblem-well {
-  background: radial-gradient(circle at 35% 25%, #d0ad7b 0%, #a0764b 58%, #704a2e 100%) !important;
-  border-color: rgba(92, 58, 29, .62) !important;
-  box-shadow: inset 0 1px rgba(255, 246, 226, .36), inset 0 -8px 13px rgba(66, 39, 18, .18), 0 5px 12px rgba(46, 28, 12, .18) !important;
-}
-html:not([data-theme="light"]) #root .fleet-browse-page :is(.fleet-browse-brand-logo, .vehicle-brand-ribbon__seal).brand-emblem-well {
-  background: radial-gradient(circle at 35% 25%, #856141 0%, #5b3e28 58%, #392317 100%) !important;
-  border-color: rgba(227, 194, 145, .56) !important;
-  box-shadow: inset 0 1px rgba(255, 247, 229, .18), inset 0 -8px 13px rgba(38, 21, 10, .24), 0 5px 12px rgba(0, 0, 0, .28) !important;
-}
-
-/* Card marque wells use a warmer brown material only inside vehicle cards. */
-#root :is(.fleet-browse-page, .featured-vehicles-section) .vehicle-card .vehicle-brand-ribbon__seal.brand-emblem-well {
-  background: radial-gradient(circle at 35% 24%, #9a7a52 0%, #65472d 54%, #3b2719 100%) !important;
-  border-color: rgba(223, 186, 132, .62) !important;
-  box-shadow: inset 0 1px rgba(255, 245, 222, .2), inset 0 -8px 13px rgba(46, 28, 13, .26), 0 5px 12px rgba(19, 11, 6, .26) !important;
-}
-html[data-theme="light"] #root :is(.fleet-browse-page, .featured-vehicles-section) .vehicle-card .vehicle-brand-ribbon__seal.brand-emblem-well {
-  background: radial-gradient(circle at 35% 24%, #e6cfaa 0%, #bd9362 54%, #815733 100%) !important;
-  border-color: rgba(112, 73, 38, .58) !important;
-  box-shadow: inset 0 1px rgba(255, 249, 235, .5), inset 0 -8px 13px rgba(79, 48, 22, .18), 0 5px 12px rgba(41, 25, 11, .16) !important;
-}
-#root .fleet-browse-page :is(.brand-filter-card-icon, .brand-emblem-well) > .brand-mark--brabus,
-.vehicle-card .vehicle-brand-ribbon__seal.brand-emblem-well > .brand-mark--brabus {
-  filter: brightness(0) saturate(100%) !important;
-  mix-blend-mode: normal !important;
+  .fleet-browse-brand-logo.brand-emblem-well--hero { height: 96px; width: 96px; }
+  .vehicle-brand-ribbon { gap: 9px; grid-template-columns: 40px minmax(0, 1fr); min-height: 50px; padding: 4px 9px 4px 4px; }
+  .vehicle-brand-ribbon__seal.brand-emblem-well--catalogue { height: 40px; width: 40px; }
+  .vehicle-brand-ribbon__identity strong { font-size: 20px; }
+  .vehicle-brand-ribbon__identity i { font-size: 5.5px; }
+  .card-spec-item { min-height: 52px; }
+  .card-spec-item b { font-size: 7px; }
 }

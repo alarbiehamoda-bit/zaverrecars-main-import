@@ -2,6 +2,7 @@ import { type CSSProperties, type PointerEvent as ReactPointerEvent, useRef, use
 import { useEffect, useMemo } from "react";
 import "./VehicleSystem.css";
 import "./BrandCards.css";
+import "./BrandSystem.css";
 import { useTheme } from "../contexts/ThemeContext";
 import { Armchair, ArrowDownRight, ArrowUpRight, CarFront, ChevronRight, DoorOpen, Gauge, Timer } from "lucide-react";
 import { resolveVehicleImageSettings, vehicleBrands, vehicleCatalog, vehicleFilterBrands, type Vehicle } from "@/config/vehicleCatalog";
@@ -31,8 +32,22 @@ export const brandHeaderAssets: Record<string, string> = {
   "Mansory": "/manus-storage/mansory_e70e839a.png",
 };
 
-const brandFilterAssets: Record<string, string> = {
-  "Aston Martin": "/manus-storage/aston-martin_6856bdc9.png",
+export const brandLogoFits: Record<string, "wide" | "round" | "crest" | "tall" | "standard"> = {
+  "Lamborghini": "crest",
+  "Maserati": "crest",
+  "Ferrari": "crest",
+  "McLaren": "wide",
+  "Mercedes-Benz": "round",
+  "Porsche": "crest",
+  "Rolls-Royce": "tall",
+  "Range Rover": "wide",
+  "Audi": "wide",
+  "BMW": "round",
+  "Bentley": "round",
+  "Aston Martin": "wide",
+  "Cadillac": "crest",
+  "Brabus": "round",
+  "Mansory": "wide",
 };
 
 export const brandSheetHeaders: Record<string, string> = {
@@ -63,18 +78,18 @@ const usesSeekLogoCanvas = (source: string | undefined) => Boolean(source?.inclu
 const categoryLabel: Record<Vehicle["category"], string> = { Performance: "Performance", "Luxury SUV": "Luxury SUV", Convertible: "Convertible" };
 const price = (value: number) => new Intl.NumberFormat("en-AE", { maximumFractionDigits: 0 }).format(value);
 
-export function BrandMark({ brandName, logoUrl, className = "", sourceOverride }: { brandName: string; logoUrl?: string | null; className?: string; sourceOverride?: string }) {
-  // The verified reference asset is authoritative for the catalogue brands so
-  // filters, headers and cards always share the same original source. An
-  // administrator-provided asset remains the fallback for unlisted marques.
-  const source = sourceOverride || brandHeaderAssets[brandName] || logoUrl;
+export function BrandMark({ brandName, logoUrl, className = "" }: { brandName: string; logoUrl?: string | null; className?: string }) {
+  // One source of truth: every filter, card, and brand header reads the same
+  // verified asset. Administrator-managed marks remain a fallback for new marques.
+  const source = brandHeaderAssets[brandName] || logoUrl;
   const usesBuiltInSeekLogoCanvas = Boolean(source && source === brandHeaderAssets[brandName] && usesSeekLogoCanvas(source));
   const [available, setAvailable] = useState(Boolean(source));
   useEffect(() => setAvailable(Boolean(source)), [source]);
   const identityClass = `brand-mark--${brandName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`;
+  const fitClass = `brand-mark--fit-${brandLogoFits[brandName] ?? "standard"}`;
   const contrastClass = highContrastMarkBrands.has(brandName) ? "brand-mark--high-contrast" : "";
   const sourceTreatmentClass = `${usesBuiltInSeekLogoCanvas ? "brand-mark--seeklogo-canvas" : ""} ${source?.includes("aston-martin-filter-wing") ? "brand-mark--user-aston-filter" : ""}`.trim();
-  if (available && source) return <img className={`${identityClass} ${contrastClass} ${sourceTreatmentClass} ${className}`.trim()} src={source} alt={`${brandName} mark`} loading="lazy" decoding="async" onError={() => setAvailable(false)} />;
+  if (available && source) return <img className={`brand-mark ${identityClass} ${fitClass} ${contrastClass} ${sourceTreatmentClass} ${className}`.trim()} src={source} alt={`${brandName} mark`} loading="lazy" decoding="async" onError={() => setAvailable(false)} />;
   const initials = brandName.split(/\s|-/).filter(Boolean).map((word) => word[0]).join("").slice(0, 2).toUpperCase();
   return <span className={`brand-mark-fallback ${identityClass} ${className}`.trim()} aria-label={`${brandName} mark`} title={brandName}>{initials}</span>;
 }
@@ -133,13 +148,6 @@ export function BrandFilterRail({ activeBrand, onSelect, brands, vehicles }: { a
   const filterBrands = useMemo<ManagedBrand[]>(() => brands ?? vehicleBrands.filter((brandName) => brandName !== "All").map((brandName) => ({ brandName, displayName: brandName })), [brands]);
   const filterVehicles = vehicles ?? vehicleCatalog;
   const brandVehicleCounts = useMemo(() => Object.fromEntries([["All", filterVehicles.length], ...filterBrands.map((brand) => [brand.brandName, filterVehicles.filter((vehicle) => vehicle.brand === brand.brandName || vehicleFilterBrands(vehicle).includes(brand.brandName)).length])]), [filterBrands, filterVehicles]);
-  const iconWellStyle = {
-    background: theme === "dark" ? "radial-gradient(circle at 50% 40%, #413a2e 0%, #171511 73%)" : "radial-gradient(circle at 50% 40%, #eee7d8 0%, #cbc0aa 73%)",
-    borderRadius: "999px",
-    overflow: "hidden",
-  };
-  const brandCardStyle = { background: "transparent", backgroundImage: "none", border: "0", borderRadius: "0", boxShadow: "none", padding: "0" };
-
   const startDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
     if (event.pointerType === "mouse" && event.button !== 0) return;
     const rail = railRef.current;
@@ -162,8 +170,10 @@ export function BrandFilterRail({ activeBrand, onSelect, brands, vehicles }: { a
     const rail = railRef.current;
     if (!dragRef.current.active || dragRef.current.pointerId !== event.pointerId) return;
     if (rail?.hasPointerCapture(event.pointerId)) rail.releasePointerCapture(event.pointerId);
+    const moved = dragRef.current.moved;
     dragRef.current.active = false;
     setIsDragging(false);
+    if (moved) window.setTimeout(() => { dragRef.current.moved = false; }, 0);
   };
 
   const selectBrand = (event: React.MouseEvent<HTMLAnchorElement>, brandName: string) => {
@@ -175,8 +185,8 @@ export function BrandFilterRail({ activeBrand, onSelect, brands, vehicles }: { a
   return <div className={`brand-filter-stack brand-filter-stack--${theme}`} data-filter-part="brand-cards">
     <a href="/cars" className={`brand-filter-all-button${activeBrand === "All" ? " active" : ""}`} onClick={(event) => selectBrand(event, "All")} aria-current={activeBrand === "All" ? "page" : undefined} aria-label={`Show all ${brandVehicleCounts.All} vehicles`}><span>VIEW ALL CARS</span><b>{brandVehicleCounts.All} {brandVehicleCounts.All === 1 ? "MODEL" : "MODELS"}</b></a>
     <div ref={railRef} className={`brand-cards brand-cards--${theme} brand-logo-rail brand-filter-rail${isDragging ? " is-dragging" : ""}`} aria-label="Brand Cards" onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={endDrag}>
-      {filterBrands.map((brand) => <a href={`/cars/${brandRouteSlug(brand.brandName)}`} key={brand.brandName} className={activeBrand === brand.brandName ? "active" : ""} style={brandCardStyle} onClick={(event) => selectBrand(event, brand.brandName)} aria-current={activeBrand === brand.brandName ? "page" : undefined} aria-label={`Show ${brandVehicleCounts[brand.brandName]} ${brand.displayName} vehicles`}>
-        <span className="brand-filter-card-icon" style={iconWellStyle}><BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} sourceOverride={brandFilterAssets[brand.brandName]} className="brand-filter-mark" /></span>
+      {filterBrands.map((brand) => <a href={`/cars/${brandRouteSlug(brand.brandName)}`} key={brand.brandName} className={activeBrand === brand.brandName ? "active" : ""} onClick={(event) => selectBrand(event, brand.brandName)} aria-current={activeBrand === brand.brandName ? "page" : undefined} aria-label={`Show ${brandVehicleCounts[brand.brandName]} ${brand.displayName} vehicles`}>
+        <span className="brand-filter-card-icon brand-emblem-well brand-emblem-well--filter"><BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} className="brand-filter-mark" /></span>
         <small>{brand.displayName}</small><b className="brand-filter-model-count">{brandVehicleCounts[brand.brandName]} {brandVehicleCounts[brand.brandName] === 1 ? "MODEL" : "MODELS"}</b>
       </a>)}
     </div>

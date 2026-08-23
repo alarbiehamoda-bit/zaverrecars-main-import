@@ -9,6 +9,7 @@ import { startLogin } from "./const";
 import "./index.css";
 import "./vehicle-glass.css";
 import "./components/BrandCards.css";
+import "./ThemeConsistency.css";
 
 const queryClient = new QueryClient();
 

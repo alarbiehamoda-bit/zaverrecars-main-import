@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { ArrowDownRight, ArrowUp, ChevronLeft, MessageCircle, Phone, Search } from "lucide-react";
 import { useLocation } from "wouter";
 import "./FleetBrowse.css";
+import "../ThemeConsistency.css";
 import { ZaverreMark } from "@/components/ZaverreMark";
 import { vehicleFilterBrands, type Vehicle } from "@/config/vehicleCatalog";
 import { useManagedVehicleCatalog } from "@/hooks/useManagedVehicleCatalog";

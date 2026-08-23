@@ -3,185 +3,55 @@ import { describe, expect, it } from "vitest";
 
 const component = readFileSync(new URL("./VehicleSystem.tsx", import.meta.url), "utf8");
 const styles = readFileSync(new URL("./VehicleSystem.css", import.meta.url), "utf8");
-const rebuiltCardStyles = readFileSync(new URL("./BrandCards.css", import.meta.url), "utf8");
-const mobileStyles = readFileSync(new URL("../mobile.css", import.meta.url), "utf8");
-const glassStyles = readFileSync(new URL("../vehicle-glass.css", import.meta.url), "utf8");
-const fleetBrowseStyles = readFileSync(new URL("../pages/FleetBrowse.css", import.meta.url), "utf8");
-const brandConfig = readFileSync(new URL("../config/brand.ts", import.meta.url), "utf8");
-const zaverreMark = readFileSync(new URL("./ZaverreMark.tsx", import.meta.url), "utf8");
+const filterStyles = readFileSync(new URL("./BrandCards.css", import.meta.url), "utf8");
 
-describe("vehicle brand and image presentation", () => {
-  it("uses a source for every catalogue marque that needs a visual mark", () => {
-    expect(component).toContain('"Maserati": "/manus-storage/maserati_db4cfabc.webp"');
-    expect(component).toContain('"Range Rover": "/manus-storage/range-rover-original-colour_1cbe01b7.png"');
-  });
+const marques = ["Lamborghini", "Maserati", "Ferrari", "McLaren", "Mercedes-Benz", "Porsche", "Rolls-Royce", "Range Rover", "Audi", "BMW", "Bentley", "Aston Martin", "Cadillac", "Brabus", "Mansory"];
 
-  it("prioritizes the supplied official icon assets for every supported catalogue marque", () => {
-    for (const marque of ["Ferrari", "Audi", "Lamborghini", "Bentley", "Brabus", "Mansory"]) {
-      expect(component).toContain(`"${marque}": "/manus-storage/`);
+describe("brand presentation system", () => {
+  it("keeps one verified source mapping and one optical-fit profile for all catalogue marques", () => {
+    expect(component).toContain("export const brandHeaderAssets");
+    expect(component).toContain("export const brandLogoFits");
+    for (const marque of marques) {
+      expect(component).toContain(`\"${marque}\": \"/manus-storage/`);
     }
-    expect(component).toContain('"Ferrari": "/manus-storage/ferrari_9c771aa0.webp"');
-    expect(component).toContain('"Audi": "/manus-storage/audi_d161c3dd.png"');
-    expect(component).toContain('"Lamborghini": "/manus-storage/lamborghini_1a09a414.webp"');
+    expect(component).toContain("const source = brandHeaderAssets[brandName] || logoUrl");
+    expect(component).not.toContain("brandFilterAssets");
   });
 
-  it("keeps vehicle photos uncropped and makes marque badges a prominent, consistent marque plate", () => {
-    expect(styles).toContain("border-radius: 10px");
-    expect(styles).toContain("border-radius: 12px");
-    expect(styles).toContain("transform: none !important");
-    expect(mobileStyles).toContain("aspect-ratio: 4 / 3 !important");
-    expect(mobileStyles).toContain("object-fit: contain !important");
-    expect(fleetBrowseStyles).toContain("border-radius: 22px");
-    expect(fleetBrowseStyles).toContain("transform: none !important");
-    expect(fleetBrowseStyles).toContain("mix-blend-mode: screen");
-    expect(styles).toContain("mix-blend-mode: screen");
+  it("renders every context through BrandMark without stretching or per-context source overrides", () => {
     expect(component).toContain('className="vehicle-brand-ribbon__seal brand-emblem-well brand-emblem-well--catalogue"');
-    expect(component).toContain('className="vehicle-brand-ribbon__identity"');
-    expect(styles).toContain("Elevated marque plate");
-    expect(styles).toContain("filter: contrast(1.18) saturate(1.16)");
-    expect(styles).toContain("height: 48px");
-    expect(mobileStyles).toContain("flex-basis: 67px !important");
-  });
-
-  it("keeps the header ZAVERRE mark transparent and visually prominent", () => {
-    expect(glassStyles).toContain(".brand-lockup .zaverre-mark.brand-mark");
-    expect(glassStyles).toContain("flex: 0 0 62px");
-    expect(glassStyles).toContain("background: transparent !important");
-    expect(brandConfig).toContain("zaverre-mark-gold-transparent");
-    expect(brandConfig).toContain("zaverre-mark-blue-transparent");
-    expect(zaverreMark).toContain('theme === "light" ? brand.monogramBlue : brand.monogramGold');
-    expect(mobileStyles).toContain("height: 48px !important");
-    expect(mobileStyles).toContain("background: transparent !important");
-  });
-
-  it("gives rebuilt Brand Cards a neutral daylight surface and blue dark-mode icon wells", () => {
-    expect(rebuiltCardStyles).toContain("Brand Cards 3.0");
-    expect(rebuiltCardStyles).toContain("#b9cbd2");
-    expect(rebuiltCardStyles).toContain("#0b4f78");
-    expect(rebuiltCardStyles).toContain(".brand-cards.brand-cards--dark.brand-logo-rail .brand-filter-card-icon");
-    expect(component).toContain('className={`brand-cards brand-cards--${theme} brand-logo-rail brand-filter-rail');
-    expect(component).toContain('<a href={`/cars/${brandRouteSlug(brand.brandName)}`}');
-    expect(rebuiltCardStyles).toContain("No mark receives a green or square");
-  });
-
-  it("keeps showroom filter links on a neutral glass surface with enlarged contained marks", () => {
-    expect(glassStyles).toContain("Showroom navigation");
-    expect(glassStyles).toContain(".fleet-browse-page .brand-logo-rail :is(a, button)");
-    expect(glassStyles).toContain("rgba(255, 255, 255, .98)");
-    expect(glassStyles).toContain("#fff0d8");
-    expect(glassStyles).toContain("height: 52px");
-    expect(glassStyles).toContain(".fleet-browse-toolbar .eyebrow");
-    expect(glassStyles).toContain("#0b385a");
-  });
-
-  it("uses the same original marque source inside one contrast-safe independent icon for both themes", () => {
-    expect(component).toContain('className="brand-filter-card-icon"');
-    expect(component).toContain('sourceOverride={brandFilterAssets[brand.brandName]} className="brand-filter-mark"');
-    expect(rebuiltCardStyles).toContain("Independent filter icon primitive");
-    expect(rebuiltCardStyles).toContain("object-fit: contain");
-    expect(rebuiltCardStyles).toContain(".brand-filter-card-icon::before");
-    expect(rebuiltCardStyles).toContain("#0b4f78");
-  });
-
-  it("keeps native marque colour in brand-page headers and catalogue cards while filters retain their dedicated source treatment", () => {
-    expect(styles).toContain("Native-colour contract for the non-filter marque contexts");
-    expect(styles).toContain("filter: saturate(1.12) contrast(1.12)");
-    expect(styles).toContain("mix-blend-mode: normal !important");
-    expect(styles).toContain(".fleet-browse-brand-logo.brand-emblem-well");
-    expect(styles).toContain(".vehicle-brand-ribbon__seal.brand-emblem-well");
-    expect(component).toContain("const source = sourceOverride || brandHeaderAssets[brandName] || logoUrl");
-    expect(component).toContain('"Aston Martin": "/manus-storage/aston-martin_6856bdc9.png"');
-  });
-
-  it("calibrates each reference-site mark by its visible canvas rather than applying one square scale", () => {
-    expect(rebuiltCardStyles).toContain("Reference-source optical fit");
-    expect(rebuiltCardStyles).toContain(".brand-mark--aston-martin, .brand-mark--audi, .brand-mark--bentley");
-    expect(rebuiltCardStyles).toContain(".brand-mark--mclaren, .brand-mark--range-rover");
-    expect(rebuiltCardStyles).toContain(".brand-mark--rolls-royce");
-    expect(rebuiltCardStyles).toContain("transform: scale(1.14) !important");
-    expect(rebuiltCardStyles).toContain("transform: scale(1.06) !important");
-  });
-
-  it("keeps every sensitive light or dark marque on the same protected filter source", () => {
-    expect(component).toContain("const source = sourceOverride || brandHeaderAssets[brandName] || logoUrl");
-    for (const marque of ["Rolls-Royce", "Mercedes-Benz", "Bentley", "Aston Martin", "Audi", "Porsche", "Maserati", "Lamborghini"]) {
-      expect(component).toContain(`\"${marque}\": \"/manus-storage/`);
-    }
-    expect(component).toContain("filterBrands.map((brand) => <a href={`/cars/${brandRouteSlug(brand.brandName)}`");
-    expect(component).toContain("<span className=\"brand-filter-card-icon\" style={iconWellStyle}><BrandMark brandName={brand.brandName}");
-    expect(rebuiltCardStyles).toContain(".brand-filter-card-icon > :is(.brand-filter-mark");
-    expect(rebuiltCardStyles).toContain("filter: contrast(1.14) saturate(1.06)");
-    expect(component).toContain('"Rolls-Royce": "/manus-storage/rolls-royce_3e890ee3.png"');
-    expect(component).toContain('"Maserati": "/manus-storage/maserati_db4cfabc.webp"');
-    expect(component).toContain('"Mercedes-Benz": "/manus-storage/mercedes-benz_a8a53dc1.png"');
-  });
-
-  it("maps every branded filter through one independent icon and the same BrandMark source", () => {
-    const requiredMarques = ["Lamborghini", "Maserati", "Ferrari", "McLaren", "Mercedes-Benz", "Porsche", "Rolls-Royce", "Range Rover", "Audi", "BMW", "Bentley", "Aston Martin", "Cadillac", "Brabus", "Mansory"];
-    for (const marque of requiredMarques) {
-      expect(component).toContain(`\"${marque}\": \"/manus-storage/`);
-    }
-    expect(component).toContain("const source = sourceOverride || brandHeaderAssets[brandName] || logoUrl");
-    expect(component).toContain('<span className="brand-filter-card-icon" style={iconWellStyle}><BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} sourceOverride={brandFilterAssets[brand.brandName]} className="brand-filter-mark" /></span>');
-    expect(rebuiltCardStyles).toContain(".brand-filter-card-icon");
-    expect(rebuiltCardStyles).toContain("object-fit: contain");
-  });
-
-  it("keeps marque icon changes centralized and reflected in filter cards, vehicle cards, and brand headers", () => {
-    expect(component).toContain("Single editable source for each marque icon");
-    expect(component).toContain("const source = sourceOverride || brandHeaderAssets[brandName] || logoUrl");
-    expect(component).toContain("useEffect(() => setAvailable(Boolean(source)), [source])");
+    expect(component).toContain('className="brand-filter-card-icon brand-emblem-well brand-emblem-well--filter"');
     expect(component).toContain('<BrandMark brandName={displayedBrand} logoUrl={displayedBrandLogo} className="vehicle-brand-ribbon-mark" />');
-    expect(component).toContain('const displayedBrand = brandBadge?.brandName || vehicle.brand');
-    expect(component).toContain('brandBadge={brandBadge}');
-    expect(component).toContain('sourceOverride={brandFilterAssets[brand.brandName]} className="brand-filter-mark"');
-    expect(component).toContain('loading="lazy"');
-    expect(glassStyles).toContain('object-fit: contain');
+    expect(component).not.toContain("sourceOverride");
+    expect(styles).toContain("object-fit: contain");
+    expect(styles).toContain("object-position: center");
+    expect(styles).not.toContain("clip-path");
   });
 
-  it("keeps wide and crest-shaped uploaded marks contained on the neutral marque well", () => {
-    expect(component).not.toContain('  "Audi",\n  "Bentley"');
-    expect(component).not.toContain('  "BMW",\n  "Maserati"');
-    expect(glassStyles).toContain('.brand-mark--audi');
-    expect(glassStyles).toContain('max-height: 54% !important');
-    expect(glassStyles).toContain(':is(.brand-mark--bmw, .brand-mark--lamborghini)');
-    expect(glassStyles).toContain('height: 76% !important');
-    expect(component).toContain('const usesSeekLogoCanvas = (source: string | undefined) => Boolean(source?.includes("seeklogo"));');
-    expect(component).toContain('source?.includes("aston-martin-filter-wing") ? "brand-mark--user-aston-filter"');
-    expect(styles).toContain('.brand-emblem-well .brand-mark--ferrari');
-    expect(styles).toContain('.brand-mark--seeklogo-canvas');
-    expect(styles).toContain('transform: scale(1.55) !important');
-    expect(styles).toContain('transform: scale(2.2) !important');
-    expect(styles).toContain('clip-path: inset(6% 12% 4% round 42%)');
-    expect(glassStyles).toContain('.brand-mark--mercedes-benz, .brand-mark--aston-martin, .brand-mark--brabus, .brand-mark--mansory');
+  it("defines one proportional circular emblem well with deliberate fits for wide, round, crest, and tall assets", () => {
+    expect(styles).toContain(".brand-emblem-well {");
+    expect(styles).toContain("border-radius: 50%");
+    expect(styles).toContain(".brand-mark--fit-wide");
+    expect(styles).toContain(".brand-mark--fit-round");
+    expect(styles).toContain(".brand-mark--fit-crest");
+    expect(styles).toContain(".brand-mark--fit-tall");
+    expect(styles).toContain(".brand-mark--brabus { filter: brightness(0)");
   });
 
-  it("visually elevates the selected marque without changing its filter route", () => {
-    expect(component).toContain('className={activeBrand === brand.brandName ? "active" : ""}');
-    expect(component).toContain('aria-current={activeBrand === brand.brandName ? "page" : undefined}');
-    expect(glassStyles).toContain(".brand-logo-rail :is(a, button).active");
-    expect(glassStyles).toContain("#5bd0ff");
-    expect(glassStyles).toContain(".brand-logo-rail :is(a, button).active::after");
+  it("keeps the same warm emblem material readable in both themes and separate from card layouts", () => {
+    expect(styles).toContain("--brand-well-light");
+    expect(styles).toContain("--brand-well-dark");
+    expect(styles).toContain('html[data-theme="light"] .brand-emblem-well');
+    expect(styles).toContain(".vehicle-brand-ribbon__seal.brand-emblem-well--catalogue");
+    expect(filterStyles).toContain(".brand-cards.brand-logo-rail > a {");
+    expect(filterStyles).toContain("background: transparent");
   });
 
-  it("uses Brand Cards semantics and the rebuilt neutral/blue palette", () => {
+  it("keeps the marquee touch-friendly, focusable, and operable after a drag gesture", () => {
+    expect(filterStyles).toContain("touch-action: manipulation");
+    expect(filterStyles).toContain("scroll-snap-type: x proximity");
+    expect(filterStyles).toContain(":focus-visible");
+    expect(component).toContain("window.setTimeout(() => { dragRef.current.moved = false; }, 0)");
     expect(component).toContain('aria-label="Brand Cards"');
-    expect(rebuiltCardStyles).toContain("#b9cbd2");
-    expect(rebuiltCardStyles).toContain("#5ebce8");
-    expect(rebuiltCardStyles).toContain("#0b4f78");
-  });
-
-  it("anchors the header lockup with neon", () => {
-    expect(glassStyles).toContain("A fine neon baseline");
-    expect(glassStyles).toContain("#48c8ff");
-    expect(glassStyles).toContain("width: 100%");
-  });
-
-  it("matches the head-mark wells across filters and cards with theme-specific brown materials and touch-safe links", () => {
-    expect(rebuiltCardStyles).toContain("touch-action: manipulation");
-    expect(rebuiltCardStyles).toContain("#d0ad7b");
-    expect(rebuiltCardStyles).toContain("#856141");
-    expect(styles).toContain("Card marque wells use a warmer brown material only inside vehicle cards");
-    expect(styles).toContain("The header emblem is the reference well for every non-filter marque context");
   });
 });

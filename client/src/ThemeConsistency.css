@@ -1,0 +1,59 @@
+/* Day mode is a warm parchment inversion of ZAVERRE's charcoal editorial
+   system, never a separate cool-blue visual language. */
+html[data-theme="light"] body {
+  background: #f4eee3;
+  color: #1f272c;
+}
+
+html[data-theme="light"] :is(
+  .featured-vehicles-section,
+  .fleet-section,
+  .editorial-section,
+  .delivery-section,
+  .home-faq-section,
+  .journal-preview-section,
+  .contact-section
+) {
+  background: linear-gradient(128deg, #f8f2e7 0%, #ebdfca 50%, #f5eddf 100%) !important;
+}
+
+html[data-theme="light"] #root .zaverre-day :is(
+  .featured-vehicles-section,
+  .fleet-section,
+  .editorial-section,
+  .delivery-section,
+  .home-faq-section,
+  .journal-preview-section,
+  .contact-section
+) {
+  background: linear-gradient(128deg, #f8f2e7 0%, #ebdfca 50%, #f5eddf 100%) !important;
+}
+
+html[data-theme="light"] :is(.featured-vehicle-card, .detail-related-master-card, .master-vehicle-card) {
+  background: linear-gradient(155deg, #392a20 0%, #211915 72%, #171210 100%) !important;
+  border-color: rgba(184, 143, 93, .5) !important;
+  box-shadow: 0 14px 28px rgba(54, 36, 20, .2), inset 0 1px 0 rgba(255, 243, 223, .08) !important;
+}
+
+html[data-theme="light"] :is(.featured-vehicle-card, .detail-related-master-card, .master-vehicle-card) :is(h2, h3, h4, .vehicle-name, .card-title) {
+  color: #f7ead7 !important;
+}
+
+html[data-theme="light"] :is(.featured-vehicle-card, .detail-related-master-card, .master-vehicle-card) :is(p, small, .card-spec-item small) {
+  color: #d7c5ae !important;
+}
+
+html[data-theme="light"] #root .fleet-browse-page,
+html[data-theme="light"] #root .fleet-browse-page .fleet-browse-hero,
+html[data-theme="light"] #root .fleet-browse-page .fleet-browse-content {
+  background: linear-gradient(135deg, #f7efe4 0%, #e7d5bb 54%, #f5ecdf 100%) !important;
+}
+
+html[data-theme="light"] #root .fleet-browse-page .filter-holder {
+  background: rgba(95, 63, 35, .11) !important;
+  border-color: rgba(112, 73, 38, .3) !important;
+}
+
+@media (max-width: 620px) {
+  #root .floating-contact-rail { display: none !important; }
+}
