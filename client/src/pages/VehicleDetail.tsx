@@ -225,6 +225,10 @@ export default function VehicleDetail() {
   };
 
   const returnToOrigin = () => {
+    if (returnTapTimer.current) {
+      window.clearTimeout(returnTapTimer.current);
+      returnTapTimer.current = null;
+    }
     navigate(originPath());
   };
   const openBookingIntent = (target: Vehicle = vehicle!) => setBookingTarget({ label: target.fullName, message: safeMessage(target) });
@@ -261,20 +265,20 @@ export default function VehicleDetail() {
   return (
     <main id="main-content" className={`vehicle-detail-page ${theme === "light" ? "zaverre-day" : ""}`}>
       <header className="detail-header">
-        <button className="brand-lockup" onClick={handleBrandReturn} aria-label="Press once to return to the collection or twice for home" title="Press once to return, twice for home">
+        <button type="button" className="brand-lockup" onClick={handleBrandReturn} aria-label="Press once to return to the collection or twice for home" title="Press once to return, twice for home">
           <ZaverreMark className="brand-mark" />
           <span>ZAVERRE</span>
         </button>
         <div className="detail-header-actions">
           <button type="button" className="detail-mobile-back" onClick={returnToOrigin} aria-label="Return to collection"><ArrowLeft size={16} /> BACK</button>
           <PublicMobileMenu onBook={() => openBookingIntent()} />
-          <button onClick={returnToOrigin}>ALL BRANDS</button>
+          <button type="button" onClick={returnToOrigin}>ALL BRANDS</button>
           <a href={whatsappHref(contact, safeMessage(vehicle))} target="_blank" rel="noreferrer">WHATSAPP <ArrowUpRight size={15} /></a>
         </div>
       </header>
 
       <section className="detail-hero">
-        <div className="detail-breadcrumb"><button onClick={returnToOrigin}>FLEET</button><span>/</span><span>{vehicle.brand}</span><span>/</span><strong>{vehicle.model}</strong></div>
+        <div className="detail-breadcrumb"><button type="button" onClick={returnToOrigin}>FLEET</button><span>/</span><span>{vehicle.brand}</span><span>/</span><strong>{vehicle.model}</strong></div>
           <CarGallery vehicleName={vehicle.fullName} images={gallery} imageFit={vehicle.galleryImageFit} />
       </section>
 

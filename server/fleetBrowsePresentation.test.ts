@@ -170,10 +170,10 @@ describe("fleet browse presentation", () => {
     expect(glassStyles).toContain("color: #b97956");
   });
 
-  it("adds one compact category control alongside the all-cars and marque navigation", () => {
-    expect(fleetBrowseSource).toContain("fleet-category-rail");
-    expect(fleetBrowseSource).toContain("fleetCategoryDefinitions.map");
-    expect(fleetBrowseSource).toContain('navigate(`/cars/category/${category.slug}`)');
+  it("uses the marque rail as the only visible collection discovery control", () => {
+    expect(fleetBrowseSource).not.toContain("fleet-category-rail");
+    expect(fleetBrowseSource).not.toContain("SEARCH COLLECTION");
+    expect(fleetBrowseSource).not.toContain("discoverFleetVehicles");
     expect(vehicleSystemSource).toContain('className={`brand-filter-all-button${activeBrand === "All" ? " active" : ""}`}');
     expect(vehicleSystemSource).toContain("VIEW ALL CARS");
   });

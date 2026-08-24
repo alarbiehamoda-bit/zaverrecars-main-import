@@ -15,11 +15,14 @@ describe("vehicle detail gallery behavior", () => {
     expect(detailSource).toContain("const handleBrandReturn");
     expect(detailSource).toContain('navigate("/")');
     expect(detailSource).toContain("}, 280)");
-    expect(detailSource).toContain('onClick={returnToOrigin}>ALL BRANDS');
-    expect(detailSource).toContain('onClick={returnToOrigin}>FLEET');
+    expect(detailSource).toContain('type="button" onClick={returnToOrigin}>ALL BRANDS');
+    expect(detailSource).toContain('type="button" onClick={returnToOrigin}>FLEET');
     expect(detailSource).toContain('className="brand-lockup" onClick={handleBrandReturn}');
     expect(detailSource).toContain('className="detail-mobile-back" onClick={returnToOrigin}');
     expect(detailSource).not.toContain("PRESS AGAIN FOR HOME");
+    expect(detailSource).toContain("const returnToOrigin = () => {\n    if (returnTapTimer.current)");
+    expect(detailSource).not.toContain("window.history.back");
+    expect(detailSource).not.toContain("window.location.assign");
     expect(enhancementStyles).toContain("touch-action: manipulation");
   });
 

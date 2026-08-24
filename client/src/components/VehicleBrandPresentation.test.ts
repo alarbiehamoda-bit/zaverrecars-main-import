@@ -55,4 +55,10 @@ describe("brand presentation system", () => {
     expect(component).toContain("window.setTimeout(() => { dragRef.current.moved = false; }, 0)");
     expect(component).toContain('aria-label="Brand Cards"');
   });
+
+  it("prioritizes only the first visible catalogue logos while leaving the remaining marks lazy", () => {
+    expect(component).toContain('loading={priority ? "eager" : "lazy"}');
+    expect(component).toContain('fetchPriority={priority ? "high" : "auto"}');
+    expect(component).toContain("prioritizeVisibleLogos && index < 6");
+  });
 });

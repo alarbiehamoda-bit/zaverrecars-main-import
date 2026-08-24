@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { ArrowDownRight, ArrowUp, ChevronLeft, MessageCircle, Phone, Search } from "lucide-react";
+import { ArrowDownRight, ArrowUp, ChevronLeft, MessageCircle, Phone } from "lucide-react";
 import { useLocation } from "wouter";
 import "./FleetBrowse.css";
 import "../ThemeConsistency.css";
@@ -12,8 +12,7 @@ import { PublicMobileMenu } from "@/components/PublicMobileMenu";
 import { BookingIntentDialog, type BookingIntentSubject } from "@/components/BookingIntentDialog";
 import { useTheme } from "@/contexts/ThemeContext";
 import { brandRouteSlug } from "@/lib/fleetRoutes";
-import { fleetCategoryDefinitions, fleetCategoryFromSlug } from "@/lib/fleetPresentation";
-import { discoverFleetVehicles, type FleetSort } from "@/lib/fleetDiscovery";
+import { fleetCategoryFromSlug } from "@/lib/fleetPresentation";
 import { vehicleSlug } from "@/lib/vehicleDetail";
 import { contact, whatsappUrl } from "@/config/contact";
 
@@ -48,8 +47,6 @@ export default function FleetBrowse() {
   const brandSlug = isCategoryRoute ? undefined : pathSegments[1];
   const categorySlug = isCategoryRoute ? pathSegments[2] : undefined;
   const [showBackToTop, setShowBackToTop] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [sort, setSort] = useState<FleetSort>("curated");
   const [bookingTarget, setBookingTarget] = useState<BookingIntentSubject | null>(null);
   const activeBrand = brandSlug ? brands.find((brand) => brandRouteSlug(brand.brandName) === brandSlug)?.brandName : undefined;
   const activeBrandMeta = activeBrand ? brands.find((brand) => brand.brandName === activeBrand) : undefined;
@@ -60,7 +57,7 @@ export default function FleetBrowse() {
     const categoryMatches = !activeCategory || vehicle.category === activeCategory.category;
     return brandMatches && categoryMatches;
   }).sort((a, b) => a.index - b.index), [activeBrand, activeCategory, vehicleCatalog]);
-  const vehicles = useMemo(() => discoverFleetVehicles(collectionVehicles, searchQuery, sort), [collectionVehicles, searchQuery, sort]);
+  const vehicles = collectionVehicles;
   const pageTitle = activeBrand || activeCategory?.label || "All cars";
   const collectionTransitionKey = activeBrand ? `brand-${brandRouteSlug(activeBrand)}` : activeCategory ? `category-${activeCategory.slug}` : "all-cars";
 
@@ -130,13 +127,7 @@ export default function FleetBrowse() {
       <div className="fleet-browse-toolbar filter-top" aria-label="Filter Top" data-filter-part="filter-top">
         <div><p className="eyebrow"><span>FILTER TOP</span><i aria-hidden="true">/</i><span>BRAND CARDS</span></p><h2 id="fleet-browse-title">Browse <em>the fleet.</em></h2></div>
       </div>
-      <div className="filter-holder" aria-label="Filter Holder" data-filter-part="filter-holder"><BrandFilterRail activeBrand={activeBrand || "All"} onSelect={selectBrand} brands={brands} vehicles={vehicleCatalog} /></div>
-      <div className="fleet-filter-panel fleet-discovery-controls" aria-label="Search, category, and sort controls">
-        <label className="fleet-search-field"><span><Search size={13} /> SEARCH COLLECTION</span><input type="search" value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} placeholder="Brand, model or category" aria-label="Search the ZAVERRE vehicle collection" /></label>
-        <div className="fleet-category-rail" aria-label="Vehicle category filters"><button type="button" className={!activeCategory ? "active" : ""} onClick={() => navigate("/cars")}>ALL</button>{fleetCategoryDefinitions.map((category) => <button type="button" key={category.slug} className={activeCategory?.slug === category.slug ? "active" : ""} onClick={() => navigate(`/cars/category/${category.slug}`)}>{category.label}</button>)}</div>
-        <label><span>ORDER</span><select value={sort} onChange={(event) => setSort(event.target.value as FleetSort)} aria-label="Sort the vehicle collection"><option value="curated">Curated order</option><option value="price-low">Daily price: low to high</option><option value="price-high">Daily price: high to low</option><option value="name">Vehicle name</option></select></label>
-        <p className="fleet-discovery-result" aria-live="polite"><b>{vehicles.length}</b> {vehicles.length === 1 ? "vehicle matches" : "vehicles match"}</p>
-      </div>
+      <div className="filter-holder" aria-label="Filter Holder" data-filter-part="filter-holder"><BrandFilterRail activeBrand={activeBrand || "All"} onSelect={selectBrand} brands={brands} vehicles={vehicleCatalog} prioritizeVisibleLogos /></div>
       {vehicles.length ? <div key={collectionTransitionKey} className="fleet-collection-transition" data-active-brand={activeBrand || "all"}><MasterVehicleGrid vehicles={vehicles} layout="vertical" onDetails={openVehicleDetails} onBook={openBookingIntent} brandBadge={activeBrand ? { brandName: activeBrand, logoUrl: activeBrandMeta?.logoUrl } : undefined} /></div> : <div className="empty-state">No verified ZAVERRE vehicle matches this filter.</div>}
     </section>
     {showBackToTop && <div className="fleet-floating-actions" aria-label="Fleet return and contact actions">

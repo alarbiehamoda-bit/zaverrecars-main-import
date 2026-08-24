@@ -78,7 +78,7 @@ const usesSeekLogoCanvas = (source: string | undefined) => Boolean(source?.inclu
 const categoryLabel: Record<Vehicle["category"], string> = { Performance: "Performance", "Luxury SUV": "Luxury SUV", Convertible: "Convertible" };
 const price = (value: number) => new Intl.NumberFormat("en-AE", { maximumFractionDigits: 0 }).format(value);
 
-export function BrandMark({ brandName, logoUrl, className = "" }: { brandName: string; logoUrl?: string | null; className?: string }) {
+export function BrandMark({ brandName, logoUrl, className = "", priority = false }: { brandName: string; logoUrl?: string | null; className?: string; priority?: boolean }) {
   // One source of truth: every filter, card, and brand header reads the same
   // verified asset. Administrator-managed marks remain a fallback for new marques.
   const source = brandHeaderAssets[brandName] || logoUrl;
@@ -89,7 +89,7 @@ export function BrandMark({ brandName, logoUrl, className = "" }: { brandName: s
   const fitClass = `brand-mark--fit-${brandLogoFits[brandName] ?? "standard"}`;
   const contrastClass = highContrastMarkBrands.has(brandName) ? "brand-mark--high-contrast" : "";
   const sourceTreatmentClass = `${usesBuiltInSeekLogoCanvas ? "brand-mark--seeklogo-canvas" : ""} ${source?.includes("aston-martin-filter-wing") ? "brand-mark--user-aston-filter" : ""}`.trim();
-  if (available && source) return <img className={`brand-mark ${identityClass} ${fitClass} ${contrastClass} ${sourceTreatmentClass} ${className}`.trim()} src={source} alt={`${brandName} mark`} loading="lazy" decoding="async" onError={() => setAvailable(false)} />;
+  if (available && source) return <img className={`brand-mark ${identityClass} ${fitClass} ${contrastClass} ${sourceTreatmentClass} ${className}`.trim()} src={source} alt={`${brandName} mark`} loading={priority ? "eager" : "lazy"} fetchPriority={priority ? "high" : "auto"} decoding="async" width="96" height="96" onError={() => setAvailable(false)} />;
   const initials = brandName.split(/\s|-/).filter(Boolean).map((word) => word[0]).join("").slice(0, 2).toUpperCase();
   return <span className={`brand-mark-fallback ${identityClass} ${className}`.trim()} aria-label={`${brandName} mark`} title={brandName}>{initials}</span>;
 }
@@ -140,7 +140,7 @@ export function VehicleCard({ vehicle, onDetails, onBook, className = "", imageL
   </article>;
 }
 
-export function BrandFilterRail({ activeBrand, onSelect, brands, vehicles }: { activeBrand: string; onSelect: (brand: string) => void; brands?: ManagedBrand[]; vehicles?: Vehicle[] }) {
+export function BrandFilterRail({ activeBrand, onSelect, brands, vehicles, prioritizeVisibleLogos = false }: { activeBrand: string; onSelect: (brand: string) => void; brands?: ManagedBrand[]; vehicles?: Vehicle[]; prioritizeVisibleLogos?: boolean }) {
   const { theme } = useTheme();
   const railRef = useRef<HTMLDivElement>(null);
   const dragRef = useRef({ active: false, moved: false, pointerId: -1, startX: 0, scrollLeft: 0 });
@@ -185,8 +185,8 @@ export function BrandFilterRail({ activeBrand, onSelect, brands, vehicles }: { a
   return <div className={`brand-filter-stack brand-filter-stack--${theme}`} data-filter-part="brand-cards">
     <a href="/cars" className={`brand-filter-all-button${activeBrand === "All" ? " active" : ""}`} onClick={(event) => selectBrand(event, "All")} aria-current={activeBrand === "All" ? "page" : undefined} aria-label={`Show all ${brandVehicleCounts.All} vehicles`}><span>VIEW ALL CARS</span><b>{brandVehicleCounts.All} {brandVehicleCounts.All === 1 ? "MODEL" : "MODELS"}</b></a>
     <div ref={railRef} className={`brand-cards brand-cards--${theme} brand-logo-rail brand-filter-rail${isDragging ? " is-dragging" : ""}`} aria-label="Brand Cards" onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={endDrag}>
-      {filterBrands.map((brand) => <a href={`/cars/${brandRouteSlug(brand.brandName)}`} key={brand.brandName} className={activeBrand === brand.brandName ? "active" : ""} onClick={(event) => selectBrand(event, brand.brandName)} aria-current={activeBrand === brand.brandName ? "page" : undefined} aria-label={`Show ${brandVehicleCounts[brand.brandName]} ${brand.displayName} vehicles`}>
-        <span className="brand-filter-card-icon brand-emblem-well brand-emblem-well--filter"><BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} className="brand-filter-mark" /></span>
+      {filterBrands.map((brand, index) => <a href={`/cars/${brandRouteSlug(brand.brandName)}`} key={brand.brandName} className={activeBrand === brand.brandName ? "active" : ""} onClick={(event) => selectBrand(event, brand.brandName)} aria-current={activeBrand === brand.brandName ? "page" : undefined} aria-label={`Show ${brandVehicleCounts[brand.brandName]} ${brand.displayName} vehicles`}>
+        <span className="brand-filter-card-icon brand-emblem-well brand-emblem-well--filter"><BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} className="brand-filter-mark" priority={prioritizeVisibleLogos && index < 6} /></span>
         <small>{brand.displayName}</small><b className="brand-filter-model-count">{brandVehicleCounts[brand.brandName]} {brandVehicleCounts[brand.brandName] === 1 ? "MODEL" : "MODELS"}</b>
       </a>)}
     </div>
