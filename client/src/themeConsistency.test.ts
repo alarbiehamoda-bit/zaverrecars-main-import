@@ -4,10 +4,10 @@ import { describe, expect, it } from "vitest";
 const styles = readFileSync(new URL("./ThemeConsistency.css", import.meta.url), "utf8");
 
 describe("theme consistency", () => {
-  it("keeps light mode as a warm parchment inversion rather than a cool-blue alternate interface", () => {
-    expect(styles).toContain("#f8f2e7");
-    expect(styles).toContain("#ebdfca");
-    expect(styles).toContain("#f5eddf");
+  it("keeps light mode on the requested dark-to-light blue identity", () => {
+    expect(styles).toContain("#e9f8ff");
+    expect(styles).toContain("#91cef0");
+    expect(styles).toContain("#174a70");
     expect(styles).toContain("#root .zaverre-day");
   });
 

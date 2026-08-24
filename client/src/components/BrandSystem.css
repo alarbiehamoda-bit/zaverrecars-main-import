@@ -1,17 +1,17 @@
 /* Final brand presentation boundary. This file is imported after legacy page
    styles, so marque sources keep their natural colour and proportions. */
 #root .brand-emblem-well {
-  background: radial-gradient(circle at 31% 20%, rgba(191,239,255,.62) 0%, rgba(51,155,207,.73) 34%, rgba(8,49,82,.98) 77%) !important;
-  border: 1px solid rgba(145,223,255,.62) !important;
+  background: radial-gradient(circle at 31% 20%, #a9825d 0%, #63422e 42%, #2b1c16 79%) !important;
+  border: 1px solid rgba(231,187,132,.58) !important;
   border-radius: 50% !important;
-  box-shadow: inset 0 1px 0 rgba(247,253,255,.42), inset 0 -8px 13px rgba(3,24,42,.34), 0 5px 12px rgba(0,0,0,.3) !important;
+  box-shadow: inset 0 1px 0 rgba(255,239,217,.3), inset 0 -8px 13px rgba(43,22,11,.42), 0 5px 12px rgba(0,0,0,.32) !important;
   overflow: hidden !important;
 }
 
 html[data-theme="light"] #root .brand-emblem-well {
-  background: radial-gradient(circle at 31% 20%, #f2fcff 0%, #a8ddf3 40%, #277fab 100%) !important;
-  border-color: rgba(20,111,159,.58) !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.76), inset 0 -8px 13px rgba(22,94,139,.2), 0 5px 12px rgba(15,70,105,.16) !important;
+  background: radial-gradient(circle at 31% 20%, rgba(233,249,255,.92) 0%, rgba(75,138,177,.86) 43%, rgba(11,38,64,.98) 100%) !important;
+  border-color: rgba(27,83,120,.72) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.68), inset 0 -8px 13px rgba(2,18,34,.42), 0 5px 12px rgba(8,38,61,.24) !important;
 }
 
 #root .brand-emblem-well::before,
@@ -59,7 +59,7 @@ html:not([data-theme="light"]) #root .brand-cards.brand-logo-rail > a > small {
 }
 
 html:not([data-theme="light"]) #root .brand-cards.brand-logo-rail > a > .brand-filter-model-count {
-  color: #d9c5a7 !important;
+  color: #d6ad84 !important;
 }
 
 html[data-theme="light"] #root .brand-cards.brand-logo-rail > a,
@@ -68,7 +68,7 @@ html[data-theme="light"] #root .brand-cards.brand-logo-rail > a > small {
 }
 
 html[data-theme="light"] #root .brand-cards.brand-logo-rail > a > .brand-filter-model-count {
-  color: #3e5e73 !important;
+  color: #164c6d !important;
 }
 
 #root .brand-cards.brand-logo-rail > a > small,
@@ -82,13 +82,13 @@ html[data-theme="light"] #root .brand-cards.brand-logo-rail > a > .brand-filter-
 
 html:not([data-theme="light"]) #root .brand-cards.brand-logo-rail > a > small,
 html:not([data-theme="light"]) #root .vehicle-brand-ribbon__identity strong,
-html:not([data-theme="light"]) #root .brand-name-bar strong { background-image: linear-gradient(135deg, #e2f8ff 0%, #60ccff 48%, #0f86c1 100%) !important; }
+html:not([data-theme="light"]) #root .brand-name-bar strong { background-image: linear-gradient(135deg, #f1d1ad 0%, #c48752 48%, #884727 100%) !important; }
 html[data-theme="light"] #root .brand-cards.brand-logo-rail > a > small,
 html[data-theme="light"] #root .vehicle-brand-ribbon__identity strong,
-html[data-theme="light"] #root .brand-name-bar strong { background-image: linear-gradient(135deg, #074c74 0%, #29b7f0 48%, #05608f 100%) !important; }
+html[data-theme="light"] #root .brand-name-bar strong { background-image: linear-gradient(135deg, #e4f7ff 0%, #78cefb 46%, #215f88 100%) !important; }
 
-#root .brand-name-bar { background: linear-gradient(112deg, #061f35 0%, #1676a9 48%, #061f35 100%) !important; border-color: rgba(119,218,255,.62) !important; box-shadow: inset 0 1px 0 rgba(232,250,255,.17), inset 0 -1px 0 rgba(3,37,63,.54); }
-html[data-theme="light"] #root .brand-name-bar { background: linear-gradient(112deg, #dff6ff 0%, #8fd9f5 48%, #e8f9ff 100%) !important; border-color: rgba(16,115,162,.44) !important; box-shadow: inset 0 1px 0 rgba(255,255,255,.8), inset 0 -1px 0 rgba(17,104,151,.18); }
+#root .brand-name-bar { background: linear-gradient(112deg, #251713 0%, #6b432b 48%, #251713 100%) !important; border-color: rgba(214,164,106,.48) !important; box-shadow: inset 0 1px 0 rgba(255,235,207,.18), inset 0 -1px 0 rgba(44,23,13,.68); }
+html[data-theme="light"] #root .brand-name-bar { background: linear-gradient(112deg, rgba(8,33,55,.98) 0%, rgba(32,85,121,.92) 48%, rgba(8,33,55,.98) 100%) !important; border-color: rgba(97,185,228,.5) !important; box-shadow: inset 0 1px 0 rgba(226,247,255,.3), inset 0 -1px 0 rgba(2,17,30,.62); }
 
 #root .brand-cards.brand-logo-rail .brand-emblem-well {
   height: 60px !important;

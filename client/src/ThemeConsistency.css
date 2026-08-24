@@ -1,8 +1,7 @@
-/* Day mode is a warm parchment inversion of ZAVERRE's charcoal editorial
-   system, never a separate cool-blue visual language. */
+/* Shared visual identity: blue-spectrum day mode and brown-beige night mode. */
 html[data-theme="light"] body {
-  background: #f4eee3;
-  color: #1f272c;
+  background: linear-gradient(145deg, #e9f8ff 0%, #91cef0 48%, #174a70 100%);
+  color: #082e4a;
 }
 
 html[data-theme="light"] :is(
@@ -14,7 +13,7 @@ html[data-theme="light"] :is(
   .journal-preview-section,
   .contact-section
 ) {
-  background: linear-gradient(128deg, #f8f2e7 0%, #ebdfca 50%, #f5eddf 100%) !important;
+  background: linear-gradient(132deg, #eaf9ff 0%, #a7d9f1 48%, #2a6085 100%) !important;
 }
 
 html[data-theme="light"] #root .zaverre-day :is(
@@ -26,32 +25,66 @@ html[data-theme="light"] #root .zaverre-day :is(
   .journal-preview-section,
   .contact-section
 ) {
-  background: linear-gradient(128deg, #f8f2e7 0%, #ebdfca 50%, #f5eddf 100%) !important;
+  background: linear-gradient(132deg, #eaf9ff 0%, #a7d9f1 48%, #2a6085 100%) !important;
 }
 
 html[data-theme="light"] :is(.featured-vehicle-card, .detail-related-master-card, .master-vehicle-card) {
-  background: linear-gradient(155deg, #392a20 0%, #211915 72%, #171210 100%) !important;
-  border-color: rgba(184, 143, 93, .5) !important;
-  box-shadow: 0 14px 28px rgba(54, 36, 20, .2), inset 0 1px 0 rgba(255, 243, 223, .08) !important;
+  background: linear-gradient(155deg, #174a70 0%, #0a2e4a 72%, #071c30 100%) !important;
+  border-color: rgba(144, 221, 255, .52) !important;
+  box-shadow: 0 14px 28px rgba(7, 43, 70, .28), inset 0 1px 0 rgba(222, 248, 255, .14) !important;
 }
 
 html[data-theme="light"] :is(.featured-vehicle-card, .detail-related-master-card, .master-vehicle-card) :is(h2, h3, h4, .vehicle-name, .card-title) {
-  color: #f7ead7 !important;
+  color: #eaf8ff !important;
 }
 
 html[data-theme="light"] :is(.featured-vehicle-card, .detail-related-master-card, .master-vehicle-card) :is(p, small, .card-spec-item small) {
-  color: #d7c5ae !important;
+  color: #c9e8f7 !important;
 }
 
 html[data-theme="light"] #root .fleet-browse-page,
 html[data-theme="light"] #root .fleet-browse-page .fleet-browse-hero,
 html[data-theme="light"] #root .fleet-browse-page .fleet-browse-content {
-  background: linear-gradient(135deg, #f7efe4 0%, #e7d5bb 54%, #f5ecdf 100%) !important;
+  background: linear-gradient(135deg, #e8f8ff 0%, #9bd6f2 54%, #23597f 100%) !important;
 }
 
 html[data-theme="light"] #root .fleet-browse-page .filter-holder {
-  background: rgba(95, 63, 35, .11) !important;
-  border-color: rgba(112, 73, 38, .3) !important;
+  background: rgba(7, 49, 80, .22) !important;
+  border-color: rgba(161, 227, 255, .48) !important;
+}
+
+html:not([data-theme="light"]) body {
+  background: linear-gradient(145deg, #19110e 0%, #593b2b 54%, #c5a27f 100%);
+  color: #f5e6d1;
+}
+
+html:not([data-theme="light"]) :is(
+  .featured-vehicles-section,
+  .fleet-section,
+  .editorial-section,
+  .delivery-section,
+  .home-faq-section,
+  .journal-preview-section,
+  .contact-section
+) {
+  background: linear-gradient(132deg, #211511 0%, #67432f 52%, #c7a583 100%) !important;
+}
+
+html:not([data-theme="light"]) :is(.featured-vehicle-card, .detail-related-master-card, .master-vehicle-card) {
+  background: linear-gradient(155deg, #6f4933 0%, #39241b 70%, #211510 100%) !important;
+  border-color: rgba(241, 211, 170, .46) !important;
+  box-shadow: 0 14px 28px rgba(22, 12, 8, .34), inset 0 1px 0 rgba(255, 236, 211, .15) !important;
+}
+
+html:not([data-theme="light"]) #root .fleet-browse-page,
+html:not([data-theme="light"]) #root .fleet-browse-page .fleet-browse-hero,
+html:not([data-theme="light"]) #root .fleet-browse-page .fleet-browse-content {
+  background: linear-gradient(135deg, #211511 0%, #63412f 54%, #c3a17e 100%) !important;
+}
+
+html:not([data-theme="light"]) #root .fleet-browse-page .filter-holder {
+  background: rgba(64, 39, 25, .42) !important;
+  border-color: rgba(239, 205, 159, .36) !important;
 }
 
 @media (max-width: 620px) {

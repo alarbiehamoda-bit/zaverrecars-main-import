@@ -12,8 +12,9 @@ describe("brand presentation system", () => {
     expect(component).toContain("export const brandHeaderAssets");
     expect(component).toContain("export const brandLogoFits");
     for (const marque of marques) {
-      expect(component).toContain(`\"${marque}\": \"/manus-storage/`);
+      expect(component).toContain(`"${marque}": "/manus-storage/`);
     }
+    expect(component).toContain('"Range Rover": "/manus-storage/land-rover-logo-2021_0484ad78.png"');
     expect(component).toContain("const source = brandHeaderAssets[brandName] || logoUrl");
     expect(component).not.toContain("brandFilterAssets");
   });

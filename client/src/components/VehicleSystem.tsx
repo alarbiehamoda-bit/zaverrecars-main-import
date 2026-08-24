@@ -22,7 +22,7 @@ export const brandHeaderAssets: Record<string, string> = {
   "Mercedes-Benz": "/manus-storage/mercedes-benz_a8a53dc1.png",
   "Porsche": "/manus-storage/porsche_3b231689.webp",
   "Rolls-Royce": "/manus-storage/rolls-royce_3e890ee3.png",
-  "Range Rover": "/manus-storage/range-rover-original-colour_1cbe01b7.png",
+  "Range Rover": "/manus-storage/land-rover-logo-2021_0484ad78.png",
   "Audi": "/manus-storage/audi_d161c3dd.png",
   "BMW": "/manus-storage/bmw_a13e899f.webp",
   "Bentley": "/manus-storage/bentley_8e16a311.png",
