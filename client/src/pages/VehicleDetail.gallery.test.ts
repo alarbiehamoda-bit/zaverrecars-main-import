@@ -51,12 +51,17 @@ describe("vehicle detail gallery behavior", () => {
     expect(detailSource).toContain("function RelatedVehicleCarousel");
     expect(detailSource).toContain("detail-related-grid--carousel");
     expect(detailSource).toContain("setPointerCapture");
+    expect(detailSource).toContain("handleRailKeyDown");
+    expect(detailSource).toContain('tabIndex={0}');
+    expect(detailSource).toContain("scrollBy({");
     expect(detailSource).toContain("VehicleCard key={item.id}");
     expect(detailSource).not.toContain("detail-related-carousel-controls");
     expect(detailSource).toContain("Vehicle image:");
     expect(enhancementStyles).toContain("height: 720px");
     expect(enhancementStyles).toContain("overflow: hidden");
     expect(enhancementStyles).toContain("grid-template-rows: auto minmax(44px, auto) auto auto 52px");
+    expect(enhancementStyles).toContain("touch-action: pan-x pan-y");
+    expect(enhancementStyles).toContain("-webkit-overflow-scrolling: touch");
   });
 
   it("places verified source angles after the pricing image in the exact source sequence", () => {

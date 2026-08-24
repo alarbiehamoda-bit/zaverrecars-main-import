@@ -38,7 +38,7 @@ import {
   Users,
   Zap,
 } from "lucide-react";
-import { PointerEvent as ReactPointerEvent, useEffect, useMemo, useRef, useState } from "react";
+import { KeyboardEvent as ReactKeyboardEvent, PointerEvent as ReactPointerEvent, useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, useRoute } from "wouter";
 import "./VehicleDetailEnhancements.css";
 
@@ -81,8 +81,18 @@ function RelatedVehicleCarousel({ vehicles, onDetails, onBook }: { vehicles: Veh
       window.setTimeout(() => { suppressClickRef.current = false; }, 90);
     }
   };
+  const handleRailKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>) => {
+    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+    const rail = railRef.current;
+    if (!rail) return;
+    event.preventDefault();
+    rail.scrollBy({
+      left: (event.key === "ArrowRight" ? 1 : -1) * Math.round(rail.clientWidth * 0.82),
+      behavior: "smooth",
+    });
+  };
 
-  return <div ref={railRef} className={`detail-related-grid detail-related-grid--carousel${isDragging ? " is-dragging" : ""}`} role="region" aria-label="Similar vehicles. Swipe or drag left and right." aria-roledescription="touch carousel" onPointerDown={startDrag} onPointerMove={(event) => { moveDrag(event); if (dragRef.current.moved) event.preventDefault(); }} onPointerUp={endDrag} onPointerCancel={endDrag} onClickCapture={(event) => { if (suppressClickRef.current) { event.preventDefault(); event.stopPropagation(); } }}>{vehicles.map((item) => <VehicleCard key={item.id} vehicle={item} onDetails={onDetails} onBook={onBook} className="featured-vehicle-card detail-related-master-card" imageLoading="lazy" />)}</div>;
+  return <div ref={railRef} className={`detail-related-grid detail-related-grid--carousel${isDragging ? " is-dragging" : ""}`} role="region" aria-label="Similar vehicles. Swipe, drag, or use the left and right arrow keys to explore." aria-roledescription="touch carousel" tabIndex={0} onKeyDown={handleRailKeyDown} onPointerDown={startDrag} onPointerMove={(event) => { moveDrag(event); if (dragRef.current.moved) event.preventDefault(); }} onPointerUp={endDrag} onPointerCancel={endDrag} onClickCapture={(event) => { if (suppressClickRef.current) { event.preventDefault(); event.stopPropagation(); } }}>{vehicles.map((item) => <VehicleCard key={item.id} vehicle={item} onDetails={onDetails} onBook={onBook} className="featured-vehicle-card detail-related-master-card" imageLoading="lazy" />)}</div>;
 }
 
 function FaqItem({ question, answer }: { question: string; answer: string }) {
