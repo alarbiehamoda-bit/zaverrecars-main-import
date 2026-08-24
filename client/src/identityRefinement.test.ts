@@ -33,6 +33,8 @@ describe("identity refinement", () => {
     expect(styles).toContain("brand-mark--fit-standard");
     expect(styles).toContain("#fff3d8");
     expect(styles).toContain("#e7f8ff");
+    expect(styles).toContain("#63c9f4");
+    expect(styles).toContain(".hero-cinematic .hero-copy > .hero-brand");
     expect(styles).toContain("min-height: 580px");
     expect(styles).toContain("overflow: visible");
     expect(styles).toContain("flex: 0 0 44px");
