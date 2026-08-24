@@ -8,9 +8,7 @@ import { COOKIE_NAME, UNAUTHED_ERR_MSG } from "@shared/const";
 import App from "./App";
 import { startLogin } from "./const";
 import { THEME_COOKIE, type Theme } from "./contexts/ThemeContext";
-import "./index.css";
-import "./vehicle-glass.css";
-import "./components/BrandCards.css";
+import "./PublicShell.css";
 
 const queryClient = new QueryClient({ defaultOptions: { queries: { staleTime: 30_000 } } });
 const cookieTheme = document.cookie.split(";").map((item) => item.trim()).find((item) => item.startsWith(`${THEME_COOKIE}=`))?.slice(THEME_COOKIE.length + 1) as Theme | undefined;

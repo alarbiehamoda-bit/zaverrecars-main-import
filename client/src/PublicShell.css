@@ -1,0 +1,7 @@
+/* Public shell order is part of the first-paint contract: base, component, identity, then final phone density. */
+@import "./index.css";
+@import "./vehicle-glass.css";
+@import "./components/BrandCards.css";
+@import "./ThemeConsistency.css";
+@import "./IdentityRefinement.css";
+@import "./performancePresentation.css";

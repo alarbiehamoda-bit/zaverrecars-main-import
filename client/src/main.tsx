@@ -6,12 +6,7 @@ import { createRoot } from "react-dom/client";
 import superjson from "superjson";
 import App from "./App";
 import { startLogin } from "./const";
-import "./index.css";
-import "./vehicle-glass.css";
-import "./components/BrandCards.css";
-import "./ThemeConsistency.css";
-import "./performancePresentation.css";
-import "./IdentityRefinement.css";
+import "./PublicShell.css";
 
 const queryClient = new QueryClient();
 

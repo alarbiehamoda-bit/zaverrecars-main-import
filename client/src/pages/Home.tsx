@@ -30,8 +30,6 @@ import { vehicleAssetUrl } from "@/lib/vehicleAssets";
 import { vehicleSlug } from "@/lib/vehicleDetail";
 import { brandRouteSlug } from "@/lib/fleetRoutes";
 import { DeliveryLocationsSection, JournalPreviewSection, RentalFaqSection } from "@/components/HomeExperienceSections";
-import "../ThemeConsistency.css";
-import "../IdentityRefinement.css";
 
 function vehicleMessage(vehicle: Vehicle, extra = "") {
   return `Hello ZAVERRE,\nI would like to enquire about ${vehicle.fullName}.\nVehicle image: ${vehicleAssetUrl(vehicle.image)}\nPlease provide availability, rental terms and booking details.${extra ? `\n${extra}` : ""}`;
