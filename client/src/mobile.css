@@ -301,3 +301,25 @@
   #root .fleet-browse-page .master-vehicle-card .card-spec-list { align-content: start !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; margin: 0 !important; overflow: hidden !important; }
   #root .fleet-browse-page .master-vehicle-card .vehicle-card-title { align-self: center !important; display: -webkit-box !important; -webkit-box-orient: vertical !important; -webkit-line-clamp: 2 !important; margin: 0 !important; overflow: hidden !important; }
 }
+
+/* Restored compact card order: image, marque, title, facts, price, then actions. */
+@media (max-width: 760px) {
+  #root :is(.horizontal-fleet, .vertical-fleet, .brand-stack-card, .brand-free-scroll-card, .vehicle-carousel) .vehicle-card,
+  #root .fleet-browse-page .master-vehicle-card.vehicle-card { height: 408px !important; min-height: 0 !important; overflow: hidden !important; }
+  #root :is(.horizontal-fleet, .vertical-fleet, .brand-stack-card, .brand-free-scroll-card, .vehicle-carousel) .vehicle-image-wrap,
+  #root .fleet-browse-page .master-vehicle-card .vehicle-image-wrap { aspect-ratio: auto !important; flex: 0 0 39% !important; min-height: 0 !important; padding: 7px !important; }
+  #root :is(.horizontal-fleet, .vertical-fleet, .brand-stack-card, .brand-free-scroll-card, .vehicle-carousel) .vehicle-card-body,
+  #root .fleet-browse-page .master-vehicle-card .vehicle-card-body { display: flex !important; flex: 1 1 auto !important; flex-direction: column !important; gap: 0 !important; min-height: 0 !important; overflow: hidden !important; padding: 8px !important; }
+  #root :is(.horizontal-fleet, .vertical-fleet, .brand-stack-card, .brand-free-scroll-card, .vehicle-carousel) .vehicle-brand-ribbon,
+  #root .fleet-browse-page .master-vehicle-card .vehicle-brand-ribbon { align-self: auto !important; flex: 0 0 28px !important; margin: 0 0 4px !important; min-height: 28px !important; padding: 0 !important; }
+  #root :is(.horizontal-fleet, .vertical-fleet, .brand-stack-card, .brand-free-scroll-card, .vehicle-carousel) :is(.vehicle-card-title, .vehicle-card-body h3),
+  #root .fleet-browse-page .master-vehicle-card .vehicle-card-title { align-self: auto !important; display: -webkit-box !important; font-size: 1.04rem !important; line-height: .9 !important; margin: 1px 0 3px !important; }
+  #root :is(.horizontal-fleet, .vertical-fleet, .brand-stack-card, .brand-free-scroll-card, .vehicle-carousel) .card-spec-list,
+  #root .fleet-browse-page .master-vehicle-card .card-spec-list { align-content: start !important; flex: 1 1 auto !important; gap: 3px !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; margin: 0 !important; min-height: 0 !important; overflow: hidden !important; }
+  #root :is(.horizontal-fleet, .vertical-fleet, .brand-stack-card, .brand-free-scroll-card, .vehicle-carousel) .card-spec-item,
+  #root .fleet-browse-page .master-vehicle-card .card-spec-item { min-height: 25px !important; padding-block: 2px !important; }
+  #root :is(.horizontal-fleet, .vertical-fleet, .brand-stack-card, .brand-free-scroll-card, .vehicle-carousel) .card-rate,
+  #root .fleet-browse-page .master-vehicle-card .card-rate { align-self: auto !important; flex: 0 0 34px !important; margin: 3px 0 0 !important; min-height: 34px !important; padding-top: 4px !important; }
+  #root :is(.horizontal-fleet, .vertical-fleet, .brand-stack-card, .brand-free-scroll-card, .vehicle-carousel) .card-actions,
+  #root .fleet-browse-page .master-vehicle-card .card-actions { align-self: auto !important; flex: 0 0 40px !important; margin: 5px 0 0 !important; min-height: 40px !important; padding: 0 !important; }
+}

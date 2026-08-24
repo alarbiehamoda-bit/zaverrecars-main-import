@@ -26,9 +26,9 @@ describe("catalogue card sizing", () => {
     expect(mobileStyles).toContain("Vehicle-card containment");
     expect(mobileStyles).toContain("flex: 0 0 40px !important");
     expect(mobileStyles).toContain("overflow: hidden !important");
-    expect(mobileStyles).toContain("Equal-card rhythm");
-    expect(mobileStyles).toContain("grid-template-rows: 30px 32px minmax(58px, 1fr) 38px 40px !important");
-    expect(mobileStyles).toContain(".master-vehicle-card.vehicle-card { height: 446px !important; min-height: 0 !important; overflow: hidden !important; }");
+    expect(mobileStyles).toContain("Restored compact card order");
+    expect(mobileStyles).toContain("height: 408px !important; min-height: 0 !important; overflow: hidden !important");
+    expect(mobileStyles).toContain("flex: 0 0 39% !important");
   });
 
   it("uses one primary-card model across catalogue contexts after removing the duplicate enquiry row", () => {
