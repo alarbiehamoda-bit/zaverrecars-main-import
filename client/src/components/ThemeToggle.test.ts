@@ -13,7 +13,7 @@ const themeContextSource = readFileSync(resolve(process.cwd(), "client/src/conte
 
 describe("theme and touch gallery controls", () => {
   it("enables a persistent dark and day-mode toggle from the application shell", () => {
-    expect(appSource).toContain('ThemeProvider defaultTheme="dark" switchable');
+    expect(appSource).toContain('ThemeProvider defaultTheme="dark" initialTheme={initialTheme} switchable');
     expect(toggleSource).toContain("Switch to day mode");
     expect(toggleSource).toContain("Switch to dark mode");
     expect(globalStyles).toContain(".detail-header-actions .theme-toggle { display: inline-flex");
@@ -62,8 +62,8 @@ describe("theme and touch gallery controls", () => {
     expect(mobileStyles).toContain("@media (max-width: 760px)");
     expect(vehicleGlassStyles).toContain('html[data-theme="light"]');
     expect(globalStyles).toContain(".dark");
-    expect(themeContextSource).toContain("if (!import.meta.env.DEV || typeof window === \"undefined\") return null;");
-    expect(themeContextSource).toContain('get("themePreview")');
+    expect(themeContextSource).toContain('THEME_COOKIE = "zaverre_theme"');
+    expect(themeContextSource).not.toContain("localStorage.getItem(\"theme\")");
   });
 
   it("keeps gallery navigation available by both touch gestures and visible arrow controls", () => {

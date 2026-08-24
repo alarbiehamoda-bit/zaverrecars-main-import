@@ -30,6 +30,8 @@ describe("identity refinement", () => {
     expect(styles).toContain("min-height: 44px");
     expect(styles).toContain(".delivery-section");
     expect(styles).toContain("#f8e6c9");
+    expect(styles).toContain("CONSIDERED ARRIVAL stays legible");
+    expect(styles).toContain("#4a2818");
     expect(styles).toContain("brand-mark--fit-standard");
     expect(styles).toContain("#fff3d8");
     expect(styles).toContain("#e7f8ff");

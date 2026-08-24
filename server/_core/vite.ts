@@ -79,13 +79,21 @@ function buildHeadTags(head: SsrHead, origin: string) {
   return tags.join("\n");
 }
 
-function composeHtml(template: string, appHtml: string, head: SsrHead, origin: string, dehydratedState: unknown) {
+function composeHtml(template: string, appHtml: string, head: SsrHead, origin: string, dehydratedState: unknown, initialTheme?: "light" | "dark") {
+  const theme = initialTheme ?? "dark";
+  const htmlAttributes = theme === "dark" ? 'data-theme="dark" class="dark"' : 'data-theme="light"';
   const serialized = JSON.stringify(superjson.serialize(dehydratedState)).replace(/</g, "\\u003c").replace(/\u2028/g, "\\u2028").replace(/\u2029/g, "\\u2029");
   const stateScript = `<script>window.__RQ_STATE__ = ${serialized}</script>`;
   return template
+    .replace('<html lang="en">', `<html lang="en" ${htmlAttributes}>`)
     .replace("</body>", () => `${stateScript}</body>`)
     .replace("<!--app-head-->", () => buildHeadTags(head, origin))
     .replace("<!--app-html-->", () => appHtml);
+}
+
+function readInitialTheme(cookieHeader?: string) {
+  const value = cookieHeader?.split(";").map((item) => item.trim()).find((item) => item.startsWith("zaverre_theme="))?.slice("zaverre_theme=".length);
+  return value === "light" || value === "dark" ? value : undefined;
 }
 
 async function buildPublicSsrData(
@@ -125,10 +133,11 @@ export async function setupVite(app: Express, server: Server) {
       const { render } = await vite.ssrLoadModule("/src/entry-server.tsx");
       const origin = canonicalOrigin(req);
       const publicData = await buildPublicSsrData(req, res);
-      const result = await render(req.originalUrl, origin, publicData);
+      const initialTheme = readInitialTheme(req.headers.cookie);
+      const result = await render(req.originalUrl, origin, publicData, initialTheme);
       // The production edge replaces upstream 404 responses with its own maintenance page.
       // Preserve the branded app fallback and its noindex metadata for unknown routes.
-      res.status(200).set("Cache-Control", "no-cache").type("html").end(composeHtml(template, result.html, result.head, origin, result.dehydratedState));
+      res.status(200).set("Cache-Control", "no-cache").type("html").end(composeHtml(template, result.html, result.head, origin, result.dehydratedState, initialTheme));
     } catch (error) {
       vite.ssrFixStacktrace(error as Error);
       console.error("[SSR] dev render failed:", error);
@@ -150,10 +159,11 @@ export function serveStatic(app: Express) {
       const serverEntryPath = path.resolve(import.meta.dirname, "server-ssr", "entry-server.js");
       const { render } = await import(serverEntryPath);
       const publicData = await buildPublicSsrData(req, res);
-      const result = await render(req.originalUrl, origin, publicData);
+      const initialTheme = readInitialTheme(req.headers.cookie);
+      const result = await render(req.originalUrl, origin, publicData, initialTheme);
       // Keep ZAVERRE's 404 experience visible through the production edge while
       // the SSR head continues to set noindex for unknown routes.
-      res.status(200).set("Cache-Control", "no-cache").type("html").end(composeHtml(template, result.html, result.head, origin, result.dehydratedState));
+      res.status(200).set("Cache-Control", "no-cache").type("html").end(composeHtml(template, result.html, result.head, origin, result.dehydratedState, initialTheme));
     } catch (error) {
       console.error("[SSR] render failed, serving shell:", error);
       const template = await fs.promises.readFile(templatePath, "utf-8");

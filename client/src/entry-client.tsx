@@ -7,11 +7,14 @@ import { trpc } from "@/lib/trpc";
 import { COOKIE_NAME, UNAUTHED_ERR_MSG } from "@shared/const";
 import App from "./App";
 import { startLogin } from "./const";
+import { THEME_COOKIE, type Theme } from "./contexts/ThemeContext";
 import "./index.css";
 import "./vehicle-glass.css";
 import "./components/BrandCards.css";
 
 const queryClient = new QueryClient({ defaultOptions: { queries: { staleTime: 30_000 } } });
+const cookieTheme = document.cookie.split(";").map((item) => item.trim()).find((item) => item.startsWith(`${THEME_COOKIE}=`))?.slice(THEME_COOKIE.length + 1) as Theme | undefined;
+const initialTheme = cookieTheme === "light" || cookieTheme === "dark" ? cookieTheme : undefined;
 const isAdminRoute = () => window.location.pathname.startsWith("/admin");
 const isUnauthorizedError = (error: unknown) => error instanceof TRPCClientError && error.message === UNAUTHED_ERR_MSG;
 const redirectToLoginIfUnauthorized = (error: unknown) => {
@@ -52,6 +55,6 @@ const trpcClient = trpc.createClient({
 
 const rawState = (window as Window & { __RQ_STATE__?: unknown }).__RQ_STATE__;
 const state = rawState ? superjson.deserialize(rawState as any) as DehydratedState : undefined;
-const app = <trpc.Provider client={trpcClient} queryClient={queryClient}><QueryClientProvider client={queryClient}><HydrationBoundary state={state}><Router><App /></Router></HydrationBoundary></QueryClientProvider></trpc.Provider>;
+const app = <trpc.Provider client={trpcClient} queryClient={queryClient}><QueryClientProvider client={queryClient}><HydrationBoundary state={state}><Router><App initialTheme={initialTheme} /></Router></HydrationBoundary></QueryClientProvider></trpc.Provider>;
 const root = document.getElementById("root")!;
 if (root.firstChild) hydrateRoot(root, app, { identifierPrefix: "zaverre-" }); else createRoot(root).render(app);

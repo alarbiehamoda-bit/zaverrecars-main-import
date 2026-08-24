@@ -98,6 +98,10 @@ html:not([data-theme="light"]) #root .hero-cinematic .hero-copy > :is(.hero-bran
 html:not([data-theme="light"]) #root .hero-cinematic .hero-copy > .hero-brand,
 html:not([data-theme="light"]) #root .hero-cinematic .hero-copy > .section-kicker span { color: #63c9f4 !important; -webkit-text-fill-color: #63c9f4 !important; text-shadow: 0 0 18px rgba(58,181,229,.28); }
 html:not([data-theme="light"]) #root :is(.section-heading p, .delivery-intro p, .home-faq-intro p, .journal-preview-head p, .booking-intro p, .detail-description, .detail-colour, .detail-section p) { color: #ead9bf !important; }
+/* CONSIDERED ARRIVAL stays legible over its parchment surface in both themes. */
+#root .delivery-section .delivery-intro > p:not(.eyebrow),
+#root .delivery-section .delivery-policy span,
+#root .delivery-section .delivery-location-grid li span { color: #4a2818 !important; -webkit-text-fill-color: #4a2818 !important; }
 
 /* Page headers deliberately scale the marque above its card counterpart. */
 #root .fleet-browse-brand-logo.brand-emblem-well--hero { height: 154px !important; width: 154px !important; }

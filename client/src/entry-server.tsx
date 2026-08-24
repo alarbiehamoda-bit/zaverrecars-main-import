@@ -8,6 +8,7 @@ import App from "./App";
 import { trpc } from "./lib/trpc";
 import { getSsrHead, type SsrHead } from "./ssr/metadata";
 import "./components/BrandCards.css";
+import type { Theme } from "./contexts/ThemeContext";
 
 export type SsrRenderResult = { html: string; dehydratedState: unknown; head: SsrHead };
 export type SsrPublicData = {
@@ -17,7 +18,7 @@ export type SsrPublicData = {
   brandPresentations: unknown;
 };
 
-export async function render(url: string, origin: string, publicData?: SsrPublicData): Promise<SsrRenderResult> {
+export async function render(url: string, origin: string, publicData?: SsrPublicData, initialTheme?: Theme): Promise<SsrRenderResult> {
   const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false, refetchOnWindowFocus: false } } });
   const splitAt = url.indexOf("?");
   const ssrPath = splitAt === -1 ? url : url.slice(0, splitAt);
@@ -35,7 +36,7 @@ export async function render(url: string, origin: string, publicData?: SsrPublic
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>
         <HydrationBoundary state={dehydratedState}>
-          <Router ssrPath={ssrPath} ssrSearch={ssrSearch}><App /></Router>
+          <Router ssrPath={ssrPath} ssrSearch={ssrSearch}><App initialTheme={initialTheme} /></Router>
         </HydrationBoundary>
       </QueryClientProvider>
     </trpc.Provider>,
