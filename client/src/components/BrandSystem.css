@@ -76,8 +76,16 @@ html[data-theme="light"] #root .brand-name-bar { background: linear-gradient(112
 #root .vehicle-brand-ribbon__seal.brand-emblem-well { height: 54px !important; width: 54px !important; }
 #root .fleet-browse-brand-logo.brand-emblem-well { height: 124px !important; width: 124px !important; }
 
+/* Header and filter marks use more of the shared well while retaining their original ratios. */
+#root .fleet-browse-brand-logo.brand-emblem-well > .brand-mark--fit-standard { max-height: 80% !important; max-width: 88% !important; transform: scale(1.1) !important; }
+#root .fleet-browse-brand-logo.brand-emblem-well > .brand-mark--fit-wide { max-height: 64% !important; max-width: 96% !important; transform: scale(1.18) !important; }
+#root .fleet-browse-brand-logo.brand-emblem-well > .brand-mark--fit-round { max-height: 80% !important; max-width: 80% !important; transform: scale(1.08) !important; }
+#root .fleet-browse-brand-logo.brand-emblem-well > .brand-mark--fit-crest { max-height: 86% !important; max-width: 70% !important; transform: scale(1.08) !important; }
+#root .brand-cards.brand-logo-rail .brand-emblem-well > .brand-mark--fit-standard { max-height: 78% !important; max-width: 88% !important; transform: scale(1.06) !important; }
+#root .brand-cards.brand-logo-rail .brand-emblem-well > .brand-mark--fit-crest { max-height: 84% !important; max-width: 68% !important; transform: scale(1.05) !important; }
+
 @media (max-width: 620px) {
   #root .brand-cards.brand-logo-rail .brand-emblem-well { height: 62px !important; width: 62px !important; }
   #root .vehicle-brand-ribbon__seal.brand-emblem-well { height: 46px !important; width: 46px !important; }
-  #root .fleet-browse-brand-logo.brand-emblem-well { height: 104px !important; width: 104px !important; }
+  #root .fleet-browse-brand-logo.brand-emblem-well { height: 132px !important; width: 132px !important; }
 }

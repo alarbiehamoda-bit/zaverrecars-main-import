@@ -31,9 +31,12 @@ describe("identity refinement", () => {
     expect(styles).toContain(".delivery-section");
     expect(styles).toContain("#f8e6c9");
     expect(styles).toContain("brand-mark--fit-standard");
-    expect(styles).toContain("height: 140px");
-    expect(styles).toContain("height: 118px");
     expect(styles).toContain("#fff3d8");
     expect(styles).toContain("#e7f8ff");
+    expect(styles).toContain("min-height: 580px");
+    expect(styles).toContain("overflow: visible");
+    expect(styles).toContain("flex: 0 0 44px");
+    expect(styles).toContain("height: 154px");
+    expect(styles).toContain("height: 138px");
   });
 });

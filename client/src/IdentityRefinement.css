@@ -94,7 +94,7 @@ html:not([data-theme="light"]) #root .hero-cinematic .hero-copy > :is(.hero-bran
 html:not([data-theme="light"]) #root :is(.section-heading p, .delivery-intro p, .home-faq-intro p, .journal-preview-head p, .booking-intro p, .detail-description, .detail-colour, .detail-section p) { color: #ead9bf !important; }
 
 /* Page headers deliberately scale the marque above its card counterpart. */
-#root .fleet-browse-brand-logo.brand-emblem-well--hero { height: 140px !important; width: 140px !important; }
+#root .fleet-browse-brand-logo.brand-emblem-well--hero { height: 154px !important; width: 154px !important; }
 html:not([data-theme="light"]) #root .master-vehicle-card .vehicle-brand-ribbon__seal.brand-emblem-well { background: radial-gradient(circle at 32% 22%, #fff3d8 0%, #d69c5e 48%, #70401e 100%) !important; border-color: rgba(244,210,154,.72) !important; }
 html[data-theme="light"] #root .master-vehicle-card .vehicle-brand-ribbon__seal.brand-emblem-well { background: radial-gradient(circle at 32% 22%, #e7f8ff 0%, #62a7ce 48%, #0b3655 100%) !important; border-color: rgba(157,222,248,.7) !important; }
 #root .master-vehicle-card .vehicle-brand-ribbon__identity i,
@@ -109,13 +109,13 @@ html[data-theme="light"] #root .master-vehicle-card .vehicle-brand-ribbon__seal.
   #root .floating-contact-rail--home > :not(.floating-whatsapp-button) { display: none; }
   #root .floating-contact-rail--home .floating-whatsapp-button { min-width: 136px; }
   #root .vehicle-card .vehicle-card-title { font-size: 24px !important; }
-  #root .fleet-browse-page .vehicle-card { height: 456px !important; }
-  #root .fleet-browse-page .vehicle-image-wrap { flex-basis: 44% !important; }
+  #root .fleet-browse-page .vehicle-card { height: auto !important; min-height: 580px !important; overflow: visible !important; }
+  #root .fleet-browse-page .vehicle-image-wrap { flex: 0 0 40% !important; }
   #root .fleet-browse-page .vehicle-card-body { padding: 10px !important; }
   #root .fleet-browse-page .vehicle-brand-ribbon { gap: 8px !important; grid-template-columns: 44px minmax(0, 1fr) !important; margin-bottom: 7px !important; min-height: 52px !important; padding: 4px 9px 4px 4px !important; }
   #root .fleet-browse-page .vehicle-brand-ribbon__seal.brand-emblem-well { height: 44px !important; width: 44px !important; }
   #root .fleet-browse-page .card-spec-list { margin-block: 8px !important; }
-  #root .fleet-browse-page .card-actions { gap: 7px !important; margin-top: 8px !important; }
+  #root .fleet-browse-page .card-actions { flex: 0 0 44px !important; gap: 7px !important; margin-top: auto !important; min-height: 44px !important; padding-top: 8px !important; }
   #root .fleet-browse-page :is(.card-book, .card-details) { font-size: 7px !important; min-height: 44px !important; padding-inline: 6px !important; }
-  #root .fleet-browse-brand-logo.brand-emblem-well--hero { height: 118px !important; width: 118px !important; }
+  #root .fleet-browse-brand-logo.brand-emblem-well--hero { height: 138px !important; width: 138px !important; }
 }
