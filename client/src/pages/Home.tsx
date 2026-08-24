@@ -158,7 +158,8 @@ export default function Home() {
         </div>
         {menuOpen && (
           <div className="mobile-menu">
-            {[["Fleet", "fleet"], ["Brands", "brands"], ["About", "about"], ["Contact", "contact"]].map(([label, target]) => (
+            <button onClick={() => scrollTo("top")}>Home<ChevronRight size={18} /></button>
+            {[['Fleet', 'fleet'], ['Brands', 'brands'], ['About', 'about'], ['Contact', 'contact']].map(([label, target]) => (
               <button key={target} onClick={() => label === "Fleet" ? navigate("/cars") : scrollTo(target)}>{label}<ChevronRight size={18} /></button>
             ))}
             <button className="button button-gold mt-4" onClick={openGeneralEnquiry}>BOOK YOUR CAR <ArrowDownRight size={17} /></button>
