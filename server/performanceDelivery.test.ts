@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
 const root = process.cwd();
@@ -13,6 +13,7 @@ const viteSource = read("server/_core/vite.ts");
 const viteConfigSource = read("vite.config.ts");
 const storageProxySource = read("server/_core/storageProxy.ts");
 const indexTemplate = read("client/index.html");
+const packageManifest = read("package.json");
 
 describe("performance delivery contracts", () => {
   it("uses optimized assets for the transparent global logo and primary hero", () => {
@@ -43,5 +44,15 @@ describe("performance delivery contracts", () => {
     expect(viteConfigSource).toContain("catalogue: [");
     expect(viteConfigSource).toContain("const isProductionBuild");
     expect(storageProxySource).toContain('public, max-age=900');
+  });
+
+  it("keeps unused template chat and presentation packages out of the production dependency graph", () => {
+    expect(existsSync(`${root}/client/src/components/AIChatBox.tsx`)).toBe(false);
+    expect(existsSync(`${root}/client/src/components/ManusDialog.tsx`)).toBe(false);
+    expect(existsSync(`${root}/client/src/components/ui/carousel.tsx`)).toBe(false);
+    expect(existsSync(`${root}/client/src/components/ui/chart.tsx`)).toBe(false);
+    expect(packageManifest).not.toContain('"streamdown"');
+    expect(packageManifest).not.toContain('"recharts"');
+    expect(packageManifest).not.toContain('"embla-carousel-react"');
   });
 });
