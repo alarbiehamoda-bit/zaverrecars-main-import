@@ -111,10 +111,10 @@ export default function Home() {
   return (
     <main id="main-content" className={`overflow-x-hidden text-[#f6f0e5] ${theme === "light" ? "zaverre-day" : "bg-[#0d0d0c]"}`}>
       <header className={`site-header${isScrolled ? " site-header--scrolled" : ""}`}>
-        <button className="brand-lockup" onClick={() => scrollTo("top")} aria-label="ZAVERRE home">
+        <div className="brand-lockup" aria-label="ZAVERRE">
           <ZaverreMark className="brand-mark" />
           <span>ZAVERRE</span>
-        </button>
+        </div>
         <nav className="desktop-nav" aria-label="Primary navigation">
           <button onClick={navigateToFleet}>Fleet</button>
           <button onClick={() => scrollTo("brands")}>Brands</button>

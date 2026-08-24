@@ -38,15 +38,13 @@ import {
   Users,
   Zap,
 } from "lucide-react";
-import { KeyboardEvent as ReactKeyboardEvent, PointerEvent as ReactPointerEvent, useEffect, useMemo, useRef, useState } from "react";
+import { KeyboardEvent as ReactKeyboardEvent, PointerEvent as ReactPointerEvent, useMemo, useRef, useState } from "react";
 import { useLocation, useRoute } from "wouter";
 import "./VehicleDetailEnhancements.css";
 
 function safeMessage(vehicle: Vehicle) {
   return `Hello ZAVERRE,\nI would like to reserve the ${vehicle.fullName}.\nVehicle image: ${vehicleAssetUrl(vehicle.image)}\nPlease confirm availability, the final daily rate, required documents, and pickup or delivery options.`;
 }
-
-const BRAND_RETURN_DOUBLE_TAP_DELAY_MS = 450;
 
 function RelatedVehicleCarousel({ vehicles, onDetails, onBook }: { vehicles: Vehicle[]; onDetails: (vehicle: Vehicle) => void; onBook: (vehicle: Vehicle) => void }) {
   const railRef = useRef<HTMLDivElement>(null);
@@ -135,9 +133,7 @@ export default function VehicleDetail() {
   const configuredVehicle = useMemo(() => vehicleFromSlug(params?.slug), [params?.slug]);
   const vehicle = useMemo(() => configuredVehicle ? managedCatalog.find((item) => item.id === configuredVehicle.id) ?? configuredVehicle : undefined, [configuredVehicle, managedCatalog]);
   const detailQuery = trpc.vehicle.detail.useQuery({ vehicleKey: vehicle?.id || "vehicle-001" }, { enabled: Boolean(vehicle) });
-  const returnTapTimer = useRef<number | null>(null);
   const [bookingTarget, setBookingTarget] = useState<BookingIntentSubject | null>(null);
-  useEffect(() => () => { if (returnTapTimer.current) window.clearTimeout(returnTapTimer.current); }, []);
   const content = detailQuery.data?.content;
   const gallery = useMemo(() => {
     const managedImages = detailQuery.data?.images ?? [];
@@ -225,27 +221,8 @@ export default function VehicleDetail() {
     }
   };
 
-  const returnToOrigin = () => {
-    if (returnTapTimer.current) {
-      window.clearTimeout(returnTapTimer.current);
-      returnTapTimer.current = null;
-    }
-    navigate(originPath());
-  };
+  const returnToOrigin = () => navigate(originPath());
   const openBookingIntent = (target: Vehicle = vehicle!) => setBookingTarget({ label: target.fullName, message: safeMessage(target) });
-
-  const handleBrandReturn = () => {
-    if (returnTapTimer.current) {
-      window.clearTimeout(returnTapTimer.current);
-      returnTapTimer.current = null;
-      navigate("/");
-      return;
-    }
-    returnTapTimer.current = window.setTimeout(() => {
-      returnTapTimer.current = null;
-      returnToOrigin();
-    }, BRAND_RETURN_DOUBLE_TAP_DELAY_MS);
-  };
 
   if (!vehicle || !publicPrice) {
     return (
@@ -266,10 +243,10 @@ export default function VehicleDetail() {
   return (
     <main id="main-content" className={`vehicle-detail-page ${theme === "light" ? "zaverre-day" : ""}`}>
       <header className="detail-header">
-        <button type="button" className="brand-lockup" onClick={handleBrandReturn} aria-label="Press once to return to the collection or twice for home" title="Press once to return, twice for home">
+        <div className="brand-lockup" aria-label="ZAVERRE">
           <ZaverreMark className="brand-mark" />
           <span>ZAVERRE</span>
-        </button>
+        </div>
         <div className="detail-header-actions">
           <button type="button" className="detail-mobile-back" onClick={returnToOrigin} aria-label="Return to collection"><ArrowLeft size={16} /> BACK</button>
           <PublicMobileMenu onBook={() => openBookingIntent()} />

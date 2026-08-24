@@ -14,7 +14,8 @@ import "./components/BrandCards.css";
 
 const queryClient = new QueryClient({ defaultOptions: { queries: { staleTime: 30_000 } } });
 const cookieTheme = document.cookie.split(";").map((item) => item.trim()).find((item) => item.startsWith(`${THEME_COOKIE}=`))?.slice(THEME_COOKIE.length + 1) as Theme | undefined;
-const initialTheme = cookieTheme === "light" || cookieTheme === "dark" ? cookieTheme : undefined;
+const documentTheme = document.documentElement.dataset.theme as Theme | undefined;
+const initialTheme = documentTheme === "light" || documentTheme === "dark" ? documentTheme : cookieTheme === "light" || cookieTheme === "dark" ? cookieTheme : undefined;
 const isAdminRoute = () => window.location.pathname.startsWith("/admin");
 const isUnauthorizedError = (error: unknown) => error instanceof TRPCClientError && error.message === UNAUTHED_ERR_MSG;
 const redirectToLoginIfUnauthorized = (error: unknown) => {

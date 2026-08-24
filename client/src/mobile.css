@@ -164,3 +164,28 @@
   .vehicle-detail-page .detail-faq-item button { font-size: 10px !important; min-height: 42px !important; padding: 11px 12px !important; }
   .vehicle-detail-page .detail-final-cta { gap: 8px !important; min-height: 174px !important; padding: 28px 12px !important; }
 }
+
+/* Medium phone scale: compact visual blocks while retaining comfortable 40px controls. */
+@media (max-width: 760px) {
+  .site-header, .detail-header, .fleet-browse-header { min-height: 58px !important; padding-block: 10px !important; }
+  .brand-lockup .zaverre-mark.brand-mark { height: 40px !important; width: 40px !important; }
+  .brand-lockup > span { font-size: 18px !important; }
+  .hero-section, .hero-cinematic { min-height: 62vh !important; }
+  .hero-cinematic .hero-layout { min-height: calc(62vh - 78px) !important; }
+  .hero-cinematic .hero-copy { padding-top: 14px !important; }
+  .hero-cinematic .hero-copy h1 { font-size: clamp(29px, 8.8vw, 36px) !important; }
+  .hero-cta .button { min-height: 42px !important; }
+  .fleet-section, .featured-vehicles-section, .editorial-section, .booking-section, .contact-section, .delivery-section, .home-faq-section, .journal-preview-section { padding: 38px 14px !important; }
+  .section-heading h2, .editorial-copy h2, .booking-intro h2, .contact-section h2, .featured-section-heading h2, .delivery-intro h2, .home-faq-intro h2, .journal-preview-head h2 { font-size: clamp(38px, 10.8vw, 48px) !important; }
+  .horizontal-fleet .vehicle-card, .vertical-fleet .vehicle-card, .brand-stack-card .vehicle-card, .brand-free-scroll-card .vehicle-card { height: 470px !important; }
+  .fleet-browse-page .master-vehicle-grid--vertical { max-width: 290px !important; }
+  .fleet-browse-page .vehicle-card-body h3 { font-size: 1.28rem !important; }
+  .fleet-browse-page .card-book, .fleet-browse-page .card-details { min-height: 40px !important; }
+  .vehicle-detail-page .detail-intro { padding: 16px 12px !important; }
+  .vehicle-detail-page .detail-intro h1 { font-size: clamp(32px, 9.2vw, 40px) !important; }
+  .vehicle-detail-page .detail-section { padding: 28px 12px !important; }
+  .vehicle-detail-page .detail-booking-section { padding: 30px 12px !important; }
+  .vehicle-detail-page .detail-related-grid--carousel .detail-related-master-card { height: 600px !important; min-height: 600px !important; }
+  .journal-article { padding: 44px 14px !important; }
+  .journal-article-intro h1 { font-size: clamp(42px, 12.5vw, 58px) !important; }
+}

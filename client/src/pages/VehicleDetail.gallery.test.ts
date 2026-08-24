@@ -7,21 +7,16 @@ const enhancementStyles = readFileSync(new URL("./VehicleDetailEnhancements.css"
 const archiveGallerySource = readFileSync(new URL("../data/archiveVehicleGalleries.ts", import.meta.url), "utf8");
 
 describe("vehicle detail gallery behavior", () => {
-  it("returns to the origin on one ZAVERRE press and sends a double press to home without showing a hint", () => {
+  it("keeps the logo visual-only while explicit back controls return to the origin", () => {
     expect(detailSource).toContain("const returnToOrigin");
     expect(detailSource).toContain("const originPath");
     expect(detailSource).toContain("navigate(originPath())");
-    expect(detailSource).toContain("const returnTapTimer");
-    expect(detailSource).toContain("const handleBrandReturn");
-    expect(detailSource).toContain('navigate("/")');
-    expect(detailSource).toContain("const BRAND_RETURN_DOUBLE_TAP_DELAY_MS = 450");
-    expect(detailSource).toContain("}, BRAND_RETURN_DOUBLE_TAP_DELAY_MS)");
     expect(detailSource).toContain('type="button" onClick={returnToOrigin}>ALL BRANDS');
     expect(detailSource).toContain('type="button" onClick={returnToOrigin}>FLEET');
-    expect(detailSource).toContain('className="brand-lockup" onClick={handleBrandReturn}');
+    expect(detailSource).toContain('<div className="brand-lockup" aria-label="ZAVERRE">');
     expect(detailSource).toContain('className="detail-mobile-back" onClick={returnToOrigin}');
-    expect(detailSource).not.toContain("PRESS AGAIN FOR HOME");
-    expect(detailSource).toContain("const returnToOrigin = () => {\n    if (returnTapTimer.current)");
+    expect(detailSource).not.toContain("handleBrandReturn");
+    expect(detailSource).not.toContain("returnTapTimer");
     expect(detailSource).not.toContain("window.history.back");
     expect(detailSource).not.toContain("window.location.assign");
     expect(enhancementStyles).toContain("touch-action: manipulation");

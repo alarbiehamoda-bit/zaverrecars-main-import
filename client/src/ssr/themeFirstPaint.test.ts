@@ -12,6 +12,7 @@ describe("theme first paint", () => {
     expect(themeContext).toContain('export const THEME_COOKIE = "zaverre_theme"');
     expect(themeContext).not.toContain("localStorage.getItem(\"theme\")");
     expect(clientEntry).toContain("THEME_COOKIE");
+    expect(clientEntry).toContain("document.documentElement.dataset.theme");
     expect(serverEntry).toContain("initialTheme?: Theme");
     expect(viteServer).toContain("readInitialTheme(req.headers.cookie)");
     expect(viteServer).toContain("data-theme=\"dark\" class=\"dark\"");

@@ -115,7 +115,7 @@ export default function FleetBrowse() {
 
   return <main id="main-content" className={`fleet-browse-page${theme === "light" ? " zaverre-day" : ""}`}>
     <header className="fleet-browse-header">
-      <a className="brand-lockup" href="/" onClick={(event) => { event.preventDefault(); navigate("/"); }} aria-label="ZAVERRE home"><ZaverreMark className="brand-mark" /><span>ZAVERRE</span></a>
+      <div className="brand-lockup" aria-label="ZAVERRE"><ZaverreMark className="brand-mark" /><span>ZAVERRE</span></div>
       <div className="fleet-header-actions"><PublicMobileMenu onBook={() => openBookingIntent()} /><button className="header-book" onClick={() => openBookingIntent()}>BOOK NOW <ArrowDownRight size={16} /></button></div>
     </header>
     {activeBrand && <section className="brand-name-bar" aria-label={`${activeBrand} brand name`}><strong>{activeBrand}</strong></section>}
