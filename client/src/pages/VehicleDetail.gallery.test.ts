@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 
 const detailSource = readFileSync(new URL("./VehicleDetail.tsx", import.meta.url), "utf8");
 const gallerySource = readFileSync(new URL("../components/CarGallery.tsx", import.meta.url), "utf8");
+const enhancementStyles = readFileSync(new URL("./VehicleDetailEnhancements.css", import.meta.url), "utf8");
 const archiveGallerySource = readFileSync(new URL("../data/archiveVehicleGalleries.ts", import.meta.url), "utf8");
 
 describe("vehicle detail gallery behavior", () => {
@@ -23,6 +24,9 @@ describe("vehicle detail gallery behavior", () => {
     expect(gallerySource).toContain("navigateImage");
     expect(gallerySource).toContain("onPointerUp");
     expect(gallerySource).toContain("setPointerCapture");
+    expect(gallerySource).toContain('className="gallery-nav left"');
+    expect(gallerySource).toContain('className="gallery-nav right"');
+    expect(gallerySource).toContain("Show next gallery image");
   });
 
   it("keeps the first-booking offer in the booking flow rather than over the mobile reservation action", () => {
@@ -50,6 +54,8 @@ describe("vehicle detail gallery behavior", () => {
     expect(detailSource).toContain("VehicleCard key={item.id}");
     expect(detailSource).not.toContain("detail-related-carousel-controls");
     expect(detailSource).toContain("Vehicle image:");
+    expect(enhancementStyles).toContain("min-height: 580px");
+    expect(enhancementStyles).toContain("flex: 0 0 44px");
   });
 
   it("places verified source angles after the pricing image in the exact source sequence", () => {

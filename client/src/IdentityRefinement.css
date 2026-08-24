@@ -126,3 +126,7 @@ html[data-theme="light"] #root .master-vehicle-card .vehicle-brand-ribbon__seal.
 /* Final dark-hero lockup: keep the marque word and its rule visibly blue. */
 html:not([data-theme="light"]) #root main .hero-section.hero-cinematic .hero-layout > .hero-copy > p.hero-brand { color: #63c9f4 !important; -webkit-text-fill-color: #63c9f4 !important; text-shadow: 0 0 18px rgba(58,181,229,.28) !important; }
 html:not([data-theme="light"]) #root main .hero-section.hero-cinematic .hero-layout > .hero-copy > p.hero-brand::after { background: #63c9f4 !important; box-shadow: 0 0 10px rgba(58,181,229,.38); }
+
+/* Light-mode lockups use a restrained neon-blue treatment without affecting the dark identity. */
+html[data-theme="light"] #root :is(.site-header, .fleet-browse-header, .detail-header) .brand-lockup > .brand-mark { filter: brightness(.72) sepia(.7) hue-rotate(152deg) saturate(2.35) drop-shadow(0 0 6px rgba(10,200,255,.62)) !important; }
+html[data-theme="light"] #root :is(.site-header, .fleet-browse-header, .detail-header) .brand-lockup > span { color: #0a9fd8 !important; text-shadow: 0 0 10px rgba(10,200,255,.34); }

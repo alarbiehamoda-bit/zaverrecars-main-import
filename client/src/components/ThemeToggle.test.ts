@@ -66,10 +66,11 @@ describe("theme and touch gallery controls", () => {
     expect(themeContextSource).toContain('get("themePreview")');
   });
 
-  it("keeps gallery navigation driven by touch gestures rather than previous and next arrow controls", () => {
+  it("keeps gallery navigation available by both touch gestures and visible arrow controls", () => {
     expect(gallerySource).toContain("onPointerDown");
     expect(gallerySource).toContain("navigateImage(difference < 0 ? 1 : -1)");
-    expect(gallerySource).not.toContain('className="gallery-nav left"');
-    expect(gallerySource).toContain('className="gallery-swipe-cues"');
+    expect(gallerySource).toContain('className="gallery-nav left"');
+    expect(gallerySource).toContain('className="gallery-nav right"');
+    expect(gallerySource).toContain("Show previous gallery image");
   });
 });
