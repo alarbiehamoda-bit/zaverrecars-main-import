@@ -14,4 +14,9 @@ describe("mobile menu button theme", () => {
     expect(homeSource).toContain('<button onClick={() => scrollTo("top")}>Home<ChevronRight size={18} /></button>');
     expect(homeSource).toContain('className="mobile-menu"');
   });
+
+  it("places the three-line menu directly beside the theme control", () => {
+    expect(homeSource.indexOf("<ThemeToggle />")).toBeLessThan(homeSource.indexOf('className="menu-button"'));
+    expect(homeSource.indexOf('className="menu-button"')).toBeLessThan(homeSource.indexOf('className="header-book"'));
+  });
 });

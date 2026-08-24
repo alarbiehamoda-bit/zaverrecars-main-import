@@ -38,7 +38,7 @@ import {
   Users,
   Zap,
 } from "lucide-react";
-import { KeyboardEvent as ReactKeyboardEvent, PointerEvent as ReactPointerEvent, useEffect, useMemo, useRef, useState } from "react";
+import { KeyboardEvent as ReactKeyboardEvent, PointerEvent as ReactPointerEvent, useMemo, useRef, useState } from "react";
 import { useLocation, useRoute } from "wouter";
 import "./VehicleDetailEnhancements.css";
 
@@ -133,11 +133,6 @@ export default function VehicleDetail() {
   const configuredVehicle = useMemo(() => vehicleFromSlug(params?.slug), [params?.slug]);
   const vehicle = useMemo(() => configuredVehicle ? managedCatalog.find((item) => item.id === configuredVehicle.id) ?? configuredVehicle : undefined, [configuredVehicle, managedCatalog]);
   const detailQuery = trpc.vehicle.detail.useQuery({ vehicleKey: vehicle?.id || "vehicle-001" }, { enabled: Boolean(vehicle) });
-  const homeTapTimer = useRef<number | null>(null);
-  const [homeTapArmed, setHomeTapArmed] = useState(false);
-
-  useEffect(() => () => { if (homeTapTimer.current) window.clearTimeout(homeTapTimer.current); }, []);
-
   const content = detailQuery.data?.content;
   const gallery = useMemo(() => {
     const managedImages = detailQuery.data?.images ?? [];
@@ -214,30 +209,19 @@ export default function VehicleDetail() {
       .slice(0, 4);
   }, [managedCatalog, vehicle]);
 
-  const returnToOrigin = () => {
+  const originPath = () => {
     const defaultFleetPath = "/cars";
     try {
       const storedTarget = window.sessionStorage.getItem("zaverre.return-to-fleet");
       const target = storedTarget ? JSON.parse(storedTarget) as { fleetPath?: string } : null;
-      navigate(target?.fleetPath?.startsWith("/cars") ? target.fleetPath : defaultFleetPath);
+      return target?.fleetPath?.startsWith("/cars") ? target.fleetPath : defaultFleetPath;
     } catch {
-      navigate(defaultFleetPath);
+      return defaultFleetPath;
     }
   };
 
-  const handleHomeTap = () => {
-    if (homeTapTimer.current) {
-      window.clearTimeout(homeTapTimer.current);
-      homeTapTimer.current = null;
-      setHomeTapArmed(false);
-      navigate("/");
-      return;
-    }
-    setHomeTapArmed(true);
-    homeTapTimer.current = window.setTimeout(() => {
-      homeTapTimer.current = null;
-      setHomeTapArmed(false);
-    }, 900);
+  const returnToOrigin = () => {
+    window.location.assign(originPath());
   };
 
   if (!vehicle || !publicPrice) {
@@ -259,10 +243,9 @@ export default function VehicleDetail() {
   return (
     <main className={`vehicle-detail-page${theme === "light" ? " zaverre-day" : ""}`}>
       <header className="detail-header">
-        <button className="brand-lockup" onClick={handleHomeTap} aria-label={homeTapArmed ? "Press ZAVERRE again to return home" : "Press ZAVERRE twice to return home"} title={homeTapArmed ? "Press again for home" : "Double press for home"}>
+        <button className="brand-lockup" onClick={returnToOrigin} aria-label="Return to the previous collection" title="Return to collection">
           <ZaverreMark className="brand-mark" />
           <span>ZAVERRE</span>
-          {homeTapArmed && <small className="detail-return-hint" aria-live="polite">PRESS AGAIN FOR HOME</small>}
         </button>
         <div className="detail-header-actions">
           <ThemeToggle />

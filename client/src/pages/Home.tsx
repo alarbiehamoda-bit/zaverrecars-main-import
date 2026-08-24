@@ -123,10 +123,10 @@ export default function Home() {
         </nav>
         <div className="header-actions">
           <ThemeToggle />
-          <button className="header-book" onClick={openGeneralEnquiry}>BOOK NOW <ArrowDownRight size={16} /></button>
           <button className="menu-button" onClick={() => setMenuOpen((value) => !value)} aria-label="Toggle menu" aria-expanded={menuOpen}>
             {menuOpen ? <X size={21} /> : <Menu size={21} />}
           </button>
+          <button className="header-book" onClick={openGeneralEnquiry}>BOOK NOW <ArrowDownRight size={16} /></button>
         </div>
         {menuOpen && (
           <div className="mobile-menu">
