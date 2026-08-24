@@ -22,7 +22,7 @@ import {
 import { startLogin } from "@/const";
 import { useIsMobile } from "@/hooks/useMobile";
 import { trpc } from "@/lib/trpc";
-import { CarFront, CircleDollarSign, FileSpreadsheet, Inbox, LayoutDashboard, LogOut, PanelLeft, Tags, Users } from "lucide-react";
+import { CarFront, CircleDollarSign, FileSpreadsheet, Inbox, LayoutDashboard, LogOut, PanelLeft, ShieldCheck, Tags, Users } from "lucide-react";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { DashboardLayoutSkeleton } from './DashboardLayoutSkeleton';
@@ -32,6 +32,7 @@ import "./AdminZaverreShell.css";
 
 const menuItems = [
   { icon: LayoutDashboard, label: "Operations cockpit", path: "/admin" },
+  { icon: ShieldCheck, label: "Policies & availability", path: "/admin/foundation" },
   { icon: LayoutDashboard, label: "Content studio", path: "/admin/content" },
   { icon: CarFront, label: "Vehicle studio", path: "/admin/vehicles" },
   { icon: CircleDollarSign, label: "Pricing desk", path: "/admin/pricing" },

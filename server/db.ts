@@ -1,17 +1,22 @@
 import { and, asc, desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import {
+  adminRoles,
+  adminUserRoleAssignments,
   adminActivityLog,
   bookingEnquiries,
   contentSettings,
   firstBookingCoupons,
   InsertUser,
   journalEntries,
+  rentalDepositPolicies,
   siteFaqEntries,
   users,
   vehicleBrands,
   vehicleContent,
   vehicleImages,
+  vehicleOperations,
+  vehicleOperationStatusHistory,
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
@@ -368,6 +373,86 @@ export async function recordAdminActivity(values: typeof adminActivityLog.$infer
   const db = await getDb();
   if (!db) throw new Error("Database is not available");
   await db.insert(adminActivityLog).values(values);
+}
+
+function parseCapabilities(value: string) {
+  try {
+    const parsed = JSON.parse(value);
+    return Array.isArray(parsed) ? parsed.filter((item): item is string => typeof item === "string") : [];
+  } catch {
+    return [];
+  }
+}
+
+export async function getUserCapabilityKeys(userId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  const roles = await db
+    .select({ capabilitiesJson: adminRoles.capabilitiesJson })
+    .from(adminUserRoleAssignments)
+    .innerJoin(adminRoles, eq(adminUserRoleAssignments.roleId, adminRoles.id))
+    .where(eq(adminUserRoleAssignments.userId, userId));
+  return Array.from(new Set(roles.flatMap((role) => parseCapabilities(role.capabilitiesJson))));
+}
+
+export async function getFoundationSnapshot() {
+  const db = await getDb();
+  if (!db) return { roles: [], assignments: [], depositPolicies: [], vehicleOperations: [], users: [] };
+  const [roles, assignments, depositPolicies, vehicleOperationRows, userRows] = await Promise.all([
+    db.select().from(adminRoles).orderBy(asc(adminRoles.displayName)),
+    db.select().from(adminUserRoleAssignments).orderBy(desc(adminUserRoleAssignments.createdAt)),
+    db.select().from(rentalDepositPolicies).orderBy(asc(rentalDepositPolicies.scopeType), asc(rentalDepositPolicies.scopeKey)),
+    db.select().from(vehicleOperations).orderBy(asc(vehicleOperations.vehicleKey)),
+    db.select({ id: users.id, name: users.name, email: users.email, role: users.role }).from(users).orderBy(asc(users.name)),
+  ]);
+  return { roles, assignments, depositPolicies, vehicleOperations: vehicleOperationRows, users: userRows };
+}
+
+export async function updateRentalDepositPolicy(values: typeof rentalDepositPolicies.$inferInsert) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+  await db.insert(rentalDepositPolicies).values(values).onDuplicateKeyUpdate({
+    set: {
+      depositAed: values.depositAed,
+      refundWindowDays: values.refundWindowDays,
+      note: values.note,
+      isActive: values.isActive,
+      updatedByUserId: values.updatedByUserId,
+    },
+  });
+}
+
+export async function updateVehicleOperation(values: typeof vehicleOperations.$inferInsert) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+  const nextStatus = values.status ?? "available";
+  const [previous] = await db.select().from(vehicleOperations).where(eq(vehicleOperations.vehicleKey, values.vehicleKey)).limit(1);
+  await db.insert(vehicleOperations).values(values).onDuplicateKeyUpdate({
+    set: {
+      status: nextStatus,
+      depositOverrideAed: values.depositOverrideAed,
+      operationalNote: values.operationalNote,
+      updatedByUserId: values.updatedByUserId,
+    },
+  });
+  if (!previous || previous.status !== nextStatus) {
+    await db.insert(vehicleOperationStatusHistory).values({
+      vehicleKey: values.vehicleKey,
+      previousStatus: previous?.status ?? null,
+      nextStatus,
+      note: values.operationalNote ?? null,
+      changedByUserId: values.updatedByUserId ?? null,
+    });
+  }
+  return { changed: !previous || previous.status !== nextStatus };
+}
+
+export async function assignAdminRole(values: typeof adminUserRoleAssignments.$inferInsert) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+  await db.insert(adminUserRoleAssignments).values(values).onDuplicateKeyUpdate({
+    set: { assignedByUserId: values.assignedByUserId },
+  });
 }
 
 export async function getAdminServiceHealth() {

@@ -50,6 +50,13 @@
       "when": 1787286060514,
       "tag": "0006_elite_scalphunter",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1787556963441,
+      "tag": "0007_brave_rictor",
+      "breakpoints": true
     }
   ]
 }

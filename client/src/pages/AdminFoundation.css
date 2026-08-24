@@ -1,0 +1,26 @@
+.foundation-page { max-width: 1260px; margin: 0 auto; color: var(--foreground); }
+.foundation-heading, .foundation-card-heading, .foundation-section-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 1.25rem; }
+.foundation-heading { margin-bottom: 1.5rem; }
+.foundation-heading h1, .foundation-card h2, .foundation-roles h2 { margin: .25rem 0 .45rem; font-family: var(--font-display, serif); letter-spacing: -.03em; }
+.foundation-heading p, .foundation-summary, .foundation-section-heading p { color: color-mix(in srgb, var(--foreground) 62%, transparent); max-width: 54rem; line-height: 1.55; }
+.foundation-status { display: inline-flex; align-items: center; gap: .5rem; color: #2cae7d; font-size: .82rem; white-space: nowrap; padding: .6rem .75rem; border: 1px solid color-mix(in srgb, #2cae7d 35%, transparent); border-radius: 999px; background: color-mix(in srgb, #2cae7d 8%, transparent); }
+.foundation-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.foundation-card, .foundation-roles { padding: 1.25rem; border: 1px solid color-mix(in srgb, var(--foreground) 12%, transparent); border-radius: 18px; background: color-mix(in srgb, var(--background) 86%, #b08d57 14%); box-shadow: 0 18px 40px rgba(0,0,0,.08); }
+.foundation-card--deposit { background: linear-gradient(135deg, color-mix(in srgb, #b08d57 16%, var(--background)), var(--background)); }
+.foundation-icon { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: .85rem; color: #b08d57; background: color-mix(in srgb, #b08d57 16%, transparent); }
+.foundation-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .85rem; margin-top: 1rem; }
+.foundation-form-grid label { display: grid; gap: .42rem; font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: color-mix(in srgb, var(--foreground) 70%, transparent); }
+.foundation-form-grid input, .foundation-form-grid select, .foundation-form-grid textarea, .foundation-assignment select { width: 100%; border-radius: .7rem; border: 1px solid color-mix(in srgb, var(--foreground) 15%, transparent); background: color-mix(in srgb, var(--background) 92%, #000 8%); color: var(--foreground); padding: .65rem .72rem; font: inherit; letter-spacing: normal; text-transform: none; }
+.foundation-form-grid textarea { min-height: 78px; resize: vertical; }
+.foundation-wide { grid-column: 1 / -1; }
+.foundation-primary, .foundation-assignment button { display: inline-flex; align-items: center; justify-content: center; gap: .45rem; margin-top: 1rem; min-height: 42px; border: 1px solid #b08d57; border-radius: .7rem; padding: 0 .9rem; color: #14171c; background: #b08d57; font-weight: 800; cursor: pointer; }
+.foundation-primary:disabled, .foundation-assignment button:disabled { opacity: .55; cursor: not-allowed; }
+.foundation-roles { margin-top: 1rem; }
+.foundation-role-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; margin-top: 1rem; }
+.foundation-role { min-height: 148px; padding: 1rem; border-radius: .9rem; background: color-mix(in srgb, var(--background) 86%, #0c263e 14%); border: 1px solid color-mix(in srgb, var(--foreground) 10%, transparent); }
+.foundation-role p { min-height: 2.7rem; margin: .5rem 0; font-size: .85rem; color: color-mix(in srgb, var(--foreground) 64%, transparent); line-height: 1.45; }
+.foundation-role code { display: block; overflow-wrap: anywhere; font-size: .7rem; color: #b08d57; }
+.foundation-assignment { display: grid; grid-template-columns: 1fr 1fr auto; gap: .75rem; align-items: end; margin-top: 1rem; }
+.foundation-assignment button { margin: 0; }
+.foundation-loading { display: grid; min-height: 40vh; place-items: center; color: var(--foreground); }
+@media (max-width: 760px) { .foundation-heading { display: block; } .foundation-status { margin-top: .8rem; } .foundation-grid, .foundation-role-grid { grid-template-columns: 1fr; } .foundation-form-grid, .foundation-assignment { grid-template-columns: 1fr; } .foundation-card, .foundation-roles { padding: 1rem; } }

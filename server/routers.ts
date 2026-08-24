@@ -7,6 +7,7 @@ import { couponRouter } from "./routers/coupon.ts";
 import { cmsRouter } from "./routers/cms.ts";
 import { brandRouter } from "./routers/brand.ts";
 import { adminAssistantRouter } from "./routers/adminAssistant.ts";
+import { foundationRouter } from "./routers/foundation.ts";
 import { operationsRouter } from "./routers/operations.ts";
 
 export const appRouter = router({
@@ -27,6 +28,7 @@ export const appRouter = router({
   cms: cmsRouter,
   brand: brandRouter,
   adminAssistant: adminAssistantRouter,
+  foundation: foundationRouter,
   operations: operationsRouter,
 
   // TODO: add feature routers here, e.g.

@@ -1,10 +1,12 @@
 import {
   boolean,
+  index,
   int,
   mysqlEnum,
   mysqlTable,
   text,
   timestamp,
+  uniqueIndex,
   varchar,
 } from "drizzle-orm/mysql-core";
 
@@ -163,6 +165,71 @@ export const firstBookingCoupons = mysqlTable("firstBookingCoupons", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
+/** Configurable administrator roles. Capability strings are evaluated only on the server. */
+export const adminRoles = mysqlTable("adminRoles", {
+  id: int("id").autoincrement().primaryKey(),
+  roleKey: varchar("roleKey", { length: 64 }).notNull().unique(),
+  displayName: varchar("displayName", { length: 120 }).notNull(),
+  description: varchar("description", { length: 512 }),
+  capabilitiesJson: text("capabilitiesJson").notNull(),
+  isSystem: boolean("isSystem").default(false).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+/** A user may receive more than one administrative role. */
+export const adminUserRoleAssignments = mysqlTable("adminUserRoleAssignments", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  roleId: int("roleId").notNull(),
+  assignedByUserId: int("assignedByUserId"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => [
+  uniqueIndex("adminUserRoleAssignments_user_role_unique").on(table.userId, table.roleId),
+  index("adminUserRoleAssignments_user_idx").on(table.userId),
+]);
+
+/** Deposit rules are internal operating policies, resolved by default, category, then vehicle scope. */
+export const rentalDepositPolicies = mysqlTable("rentalDepositPolicies", {
+  id: int("id").autoincrement().primaryKey(),
+  scopeType: mysqlEnum("scopeType", ["default", "category", "vehicle"]).notNull(),
+  scopeKey: varchar("scopeKey", { length: 120 }).notNull(),
+  depositAed: int("depositAed").notNull(),
+  refundWindowDays: int("refundWindowDays").default(25).notNull(),
+  note: varchar("note", { length: 512 }),
+  isActive: boolean("isActive").default(true).notNull(),
+  updatedByUserId: int("updatedByUserId"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (table) => [
+  uniqueIndex("rentalDepositPolicies_scope_unique").on(table.scopeType, table.scopeKey),
+]);
+
+/** Internal availability state for an existing static catalogue vehicle key. */
+export const vehicleOperations = mysqlTable("vehicleOperations", {
+  id: int("id").autoincrement().primaryKey(),
+  vehicleKey: varchar("vehicleKey", { length: 64 }).notNull().unique(),
+  status: mysqlEnum("status", ["available", "reserved", "rented", "maintenance", "hidden"]).default("available").notNull(),
+  depositOverrideAed: int("depositOverrideAed"),
+  operationalNote: varchar("operationalNote", { length: 512 }),
+  updatedByUserId: int("updatedByUserId"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+/** Append-only status transition history for operational accountability. */
+export const vehicleOperationStatusHistory = mysqlTable("vehicleOperationStatusHistory", {
+  id: int("id").autoincrement().primaryKey(),
+  vehicleKey: varchar("vehicleKey", { length: 64 }).notNull(),
+  previousStatus: mysqlEnum("previousStatus", ["available", "reserved", "rented", "maintenance", "hidden"]),
+  nextStatus: mysqlEnum("nextStatus", ["available", "reserved", "rented", "maintenance", "hidden"]).notNull(),
+  note: varchar("note", { length: 512 }),
+  changedByUserId: int("changedByUserId"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => [
+  index("vehicleOperationStatusHistory_vehicle_idx").on(table.vehicleKey, table.createdAt),
+]);
+
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 export type VehicleContent = typeof vehicleContent.$inferSelect;
@@ -174,3 +241,8 @@ export type AdminActivityLog = typeof adminActivityLog.$inferSelect;
 export type ContentSetting = typeof contentSettings.$inferSelect;
 export type JournalEntry = typeof journalEntries.$inferSelect;
 export type SiteFaqEntry = typeof siteFaqEntries.$inferSelect;
+export type AdminRole = typeof adminRoles.$inferSelect;
+export type AdminUserRoleAssignment = typeof adminUserRoleAssignments.$inferSelect;
+export type RentalDepositPolicy = typeof rentalDepositPolicies.$inferSelect;
+export type VehicleOperation = typeof vehicleOperations.$inferSelect;
+export type VehicleOperationStatusHistory = typeof vehicleOperationStatusHistory.$inferSelect;
