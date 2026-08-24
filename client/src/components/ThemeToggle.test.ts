@@ -10,6 +10,7 @@ const mobileStyles = readFileSync(resolve(process.cwd(), "client/src/mobile.css"
 const vehicleGlassStyles = readFileSync(resolve(process.cwd(), "client/src/vehicle-glass.css"), "utf8");
 const homeSource = readFileSync(resolve(process.cwd(), "client/src/pages/Home.tsx"), "utf8");
 const themeContextSource = readFileSync(resolve(process.cwd(), "client/src/contexts/ThemeContext.tsx"), "utf8");
+const sonnerSource = readFileSync(resolve(process.cwd(), "client/src/components/ui/sonner.tsx"), "utf8");
 
 describe("theme and touch gallery controls", () => {
   it("enables a persistent dark and day-mode toggle from the application shell", () => {
@@ -64,6 +65,8 @@ describe("theme and touch gallery controls", () => {
     expect(globalStyles).toContain(".dark");
     expect(themeContextSource).toContain('THEME_COOKIE = "zaverre_theme"');
     expect(themeContextSource).not.toContain("localStorage.getItem(\"theme\")");
+    expect(sonnerSource).toContain('from "@/contexts/ThemeContext"');
+    expect(sonnerSource).not.toContain('from "next-themes"');
   });
 
   it("keeps gallery navigation available by both touch gestures and visible arrow controls", () => {
