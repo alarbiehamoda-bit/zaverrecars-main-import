@@ -252,3 +252,31 @@
   #root .journal-article-intro { margin-bottom: 24px !important; }
   #root .journal-article-intro h1 { font-size: clamp(34px, 10vw, 46px) !important; }
 }
+
+/* Vehicle-card containment: compact content first, then reserve a fixed in-card action rail. */
+@media (max-width: 760px) {
+  #root .vehicle-card { display: flex !important; flex-direction: column !important; min-height: 0 !important; overflow: hidden !important; }
+  #root :is(.horizontal-fleet, .vertical-fleet, .brand-stack-card, .brand-free-scroll-card, .vehicle-carousel) .vehicle-card { height: 440px !important; }
+  #root :is(.horizontal-fleet, .vertical-fleet, .brand-stack-card, .brand-free-scroll-card, .vehicle-carousel) .vehicle-image-wrap { flex: 0 0 42% !important; }
+  #root .vehicle-card-body { display: flex !important; flex: 1 1 auto !important; flex-direction: column !important; min-height: 0 !important; overflow: hidden !important; padding: 9px !important; }
+  #root .vehicle-brand-ribbon { flex: 0 0 30px !important; margin-bottom: 5px !important; min-height: 30px !important; }
+  #root .vehicle-brand-ribbon__seal.brand-emblem-well { height: 30px !important; width: 30px !important; }
+  #root .vehicle-brand-ribbon__identity strong { font-size: 8px !important; }
+  #root .vehicle-brand-ribbon__identity i { font-size: 5px !important; }
+  #root .vehicle-card-title, #root .vehicle-card-body h3 { font-size: 1.12rem !important; line-height: .88 !important; margin: 2px 0 !important; }
+  #root .card-spec-list { gap: 4px !important; margin: 5px 0 !important; min-height: 0 !important; }
+  #root .card-spec-item { font-size: 6px !important; min-height: 28px !important; padding-block: 3px !important; }
+  #root .card-spec-item svg { height: 11px !important; width: 11px !important; }
+  #root .card-spec-item small { font-size: 5px !important; }
+  #root .card-spec-item b { font-size: 7px !important; }
+  #root .card-rate { flex: 0 0 34px !important; margin-top: auto !important; min-height: 34px !important; padding-top: 5px !important; }
+  #root .card-rate__eyebrow, #root .card-rate small { font-size: 5px !important; }
+  #root .card-rate strong, #root .card-rate__value { font-size: 16px !important; }
+  #root .card-rate .dirham-mark { height: 17px !important; width: 15px !important; }
+  #root .card-actions { flex: 0 0 40px !important; gap: 5px !important; margin-top: 6px !important; min-height: 40px !important; padding-top: 0 !important; }
+  #root :is(.card-book, .card-details) { box-sizing: border-box !important; font-size: 5.5px !important; min-height: 40px !important; overflow: hidden !important; padding-inline: 4px !important; white-space: nowrap !important; }
+  #root :is(.card-book, .card-details) svg { flex: 0 0 auto !important; height: 11px !important; width: 11px !important; }
+  #root .fleet-browse-page .vehicle-card { overflow: hidden !important; }
+  #root .fleet-browse-page .vehicle-card-body { min-height: 0 !important; }
+  #root .fleet-browse-page .card-actions { flex: 0 0 40px !important; margin-top: auto !important; }
+}

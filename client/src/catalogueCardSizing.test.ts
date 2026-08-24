@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
 const styles = readFileSync(new URL("./vehicle-glass.css", import.meta.url), "utf8");
+const mobileStyles = readFileSync(new URL("./mobile.css", import.meta.url), "utf8");
 
 describe("catalogue card sizing", () => {
   it("uses a consistent footprint for homepage and fleet catalogue cards", () => {
@@ -22,6 +23,9 @@ describe("catalogue card sizing", () => {
     expect(styles).toContain(".vehicle-card .card-whatsapp { flex: 0 0 40px");
     expect(styles).toContain(".vehicle-card .card-rate .dirham-mark");
     expect(styles).toContain("#ef7d2c");
+    expect(mobileStyles).toContain("Vehicle-card containment");
+    expect(mobileStyles).toContain("flex: 0 0 40px !important");
+    expect(mobileStyles).toContain("overflow: hidden !important");
   });
 
   it("uses one primary-card model across catalogue contexts after removing the duplicate enquiry row", () => {
