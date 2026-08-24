@@ -52,7 +52,7 @@ function GoldRule({ label }: { label: string }) {
 function FeaturedVehicles({ vehicles, onDetails, onBook }: { vehicles: Vehicle[]; onDetails: (vehicle: Vehicle) => void; onBook: (vehicle: Vehicle) => void }) {
   if (vehicles.length !== 3) return null;
   return (
-    <section id="featured" className="featured-vehicles-section" aria-labelledby="featured-vehicles-title" data-scroll-reveal>
+    <section id="featured" className="featured-vehicles-section" aria-labelledby="featured-vehicles-title">
       <div className="featured-vehicles-inner">
         <div className="featured-section-heading">
           <div><GoldRule label="THE FEATURED THREE" /><h2 id="featured-vehicles-title">Three ways<br /><em>to arrive.</em></h2></div>
@@ -60,7 +60,7 @@ function FeaturedVehicles({ vehicles, onDetails, onBook }: { vehicles: Vehicle[]
         </div>
         <div className="featured-vehicle-layout">
           {vehicles.map((vehicle, index) => (
-            <div className={`featured-vehicle-slot ${index === 1 ? "featured-vehicle-slot--focus" : ""}`} key={vehicle.id} data-scroll-reveal>
+            <div className={`featured-vehicle-slot ${index === 1 ? "featured-vehicle-slot--focus" : ""}`} key={vehicle.id}>
               <VehicleCard vehicle={vehicle} onDetails={onDetails} onBook={onBook} className="featured-vehicle-card" />
             </div>
           ))}
@@ -106,34 +106,6 @@ export default function Home() {
     updateHeader();
     window.addEventListener("scroll", updateHeader, { passive: true });
     return () => window.removeEventListener("scroll", updateHeader);
-  }, []);
-
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const targets = Array.from(document.querySelectorAll<HTMLElement>("[data-scroll-reveal]"));
-    if (!targets.length) return;
-
-    targets.forEach((target, index) => {
-      target.classList.add("scroll-reveal");
-      target.style.setProperty("--reveal-delay", `${Math.min(index % 5, 4) * 55}ms`);
-    });
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add("is-revealed");
-        observer.unobserve(entry.target);
-      });
-    }, { threshold: 0.14, rootMargin: "0px 0px -38px" });
-
-    targets.forEach((target) => observer.observe(target));
-    return () => {
-      observer.disconnect();
-      targets.forEach((target) => {
-        target.classList.remove("scroll-reveal", "is-revealed");
-        target.style.removeProperty("--reveal-delay");
-      });
-    };
   }, []);
 
   return (
@@ -186,7 +158,7 @@ export default function Home() {
 
       <FeaturedVehicles vehicles={featuredVehicles} onDetails={(selected) => navigate(`/fleet/${vehicleSlug(selected)}`)} onBook={openBooking} />
 
-      <section id="fleet" className="fleet-section" data-scroll-reveal>
+      <section id="fleet" className="fleet-section">
         <div className="section-heading">
           <div><GoldRule label="THE COLLECTION" /><h2>The ZAVERRE<br /><em>fleet.</em></h2></div>
           <p>A curated collection of exceptional vehicles, presented with individual catalogue photography and final customer rates.</p>
@@ -201,7 +173,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="about" className="editorial-section" style={{ backgroundImage: "radial-gradient(circle at 86% 26%, rgba(199, 167, 120, .16), transparent 36%), linear-gradient(90deg, #12100e, #181511)" }} data-scroll-reveal>
+      <section id="about" className="editorial-section" style={{ backgroundImage: "radial-gradient(circle at 86% 26%, rgba(199, 167, 120, .16), transparent 36%), linear-gradient(90deg, #12100e, #181511)" }}>
         <div className="editorial-tile left-tile"><span>THE</span><strong>01</strong><span>STANDARD</span></div>
         <div className="editorial-copy">
           <GoldRule label="THE ZAVERRE APPROACH" />
@@ -218,7 +190,7 @@ export default function Home() {
       <RentalFaqSection />
       <JournalPreviewSection />
 
-      <section id="contact" className="contact-section" data-scroll-reveal>
+      <section id="contact" className="contact-section">
         <div><GoldRule label="CONTACT ZAVERRE" /><h2>Let’s make<br /><em>the arrival count.</em></h2></div>
         <div className="contact-links">
           <a href={whatsappHref(managedContact, "Hello ZAVERRE, I would like to reserve a vehicle. Please share availability, the final daily rate, and booking requirements.")} target="_blank" rel="noreferrer"><span>WHATSAPP</span><strong>{managedContact.whatsappDisplay}</strong><MessageCircle size={20} /></a>

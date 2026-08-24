@@ -75,11 +75,6 @@
 .header-book:hover, .header-book:focus-visible { background: rgba(231,195,130,.12); border-color: #e8c989; box-shadow: 0 10px 25px rgba(0,0,0,.28), 0 0 18px rgba(199,167,120,.08); transform: translateY(-1px); }
 .hero-atmosphere { background: radial-gradient(circle at 76% 31%, rgba(233, 187, 96, .17), transparent 19%), radial-gradient(circle at 56% 82%, rgba(199, 167, 120, .10), transparent 24%); inset: 0; mix-blend-mode: screen; pointer-events: none; position: absolute; z-index: 1; }
 .hero-cinematic .hero-layout { z-index: 2; }
-.hero-copy > .hero-brand, .hero-copy > h1, .hero-copy > p:not(.hero-brand), .hero-copy > .hero-cta { animation: zefir-hero-reveal 720ms cubic-bezier(.23, 1, .32, 1) both; }
-.hero-copy > h1 { animation-delay: 110ms; }.hero-copy > p:not(.hero-brand) { animation-delay: 170ms; }.hero-copy > .hero-cta { animation-delay: 230ms; }
-@keyframes zefir-hero-reveal { from { opacity: 0; transform: translateY(13px); } to { opacity: 1; transform: translateY(0); } }
-.scroll-reveal { opacity: 0; transform: translateY(20px); transition: opacity 620ms cubic-bezier(.23, 1, .32, 1) var(--reveal-delay, 0ms), transform 620ms cubic-bezier(.23, 1, .32, 1) var(--reveal-delay, 0ms); }
-.scroll-reveal.is-revealed { opacity: 1; transform: translateY(0); }
 
 /* Shared editorial motion: text catches light softly while cards keep a responsive, glass-like lift. */
 @media (prefers-reduced-motion: no-preference) {
@@ -463,7 +458,7 @@ html[data-theme="light"] { background: #f5eee5; } html[data-theme="light"] body 
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .site-header, .header-book, .desktop-nav button::after, .hero-copy > *, .scroll-reveal { animation: none !important; opacity: 1 !important; transform: none !important; transition-duration: .01ms !important; }
+  .site-header, .header-book, .desktop-nav button::after, .hero-copy > * { animation: none !important; opacity: 1 !important; transform: none !important; transition-duration: .01ms !important; }
   .journal-card, .journal-card::before, .delivery-location-grid li, .home-faq-list [data-slot="accordion-item"], .home-faq-list [data-slot="accordion-trigger"] svg, .detail-spec-grid > div, .detail-rental-grid > div, .contact-links a { transform: none !important; transition-duration: .01ms !important; }
   .brand-logo-rail, .brand-free-scroll-list, .horizontal-fleet, .master-vehicle-grid { scroll-behavior: auto !important; }
 }

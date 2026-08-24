@@ -46,6 +46,13 @@ describe("homepage experience content", () => {
     expect(homeSource).toContain("<GoldRule label={hero.kicker} />");
   });
 
+  it("renders the public homepage in its final visual state without delayed reveal classes", () => {
+    expect(homeSource).not.toContain("IntersectionObserver");
+    expect(homeSource).not.toContain("data-scroll-reveal");
+    expect(glassStyles).not.toContain(".scroll-reveal {");
+    expect(glassStyles).not.toContain("zefir-hero-reveal");
+  });
+
   it("keeps daylight supporting copy, FAQ questions, and utility icons in a dark navy contrast palette", () => {
     expect(glassStyles).toContain("Daylight readability pass");
     expect(glassStyles).toContain("#173f61");
