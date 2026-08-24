@@ -21,5 +21,10 @@ describe("identity refinement", () => {
     expect(styles).toContain("bottom: 76px");
     expect(styles).toContain(".hero-copy h1 em");
     expect(styles).toContain("#root .hero-cinematic .hero-copy > .section-kicker span");
+    expect(styles).toContain("#root .brand-emblem-well");
+    expect(styles).toContain("#root .vehicle-brand-ribbon");
+    expect(styles).toContain("-webkit-line-clamp: 2");
+    expect(styles).toContain("#d9f4ff");
+    expect(styles).toContain("#392215");
   });
 });

@@ -46,6 +46,23 @@ html[data-theme="light"] .detail-header { background: linear-gradient(110deg, rg
 html[data-theme="light"] .brand-lockup > span { color: #102f49 !important; }
 html[data-theme="light"] .brand-lockup > .brand-mark { filter: brightness(.65) sepia(.28) hue-rotate(135deg) saturate(1.15) !important; }
 
+/* One marque surface per theme, regardless of whether it appears in a filter, card, or page header. */
+html:not([data-theme="light"]) #root .brand-emblem-well { background: radial-gradient(circle at 32% 22%, #e3f6ff 0%, #4f9bc7 48%, #0b2f4a 100%) !important; border-color: rgba(142,213,244,.7) !important; box-shadow: inset 0 1px 0 rgba(244,252,255,.48), inset 0 -8px 13px rgba(3,22,36,.5), 0 5px 12px rgba(0,0,0,.32) !important; }
+html[data-theme="light"] #root .brand-emblem-well { background: radial-gradient(circle at 32% 22%, #fff5e5 0%, #d7a96f 48%, #825233 100%) !important; border-color: rgba(109,65,33,.62) !important; box-shadow: inset 0 1px 0 rgba(255,252,245,.7), inset 0 -8px 13px rgba(78,42,17,.24), 0 5px 12px rgba(46,28,14,.18) !important; }
+html:not([data-theme="light"]) #root .vehicle-brand-ribbon { background: linear-gradient(108deg, #09273d 0%, #1e5b7d 54%, #0b304b 100%) !important; border-color: rgba(142,213,244,.56) !important; }
+html[data-theme="light"] #root .vehicle-brand-ribbon { background: linear-gradient(108deg, #fff0da 0%, #d5a068 54%, #a6673d 100%) !important; border-color: rgba(111,68,34,.44) !important; }
+html:not([data-theme="light"]) #root :is(.vehicle-brand-ribbon__identity strong, .brand-cards.brand-logo-rail > a > small, .brand-name-bar strong) { background: none !important; color: #d9f4ff !important; -webkit-text-fill-color: #d9f4ff !important; }
+html[data-theme="light"] #root :is(.vehicle-brand-ribbon__identity strong, .brand-cards.brand-logo-rail > a > small, .brand-name-bar strong) { background: none !important; color: #392215 !important; -webkit-text-fill-color: #392215 !important; }
+html:not([data-theme="light"]) #root .vehicle-brand-ribbon__identity i { color: #9edcf5 !important; }
+html[data-theme="light"] #root .vehicle-brand-ribbon__identity i { color: #693a20 !important; }
+html:not([data-theme="light"]) #root .brand-name-bar { background: linear-gradient(110deg, #09273d 0%, #1f5b7c 52%, #0a2c46 100%) !important; border-color: rgba(142,213,244,.56) !important; }
+html[data-theme="light"] #root .brand-name-bar { background: linear-gradient(110deg, #fff0da 0%, #d6a36b 52%, #a96d42 100%) !important; border-color: rgba(111,68,34,.44) !important; }
+
+/* Vehicle model names keep the same two-line rhythm in every catalogue card. */
+#root .vehicle-card .vehicle-card-title { display: -webkit-box; font-family: "Cormorant Garamond", Georgia, serif; font-size: clamp(24px, 2.15vw, 31px) !important; font-weight: 600; letter-spacing: -.025em; line-height: .98 !important; min-height: 2em; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+html[data-theme="light"] #root .vehicle-card .vehicle-card-title { color: #07131d !important; -webkit-text-fill-color: #07131d !important; }
+html:not([data-theme="light"]) #root .vehicle-card .vehicle-card-title { color: #fff0dc !important; -webkit-text-fill-color: #fff0dc !important; }
+
 @media (max-width: 760px) {
   .brand-lockup { gap: 8px; }
   .brand-lockup > .brand-mark { height: 32px; width: 32px; }
@@ -53,4 +70,5 @@ html[data-theme="light"] .brand-lockup > .brand-mark { filter: brightness(.65) s
   #root .floating-contact-rail--home { bottom: 76px; display: grid !important; right: 14px; z-index: 44; }
   #root .floating-contact-rail--home > :not(.floating-whatsapp-button) { display: none; }
   #root .floating-contact-rail--home .floating-whatsapp-button { min-width: 136px; }
+  #root .vehicle-card .vehicle-card-title { font-size: 24px !important; }
 }
