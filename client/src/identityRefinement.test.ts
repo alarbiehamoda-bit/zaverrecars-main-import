@@ -44,5 +44,8 @@ describe("identity refinement", () => {
     expect(styles).toContain("flex: 0 0 44px");
     expect(styles).toContain("height: 154px");
     expect(styles).toContain("height: 138px");
+    expect(styles).toContain("overflow-y: auto !important");
+    expect(styles).toContain("overscroll-behavior-y: auto");
+    expect(styles).toContain("#root > main { touch-action: pan-y; }");
   });
 });

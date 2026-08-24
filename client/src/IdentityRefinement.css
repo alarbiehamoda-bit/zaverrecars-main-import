@@ -140,7 +140,8 @@ html[data-theme="light"] #root .site-footer .footer-brand > span { color: #0a9fd
 
 /* Mobile interaction layer: keep navigation controls above visual surfaces and easy to tap. */
 @media (max-width: 760px) {
-  html, body { -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; }
+  html, body, #root { min-height: 100%; overflow-y: auto !important; overscroll-behavior-y: auto; touch-action: auto; }
+  #root > main { touch-action: pan-y; }
   #root .site-header { isolation: isolate; }
   #root .header-actions { gap: 6px !important; }
   #root .menu-button { align-items: center; display: inline-flex !important; justify-content: center; min-height: 44px; min-width: 44px; padding: 10px !important; position: relative; touch-action: manipulation; z-index: 72; }
