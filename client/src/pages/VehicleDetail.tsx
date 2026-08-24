@@ -133,10 +133,10 @@ export default function VehicleDetail() {
   const configuredVehicle = useMemo(() => vehicleFromSlug(params?.slug), [params?.slug]);
   const vehicle = useMemo(() => configuredVehicle ? managedCatalog.find((item) => item.id === configuredVehicle.id) ?? configuredVehicle : undefined, [configuredVehicle, managedCatalog]);
   const detailQuery = trpc.vehicle.detail.useQuery({ vehicleKey: vehicle?.id || "vehicle-001" }, { enabled: Boolean(vehicle) });
-  const returnTapTimer = useRef<number | null>(null);
-  const [returnHomeArmed, setReturnHomeArmed] = useState(false);
+  const homeTapTimer = useRef<number | null>(null);
+  const [homeTapArmed, setHomeTapArmed] = useState(false);
 
-  useEffect(() => () => { if (returnTapTimer.current) window.clearTimeout(returnTapTimer.current); }, []);
+  useEffect(() => () => { if (homeTapTimer.current) window.clearTimeout(homeTapTimer.current); }, []);
 
   const content = detailQuery.data?.content;
   const gallery = useMemo(() => {
@@ -214,7 +214,7 @@ export default function VehicleDetail() {
       .slice(0, 4);
   }, [managedCatalog, vehicle]);
 
-  const returnToFleet = () => {
+  const returnToOrigin = () => {
     const defaultFleetPath = "/cars";
     try {
       const storedTarget = window.sessionStorage.getItem("zaverre.return-to-fleet");
@@ -225,20 +225,19 @@ export default function VehicleDetail() {
     }
   };
 
-  const handleReturn = () => {
-    if (returnTapTimer.current) {
-      window.clearTimeout(returnTapTimer.current);
-      returnTapTimer.current = null;
-      setReturnHomeArmed(false);
+  const handleHomeTap = () => {
+    if (homeTapTimer.current) {
+      window.clearTimeout(homeTapTimer.current);
+      homeTapTimer.current = null;
+      setHomeTapArmed(false);
       navigate("/");
       return;
     }
-    setReturnHomeArmed(true);
-    returnTapTimer.current = window.setTimeout(() => {
-      returnTapTimer.current = null;
-      setReturnHomeArmed(false);
-      returnToFleet();
-    }, 650);
+    setHomeTapArmed(true);
+    homeTapTimer.current = window.setTimeout(() => {
+      homeTapTimer.current = null;
+      setHomeTapArmed(false);
+    }, 900);
   };
 
   if (!vehicle || !publicPrice) {
@@ -247,7 +246,7 @@ export default function VehicleDetail() {
         <ZaverreMark className="detail-not-found__mark" label="ZAVERRE" />
         <p className="eyebrow">VEHICLE NOT FOUND</p>
         <h1>This vehicle is not in the current collection.</h1>
-        <button className="button button-gold" onClick={handleReturn}>RETURN TO FLEET <ArrowLeft size={17} /></button>
+        <button className="button button-gold" onClick={returnToOrigin}>RETURN TO FLEET <ArrowLeft size={17} /></button>
       </main>
     );
   }
@@ -260,20 +259,20 @@ export default function VehicleDetail() {
   return (
     <main className={`vehicle-detail-page${theme === "light" ? " zaverre-day" : ""}`}>
       <header className="detail-header">
-        <button className="brand-lockup" onClick={handleReturn} aria-label={returnHomeArmed ? "Press again to return to ZAVERRE home" : "Return to the previous fleet view; press again quickly for ZAVERRE home"} title={returnHomeArmed ? "Press again for ZAVERRE home" : "Press once for fleet, twice for home"}>
+        <button className="brand-lockup" onClick={handleHomeTap} aria-label={homeTapArmed ? "Press ZAVERRE again to return home" : "Press ZAVERRE twice to return home"} title={homeTapArmed ? "Press again for home" : "Double press for home"}>
           <ZaverreMark className="brand-mark" />
           <span>ZAVERRE</span>
-          {returnHomeArmed && <small className="detail-return-hint" aria-live="polite">PRESS AGAIN FOR HOME</small>}
+          {homeTapArmed && <small className="detail-return-hint" aria-live="polite">PRESS AGAIN FOR HOME</small>}
         </button>
         <div className="detail-header-actions">
           <ThemeToggle />
-          <button onClick={handleReturn}>ALL BRANDS</button>
+          <button onClick={returnToOrigin}>ALL BRANDS</button>
           <a href={whatsappHref(contact, safeMessage(vehicle))} target="_blank" rel="noreferrer">WHATSAPP <ArrowUpRight size={15} /></a>
         </div>
       </header>
 
       <section className="detail-hero">
-        <div className="detail-breadcrumb"><button onClick={handleReturn}>FLEET</button><span>/</span><span>{vehicle.brand}</span><span>/</span><strong>{vehicle.model}</strong></div>
+        <div className="detail-breadcrumb"><button onClick={returnToOrigin}>FLEET</button><span>/</span><span>{vehicle.brand}</span><span>/</span><strong>{vehicle.model}</strong></div>
           <CarGallery vehicleName={vehicle.fullName} images={gallery} imageFit={vehicle.galleryImageFit} />
       </section>
 

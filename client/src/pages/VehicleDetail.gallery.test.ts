@@ -7,14 +7,17 @@ const enhancementStyles = readFileSync(new URL("./VehicleDetailEnhancements.css"
 const archiveGallerySource = readFileSync(new URL("../data/archiveVehicleGalleries.ts", import.meta.url), "utf8");
 
 describe("vehicle detail gallery behavior", () => {
-  it("returns to the previous fleet view on one press and arms a clear second press for ZAVERRE home", () => {
-    expect(detailSource).toContain("const returnTapTimer");
-    expect(detailSource).toContain("const [returnHomeArmed, setReturnHomeArmed]");
-    expect(detailSource).toContain("setReturnHomeArmed(true)");
+  it("returns to the origin immediately and reserves a separate double tap on ZAVERRE for home", () => {
+    expect(detailSource).toContain("const homeTapTimer");
+    expect(detailSource).toContain("const [homeTapArmed, setHomeTapArmed]");
+    expect(detailSource).toContain("const returnToOrigin");
+    expect(detailSource).toContain('onClick={returnToOrigin}>ALL BRANDS');
+    expect(detailSource).toContain('onClick={returnToOrigin}>FLEET');
+    expect(detailSource).toContain("setHomeTapArmed(true)");
     expect(detailSource).toContain("PRESS AGAIN FOR HOME");
     expect(detailSource).toContain("window.setTimeout");
     expect(detailSource).toContain('navigate("/")');
-    expect(detailSource).toContain("onClick={handleReturn}");
+    expect(detailSource).toContain("onClick={handleHomeTap}");
   });
 
   it("keeps extra gallery controls conditional on real additional images", () => {

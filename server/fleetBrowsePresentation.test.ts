@@ -100,7 +100,7 @@ describe("fleet browse presentation", () => {
     expect(fleetBrowseSource).toContain("window.scrollTo({ top: targetTop, left: 0, behavior: \"auto\" })");
     expect(fleetBrowseSource).toContain("window.requestAnimationFrame");
     expect(vehicleSystemSource).toContain("id={`vehicle-card-${vehicle.id}`}");
-    expect(detailSource).toContain("returnToFleet");
+    expect(detailSource).toContain("returnToOrigin");
   });
 
   it("adds a calm hero-title treatment while keeping primary calls to action softer", () => {
