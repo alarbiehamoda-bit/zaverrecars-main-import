@@ -9,8 +9,8 @@ describe("floating WhatsApp contact", () => {
     expect(component).toContain('className="floating-whatsapp-button"');
     expect(component).toContain("Contact ZAVERRE on WhatsApp");
     expect(component).toContain("WHATSAPP");
+    expect(component).toContain('variant === "home" ? " floating-contact-rail--home" : ""');
     expect(styles).toContain("min-width: 132px");
     expect(styles).toContain("right: 16px");
   });
 });
-

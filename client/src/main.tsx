@@ -11,6 +11,7 @@ import "./vehicle-glass.css";
 import "./components/BrandCards.css";
 import "./ThemeConsistency.css";
 import "./performancePresentation.css";
+import "./IdentityRefinement.css";
 
 const queryClient = new QueryClient();
 

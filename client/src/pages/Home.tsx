@@ -34,6 +34,7 @@ import { vehicleSlug } from "@/lib/vehicleDetail";
 import { brandRouteSlug } from "@/lib/fleetRoutes";
 import { DeliveryLocationsSection, JournalPreviewSection, RentalFaqSection } from "@/components/HomeExperienceSections";
 import "../ThemeConsistency.css";
+import "../IdentityRefinement.css";
 
 function vehicleMessage(vehicle: Vehicle, extra = "") {
   return `Hello ZAVERRE,\nI would like to enquire about ${vehicle.fullName}.\nVehicle image: ${vehicleAssetUrl(vehicle.image)}\nPlease provide availability, rental terms and booking details.${extra ? `\n${extra}` : ""}`;
@@ -228,7 +229,7 @@ export default function Home() {
 
       <footer className="site-footer"><div className="footer-brand"><ZaverreMark className="footer-brand__mark" /><span>ZAVERRE</span></div><p>Luxury car rental, curated with restraint.</p><span>© {new Date().getFullYear()} ZAVERRE</span></footer>
 
-      <FloatingContactRail message="Hello ZAVERRE, I would like to reserve a vehicle. Please share availability, the final daily rate, and booking requirements." />
+      <FloatingContactRail variant="home" message="Hello ZAVERRE, I would like to reserve a vehicle. Please share availability, the final daily rate, and booking requirements." />
       <FirstBookingCoupon />
     </main>
   );
