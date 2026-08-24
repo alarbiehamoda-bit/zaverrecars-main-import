@@ -46,6 +46,8 @@ function safeMessage(vehicle: Vehicle) {
   return `Hello ZAVERRE,\nI would like to reserve the ${vehicle.fullName}.\nVehicle image: ${vehicleAssetUrl(vehicle.image)}\nPlease confirm availability, the final daily rate, required documents, and pickup or delivery options.`;
 }
 
+const BRAND_RETURN_DOUBLE_TAP_DELAY_MS = 450;
+
 function RelatedVehicleCarousel({ vehicles, onDetails, onBook }: { vehicles: Vehicle[]; onDetails: (vehicle: Vehicle) => void; onBook: (vehicle: Vehicle) => void }) {
   const railRef = useRef<HTMLDivElement>(null);
   const dragRef = useRef({ active: false, moved: false, pointerId: -1, startX: 0, startScrollLeft: 0 });
@@ -242,7 +244,7 @@ export default function VehicleDetail() {
     returnTapTimer.current = window.setTimeout(() => {
       returnTapTimer.current = null;
       returnToOrigin();
-    }, 280);
+    }, BRAND_RETURN_DOUBLE_TAP_DELAY_MS);
   };
 
   if (!vehicle || !publicPrice) {

@@ -14,7 +14,8 @@ describe("vehicle detail gallery behavior", () => {
     expect(detailSource).toContain("const returnTapTimer");
     expect(detailSource).toContain("const handleBrandReturn");
     expect(detailSource).toContain('navigate("/")');
-    expect(detailSource).toContain("}, 280)");
+    expect(detailSource).toContain("const BRAND_RETURN_DOUBLE_TAP_DELAY_MS = 450");
+    expect(detailSource).toContain("}, BRAND_RETURN_DOUBLE_TAP_DELAY_MS)");
     expect(detailSource).toContain('type="button" onClick={returnToOrigin}>ALL BRANDS');
     expect(detailSource).toContain('type="button" onClick={returnToOrigin}>FLEET');
     expect(detailSource).toContain('className="brand-lockup" onClick={handleBrandReturn}');
