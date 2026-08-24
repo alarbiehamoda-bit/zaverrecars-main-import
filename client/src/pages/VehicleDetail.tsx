@@ -273,6 +273,7 @@ export default function VehicleDetail() {
       </section>
 
       <section className="detail-quick-actions"><a className="button button-gold" href={whatsappHref(contact, safeMessage(vehicle))} target="_blank" rel="noreferrer">RESERVE ON WHATSAPP <ArrowUpRight size={17} /></a><a className="button button-quiet" href={`tel:+${contact.whatsappInternational}`}>CALL ZAVERRE <ArrowDownRight size={17} /></a></section>
+      <div className="detail-coupon-slot"><FirstBookingCoupon /></div>
 
       <section className="detail-section detail-basic-section"><div className="detail-section-heading"><p className="eyebrow">VEHICLE OVERVIEW</p><h2>At a glance</h2></div><dl className="detail-spec-grid detail-spec-grid--iconic">{basicDetails.map((item) => <div key={item.label}><SpecificationIcon label={item.label} /><div><dt>{item.label}</dt><dd>{item.value}</dd></div></div>)}</dl></section>
       {specs.length > 0 && <section className="detail-section detail-spec-section"><div className="detail-section-heading"><p className="eyebrow">VEHICLE DETAILS</p><h2>Specifications</h2></div><dl className="detail-spec-grid detail-spec-grid--iconic">{specs.map((spec) => <div key={spec.label}><SpecificationIcon label={spec.label} /><div><dt>{spec.label}</dt><dd>{spec.value}</dd></div></div>)}</dl></section>}
@@ -292,7 +293,6 @@ export default function VehicleDetail() {
       <section className="detail-final-cta"><ImageIcon size={18} /><p>ONE VEHICLE. INDIVIDUAL ARRANGEMENT.</p><h2>Ready when you are.</h2></section>
 
       <footer className="site-footer"><div className="footer-brand"><ZaverreMark className="footer-brand__mark" /><span>ZAVERRE</span></div><p>Luxury car rental, curated with restraint.</p></footer>
-      <FirstBookingCoupon />
       <FloatingContactRail message={safeMessage(vehicle)} />
     </main>
   );

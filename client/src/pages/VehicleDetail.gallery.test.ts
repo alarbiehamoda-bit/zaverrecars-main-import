@@ -25,6 +25,12 @@ describe("vehicle detail gallery behavior", () => {
     expect(gallerySource).toContain("setPointerCapture");
   });
 
+  it("keeps the first-booking offer in the booking flow rather than over the mobile reservation action", () => {
+    expect(detailSource).toContain('<div className="detail-coupon-slot"><FirstBookingCoupon /></div>');
+    expect(detailSource).toContain("detail-quick-actions");
+    expect(detailSource.indexOf("detail-coupon-slot")).toBeLessThan(detailSource.indexOf("detail-basic-section"));
+  });
+
   it("uses image position in thumbnail keys after normalizing and removing duplicate gallery sources", () => {
     expect(gallerySource).toContain("key={`${image.src}-${index}`}");
     expect(detailSource).toContain("const candidates = [");
