@@ -17,6 +17,8 @@ describe("mobile presentation rules", () => {
     expect(stylesheet).toContain(".fleet-browse-page .master-vehicle-grid--vertical { gap: 9px !important; max-width: 302px !important;");
     expect(stylesheet).toContain("Medium phone scale");
     expect(stylesheet).toContain(".vehicle-detail-page .detail-related-grid--carousel .detail-related-master-card { height: 600px");
+    expect(stylesheet).toContain("Compact-plus phone scale");
+    expect(stylesheet).toContain(".vehicle-detail-page .detail-related-grid--carousel .detail-related-master-card { height: 540px");
   });
 
   it("centres fleet-detail content with the established display font", () => {

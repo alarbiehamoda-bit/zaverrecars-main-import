@@ -54,7 +54,7 @@ export function whatsappHref(contact: ManagedContact, message: string) {
 }
 
 export function useCmsContent() {
-  const query = trpc.cms.public.useQuery();
+  const query = trpc.cms.public.useQuery(undefined, { staleTime: Infinity, refetchOnMount: false, refetchOnWindowFocus: false, refetchOnReconnect: false });
   const contact = parseContact(query.data?.settings.find((item) => item.settingKey === "contact")?.valueJson);
   const homeHero = parseHomeHero(query.data?.settings.find((item) => item.settingKey === "homeHero")?.valueJson);
   const featuredVehicleKeys = parseFeaturedVehicleKeys(query.data?.settings.find((item) => item.settingKey === "homeFeaturedVehicles")?.valueJson);
