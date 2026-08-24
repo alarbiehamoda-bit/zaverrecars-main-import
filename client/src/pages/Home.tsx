@@ -24,7 +24,6 @@ import { featuredVehicleIds, type Vehicle } from "@/config/vehicleCatalog";
 import { BrandFilterRail, VehicleCard } from "@/components/VehicleSystem";
 import { FirstBookingCoupon } from "@/components/FirstBookingCoupon";
 import { BookingIntentDialog, type BookingIntentSubject } from "@/components/BookingIntentDialog";
-import { FloatingContactRail } from "@/components/FloatingContactRail";
 import { PublicMobileMenu } from "@/components/PublicMobileMenu";
 import { useTheme } from "@/contexts/ThemeContext";
 import { vehicleAssetUrl } from "@/lib/vehicleAssets";
@@ -191,7 +190,6 @@ export default function Home() {
 
       <footer className="site-footer"><div className="footer-brand"><ZaverreMark className="footer-brand__mark" /><span>ZAVERRE</span></div><p>Luxury car rental, curated with restraint.</p><span>© {new Date().getFullYear()} ZAVERRE</span></footer>
 
-      <FloatingContactRail variant="home" message="Hello ZAVERRE, I would like to reserve a vehicle. Please share availability, the final daily rate, and booking requirements." />
       <FirstBookingCoupon />
       <BookingIntentDialog open={Boolean(bookingTarget)} onOpenChange={(open) => { if (!open) setBookingTarget(null); }} subject={bookingTarget} whatsappNumber={managedContact.whatsappInternational} />
     </main>

@@ -399,7 +399,8 @@ button { cursor: pointer; }
 .delivery-inner, .home-faq-inner { display: grid; grid-template-columns: minmax(0,.82fr) minmax(0,1.18fr); }
 .delivery-intro h2, .home-faq-intro h2, .journal-preview-head h2 { color: inherit; font-family: "Cormorant Garamond", Georgia, serif; font-size: clamp(56px,6.7vw,100px); font-weight: 600; letter-spacing: -.06em; line-height: .78; margin: 12px 0 26px; }
 .delivery-intro h2 em, .home-faq-intro h2 em, .journal-preview-head h2 em { color: #a77b42; font-weight: 500; }
-.delivery-intro > p:not(.eyebrow), .home-faq-intro > p:not(.eyebrow), .journal-preview-head > p { color: #655e53; font-size: 14px; line-height: 1.85; margin: 0; max-width: 44ch; }
+.delivery-intro > p:not(.eyebrow) { color: #7b552a; font-size: 14px; line-height: 1.85; margin: 0; max-width: 44ch; }
+.home-faq-intro > p:not(.eyebrow), .journal-preview-head > p { color: #655e53; font-size: 14px; line-height: 1.85; margin: 0; max-width: 44ch; }
 .delivery-policy, .home-faq-assurance { align-items: center; border-top: 1px solid rgba(109,82,43,.38); color: #725127; display: flex; font-size: 10px; font-weight: 800; gap: 10px; letter-spacing: .1em; line-height: 1.55; margin-top: 34px; padding-top: 17px; text-transform: uppercase; }
 .delivery-location-grid { display: grid; gap: 8px; grid-template-columns: repeat(3,minmax(0,1fr)); list-style: none; margin: 0; padding: 0; }
 .delivery-location-grid li { align-items: center; background: rgba(47,111,170,.08); border: 1px solid rgba(39,102,161,.34); color: #175f9f; display: flex; font-family: "Cormorant Garamond", Georgia, serif; font-size: clamp(18px,1.8vw,24px); gap: 8px; line-height: 1; min-height: 78px; padding: 15px; }
