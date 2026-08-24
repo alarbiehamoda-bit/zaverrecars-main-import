@@ -187,10 +187,10 @@ export default defineConfig({
   },
   server: {
     host: true,
-    hmr: {
-      protocol: "wss",
-      clientPort: 443,
-    },
+    // The managed preview proxy can close upgraded sockets intermittently.
+    // Disable Vite's optional HMR client there so a working preview never emits
+    // a WebSocket failure; code changes still refresh through server restart.
+    hmr: false,
     allowedHosts: [
       ".manuspre.computer",
       ".manus.computer",

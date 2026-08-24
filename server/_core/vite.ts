@@ -120,7 +120,8 @@ async function buildPublicSsrData(
 
 export async function setupVite(app: Express, server: Server) {
   const configuredHmr = typeof viteConfig.server?.hmr === "object" ? viteConfig.server.hmr : {};
-  const vite = await createViteServer({ ...viteConfig, configFile: false, server: { middlewareMode: true, hmr: { ...configuredHmr, server }, allowedHosts: true as const }, appType: "custom" });
+  const hmr = viteConfig.server?.hmr === false ? false : { ...configuredHmr, server };
+  const vite = await createViteServer({ ...viteConfig, configFile: false, server: { middlewareMode: true, hmr, allowedHosts: true as const }, appType: "custom" });
   registerSeoRoutes(app);
   app.use(vite.middlewares);
   app.use("*", async (req, res, next) => {
@@ -129,6 +130,13 @@ export async function setupVite(app: Express, server: Server) {
       let template = await fs.promises.readFile(clientTemplate, "utf-8");
       template = template.replace('src="/src/entry-client.tsx"', `src="/src/entry-client.tsx?v=${nanoid()}"`);
       template = await vite.transformIndexHtml(req.originalUrl, template);
+      // The managed preview proxy can close upgraded HMR sockets. With HMR
+      // explicitly disabled, remove Vite's injected client as well so the
+      // browser never attempts a WebSocket connection. A normal page refresh
+      // continues to load the transformed application modules.
+      if (viteConfig.server?.hmr === false) {
+        template = template.replace(/\s*<script type="module" src="\/@vite\/client"><\/script>/, "");
+      }
       template = template.replace("</head>", '<link rel="stylesheet" href="/src/index.css?direct" data-ssr-dev-css></head>');
       const { render } = await vite.ssrLoadModule("/src/entry-server.tsx");
       const origin = canonicalOrigin(req);
