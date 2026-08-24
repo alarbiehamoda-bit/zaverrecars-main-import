@@ -13,6 +13,7 @@ import {
   setAdminVehiclePrimaryImage,
   upsertAdminVehicleContent,
 } from "../db";
+import { sendBookingEmail } from "../bookingEmail";
 import { adminProcedure, publicProcedure, router } from "../_core/trpc";
 import { notifyOwner } from "../_core/notification";
 import { storagePut } from "../storage";
@@ -63,6 +64,11 @@ export const vehicleRouter = router({
         });
       } catch (error) {
         console.warn("[booking] owner notification failed after the enquiry was saved", error);
+      }
+      try {
+        await sendBookingEmail(input);
+      } catch (error) {
+        console.warn("[booking] email notification failed after the enquiry was saved", error);
       }
       return { id };
     }),
