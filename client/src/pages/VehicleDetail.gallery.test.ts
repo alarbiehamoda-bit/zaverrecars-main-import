@@ -7,13 +7,17 @@ const enhancementStyles = readFileSync(new URL("./VehicleDetailEnhancements.css"
 const archiveGallerySource = readFileSync(new URL("../data/archiveVehicleGalleries.ts", import.meta.url), "utf8");
 
 describe("vehicle detail gallery behavior", () => {
-  it("returns to the origin directly from every collection control without a delayed second press", () => {
+  it("returns to the origin on one ZAVERRE press and sends a double press to home without showing a hint", () => {
     expect(detailSource).toContain("const returnToOrigin");
     expect(detailSource).toContain("const originPath");
     expect(detailSource).toContain("window.location.assign(originPath())");
+    expect(detailSource).toContain("const returnTapTimer");
+    expect(detailSource).toContain("const handleBrandReturn");
+    expect(detailSource).toContain('window.location.assign("/")');
+    expect(detailSource).toContain("}, 280)");
     expect(detailSource).toContain('onClick={returnToOrigin}>ALL BRANDS');
     expect(detailSource).toContain('onClick={returnToOrigin}>FLEET');
-    expect(detailSource).toContain('className="brand-lockup" onClick={returnToOrigin}');
+    expect(detailSource).toContain('className="brand-lockup" onClick={handleBrandReturn}');
     expect(detailSource).not.toContain("PRESS AGAIN FOR HOME");
     expect(enhancementStyles).toContain("touch-action: manipulation");
   });

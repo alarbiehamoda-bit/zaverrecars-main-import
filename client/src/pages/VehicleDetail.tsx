@@ -38,7 +38,7 @@ import {
   Users,
   Zap,
 } from "lucide-react";
-import { KeyboardEvent as ReactKeyboardEvent, PointerEvent as ReactPointerEvent, useMemo, useRef, useState } from "react";
+import { KeyboardEvent as ReactKeyboardEvent, PointerEvent as ReactPointerEvent, useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, useRoute } from "wouter";
 import "./VehicleDetailEnhancements.css";
 
@@ -133,6 +133,8 @@ export default function VehicleDetail() {
   const configuredVehicle = useMemo(() => vehicleFromSlug(params?.slug), [params?.slug]);
   const vehicle = useMemo(() => configuredVehicle ? managedCatalog.find((item) => item.id === configuredVehicle.id) ?? configuredVehicle : undefined, [configuredVehicle, managedCatalog]);
   const detailQuery = trpc.vehicle.detail.useQuery({ vehicleKey: vehicle?.id || "vehicle-001" }, { enabled: Boolean(vehicle) });
+  const returnTapTimer = useRef<number | null>(null);
+  useEffect(() => () => { if (returnTapTimer.current) window.clearTimeout(returnTapTimer.current); }, []);
   const content = detailQuery.data?.content;
   const gallery = useMemo(() => {
     const managedImages = detailQuery.data?.images ?? [];
@@ -224,6 +226,19 @@ export default function VehicleDetail() {
     window.location.assign(originPath());
   };
 
+  const handleBrandReturn = () => {
+    if (returnTapTimer.current) {
+      window.clearTimeout(returnTapTimer.current);
+      returnTapTimer.current = null;
+      window.location.assign("/");
+      return;
+    }
+    returnTapTimer.current = window.setTimeout(() => {
+      returnTapTimer.current = null;
+      returnToOrigin();
+    }, 280);
+  };
+
   if (!vehicle || !publicPrice) {
     return (
       <main className="detail-not-found">
@@ -243,7 +258,7 @@ export default function VehicleDetail() {
   return (
     <main className={`vehicle-detail-page${theme === "light" ? " zaverre-day" : ""}`}>
       <header className="detail-header">
-        <button className="brand-lockup" onClick={returnToOrigin} aria-label="Return to the previous collection" title="Return to collection">
+        <button className="brand-lockup" onClick={handleBrandReturn} aria-label="Press once to return to the collection or twice for home" title="Press once to return, twice for home">
           <ZaverreMark className="brand-mark" />
           <span>ZAVERRE</span>
         </button>
