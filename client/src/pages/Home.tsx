@@ -23,6 +23,7 @@ import { useManagedVehicleCatalog } from "@/hooks/useManagedVehicleCatalog";
 import { featuredVehicleIds, type Vehicle } from "@/config/vehicleCatalog";
 import { BrandFilterRail, VehicleCard } from "@/components/VehicleSystem";
 import { FirstBookingCoupon } from "@/components/FirstBookingCoupon";
+import { BookingIntentDialog, type BookingIntentSubject } from "@/components/BookingIntentDialog";
 import { FloatingContactRail } from "@/components/FloatingContactRail";
 import { PublicMobileMenu } from "@/components/PublicMobileMenu";
 import { useTheme } from "@/contexts/ThemeContext";
@@ -75,21 +76,16 @@ export default function Home() {
   const hero = cms.homeHero;
   const [, navigate] = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [bookingTarget, setBookingTarget] = useState<BookingIntentSubject | null>(null);
 
   const featuredOrder = cms.featuredVehicleKeys.length === 3 ? cms.featuredVehicleKeys : (managedFeaturedIds.length ? managedFeaturedIds : featuredVehicleIds);
   const featuredVehicles = useMemo(() => featuredOrder
     .map((id) => vehicleCatalog.find((vehicle) => vehicle.id === id))
     .filter((vehicle): vehicle is Vehicle => Boolean(vehicle)), [featuredOrder, vehicleCatalog]);
 
-  const openGeneralEnquiry = () => {
-    window.open(
-      whatsappHref(managedContact, "Hello ZAVERRE, I would like to enquire about the collection. Please share availability and rental details."),
-      "_blank",
-      "noopener,noreferrer",
-    );
-  };
+  const openGeneralEnquiry = () => setBookingTarget({ label: "the ZAVERRE collection", message: "Hello ZAVERRE, I would like to enquire about the collection. Please share availability and rental details." });
   const openBooking = (vehicle: Vehicle) => {
-    window.open(whatsappHref(managedContact, vehicleMessage(vehicle)), "_blank", "noopener,noreferrer");
+    setBookingTarget({ label: vehicle.fullName, message: vehicleMessage(vehicle) });
   };
 
   const scrollTo = (id: string) => {
@@ -114,7 +110,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className={`overflow-x-hidden text-[#f6f0e5] ${theme === "light" ? "zaverre-day" : "bg-[#0d0d0c]"}`}>
+    <main id="main-content" className={`overflow-x-hidden text-[#f6f0e5] ${theme === "light" ? "zaverre-day" : "bg-[#0d0d0c]"}`}>
       <header className={`site-header${isScrolled ? " site-header--scrolled" : ""}`}>
         <button className="brand-lockup" onClick={() => scrollTo("top")} aria-label="ZAVERRE home">
           <ZaverreMark className="brand-mark" />
@@ -197,6 +193,7 @@ export default function Home() {
 
       <FloatingContactRail variant="home" message="Hello ZAVERRE, I would like to reserve a vehicle. Please share availability, the final daily rate, and booking requirements." />
       <FirstBookingCoupon />
+      <BookingIntentDialog open={Boolean(bookingTarget)} onOpenChange={(open) => { if (!open) setBookingTarget(null); }} subject={bookingTarget} whatsappNumber={managedContact.whatsappInternational} />
     </main>
   );
 }

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { ArrowDownRight, ArrowUp, ChevronLeft, MessageCircle, Phone } from "lucide-react";
+import { ArrowDownRight, ArrowUp, ChevronLeft, MessageCircle, Phone, Search } from "lucide-react";
 import { useLocation } from "wouter";
 import "./FleetBrowse.css";
 import "../ThemeConsistency.css";
@@ -9,9 +9,11 @@ import { vehicleFilterBrands, type Vehicle } from "@/config/vehicleCatalog";
 import { useManagedVehicleCatalog } from "@/hooks/useManagedVehicleCatalog";
 import { BrandFilterRail, BrandMark, MasterVehicleGrid } from "@/components/VehicleSystem";
 import { PublicMobileMenu } from "@/components/PublicMobileMenu";
+import { BookingIntentDialog, type BookingIntentSubject } from "@/components/BookingIntentDialog";
 import { useTheme } from "@/contexts/ThemeContext";
 import { brandRouteSlug } from "@/lib/fleetRoutes";
-import { fleetCategoryFromSlug } from "@/lib/fleetPresentation";
+import { fleetCategoryDefinitions, fleetCategoryFromSlug } from "@/lib/fleetPresentation";
+import { discoverFleetVehicles, type FleetSort } from "@/lib/fleetDiscovery";
 import { vehicleSlug } from "@/lib/vehicleDetail";
 import { contact, whatsappUrl } from "@/config/contact";
 
@@ -46,20 +48,26 @@ export default function FleetBrowse() {
   const brandSlug = isCategoryRoute ? undefined : pathSegments[1];
   const categorySlug = isCategoryRoute ? pathSegments[2] : undefined;
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sort, setSort] = useState<FleetSort>("curated");
+  const [bookingTarget, setBookingTarget] = useState<BookingIntentSubject | null>(null);
   const activeBrand = brandSlug ? brands.find((brand) => brandRouteSlug(brand.brandName) === brandSlug)?.brandName : undefined;
   const activeBrandMeta = activeBrand ? brands.find((brand) => brand.brandName === activeBrand) : undefined;
   const activeCategory = fleetCategoryFromSlug(categorySlug);
   const activeBrandCount = activeBrand ? vehicleCatalog.filter((vehicle) => vehicle.brand === activeBrand || vehicleFilterBrands(vehicle).includes(activeBrand)).length : 0;
-  const vehicles = useMemo(() => vehicleCatalog.filter((vehicle) => {
+  const collectionVehicles = useMemo(() => vehicleCatalog.filter((vehicle) => {
     const brandMatches = !activeBrand || vehicle.brand === activeBrand || vehicleFilterBrands(vehicle).includes(activeBrand);
     const categoryMatches = !activeCategory || vehicle.category === activeCategory.category;
     return brandMatches && categoryMatches;
   }).sort((a, b) => a.index - b.index), [activeBrand, activeCategory, vehicleCatalog]);
+  const vehicles = useMemo(() => discoverFleetVehicles(collectionVehicles, searchQuery, sort), [collectionVehicles, searchQuery, sort]);
   const pageTitle = activeBrand || activeCategory?.label || "All cars";
   const collectionTransitionKey = activeBrand ? `brand-${brandRouteSlug(activeBrand)}` : activeCategory ? `category-${activeCategory.slug}` : "all-cars";
 
   const selectBrand = (brandName: string) => navigate(brandName === "All" ? "/cars" : `/cars/${brandRouteSlug(brandName)}`);
-  const bookVehicle = (vehicle: Vehicle) => window.open(whatsappUrl(`Hello ZAVERRE, I would like to reserve the ${vehicle.fullName}. Please confirm availability and the final daily rate.`), "_blank", "noopener,noreferrer");
+  const openBookingIntent = (vehicle?: Vehicle) => setBookingTarget(vehicle
+    ? { label: vehicle.fullName, message: `Hello ZAVERRE, I would like to reserve the ${vehicle.fullName}. Please confirm availability and the final daily rate.` }
+    : { label: "the ZAVERRE collection", message: "Hello ZAVERRE, I would like to enquire about the fleet. Please share availability and rental details." });
   const openVehicleDetails = (vehicle: Vehicle) => {
     const target: FleetReturnTarget = { fleetPath, vehicleId: vehicle.id };
     window.sessionStorage.setItem(fleetReturnStorageKey, JSON.stringify(target));
@@ -106,10 +114,10 @@ export default function FleetBrowse() {
     return <main className={`fleet-browse-page${theme === "light" ? " zaverre-day" : ""}`}><a className="fleet-browse-back" href="/cars" onClick={(event) => { event.preventDefault(); navigate("/cars"); }}><ChevronLeft size={17} /> BACK TO ALL CARS</a><div className="fleet-browse-empty"><p className="eyebrow">ZAVERRE COLLECTION</p><h1>Brand not found.</h1></div></main>;
   }
 
-  return <main className={`fleet-browse-page${theme === "light" ? " zaverre-day" : ""}`}>
+  return <main id="main-content" className={`fleet-browse-page${theme === "light" ? " zaverre-day" : ""}`}>
     <header className="fleet-browse-header">
       <a className="brand-lockup" href="/" onClick={(event) => { event.preventDefault(); navigate("/"); }} aria-label="ZAVERRE home"><ZaverreMark className="brand-mark" /><span>ZAVERRE</span></a>
-      <div className="fleet-header-actions"><PublicMobileMenu onBook={() => window.open(whatsappUrl("Hello ZAVERRE, I would like to enquire about the fleet."), "_blank", "noopener,noreferrer")} /><button className="header-book" onClick={() => window.open(whatsappUrl("Hello ZAVERRE, I would like to enquire about the fleet."), "_blank", "noopener,noreferrer")}>BOOK NOW <ArrowDownRight size={16} /></button></div>
+      <div className="fleet-header-actions"><PublicMobileMenu onBook={() => openBookingIntent()} /><button className="header-book" onClick={() => openBookingIntent()}>BOOK NOW <ArrowDownRight size={16} /></button></div>
     </header>
     {activeBrand && <section className="brand-name-bar" aria-label={`${activeBrand} brand name`}><strong>{activeBrand}</strong></section>}
     <section className={`fleet-browse-hero${activeBrand ? " fleet-browse-hero--brand" : ""}`}>
@@ -123,12 +131,19 @@ export default function FleetBrowse() {
         <div><p className="eyebrow"><span>FILTER TOP</span><i aria-hidden="true">/</i><span>BRAND CARDS</span></p><h2 id="fleet-browse-title">Browse <em>the fleet.</em></h2></div>
       </div>
       <div className="filter-holder" aria-label="Filter Holder" data-filter-part="filter-holder"><BrandFilterRail activeBrand={activeBrand || "All"} onSelect={selectBrand} brands={brands} vehicles={vehicleCatalog} /></div>
-      {vehicles.length ? <div key={collectionTransitionKey} className="fleet-collection-transition" data-active-brand={activeBrand || "all"}><MasterVehicleGrid vehicles={vehicles} layout="vertical" onDetails={openVehicleDetails} onBook={bookVehicle} brandBadge={activeBrand ? { brandName: activeBrand, logoUrl: activeBrandMeta?.logoUrl } : undefined} /></div> : <div className="empty-state">No verified ZAVERRE vehicle matches this filter.</div>}
+      <div className="fleet-filter-panel fleet-discovery-controls" aria-label="Search, category, and sort controls">
+        <label className="fleet-search-field"><span><Search size={13} /> SEARCH COLLECTION</span><input type="search" value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} placeholder="Brand, model or category" aria-label="Search the ZAVERRE vehicle collection" /></label>
+        <div className="fleet-category-rail" aria-label="Vehicle category filters"><button type="button" className={!activeCategory ? "active" : ""} onClick={() => navigate("/cars")}>ALL</button>{fleetCategoryDefinitions.map((category) => <button type="button" key={category.slug} className={activeCategory?.slug === category.slug ? "active" : ""} onClick={() => navigate(`/cars/category/${category.slug}`)}>{category.label}</button>)}</div>
+        <label><span>ORDER</span><select value={sort} onChange={(event) => setSort(event.target.value as FleetSort)} aria-label="Sort the vehicle collection"><option value="curated">Curated order</option><option value="price-low">Daily price: low to high</option><option value="price-high">Daily price: high to low</option><option value="name">Vehicle name</option></select></label>
+        <p className="fleet-discovery-result" aria-live="polite"><b>{vehicles.length}</b> {vehicles.length === 1 ? "vehicle matches" : "vehicles match"}</p>
+      </div>
+      {vehicles.length ? <div key={collectionTransitionKey} className="fleet-collection-transition" data-active-brand={activeBrand || "all"}><MasterVehicleGrid vehicles={vehicles} layout="vertical" onDetails={openVehicleDetails} onBook={openBookingIntent} brandBadge={activeBrand ? { brandName: activeBrand, logoUrl: activeBrandMeta?.logoUrl } : undefined} /></div> : <div className="empty-state">No verified ZAVERRE vehicle matches this filter.</div>}
     </section>
     {showBackToTop && <div className="fleet-floating-actions" aria-label="Fleet return and contact actions">
       <button type="button" className="fleet-back-to-top" onClick={backToTop} aria-label="Back to the top of the vehicle collection"><ArrowUp size={16} /><span>BACK TO TOP</span></button>
       <a className="fleet-quick-contact fleet-quick-contact--whatsapp" href={whatsappUrl("Hello ZAVERRE, I would like help choosing a vehicle from the fleet.")} target="_blank" rel="noreferrer" aria-label="Contact ZAVERRE on WhatsApp"><MessageCircle size={15} /><span>WHATSAPP</span></a>
       <a className="fleet-quick-contact fleet-quick-contact--call" href={`tel:+${contact.whatsappInternational}`} aria-label="Call ZAVERRE"><Phone size={14} /><span>CALL</span></a>
     </div>}
+    <BookingIntentDialog open={Boolean(bookingTarget)} onOpenChange={(open) => { if (!open) setBookingTarget(null); }} subject={bookingTarget} whatsappNumber={contact.whatsappInternational} />
   </main>;
 }

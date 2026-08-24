@@ -9,6 +9,7 @@ describe("route SEO metadata", () => {
     const article = getRouteSeo("/journal/ferrari-lamborghini-rental-guide-dubai", origin);
     expect(vehicle.title).toContain("Aston Martin DBX 707");
     expect(vehicle.image).toBeTruthy();
+    expect((vehicle.schema?.offers as { availability?: string } | undefined)?.availability).toBeUndefined();
     expect(article.title).toContain("Ferrari or Lamborghini");
     expect(article.schema?.["@type"]).toBe("BlogPosting");
     expect(home.title).toContain("Luxury Car Rental Dubai");

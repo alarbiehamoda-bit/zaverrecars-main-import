@@ -1,0 +1,18 @@
+.booking-intent-dialog { background: linear-gradient(145deg, #17110d, #2d1b13) !important; border: 1px solid rgba(226,190,125,.5) !important; color: #f7ead9 !important; max-width: min(94vw, 520px) !important; }
+.booking-intent-dialog [data-slot="dialog-title"] { align-items: center; color: #f7ead9; display: flex; gap: 9px; }
+.booking-intent-dialog [data-slot="dialog-description"] { color: #dcc8ad; line-height: 1.6; }
+.booking-intent-dialog [data-slot="dialog-description"] strong { color: #f2d6a2; }
+.booking-intent-form { display: grid; gap: 13px; margin-top: 4px; }
+.booking-intent-date-grid { display: grid; gap: 11px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.booking-intent-form label { color: #e4cfae; display: grid; font-size: 10px; font-weight: 800; gap: 7px; letter-spacing: .06em; }
+.booking-intent-form :is(input, select) { background: rgba(8,7,6,.62); border: 1px solid rgba(229,197,145,.32); color: #fff2dc; min-height: 43px; padding: 0 11px; width: 100%; }
+.booking-intent-form :is(input, select):focus-visible { border-color: #63c9f4; outline: 2px solid rgba(99,201,244,.32); outline-offset: 2px; }
+.booking-intent-location > span { align-items: center; display: inline-flex; gap: 6px; }
+.booking-intent-form .button { justify-content: center; min-height: 46px; width: 100%; }
+.booking-intent-skip { background: transparent; border: 0; color: #d6b77e; font-size: 9px; font-weight: 800; letter-spacing: .1em; min-height: 40px; text-decoration: underline; text-underline-offset: 4px; }
+.booking-intent-skip:focus-visible { outline: 2px solid #63c9f4; outline-offset: 3px; }
+html[data-theme="light"] .booking-intent-dialog { background: linear-gradient(145deg, #f7efe2, #d9b584) !important; border-color: rgba(88,49,21,.42) !important; color: #22160e !important; }
+html[data-theme="light"] .booking-intent-dialog :is([data-slot="dialog-title"], [data-slot="dialog-description"], [data-slot="dialog-description"] strong, .booking-intent-form label) { color: #2e1d12; }
+html[data-theme="light"] .booking-intent-form :is(input, select) { background: rgba(255,250,241,.7); border-color: rgba(92,53,25,.36); color: #21150d; }
+html[data-theme="light"] .booking-intent-skip { color: #5f371f; }
+@media (max-width: 520px) { .booking-intent-date-grid { grid-template-columns: 1fr; } }

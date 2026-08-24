@@ -64,11 +64,13 @@ describe("unified vehicle system safeguards", () => {
     expect(detailSource).toContain("detail-related-master-card");
   });
 
-  it("routes booking actions through direct WhatsApp contact without an inline request form or duplicate card enquiry row", () => {
+  it("routes booking actions through optional intent details that open direct WhatsApp without storing a request", () => {
     expect(homeSource).not.toContain('id="booking"');
     expect(homeSource).toContain("const openGeneralEnquiry");
-    expect(homeSource).toContain("window.open(whatsappHref(managedContact, vehicleMessage(vehicle))");
-    expect(fleetSource).toContain("window.open(whatsappUrl(`Hello ZAVERRE, I would like to reserve the ${vehicle.fullName}");
+    expect(homeSource).toContain("BookingIntentDialog");
+    expect(homeSource).toContain("setBookingTarget");
+    expect(fleetSource).toContain("openBookingIntent");
+    expect(fleetSource).toContain("BookingIntentDialog");
     expect(systemSource).toContain("onBook(vehicle)");
     expect(systemSource).not.toContain("whatsappUrl(vehicleMessage(vehicle))");
   });

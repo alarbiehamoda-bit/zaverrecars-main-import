@@ -93,7 +93,6 @@ export function getRouteSeo(pathname: string, origin: string): RouteSeo {
             "@type": "Offer",
             priceCurrency: "AED",
             price: vehicle.priceAedPerDay,
-            availability: "https://schema.org/InStock",
             url,
           },
         },

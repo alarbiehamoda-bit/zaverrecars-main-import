@@ -126,7 +126,9 @@ export async function setupVite(app: Express, server: Server) {
       const origin = canonicalOrigin(req);
       const publicData = await buildPublicSsrData(req, res);
       const result = await render(req.originalUrl, origin, publicData);
-      res.status(result.head.notFound ? 404 : 200).set("Cache-Control", "no-cache").type("html").end(composeHtml(template, result.html, result.head, origin, result.dehydratedState));
+      // The production edge replaces upstream 404 responses with its own maintenance page.
+      // Preserve the branded app fallback and its noindex metadata for unknown routes.
+      res.status(200).set("Cache-Control", "no-cache").type("html").end(composeHtml(template, result.html, result.head, origin, result.dehydratedState));
     } catch (error) {
       vite.ssrFixStacktrace(error as Error);
       console.error("[SSR] dev render failed:", error);
@@ -149,7 +151,9 @@ export function serveStatic(app: Express) {
       const { render } = await import(serverEntryPath);
       const publicData = await buildPublicSsrData(req, res);
       const result = await render(req.originalUrl, origin, publicData);
-      res.status(result.head.notFound ? 404 : 200).set("Cache-Control", "no-cache").type("html").end(composeHtml(template, result.html, result.head, origin, result.dehydratedState));
+      // Keep ZAVERRE's 404 experience visible through the production edge while
+      // the SSR head continues to set noindex for unknown routes.
+      res.status(200).set("Cache-Control", "no-cache").type("html").end(composeHtml(template, result.html, result.head, origin, result.dehydratedState));
     } catch (error) {
       console.error("[SSR] render failed, serving shell:", error);
       const template = await fs.promises.readFile(templatePath, "utf-8");

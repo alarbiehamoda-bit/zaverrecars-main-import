@@ -28,11 +28,17 @@ function RouteScrollReset() {
   return null;
 }
 
+function PublicSkipLink() {
+  const [location] = useLocation();
+  if (location.startsWith("/admin")) return null;
+  return <a className="zaverre-skip-link" href="#main-content">Skip to main content</a>;
+}
+
 function Router() {
   // make sure to consider if you need authentication for certain routes
       return <Switch><Route path="/" component={Home} /><Route path="/cars" component={FleetBrowse} /><Route path="/cars/category/:categorySlug" component={FleetBrowse} /><Route path="/cars/:brandSlug" component={FleetBrowse} /><Route path="/fleet/:slug" component={VehicleDetail} /><Route path="/journal/:slug" component={JournalArticle} /><Route path="/admin" component={AdminOperations} /><Route path="/admin/content" component={AdminContent} /><Route path="/admin/vehicles" component={AdminVehicles} /><Route path="/admin/pricing" component={AdminVehicles} /><Route path="/admin/import" component={AdminVehicles} /><Route path="/admin/brands" component={AdminVehicles} /><Route path="/admin/bookings" component={AdminBookings} /><Route path="/404" component={NotFound} /><Route component={NotFound} /></Switch>;
 }
 
 export default function App() {
-  return <ErrorBoundary><ThemeProvider defaultTheme="dark" switchable><TooltipProvider><RouteScrollReset /><RouteSeo /><Toaster /><Suspense fallback={<span className="sr-only" aria-live="polite">Loading page</span>}><Router /></Suspense></TooltipProvider></ThemeProvider></ErrorBoundary>;
+  return <ErrorBoundary><ThemeProvider defaultTheme="dark" switchable><TooltipProvider><RouteScrollReset /><RouteSeo /><PublicSkipLink /><Toaster /><Suspense fallback={<span className="sr-only" aria-live="polite">Loading page</span>}><Router /></Suspense></TooltipProvider></ThemeProvider></ErrorBoundary>;
 }

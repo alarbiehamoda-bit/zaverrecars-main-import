@@ -6,6 +6,7 @@ import { galleryAssetKey, vehicleAssetUrl } from "@/lib/vehicleAssets";
 import { CarGallery } from "@/components/CarGallery";
 import { VehicleCard } from "@/components/VehicleSystem";
 import { FirstBookingCoupon } from "@/components/FirstBookingCoupon";
+import { BookingIntentDialog, type BookingIntentSubject } from "@/components/BookingIntentDialog";
 import { DirhamMark } from "@/components/DirhamMark";
 import { FloatingContactRail } from "@/components/FloatingContactRail";
 import { PublicMobileMenu } from "@/components/PublicMobileMenu";
@@ -134,6 +135,7 @@ export default function VehicleDetail() {
   const vehicle = useMemo(() => configuredVehicle ? managedCatalog.find((item) => item.id === configuredVehicle.id) ?? configuredVehicle : undefined, [configuredVehicle, managedCatalog]);
   const detailQuery = trpc.vehicle.detail.useQuery({ vehicleKey: vehicle?.id || "vehicle-001" }, { enabled: Boolean(vehicle) });
   const returnTapTimer = useRef<number | null>(null);
+  const [bookingTarget, setBookingTarget] = useState<BookingIntentSubject | null>(null);
   useEffect(() => () => { if (returnTapTimer.current) window.clearTimeout(returnTapTimer.current); }, []);
   const content = detailQuery.data?.content;
   const gallery = useMemo(() => {
@@ -225,6 +227,7 @@ export default function VehicleDetail() {
   const returnToOrigin = () => {
     navigate(originPath());
   };
+  const openBookingIntent = (target: Vehicle = vehicle!) => setBookingTarget({ label: target.fullName, message: safeMessage(target) });
 
   const handleBrandReturn = () => {
     if (returnTapTimer.current) {
@@ -256,7 +259,7 @@ export default function VehicleDetail() {
     `The ${vehicle.fullName} is presented by ZAVERRE as an individual ${vehicle.category.toLowerCase()} option${vehicle.color ? ` in ${vehicle.color}` : ""}. Share your preferred dates and our team will confirm availability and the rental details relevant to your request.`;
 
   return (
-    <main className={`vehicle-detail-page${theme === "light" ? " zaverre-day" : ""}`}>
+    <main id="main-content" className={`vehicle-detail-page ${theme === "light" ? "zaverre-day" : ""}`}>
       <header className="detail-header">
         <button className="brand-lockup" onClick={handleBrandReturn} aria-label="Press once to return to the collection or twice for home" title="Press once to return, twice for home">
           <ZaverreMark className="brand-mark" />
@@ -264,7 +267,7 @@ export default function VehicleDetail() {
         </button>
         <div className="detail-header-actions">
           <button type="button" className="detail-mobile-back" onClick={returnToOrigin} aria-label="Return to collection"><ArrowLeft size={16} /> BACK</button>
-          <PublicMobileMenu onBook={() => window.open(whatsappHref(contact, safeMessage(vehicle)), "_blank", "noopener,noreferrer")} />
+          <PublicMobileMenu onBook={() => openBookingIntent()} />
           <button onClick={returnToOrigin}>ALL BRANDS</button>
           <a href={whatsappHref(contact, safeMessage(vehicle))} target="_blank" rel="noreferrer">WHATSAPP <ArrowUpRight size={15} /></a>
         </div>
@@ -280,7 +283,7 @@ export default function VehicleDetail() {
         <div className="detail-price-panel"><p>{displayPriceLabel}</p><div className="detail-price-value"><DirhamMark /><strong>{displayPrice(publicPrice)}</strong></div><span>/ DAY</span><div className="detail-price-duration"><span>LONGER DURATIONS</span><b>ON REQUEST</b></div><small>{displayPriceNote}</small></div>
       </section>
 
-      <section className="detail-quick-actions"><a className="button button-gold" href={whatsappHref(contact, safeMessage(vehicle))} target="_blank" rel="noreferrer">RESERVE ON WHATSAPP <ArrowUpRight size={17} /></a><a className="button button-quiet" href={`tel:+${contact.whatsappInternational}`}>CALL ZAVERRE <ArrowDownRight size={17} /></a></section>
+      <section className="detail-quick-actions"><button type="button" className="button button-gold" onClick={() => openBookingIntent()}>RESERVE ON WHATSAPP <ArrowUpRight size={17} /></button><a className="button button-quiet" href={`tel:+${contact.whatsappInternational}`}>CALL ZAVERRE <ArrowDownRight size={17} /></a></section>
       <div className="detail-coupon-slot"><FirstBookingCoupon /></div>
 
       <section className="detail-section detail-basic-section"><div className="detail-section-heading"><p className="eyebrow">VEHICLE OVERVIEW</p><h2>At a glance</h2></div><dl className="detail-spec-grid detail-spec-grid--iconic">{basicDetails.map((item) => <div key={item.label}><SpecificationIcon label={item.label} /><div><dt>{item.label}</dt><dd>{item.value}</dd></div></div>)}</dl></section>
@@ -292,9 +295,9 @@ export default function VehicleDetail() {
 
       {features.length > 0 && <section className="detail-section detail-feature-section"><div className="detail-section-heading"><p className="eyebrow">VEHICLE FEATURES</p><h2>Features & comfort</h2></div><div className="detail-feature-grid">{features.map((feature) => <span key={feature}><Check size={15} />{feature}</span>)}</div></section>}
 
-      <section className="detail-booking-section detail-reservation-section"><div><p className="eyebrow">DIRECT RESERVATION</p><h2>Reserve with <em>confidence.</em></h2><p>Speak directly with ZAVERRE to confirm dates, delivery, documents, and the final rental arrangement.</p></div><div className="detail-reservation-panel"><p>Our team will assist you personally with every detail of your booking.</p><div><a className="button button-gold" href={whatsappHref(contact, safeMessage(vehicle))} target="_blank" rel="noreferrer">WHATSAPP ZAVERRE <ArrowUpRight size={17} /></a><a className="button button-quiet" href={`tel:+${contact.whatsappInternational}`}>CALL ZAVERRE <ArrowDownRight size={17} /></a></div></div></section>
+      <section className="detail-booking-section detail-reservation-section"><div><p className="eyebrow">DIRECT RESERVATION</p><h2>Reserve with <em>confidence.</em></h2><p>Share your preferred timing, then speak directly with ZAVERRE to confirm delivery, documents, and the final rental arrangement.</p></div><div className="detail-reservation-panel"><p>Our team will assist you personally with every detail of your booking.</p><div><button type="button" className="button button-gold" onClick={() => openBookingIntent()}>WHATSAPP ZAVERRE <ArrowUpRight size={17} /></button><a className="button button-quiet" href={`tel:+${contact.whatsappInternational}`}>CALL ZAVERRE <ArrowDownRight size={17} /></a></div></div></section>
 
-      <section className="detail-section detail-related-section"><div className="detail-section-heading"><p className="eyebrow">RELATED COLLECTION</p><h2>Similar vehicles</h2><p className="detail-related-swipe-note">SWIPE LEFT / RIGHT TO EXPLORE</p></div><RelatedVehicleCarousel vehicles={similarVehicles} onDetails={(item) => navigate(`/fleet/${vehicleSlug(item)}`)} onBook={(item) => navigate(`/?vehicle=${item.id}#booking`)} /></section>
+      <section className="detail-section detail-related-section"><div className="detail-section-heading"><p className="eyebrow">RELATED COLLECTION</p><h2>Similar vehicles</h2><p className="detail-related-swipe-note">SWIPE LEFT / RIGHT TO EXPLORE</p></div><RelatedVehicleCarousel vehicles={similarVehicles} onDetails={(item) => navigate(`/fleet/${vehicleSlug(item)}`)} onBook={(item) => openBookingIntent(item)} /></section>
 
       <section className="detail-section detail-faq-section"><div className="detail-section-heading"><p className="eyebrow">ENQUIRY GUIDE</p><h2>Questions, answered.</h2></div><div className="detail-faq-list">{adminFaq.map((item) => <FaqItem key={item.question} question={item.question} answer={item.answer} />)}</div></section>
 
@@ -302,6 +305,7 @@ export default function VehicleDetail() {
 
       <footer className="site-footer"><div className="footer-brand"><ZaverreMark className="footer-brand__mark" /><span>ZAVERRE</span></div><p>Luxury car rental, curated with restraint.</p></footer>
       <FloatingContactRail message={safeMessage(vehicle)} />
+      <BookingIntentDialog open={Boolean(bookingTarget)} onOpenChange={(open) => { if (!open) setBookingTarget(null); }} subject={bookingTarget} whatsappNumber={contact.whatsappInternational} />
     </main>
   );
 }
