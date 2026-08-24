@@ -1,0 +1,7 @@
+/* Browser-level render deferral for sections that start below the first viewport. */
+@supports (content-visibility: auto) {
+  :is(.featured-vehicles-section, .fleet-section, .editorial-section, .delivery-section, .home-faq-section, .journal-preview-section, .contact-section) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 860px;
+  }
+}

@@ -10,6 +10,7 @@ import "./index.css";
 import "./vehicle-glass.css";
 import "./components/BrandCards.css";
 import "./ThemeConsistency.css";
+import "./performancePresentation.css";
 
 const queryClient = new QueryClient();
 

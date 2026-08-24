@@ -5,7 +5,27 @@ import { brandFromRouteSlug, categoryFromRouteSlug } from "@/lib/fleetRoutes";
 import { vehicleFromSlug } from "@/lib/vehicleDetail";
 
 const siteName = "ZAVERRE";
-const fallbackDescription = "Explore ZAVERRE's curated collection of luxury and exotic vehicles in Dubai, with direct enquiries for availability and rental details.";
+const fallbackDescription = "Explore ZAVERRE's curated luxury car rental collection in Dubai, including exotic cars, performance SUVs and direct availability enquiries.";
+
+function dubaiAutoRentalSchema(url: string) {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "AutoRental",
+        "@id": `${url}#auto-rental`,
+        name: siteName,
+        url,
+        image: brand.heroTexture,
+        description: fallbackDescription,
+        areaServed: { "@type": "City", name: "Dubai" },
+        knowsAbout: ["Luxury car rental", "Exotic car rental", "Supercar rental"],
+        priceRange: "AED",
+      },
+      { "@type": "WebSite", "@id": `${url}#website`, name: siteName, url, inLanguage: "en" },
+    ],
+  };
+}
 
 export type RouteSeo = {
   title: string;
@@ -20,16 +40,16 @@ export function getRouteSeo(pathname: string, origin: string): RouteSeo {
   const url = `${origin}${path}`;
   if (path === "/") {
     return {
-      title: "Luxury Car Rental in Dubai | ZAVERRE",
+      title: "Luxury Car Rental Dubai | Exotic & Supercars | ZAVERRE",
       description: fallbackDescription,
       image: brand.heroTexture,
-      schema: { "@context": "https://schema.org", "@type": "Organization", name: siteName, url },
+      schema: dubaiAutoRentalSchema(url),
     };
   }
   if (path === "/cars") {
     return {
-      title: "Luxury & Exotic Car Collection in Dubai | ZAVERRE",
-      description: "Browse ZAVERRE's current luxury, performance SUV, convertible and exotic car collection in Dubai.",
+      title: "Luxury & Exotic Cars for Rent in Dubai | ZAVERRE",
+      description: "Browse ZAVERRE's current luxury cars, performance SUVs, convertibles and exotic cars for rental enquiries in Dubai.",
       schema: { "@context": "https://schema.org", "@type": "CollectionPage", name: "ZAVERRE Car Collection", url },
     };
   }

@@ -76,8 +76,8 @@ not_found_route() {
 }
 
 echo "== SSR verification against $BASE =="
-public_route "/" "Choose the car." "Luxury Car Rental in Dubai"
-public_route "/cars" "Every vehicle currently available" "Luxury &amp; Exotic Car Collection"
+public_route "/" "Choose the car." "Luxury Car Rental Dubai"
+public_route "/cars" "Every vehicle currently available" "Luxury &amp; Exotic Cars for Rent"
 public_route "/fleet/aston-martin-dbx-707" "Aston Martin DBX 707 is presented" "Aston Martin DBX 707 Rental"
 public_route "/journal/ferrari-lamborghini-rental-guide-dubai" "A refined rental begins" "A Practical Guide to Renting"
 admin_route
