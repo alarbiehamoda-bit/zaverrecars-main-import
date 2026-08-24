@@ -100,6 +100,10 @@ export default function Home() {
     setMenuOpen(false);
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
+  const navigateToFleet = () => {
+    setMenuOpen(false);
+    navigate("/cars");
+  };
 
   useEffect(() => {
     const updateHeader = () => setIsScrolled(window.scrollY > 18);
@@ -116,7 +120,7 @@ export default function Home() {
           <span>ZAVERRE</span>
         </button>
         <nav className="desktop-nav" aria-label="Primary navigation">
-          <button onClick={() => navigate("/cars")}>Fleet</button>
+          <button onClick={navigateToFleet}>Fleet</button>
           <button onClick={() => scrollTo("brands")}>Brands</button>
           <button onClick={() => scrollTo("about")}>About</button>
           <button onClick={() => scrollTo("contact")}>Contact</button>
@@ -132,7 +136,7 @@ export default function Home() {
           <div className="mobile-menu">
             <button onClick={() => scrollTo("top")}>Home<ChevronRight size={18} /></button>
             {[['Fleet', 'fleet'], ['Brands', 'brands'], ['About', 'about'], ['Contact', 'contact']].map(([label, target]) => (
-              <button key={target} onClick={() => label === "Fleet" ? navigate("/cars") : scrollTo(target)}>{label}<ChevronRight size={18} /></button>
+              <button key={target} onClick={() => label === "Fleet" ? navigateToFleet() : scrollTo(target)}>{label}<ChevronRight size={18} /></button>
             ))}
             <button className="button button-gold mt-4" onClick={openGeneralEnquiry}>BOOK YOUR CAR <ArrowDownRight size={17} /></button>
           </div>

@@ -18,6 +18,7 @@ describe("vehicle detail gallery behavior", () => {
     expect(detailSource).toContain('onClick={returnToOrigin}>ALL BRANDS');
     expect(detailSource).toContain('onClick={returnToOrigin}>FLEET');
     expect(detailSource).toContain('className="brand-lockup" onClick={handleBrandReturn}');
+    expect(detailSource).toContain('className="detail-mobile-back" onClick={returnToOrigin}');
     expect(detailSource).not.toContain("PRESS AGAIN FOR HOME");
     expect(enhancementStyles).toContain("touch-action: manipulation");
   });

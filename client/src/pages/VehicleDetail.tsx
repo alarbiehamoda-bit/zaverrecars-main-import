@@ -263,6 +263,7 @@ export default function VehicleDetail() {
           <span>ZAVERRE</span>
         </button>
         <div className="detail-header-actions">
+          <button type="button" className="detail-mobile-back" onClick={returnToOrigin} aria-label="Return to collection"><ArrowLeft size={16} /> BACK</button>
           <ThemeToggle />
           <button onClick={returnToOrigin}>ALL BRANDS</button>
           <a href={whatsappHref(contact, safeMessage(vehicle))} target="_blank" rel="noreferrer">WHATSAPP <ArrowUpRight size={15} /></a>

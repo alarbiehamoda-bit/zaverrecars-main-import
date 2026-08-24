@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
 const styles = readFileSync(new URL("./index.css", import.meta.url), "utf8");
+const identityStyles = readFileSync(new URL("./IdentityRefinement.css", import.meta.url), "utf8");
 const homeSource = readFileSync(new URL("./pages/Home.tsx", import.meta.url), "utf8");
 
 describe("mobile menu button theme", () => {
@@ -18,5 +19,12 @@ describe("mobile menu button theme", () => {
   it("places the three-line menu directly beside the theme control", () => {
     expect(homeSource.indexOf("<ThemeToggle />")).toBeLessThan(homeSource.indexOf('className="menu-button"'));
     expect(homeSource.indexOf('className="menu-button"')).toBeLessThan(homeSource.indexOf('className="header-book"'));
+  });
+
+  it("uses comfortable mobile touch targets and closes the menu before navigating to Fleet", () => {
+    expect(identityStyles).toContain("min-height: 44px");
+    expect(identityStyles).toContain("max-height: calc(100dvh - 76px)");
+    expect(homeSource).toContain("const navigateToFleet");
+    expect(homeSource).toContain("setMenuOpen(false)");
   });
 });
