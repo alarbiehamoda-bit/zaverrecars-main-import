@@ -17,4 +17,10 @@ describe("fleet brand transition", () => {
     expect(styles).toContain("opacity: 0");
     expect(styles).toContain("translateY(10px)");
   });
+
+  it("filters the current collection through a name-only search bar", () => {
+    expect(pageSource).toContain("vehicleNameQuery");
+    expect(pageSource).toContain("vehicle.fullName.toLocaleLowerCase().includes(normalizedVehicleNameQuery)");
+    expect(pageSource).toContain('placeholder="Search by vehicle name"');
+  });
 });

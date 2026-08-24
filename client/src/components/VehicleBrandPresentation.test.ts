@@ -4,6 +4,7 @@ import { describe, expect, it } from "vitest";
 const component = readFileSync(new URL("./VehicleSystem.tsx", import.meta.url), "utf8");
 const styles = readFileSync(new URL("./VehicleSystem.css", import.meta.url), "utf8");
 const filterStyles = readFileSync(new URL("./BrandCards.css", import.meta.url), "utf8");
+const homeSource = readFileSync(new URL("../pages/Home.tsx", import.meta.url), "utf8");
 
 const marques = ["Lamborghini", "Maserati", "Ferrari", "McLaren", "Mercedes-Benz", "Porsche", "Rolls-Royce", "Range Rover", "Audi", "BMW", "Bentley", "Aston Martin", "Cadillac", "Brabus", "Mansory"];
 
@@ -59,6 +60,7 @@ describe("brand presentation system", () => {
   it("prioritizes only the first visible catalogue logos while leaving the remaining marks lazy", () => {
     expect(component).toContain('loading={priority ? "eager" : "lazy"}');
     expect(component).toContain('fetchPriority={priority ? "high" : "auto"}');
-    expect(component).toContain("prioritizeVisibleLogos && index < 6");
+    expect(component).toContain("prioritizeVisibleLogos && index < 5");
+    expect(homeSource).toContain("prioritizeVisibleLogos");
   });
 });

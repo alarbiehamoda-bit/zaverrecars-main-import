@@ -15,6 +15,7 @@ describe("floating WhatsApp contact", () => {
     expect(styles).toContain("right: 16px");
     expect(app).toContain("function PublicFloatingContact()");
     expect(app).toContain('if (location.startsWith("/admin")) return null;');
+    expect(app).toContain('variant={location === "/" ? "home" : "default"}');
     expect(app).toContain("<PublicFloatingContact />");
   });
 });

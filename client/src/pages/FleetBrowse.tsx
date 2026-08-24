@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { ArrowDownRight, ArrowUp, ChevronLeft, MessageCircle, Phone } from "lucide-react";
+import { ArrowDownRight, ArrowUp, ChevronLeft, MessageCircle, Phone, Search } from "lucide-react";
 import { useLocation } from "wouter";
 import "./FleetBrowse.css";
 import "../ThemeConsistency.css";
@@ -48,6 +48,7 @@ export default function FleetBrowse() {
   const categorySlug = isCategoryRoute ? pathSegments[2] : undefined;
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [bookingTarget, setBookingTarget] = useState<BookingIntentSubject | null>(null);
+  const [vehicleNameQuery, setVehicleNameQuery] = useState("");
   const activeBrand = brandSlug ? brands.find((brand) => brandRouteSlug(brand.brandName) === brandSlug)?.brandName : undefined;
   const activeBrandMeta = activeBrand ? brands.find((brand) => brand.brandName === activeBrand) : undefined;
   const activeCategory = fleetCategoryFromSlug(categorySlug);
@@ -57,7 +58,8 @@ export default function FleetBrowse() {
     const categoryMatches = !activeCategory || vehicle.category === activeCategory.category;
     return brandMatches && categoryMatches;
   }).sort((a, b) => a.index - b.index), [activeBrand, activeCategory, vehicleCatalog]);
-  const vehicles = collectionVehicles;
+  const normalizedVehicleNameQuery = vehicleNameQuery.trim().toLocaleLowerCase();
+  const vehicles = useMemo(() => collectionVehicles.filter((vehicle) => !normalizedVehicleNameQuery || vehicle.fullName.toLocaleLowerCase().includes(normalizedVehicleNameQuery)), [collectionVehicles, normalizedVehicleNameQuery]);
   const pageTitle = activeBrand || activeCategory?.label || "All cars";
   const collectionTransitionKey = activeBrand ? `brand-${brandRouteSlug(activeBrand)}` : activeCategory ? `category-${activeCategory.slug}` : "all-cars";
 
@@ -126,9 +128,10 @@ export default function FleetBrowse() {
     <section className="fleet-browse-content" aria-labelledby="fleet-browse-title">
       <div className="fleet-browse-toolbar filter-top" aria-label="Filter Top" data-filter-part="filter-top">
         <div><p className="eyebrow"><span>FILTER TOP</span><i aria-hidden="true">/</i><span>BRAND CARDS</span></p><h2 id="fleet-browse-title">Browse <em>the fleet.</em></h2></div>
+        <label className="fleet-name-search"><Search size={16} aria-hidden="true" /><span className="sr-only">Search by vehicle name</span><input type="search" value={vehicleNameQuery} onChange={(event) => setVehicleNameQuery(event.target.value)} placeholder="Search by vehicle name" aria-label="Search by vehicle name" autoComplete="off" /></label>
       </div>
       <div className="filter-holder" aria-label="Filter Holder" data-filter-part="filter-holder"><BrandFilterRail activeBrand={activeBrand || "All"} onSelect={selectBrand} brands={brands} vehicles={vehicleCatalog} prioritizeVisibleLogos /></div>
-      {vehicles.length ? <div key={collectionTransitionKey} className="fleet-collection-transition" data-active-brand={activeBrand || "all"}><MasterVehicleGrid vehicles={vehicles} layout="vertical" onDetails={openVehicleDetails} onBook={openBookingIntent} brandBadge={activeBrand ? { brandName: activeBrand, logoUrl: activeBrandMeta?.logoUrl } : undefined} /></div> : <div className="empty-state">No verified ZAVERRE vehicle matches this filter.</div>}
+      {vehicles.length ? <div key={collectionTransitionKey} className="fleet-collection-transition" data-active-brand={activeBrand || "all"}><MasterVehicleGrid vehicles={vehicles} layout="vertical" onDetails={openVehicleDetails} onBook={openBookingIntent} brandBadge={activeBrand ? { brandName: activeBrand, logoUrl: activeBrandMeta?.logoUrl } : undefined} /></div> : <div className="empty-state">No verified ZAVERRE vehicle matches this name.</div>}
     </section>
     {showBackToTop && <div className="fleet-floating-actions" aria-label="Fleet return and contact actions">
       <button type="button" className="fleet-back-to-top" onClick={backToTop} aria-label="Back to the top of the vehicle collection"><ArrowUp size={16} /><span>BACK TO TOP</span></button>

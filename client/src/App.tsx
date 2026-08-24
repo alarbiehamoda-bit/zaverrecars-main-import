@@ -39,7 +39,7 @@ function PublicSkipLink() {
 function PublicFloatingContact() {
   const [location] = useLocation();
   if (location.startsWith("/admin")) return null;
-  return <FloatingContactRail />;
+  return <FloatingContactRail variant={location === "/" ? "home" : "default"} />;
 }
 
 function Router() {

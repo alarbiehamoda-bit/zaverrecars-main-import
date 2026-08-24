@@ -157,7 +157,7 @@ export default function Home() {
               <div><p className="eyebrow">SHOWROOM NAVIGATION</p><p>Choose a marque to open its full collection, or view every current ZAVERRE vehicle.</p></div>
               <button className="button button-outline fleet-all-link" onClick={() => navigate("/cars")}>VIEW ALL CARS <ArrowDownRight size={17} /></button>
             </div>
-            <BrandFilterRail activeBrand="" brands={managedBrands} vehicles={vehicleCatalog} onSelect={(brandName) => navigate(brandName === "All" ? "/cars" : `/cars/${brandRouteSlug(brandName)}`)} />
+            <BrandFilterRail activeBrand="" brands={managedBrands} vehicles={vehicleCatalog} prioritizeVisibleLogos onSelect={(brandName) => navigate(brandName === "All" ? "/cars" : `/cars/${brandRouteSlug(brandName)}`)} />
         </div>
       </section>
 
