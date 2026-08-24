@@ -8,7 +8,7 @@ import { VehicleCard } from "@/components/VehicleSystem";
 import { FirstBookingCoupon } from "@/components/FirstBookingCoupon";
 import { DirhamMark } from "@/components/DirhamMark";
 import { FloatingContactRail } from "@/components/FloatingContactRail";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { PublicMobileMenu } from "@/components/PublicMobileMenu";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useCmsContent, whatsappHref } from "@/hooks/useCmsContent";
 import { useManagedVehicleCatalog } from "@/hooks/useManagedVehicleCatalog";
@@ -223,14 +223,14 @@ export default function VehicleDetail() {
   };
 
   const returnToOrigin = () => {
-    window.location.assign(originPath());
+    navigate(originPath());
   };
 
   const handleBrandReturn = () => {
     if (returnTapTimer.current) {
       window.clearTimeout(returnTapTimer.current);
       returnTapTimer.current = null;
-      window.location.assign("/");
+      navigate("/");
       return;
     }
     returnTapTimer.current = window.setTimeout(() => {
@@ -264,7 +264,7 @@ export default function VehicleDetail() {
         </button>
         <div className="detail-header-actions">
           <button type="button" className="detail-mobile-back" onClick={returnToOrigin} aria-label="Return to collection"><ArrowLeft size={16} /> BACK</button>
-          <ThemeToggle />
+          <PublicMobileMenu onBook={() => window.open(whatsappHref(contact, safeMessage(vehicle)), "_blank", "noopener,noreferrer")} />
           <button onClick={returnToOrigin}>ALL BRANDS</button>
           <a href={whatsappHref(contact, safeMessage(vehicle))} target="_blank" rel="noreferrer">WHATSAPP <ArrowUpRight size={15} /></a>
         </div>

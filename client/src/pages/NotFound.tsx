@@ -1,4 +1,5 @@
 import { ZaverreMark } from "@/components/ZaverreMark";
+import { PublicMobileMenu } from "@/components/PublicMobileMenu";
 import { ArrowLeft, Compass } from "lucide-react";
 import { useLocation } from "wouter";
 
@@ -11,6 +12,7 @@ export default function NotFound() {
 
   return (
     <main className="zaverre-not-found">
+      <header className="public-error-header"><PublicMobileMenu /></header>
       <div className="zaverre-not-found__mark"><ZaverreMark className="zaverre-not-found__logo" label="ZAVERRE" /></div>
       <p className="eyebrow">ZAVERRE · NAVIGATION</p>
       <h1>404</h1>

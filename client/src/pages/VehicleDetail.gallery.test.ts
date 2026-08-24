@@ -10,10 +10,10 @@ describe("vehicle detail gallery behavior", () => {
   it("returns to the origin on one ZAVERRE press and sends a double press to home without showing a hint", () => {
     expect(detailSource).toContain("const returnToOrigin");
     expect(detailSource).toContain("const originPath");
-    expect(detailSource).toContain("window.location.assign(originPath())");
+    expect(detailSource).toContain("navigate(originPath())");
     expect(detailSource).toContain("const returnTapTimer");
     expect(detailSource).toContain("const handleBrandReturn");
-    expect(detailSource).toContain('window.location.assign("/")');
+    expect(detailSource).toContain('navigate("/")');
     expect(detailSource).toContain("}, 280)");
     expect(detailSource).toContain('onClick={returnToOrigin}>ALL BRANDS');
     expect(detailSource).toContain('onClick={returnToOrigin}>FLEET');

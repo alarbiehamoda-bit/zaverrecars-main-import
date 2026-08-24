@@ -1,5 +1,6 @@
 import { journalArticles } from "@/config/homeContent";
 import { useCmsContent, whatsappHref } from "@/hooks/useCmsContent";
+import { PublicMobileMenu } from "@/components/PublicMobileMenu";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { useState } from "react";
 import { Link } from "wouter";
@@ -36,6 +37,7 @@ export default function JournalArticle({ params }: { params: { slug: string } })
   if (!article) {
     return (
       <main className="journal-not-found">
+        <div className="journal-not-found-menu"><PublicMobileMenu /></div>
         <p className="eyebrow">ZAVERRE JOURNAL</p>
         <h1>Article unavailable.</h1>
         <Link href="/" className="button button-gold">BACK TO HOME <ArrowLeft size={17} /></Link>
@@ -47,7 +49,7 @@ export default function JournalArticle({ params }: { params: { slug: string } })
     <main className="journal-article-page">
       <header className="journal-article-header">
         <Link href="/" className="journal-back"><ArrowLeft size={16} /> BACK TO ZAVERRE</Link>
-        <a href={whatsappHref(content.contact, `Hello ZAVERRE, I would like to enquire after reading: ${article.title}`)} target="_blank" rel="noreferrer">WHATSAPP <ArrowUpRight size={15} /></a>
+        <div className="journal-article-actions"><PublicMobileMenu /><a href={whatsappHref(content.contact, `Hello ZAVERRE, I would like to enquire after reading: ${article.title}`)} target="_blank" rel="noreferrer">WHATSAPP <ArrowUpRight size={15} /></a></div>
       </header>
       <article className="journal-article">
         <div className="journal-article-intro">

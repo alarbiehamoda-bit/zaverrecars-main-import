@@ -44,8 +44,8 @@ describe("fleet browse presentation", () => {
     expect(glassStyles).toContain("master-vehicle-grid { scroll-behavior: auto !important; }");
   });
 
-  it("does not leave the last all-cars cards hidden behind a view-timeline animation", () => {
-    expect(fleetBrowseStyles).toContain("animation: fleet-card-rise 460ms");
+  it("keeps all-cars cards visible immediately without an entry animation on return", () => {
+    expect(fleetBrowseStyles).toContain("animation: none");
     expect(fleetBrowseStyles).not.toContain("animation-timeline: view()");
     expect(fleetBrowseStyles).toContain("opacity: 1");
   });

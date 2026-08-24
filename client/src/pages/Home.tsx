@@ -8,16 +8,13 @@ import { useLocation } from "wouter";
 import {
   ArrowDownRight,
   ArrowUpRight,
-  ChevronRight,
   Facebook,
   Instagram,
   Mail,
   MessageCircle,
-  Menu,
   Phone,
   ShieldCheck,
   Sparkles,
-  X,
 } from "lucide-react";
 import { ZaverreMark } from "@/components/ZaverreMark";
 import { brand } from "@/config/brand";
@@ -27,7 +24,7 @@ import { featuredVehicleIds, type Vehicle } from "@/config/vehicleCatalog";
 import { BrandFilterRail, VehicleCard } from "@/components/VehicleSystem";
 import { FirstBookingCoupon } from "@/components/FirstBookingCoupon";
 import { FloatingContactRail } from "@/components/FloatingContactRail";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { PublicMobileMenu } from "@/components/PublicMobileMenu";
 import { useTheme } from "@/contexts/ThemeContext";
 import { vehicleAssetUrl } from "@/lib/vehicleAssets";
 import { vehicleSlug } from "@/lib/vehicleDetail";
@@ -77,7 +74,6 @@ export default function Home() {
   const managedContact = cms.contact;
   const hero = cms.homeHero;
   const [, navigate] = useLocation();
-  const [menuOpen, setMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   const featuredOrder = cms.featuredVehicleKeys.length === 3 ? cms.featuredVehicleKeys : (managedFeaturedIds.length ? managedFeaturedIds : featuredVehicleIds);
@@ -97,13 +93,18 @@ export default function Home() {
   };
 
   const scrollTo = (id: string) => {
-    setMenuOpen(false);
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
   const navigateToFleet = () => {
-    setMenuOpen(false);
     navigate("/cars");
   };
+
+  useEffect(() => {
+    const section = window.sessionStorage.getItem("zaverre.home-section");
+    if (!section) return;
+    window.sessionStorage.removeItem("zaverre.home-section");
+    window.requestAnimationFrame(() => document.getElementById(section)?.scrollIntoView({ behavior: "auto", block: "start" }));
+  }, []);
 
   useEffect(() => {
     const updateHeader = () => setIsScrolled(window.scrollY > 18);
@@ -126,21 +127,9 @@ export default function Home() {
           <button onClick={() => scrollTo("contact")}>Contact</button>
         </nav>
         <div className="header-actions">
-          <ThemeToggle />
-          <button className="menu-button" onClick={() => setMenuOpen((value) => !value)} aria-label="Toggle menu" aria-expanded={menuOpen}>
-            {menuOpen ? <X size={21} /> : <Menu size={21} />}
-          </button>
+          <PublicMobileMenu onBook={openGeneralEnquiry} />
           <button className="header-book" onClick={openGeneralEnquiry}>BOOK NOW <ArrowDownRight size={16} /></button>
         </div>
-        {menuOpen && (
-          <div className="mobile-menu">
-            <button onClick={() => scrollTo("top")}>Home<ChevronRight size={18} /></button>
-            {[['Fleet', 'fleet'], ['Brands', 'brands'], ['About', 'about'], ['Contact', 'contact']].map(([label, target]) => (
-              <button key={target} onClick={() => label === "Fleet" ? navigateToFleet() : scrollTo(target)}>{label}<ChevronRight size={18} /></button>
-            ))}
-            <button className="button button-gold mt-4" onClick={openGeneralEnquiry}>BOOK YOUR CAR <ArrowDownRight size={17} /></button>
-          </div>
-        )}
       </header>
 
       <section id="top" className="hero-section hero-cinematic" style={{ backgroundImage: `url(${brand.heroTexture})` }}>

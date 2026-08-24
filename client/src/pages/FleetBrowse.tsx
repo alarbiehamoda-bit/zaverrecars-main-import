@@ -8,7 +8,7 @@ import { ZaverreMark } from "@/components/ZaverreMark";
 import { vehicleFilterBrands, type Vehicle } from "@/config/vehicleCatalog";
 import { useManagedVehicleCatalog } from "@/hooks/useManagedVehicleCatalog";
 import { BrandFilterRail, BrandMark, MasterVehicleGrid } from "@/components/VehicleSystem";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { PublicMobileMenu } from "@/components/PublicMobileMenu";
 import { useTheme } from "@/contexts/ThemeContext";
 import { brandRouteSlug } from "@/lib/fleetRoutes";
 import { fleetCategoryFromSlug } from "@/lib/fleetPresentation";
@@ -109,7 +109,7 @@ export default function FleetBrowse() {
   return <main className={`fleet-browse-page${theme === "light" ? " zaverre-day" : ""}`}>
     <header className="fleet-browse-header">
       <a className="brand-lockup" href="/" onClick={(event) => { event.preventDefault(); navigate("/"); }} aria-label="ZAVERRE home"><ZaverreMark className="brand-mark" /><span>ZAVERRE</span></a>
-      <div className="fleet-header-actions"><ThemeToggle /><button className="header-book" onClick={() => window.open(whatsappUrl("Hello ZAVERRE, I would like to enquire about the fleet."), "_blank", "noopener,noreferrer")}>BOOK NOW <ArrowDownRight size={16} /></button></div>
+      <div className="fleet-header-actions"><PublicMobileMenu onBook={() => window.open(whatsappUrl("Hello ZAVERRE, I would like to enquire about the fleet."), "_blank", "noopener,noreferrer")} /><button className="header-book" onClick={() => window.open(whatsappUrl("Hello ZAVERRE, I would like to enquire about the fleet."), "_blank", "noopener,noreferrer")}>BOOK NOW <ArrowDownRight size={16} /></button></div>
     </header>
     {activeBrand && <section className="brand-name-bar" aria-label={`${activeBrand} brand name`}><strong>{activeBrand}</strong></section>}
     <section className={`fleet-browse-hero${activeBrand ? " fleet-browse-hero--brand" : ""}`}>
