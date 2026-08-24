@@ -66,7 +66,7 @@ html:not([data-theme="light"]) #root .vehicle-card .vehicle-card-title { color: 
 /* The card, marque ribbon, icon, and model name share one intentional palette per theme. */
 html[data-theme="light"] #root .master-vehicle-card .vehicle-card { background: linear-gradient(155deg, #184d70 0%, #0a304d 70%, #071d30 100%) !important; border-color: rgba(152,220,246,.48) !important; }
 html:not([data-theme="light"]) #root .master-vehicle-card .vehicle-card { background: linear-gradient(155deg, #65432f 0%, #342016 70%, #180f0b 100%) !important; border-color: rgba(232,190,119,.4) !important; }
-html[data-theme="light"] #root .vehicle-card .vehicle-card-title { color: #402518 !important; -webkit-text-fill-color: #402518 !important; }
+html[data-theme="light"] #root .vehicle-card .vehicle-card-title { color: #f4dfbd !important; -webkit-text-fill-color: #f4dfbd !important; }
 html:not([data-theme="light"]) #root .vehicle-card .vehicle-card-title { color: #f4dfbd !important; -webkit-text-fill-color: #f4dfbd !important; }
 html[data-theme="light"] #root .master-vehicle-card :is(.card-book, .card-details) { border-color: rgba(229,192,142,.54) !important; }
 html[data-theme="light"] #root .master-vehicle-card .card-book { background: linear-gradient(135deg, #3d2418, #704126) !important; color: #fff4e5 !important; }
@@ -74,6 +74,23 @@ html[data-theme="light"] #root .master-vehicle-card .card-details { background: 
 html:not([data-theme="light"]) #root .master-vehicle-card :is(.card-book, .card-details) { border-color: rgba(229,192,142,.46) !important; }
 html:not([data-theme="light"]) #root .master-vehicle-card .card-book { background: linear-gradient(135deg, #1b100b, #4f301f) !important; color: #f8e8d2 !important; }
 html:not([data-theme="light"]) #root .master-vehicle-card .card-details { background: linear-gradient(135deg, #d7af75, #f4dfbd) !important; color: #382014 !important; }
+
+/* Shared card rhythm: the brand ribbon and the two primary actions align in every catalogue context. */
+#root .master-vehicle-card .vehicle-brand-ribbon { grid-template-columns: 52px minmax(0, 1fr) !important; min-height: 62px !important; padding: 5px 11px 5px 5px !important; }
+#root .master-vehicle-card .vehicle-brand-ribbon__seal.brand-emblem-well { height: 52px !important; width: 52px !important; }
+#root .master-vehicle-card .card-actions { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+#root .master-vehicle-card :is(.card-book, .card-details) { align-items: center; display: inline-flex; justify-content: center; min-height: 44px !important; }
+#root .brand-emblem-well--filter > .brand-mark--fit-standard { max-height: 75% !important; max-width: 84% !important; transform: scale(1.08) !important; }
+#root .brand-emblem-well--filter > .brand-mark--fit-round { max-height: 76% !important; max-width: 76% !important; transform: scale(1.06) !important; }
+
+/* Dark delivery becomes parchment-led; supporting copy uses the same readable brown scale. */
+html:not([data-theme="light"]) #root .delivery-section { background: linear-gradient(136deg, #f8e6c9 0%, #e0b783 52%, #b87848 100%) !important; color: #2c1a12 !important; }
+html:not([data-theme="light"]) #root .delivery-section :is(h1, h2, h3, p, strong, span, small, li, label) { color: #3d2518 !important; text-shadow: none !important; }
+html:not([data-theme="light"]) #root .delivery-section :is(.eyebrow, .section-kicker span, .delivery-intro h2 em) { color: #7b4325 !important; -webkit-text-fill-color: #7b4325 !important; }
+html:not([data-theme="light"]) #root .delivery-section :is(.delivery-location-grid li, .delivery-policy) { background: rgba(255,247,231,.5) !important; border-color: rgba(101,57,29,.26) !important; }
+html:not([data-theme="light"]) #root .delivery-section svg { color: #7b4325 !important; }
+html:not([data-theme="light"]) #root :is(.hero-brand, .hero-section .section-kicker span, .hero-ready-caption span, .hero-ready-caption em) { color: #e8c480 !important; -webkit-text-fill-color: #e8c480 !important; }
+html:not([data-theme="light"]) #root :is(.section-heading p, .delivery-intro p, .home-faq-intro p, .journal-preview-head p, .booking-intro p, .detail-description, .detail-colour, .detail-section p) { color: #ead9bf !important; }
 
 @media (max-width: 760px) {
   .brand-lockup { gap: 8px; }
@@ -86,7 +103,8 @@ html:not([data-theme="light"]) #root .master-vehicle-card .card-details { backgr
   #root .fleet-browse-page .vehicle-card { height: 456px !important; }
   #root .fleet-browse-page .vehicle-image-wrap { flex-basis: 44% !important; }
   #root .fleet-browse-page .vehicle-card-body { padding: 10px !important; }
-  #root .fleet-browse-page .vehicle-brand-ribbon { margin-bottom: 7px !important; }
+  #root .fleet-browse-page .vehicle-brand-ribbon { gap: 8px !important; grid-template-columns: 44px minmax(0, 1fr) !important; margin-bottom: 7px !important; min-height: 52px !important; padding: 4px 9px 4px 4px !important; }
+  #root .fleet-browse-page .vehicle-brand-ribbon__seal.brand-emblem-well { height: 44px !important; width: 44px !important; }
   #root .fleet-browse-page .card-spec-list { margin-block: 8px !important; }
   #root .fleet-browse-page .card-actions { gap: 7px !important; margin-top: 8px !important; }
   #root .fleet-browse-page :is(.card-book, .card-details) { font-size: 7px !important; min-height: 44px !important; padding-inline: 6px !important; }

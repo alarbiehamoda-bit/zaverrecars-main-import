@@ -26,8 +26,10 @@ describe("identity refinement", () => {
     expect(styles).toContain("-webkit-line-clamp: 2");
     expect(styles).toContain("#d9f4ff");
     expect(styles).toContain("#392215");
-    expect(styles).toContain("#402518");
     expect(styles).toContain("#f4dfbd");
     expect(styles).toContain("min-height: 44px");
+    expect(styles).toContain(".delivery-section");
+    expect(styles).toContain("#f8e6c9");
+    expect(styles).toContain("brand-mark--fit-standard");
   });
 });
