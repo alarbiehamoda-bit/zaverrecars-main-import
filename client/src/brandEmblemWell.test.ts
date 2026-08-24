@@ -22,4 +22,15 @@ describe("shared brand emblem well", () => {
     expect(styles).toContain("--brand-well-dark");
     expect(styles).not.toContain("clip-path");
   });
+
+  it("keeps the enlarged glass-blue system and Land Rover correction inside the shared holder", () => {
+    const system = read("client/src/components/BrandSystem.css");
+    const rail = read("client/src/components/BrandCards.css");
+    expect(system).toContain("rgba(191,239,255,.62)");
+    expect(system).toContain("brand-mark--range-rover");
+    expect(system).toContain("transform: scale(1.16)");
+    expect(system).toContain("object-fit: contain");
+    expect(rail).toContain("grid-template-rows: 60px");
+    expect(rail).toContain("grid-template-rows: 62px");
+  });
 });

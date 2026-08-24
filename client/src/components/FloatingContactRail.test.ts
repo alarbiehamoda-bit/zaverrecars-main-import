@@ -1,0 +1,16 @@
+import { readFileSync } from "node:fs";
+import { describe, expect, it } from "vitest";
+
+const component = readFileSync(new URL("./FloatingContactRail.tsx", import.meta.url), "utf8");
+const styles = readFileSync(new URL("./FloatingContactRail.css", import.meta.url), "utf8");
+
+describe("floating WhatsApp contact", () => {
+  it("uses a clearly labelled WhatsApp action with an accessible contact target", () => {
+    expect(component).toContain('className="floating-whatsapp-button"');
+    expect(component).toContain("Contact ZAVERRE on WhatsApp");
+    expect(component).toContain("WHATSAPP");
+    expect(styles).toContain("min-width: 132px");
+    expect(styles).toContain("right: 16px");
+  });
+});
+
