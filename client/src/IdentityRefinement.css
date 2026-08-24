@@ -130,3 +130,10 @@ html:not([data-theme="light"]) #root main .hero-section.hero-cinematic .hero-lay
 /* Light-mode lockups use a restrained neon-blue treatment without affecting the dark identity. */
 html[data-theme="light"] #root :is(.site-header, .fleet-browse-header, .detail-header) .brand-lockup > .brand-mark { filter: brightness(.72) sepia(.7) hue-rotate(152deg) saturate(2.35) drop-shadow(0 0 6px rgba(10,200,255,.62)) !important; }
 html[data-theme="light"] #root :is(.site-header, .fleet-browse-header, .detail-header) .brand-lockup > span { color: #0a9fd8 !important; text-shadow: 0 0 10px rgba(10,200,255,.34); }
+
+/* Footer lockup intentionally mirrors the approved header mark in both themes. */
+#root .site-footer .footer-brand { align-items: center; gap: 10px; }
+#root .site-footer .footer-brand > .footer-brand__mark { background: transparent !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; height: 32px !important; object-fit: contain; padding: 0 !important; width: 32px !important; }
+html:not([data-theme="light"]) #root .site-footer .footer-brand > span { color: var(--zvr-ivory) !important; }
+html[data-theme="light"] #root .site-footer .footer-brand > .footer-brand__mark { filter: brightness(.72) sepia(.7) hue-rotate(152deg) saturate(2.35) drop-shadow(0 0 6px rgba(10,200,255,.62)) !important; }
+html[data-theme="light"] #root .site-footer .footer-brand > span { color: #0a9fd8 !important; text-shadow: 0 0 10px rgba(10,200,255,.34); }

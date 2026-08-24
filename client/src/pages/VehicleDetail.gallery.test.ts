@@ -54,8 +54,9 @@ describe("vehicle detail gallery behavior", () => {
     expect(detailSource).toContain("VehicleCard key={item.id}");
     expect(detailSource).not.toContain("detail-related-carousel-controls");
     expect(detailSource).toContain("Vehicle image:");
-    expect(enhancementStyles).toContain("min-height: 580px");
-    expect(enhancementStyles).toContain("flex: 0 0 44px");
+    expect(enhancementStyles).toContain("height: 640px");
+    expect(enhancementStyles).toContain("overflow: hidden");
+    expect(enhancementStyles).toContain("flex: 0 0 52px");
   });
 
   it("places verified source angles after the pricing image in the exact source sequence", () => {
