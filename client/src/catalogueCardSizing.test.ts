@@ -26,9 +26,12 @@ describe("catalogue card sizing", () => {
     expect(mobileStyles).toContain("Vehicle-card containment");
     expect(mobileStyles).toContain("flex: 0 0 40px !important");
     expect(mobileStyles).toContain("overflow: hidden !important");
-    expect(mobileStyles).toContain("Restored compact card order");
-    expect(mobileStyles).toContain("height: 408px !important; min-height: 0 !important; overflow: hidden !important");
-    expect(mobileStyles).toContain("flex: 0 0 39% !important");
+    expect(mobileStyles).toContain("Reference card layout");
+    expect(mobileStyles).toContain("height: 590px !important; min-height: 590px !important; overflow: hidden !important");
+    expect(mobileStyles).toContain("flex: 0 0 44% !important");
+    expect(mobileStyles).toContain("grid-template-columns: repeat(4, minmax(0, 1fr)) !important");
+    expect(mobileStyles).toContain(".featured-vehicles-section .featured-vehicle-card");
+    expect(mobileStyles).toContain("max-width: 350px !important");
   });
 
   it("uses one primary-card model across catalogue contexts after removing the duplicate enquiry row", () => {
