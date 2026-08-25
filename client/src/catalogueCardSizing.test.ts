@@ -34,6 +34,9 @@ describe("catalogue card sizing", () => {
     expect(mobileStyles).toContain("max-width: 350px !important");
     expect(mobileStyles).toContain("Card action clearance");
     expect(mobileStyles).toContain("margin: auto 0 0 !important");
+    expect(mobileStyles).toContain("Marque and facts alignment");
+    expect(mobileStyles).toContain("grid-template-columns: 38px minmax(0, 1fr)");
+    expect(mobileStyles).toContain(".detail-related-grid--carousel .detail-related-master-card");
   });
 
   it("uses one primary-card model across catalogue contexts after removing the duplicate enquiry row", () => {

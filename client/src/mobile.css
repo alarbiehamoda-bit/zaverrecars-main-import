@@ -399,3 +399,34 @@
   #root .fleet-browse-page .master-vehicle-card .card-actions,
   #root .featured-vehicles-section .featured-vehicle-card .card-actions { flex: 0 0 44px !important; margin: auto 0 0 !important; min-height: 44px !important; }
 }
+
+/* Marque and facts alignment: every card keeps its identity and details on one clean width. */
+@media (max-width: 760px) {
+  #root :is(.horizontal-fleet, .vertical-fleet, .brand-stack-card, .brand-free-scroll-card, .vehicle-carousel, .detail-related-grid--carousel) .vehicle-brand-ribbon,
+  #root .fleet-browse-page .master-vehicle-card .vehicle-brand-ribbon,
+  #root .featured-vehicles-section .featured-vehicle-card .vehicle-brand-ribbon { align-items: center !important; box-sizing: border-box !important; column-gap: 8px !important; grid-template-columns: 38px minmax(0, 1fr) !important; height: 44px !important; margin-bottom: 6px !important; min-height: 44px !important; padding: 3px 9px 3px 3px !important; width: 100% !important; }
+  #root :is(.horizontal-fleet, .vertical-fleet, .brand-stack-card, .brand-free-scroll-card, .vehicle-carousel, .detail-related-grid--carousel) .vehicle-brand-ribbon__seal.brand-emblem-well,
+  #root .fleet-browse-page .master-vehicle-card .vehicle-brand-ribbon__seal.brand-emblem-well,
+  #root .featured-vehicles-section .featured-vehicle-card .vehicle-brand-ribbon__seal.brand-emblem-well { box-sizing: border-box !important; height: 38px !important; min-width: 38px !important; width: 38px !important; }
+  #root :is(.horizontal-fleet, .vertical-fleet, .brand-stack-card, .brand-free-scroll-card, .vehicle-carousel, .detail-related-grid--carousel) .vehicle-brand-ribbon__identity,
+  #root .fleet-browse-page .master-vehicle-card .vehicle-brand-ribbon__identity,
+  #root .featured-vehicles-section .featured-vehicle-card .vehicle-brand-ribbon__identity { gap: 2px !important; min-width: 0 !important; overflow: hidden !important; }
+  #root :is(.horizontal-fleet, .vertical-fleet, .brand-stack-card, .brand-free-scroll-card, .vehicle-carousel, .detail-related-grid--carousel) .vehicle-brand-ribbon__identity strong,
+  #root .fleet-browse-page .master-vehicle-card .vehicle-brand-ribbon__identity strong,
+  #root .featured-vehicles-section .featured-vehicle-card .vehicle-brand-ribbon__identity strong { font-size: clamp(1rem, 5.2vw, 1.2rem) !important; max-width: 100% !important; overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important; }
+  #root :is(.horizontal-fleet, .vertical-fleet, .brand-stack-card, .brand-free-scroll-card, .vehicle-carousel, .detail-related-grid--carousel) .vehicle-brand-ribbon__identity i,
+  #root .fleet-browse-page .master-vehicle-card .vehicle-brand-ribbon__identity i,
+  #root .featured-vehicles-section .featured-vehicle-card .vehicle-brand-ribbon__identity i { font-size: 6px !important; max-width: 100% !important; overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important; }
+  #root :is(.horizontal-fleet, .vertical-fleet, .brand-stack-card, .brand-free-scroll-card, .vehicle-carousel, .detail-related-grid--carousel) .card-spec-list,
+  #root .fleet-browse-page .master-vehicle-card .card-spec-list,
+  #root .featured-vehicles-section .featured-vehicle-card .card-spec-list { box-sizing: border-box !important; grid-template-columns: repeat(4, minmax(0, 1fr)) !important; overflow: hidden !important; width: 100% !important; }
+  #root :is(.horizontal-fleet, .vertical-fleet, .brand-stack-card, .brand-free-scroll-card, .vehicle-carousel, .detail-related-grid--carousel) .card-spec-item,
+  #root .fleet-browse-page .master-vehicle-card .card-spec-item,
+  #root .featured-vehicles-section .featured-vehicle-card .card-spec-item { box-sizing: border-box !important; min-width: 0 !important; overflow: hidden !important; padding-inline: 1px !important; width: 100% !important; }
+  #root :is(.horizontal-fleet, .vertical-fleet, .brand-stack-card, .brand-free-scroll-card, .vehicle-carousel, .detail-related-grid--carousel) .card-spec-item b,
+  #root .fleet-browse-page .master-vehicle-card .card-spec-item b,
+  #root .featured-vehicles-section .featured-vehicle-card .card-spec-item b { font-size: clamp(7px, 2.2vw, 9px) !important; max-width: 100% !important; overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important; width: 100% !important; }
+  #root .detail-related-grid--carousel .detail-related-master-card { flex-basis: min(84vw, 350px) !important; height: 590px !important; min-height: 590px !important; }
+  #root .detail-related-grid--carousel .vehicle-image-wrap { flex: 0 0 44% !important; }
+  #root .detail-related-grid--carousel .vehicle-card-body { display: flex !important; flex-direction: column !important; min-height: 0 !important; }
+}
