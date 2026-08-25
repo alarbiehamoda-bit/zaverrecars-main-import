@@ -10,5 +10,7 @@ describe("managed preview HMR", () => {
     expect(viteServer).toContain('viteConfig.server?.hmr === false ? false');
     expect(viteServer).toContain('template.replace(/\\s*<script type="module" src="\\/@vite\\/client"><\\/script>/, "")');
     expect(viteServer).toContain('`src="/src/entry-client.tsx?v=${nanoid()}"`');
+    expect(viteServer).toContain('app.get("/@vite/client"');
+    expect(viteServer).toContain("export const createHotContext");
   });
 });

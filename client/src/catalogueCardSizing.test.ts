@@ -32,6 +32,8 @@ describe("catalogue card sizing", () => {
     expect(mobileStyles).toContain("grid-template-columns: repeat(4, minmax(0, 1fr)) !important");
     expect(mobileStyles).toContain(".featured-vehicles-section .featured-vehicle-card");
     expect(mobileStyles).toContain("max-width: 350px !important");
+    expect(mobileStyles).toContain("Card action clearance");
+    expect(mobileStyles).toContain("margin: auto 0 0 !important");
   });
 
   it("uses one primary-card model across catalogue contexts after removing the duplicate enquiry row", () => {

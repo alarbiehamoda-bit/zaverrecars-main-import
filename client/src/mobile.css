@@ -383,3 +383,19 @@
   #root .featured-vehicles-section .featured-vehicle-card .card-actions { flex: 0 0 44px !important; margin: 10px 0 0 !important; min-height: 44px !important; }
   #root .featured-vehicles-section .featured-vehicle-card :is(.card-book, .card-details) { font-size: 7px !important; min-height: 44px !important; }
 }
+
+/* Card action clearance: reserve the lower edge for full-height actions. */
+@media (max-width: 760px) {
+  #root :is(.horizontal-fleet, .vertical-fleet, .brand-stack-card, .brand-free-scroll-card, .vehicle-carousel) .card-spec-list,
+  #root .fleet-browse-page .master-vehicle-card .card-spec-list,
+  #root .featured-vehicles-section .featured-vehicle-card .card-spec-list { flex: 0 0 54px !important; }
+  #root :is(.horizontal-fleet, .vertical-fleet, .brand-stack-card, .brand-free-scroll-card, .vehicle-carousel) .card-spec-item,
+  #root .fleet-browse-page .master-vehicle-card .card-spec-item,
+  #root .featured-vehicles-section .featured-vehicle-card .card-spec-item { min-height: 54px !important; }
+  #root :is(.horizontal-fleet, .vertical-fleet, .brand-stack-card, .brand-free-scroll-card, .vehicle-carousel) .card-rate,
+  #root .fleet-browse-page .master-vehicle-card .card-rate,
+  #root .featured-vehicles-section .featured-vehicle-card .card-rate { flex: 0 0 58px !important; margin: 6px 0 0 !important; min-height: 58px !important; }
+  #root :is(.horizontal-fleet, .vertical-fleet, .brand-stack-card, .brand-free-scroll-card, .vehicle-carousel) .card-actions,
+  #root .fleet-browse-page .master-vehicle-card .card-actions,
+  #root .featured-vehicles-section .featured-vehicle-card .card-actions { flex: 0 0 44px !important; margin: auto 0 0 !important; min-height: 44px !important; }
+}

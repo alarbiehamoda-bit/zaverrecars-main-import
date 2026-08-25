@@ -123,6 +123,22 @@ export async function setupVite(app: Express, server: Server) {
   const hmr = viteConfig.server?.hmr === false ? false : { ...configuredHmr, server };
   const vite = await createViteServer({ ...viteConfig, configFile: false, server: { middlewareMode: true, hmr, allowedHosts: true as const }, appType: "custom" });
   registerSeoRoutes(app);
+  // Existing preview tabs may retain an earlier HTML shell that still imports
+  // /@vite/client. Serve a no-op compatibility module while HMR is disabled so
+  // those tabs cannot create a WebSocket connection through the preview proxy.
+  if (viteConfig.server?.hmr === false) {
+    app.get("/@vite/client", (_req, res) => {
+      res.type("js").set("Cache-Control", "no-store").send(`
+        const noop = () => {};
+        export const injectQuery = (url) => url;
+        export const updateStyle = noop;
+        export const removeStyle = noop;
+        export const createOverlay = noop;
+        export const clearError = noop;
+        export const createHotContext = () => ({ accept: noop, acceptExports: noop, dispose: noop, prune: noop, invalidate: noop, on: noop, send: noop, data: {} });
+      `);
+    });
+  }
   app.use(vite.middlewares);
   app.use("*", async (req, res, next) => {
     try {
@@ -137,7 +153,7 @@ export async function setupVite(app: Express, server: Server) {
       if (viteConfig.server?.hmr === false) {
         template = template.replace(/\s*<script type="module" src="\/@vite\/client"><\/script>/, "");
       }
-      template = template.replace("</head>", '<link rel="stylesheet" href="/src/index.css?direct" data-ssr-dev-css></head>');
+      template = template.replace("</head>", '<link rel="stylesheet" href="/src/PublicShell.css?direct" data-ssr-dev-css></head>');
       const { render } = await vite.ssrLoadModule("/src/entry-server.tsx");
       const origin = canonicalOrigin(req);
       const publicData = await buildPublicSsrData(req, res);
