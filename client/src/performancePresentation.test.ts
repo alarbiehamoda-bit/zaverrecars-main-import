@@ -4,10 +4,11 @@ import { describe, expect, it } from "vitest";
 const styles = readFileSync(new URL("./performancePresentation.css", import.meta.url), "utf8");
 
 describe("performance presentation", () => {
-  it("keeps public sections fully resolved instead of using placeholder layout during first paint", () => {
-    expect(styles).toContain("content-visibility: visible");
-    expect(styles).toContain("contain: none");
+  it("defers rendering only for below-the-fold content sections", () => {
+    expect(styles).toContain("content-visibility: auto");
+    expect(styles).toContain("contain-intrinsic-size: auto 860px");
     expect(styles).toContain(".featured-vehicles-section");
     expect(styles).not.toContain(".hero-section");
   });
 });
+
