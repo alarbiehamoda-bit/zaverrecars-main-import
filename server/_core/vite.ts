@@ -119,9 +119,22 @@ async function buildPublicSsrData(
 }
 
 export async function setupVite(app: Express, server: Server) {
+  const hmrDisabled = viteConfig.server?.hmr === false;
   const configuredHmr = typeof viteConfig.server?.hmr === "object" ? viteConfig.server.hmr : {};
-  const vite = await createViteServer({ ...viteConfig, configFile: false, server: { middlewareMode: true, hmr: { ...configuredHmr, server }, allowedHosts: true as const }, appType: "custom" });
+  const vite = await createViteServer({ ...viteConfig, configFile: false, server: { middlewareMode: true, hmr: hmrDisabled ? false : { ...configuredHmr, server }, allowedHosts: true as const }, appType: "custom" });
   registerSeoRoutes(app);
+  if (hmrDisabled) {
+    // The preview proxy can leave a previously injected /@vite/client cached in
+    // an open tab. Serve a compatible no-op module so that stale tabs never try
+    // to open a WebSocket while normal page refreshes continue to work.
+    app.get("/@vite/client", (_req, res) => {
+      res
+        .status(200)
+        .set("Cache-Control", "no-store")
+        .type("application/javascript")
+        .send("const noop=()=>{};const styles=new Map();export const createHotContext=()=>({accept:noop,acceptExports:noop,dispose:noop,prune:noop,invalidate:noop,on:noop,send:noop,data:{}});export const injectQuery=(url)=>url;export const updateStyle=(id,css)=>{let style=styles.get(id);if(!style){style=document.createElement('style');style.setAttribute('data-vite-dev-id',id);document.head.appendChild(style);styles.set(id,style)}style.textContent=css};export const removeStyle=(id)=>{styles.get(id)?.remove();styles.delete(id)};export const createOverlay=noop;export const clearError=noop;");
+    });
+  }
   app.use(vite.middlewares);
   app.use("*", async (req, res, next) => {
     try {

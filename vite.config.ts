@@ -187,10 +187,7 @@ export default defineConfig({
   },
   server: {
     host: true,
-    hmr: {
-      protocol: "wss",
-      clientPort: 443,
-    },
+    hmr: false,
     allowedHosts: [
       ".manuspre.computer",
       ".manus.computer",
