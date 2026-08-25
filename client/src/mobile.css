@@ -189,33 +189,3 @@
   .journal-article { padding: 44px 14px !important; }
   .journal-article-intro h1 { font-size: clamp(42px, 12.5vw, 58px) !important; }
 }
-
-/* Compact-plus phone scale: below medium without shrinking tap targets. */
-@media (max-width: 760px) {
-  .hero-section, .hero-cinematic { min-height: 56vh !important; }
-  .hero-cinematic .hero-layout { min-height: calc(56vh - 72px) !important; }
-  .hero-cinematic .hero-copy h1 { font-size: clamp(27px, 8vw, 33px) !important; }
-  .hero-brand { font-size: 20px !important; }
-  .hero-cinematic .hero-copy > p:not(.hero-brand) { font-size: 12px !important; margin: 13px 0 !important; }
-  .fleet-section, .featured-vehicles-section, .editorial-section, .booking-section, .contact-section, .delivery-section, .home-faq-section, .journal-preview-section { padding: 30px 12px !important; }
-  .section-heading h2, .editorial-copy h2, .booking-intro h2, .contact-section h2, .featured-section-heading h2, .delivery-intro h2, .home-faq-intro h2, .journal-preview-head h2 { font-size: clamp(34px, 9.8vw, 43px) !important; }
-  .section-heading > p, .featured-section-heading > p, .delivery-intro > p:not(.eyebrow), .home-faq-intro > p:not(.eyebrow), .journal-preview-head > p { font-size: 11px !important; }
-  .horizontal-fleet .vehicle-card, .vertical-fleet .vehicle-card, .brand-stack-card .vehicle-card, .brand-free-scroll-card .vehicle-card { height: 440px !important; }
-  .horizontal-fleet .vehicle-card-body h3, .vertical-fleet .vehicle-card-body h3, .brand-stack-card .vehicle-card-body h3, .brand-free-scroll-card .vehicle-card-body h3 { font-size: 1.55rem !important; }
-  .fleet-browse-page .master-vehicle-grid--vertical { max-width: 260px !important; }
-  .fleet-browse-page .vehicle-card-body h3 { font-size: 1.16rem !important; }
-  .fleet-browse-page .card-spec-item { min-height: 35px !important; }
-  .fleet-browse-page .card-book, .fleet-browse-page .card-details { min-height: 40px !important; }
-  .vehicle-detail-page .detail-intro { gap: 9px !important; padding: 12px 10px !important; }
-  .vehicle-detail-page .detail-intro h1 { font-size: clamp(29px, 8.5vw, 36px) !important; }
-  .vehicle-detail-page .detail-price-value strong { font-size: clamp(27px, 7.8vw, 33px) !important; }
-  .vehicle-detail-page .detail-quick-actions { padding: 0 10px 14px !important; }
-  .vehicle-detail-page .detail-section { padding: 24px 10px !important; }
-  .vehicle-detail-page .detail-section-heading h2, .vehicle-detail-page .detail-booking-section h2, .vehicle-detail-page .detail-final-cta h2 { font-size: clamp(28px, 8vw, 34px) !important; }
-  .vehicle-detail-page .detail-spec-grid--iconic > div, .vehicle-detail-page .detail-rental-grid > div { min-height: 68px !important; padding: 8px 6px !important; }
-  .vehicle-detail-page .detail-description { font-size: 17px !important; }
-  .vehicle-detail-page .detail-related-grid--carousel .detail-related-master-card { height: 540px !important; min-height: 540px !important; }
-  .vehicle-detail-page .detail-final-cta { min-height: 150px !important; padding: 24px 10px !important; }
-  .journal-article { padding: 36px 12px !important; }
-  .journal-article-intro h1 { font-size: clamp(38px, 11vw, 50px) !important; }
-}

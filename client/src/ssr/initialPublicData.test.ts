@@ -13,11 +13,9 @@ describe("public SSR initial data", () => {
     expect(entryServer).toContain("getQueryKey(trpc.brand.publicPresentationList, undefined, \"query\")");
   });
 
-  it("prefetches public data in-process before SSR and prevents client refresh from replacing the first render", () => {
+  it("prefetches public data in-process before SSR and avoids an immediate brand refresh", () => {
     expect(viteServer).toContain("const caller = appRouter.createCaller(context)");
     expect(viteServer).toContain("const publicData = await buildPublicSsrData(req, res)");
-    expect(managedCatalog).toContain("staleTime: Infinity");
-    expect(managedCatalog).toContain("refetchOnWindowFocus: false");
-    expect(managedCatalog).toContain("refetchOnReconnect: false");
+    expect(managedCatalog).toContain("staleTime: 30_000, refetchOnMount: false");
   });
 });

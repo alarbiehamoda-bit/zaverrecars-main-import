@@ -115,10 +115,11 @@ export function mergeManagedVehicleCatalog(catalog: Vehicle[], records: PublicVe
  * administrator-managed changes returned by the server.
  */
 export function useManagedVehicleCatalog() {
-  const stablePublicQuery = { staleTime: Infinity, refetchOnMount: false, refetchOnWindowFocus: false, refetchOnReconnect: false } as const;
-  const publicContent = trpc.vehicle.publicContent.useQuery(undefined, stablePublicQuery);
-  const publicBrands = trpc.brand.publicList.useQuery(undefined, stablePublicQuery);
-  const publicBrandPresentations = trpc.brand.publicPresentationList.useQuery(undefined, stablePublicQuery);
+  const publicContent = trpc.vehicle.publicContent.useQuery(undefined, {
+    staleTime: 30_000,
+  });
+  const publicBrands = trpc.brand.publicList.useQuery(undefined, { staleTime: 30_000, refetchOnMount: false });
+  const publicBrandPresentations = trpc.brand.publicPresentationList.useQuery(undefined, { staleTime: 30_000, refetchOnMount: false });
 
   return useMemo(() => {
     const managed = mergeManagedVehicleCatalog(vehicleCatalog, publicContent.data ?? []);
