@@ -70,6 +70,7 @@ const highContrastMarkBrands = new Set([
   "McLaren",
   "Range Rover",
 ]);
+const priorityBrandMarks = new Set(["Aston Martin", "Bentley", "Brabus", "Rolls-Royce"]);
 
 // Only the old SeekLogo preview images need a blend-mode correction. The
 // approved source assets below already have an alpha channel and stay unaltered.
@@ -186,7 +187,7 @@ export function BrandFilterRail({ activeBrand, onSelect, brands, vehicles, prior
     <a href="/cars" className={`brand-filter-all-button${activeBrand === "All" ? " active" : ""}`} onClick={(event) => selectBrand(event, "All")} aria-current={activeBrand === "All" ? "page" : undefined} aria-label={`Show all ${brandVehicleCounts.All} vehicles`}><span>VIEW ALL CARS</span><b>{brandVehicleCounts.All} {brandVehicleCounts.All === 1 ? "MODEL" : "MODELS"}</b></a>
     <div ref={railRef} className={`brand-cards brand-cards--${theme} brand-logo-rail brand-filter-rail${isDragging ? " is-dragging" : ""}`} aria-label="Brand Cards" onPointerDown={startDrag} onPointerMove={moveDrag} onPointerUp={endDrag} onPointerCancel={endDrag}>
       {filterBrands.map((brand, index) => <a href={`/cars/${brandRouteSlug(brand.brandName)}`} key={brand.brandName} className={activeBrand === brand.brandName ? "active" : ""} onClick={(event) => selectBrand(event, brand.brandName)} aria-current={activeBrand === brand.brandName ? "page" : undefined} aria-label={`Show ${brandVehicleCounts[brand.brandName]} ${brand.displayName} vehicles`}>
-        <span className="brand-filter-card-icon brand-emblem-well brand-emblem-well--filter"><BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} className="brand-filter-mark" priority={prioritizeVisibleLogos && index < 5} /></span>
+        <span className="brand-filter-card-icon brand-emblem-well brand-emblem-well--filter"><BrandMark brandName={brand.brandName} logoUrl={brand.logoUrl} className="brand-filter-mark" priority={priorityBrandMarks.has(brand.brandName) || (prioritizeVisibleLogos && index < 5)} /></span>
         <small>{brand.displayName}</small><b className="brand-filter-model-count">{brandVehicleCounts[brand.brandName]} {brandVehicleCounts[brand.brandName] === 1 ? "MODEL" : "MODELS"}</b>
       </a>)}
     </div>

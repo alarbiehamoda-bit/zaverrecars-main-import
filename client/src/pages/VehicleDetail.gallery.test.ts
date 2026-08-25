@@ -7,14 +7,14 @@ const enhancementStyles = readFileSync(new URL("./VehicleDetailEnhancements.css"
 const archiveGallerySource = readFileSync(new URL("../data/archiveVehicleGalleries.ts", import.meta.url), "utf8");
 
 describe("vehicle detail gallery behavior", () => {
-  it("keeps the logo visual-only while explicit back controls return to the origin", () => {
+  it("keeps the logo visual-only while explicit collection controls return to the origin", () => {
     expect(detailSource).toContain("const returnToOrigin");
     expect(detailSource).toContain("const originPath");
     expect(detailSource).toContain("navigate(originPath())");
     expect(detailSource).toContain('type="button" onClick={returnToOrigin}>ALL BRANDS');
     expect(detailSource).toContain('type="button" onClick={returnToOrigin}>FLEET');
     expect(detailSource).toContain('<div className="brand-lockup" aria-label="ZAVERRE">');
-    expect(detailSource).toContain('className="detail-mobile-back" onClick={returnToOrigin}');
+    expect(detailSource).not.toContain("detail-mobile-back");
     expect(detailSource).not.toContain("handleBrandReturn");
     expect(detailSource).not.toContain("returnTapTimer");
     expect(detailSource).not.toContain("window.history.back");

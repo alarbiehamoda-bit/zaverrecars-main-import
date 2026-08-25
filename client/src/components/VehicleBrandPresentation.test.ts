@@ -4,6 +4,7 @@ import { describe, expect, it } from "vitest";
 const component = readFileSync(new URL("./VehicleSystem.tsx", import.meta.url), "utf8");
 const styles = readFileSync(new URL("./VehicleSystem.css", import.meta.url), "utf8");
 const filterStyles = readFileSync(new URL("./BrandCards.css", import.meta.url), "utf8");
+const brandSystemStyles = readFileSync(new URL("./BrandSystem.css", import.meta.url), "utf8");
 const homeSource = readFileSync(new URL("../pages/Home.tsx", import.meta.url), "utf8");
 
 const marques = ["Lamborghini", "Maserati", "Ferrari", "McLaren", "Mercedes-Benz", "Porsche", "Rolls-Royce", "Range Rover", "Audi", "BMW", "Bentley", "Aston Martin", "Cadillac", "Brabus", "Mansory"];
@@ -57,10 +58,16 @@ describe("brand presentation system", () => {
     expect(component).toContain('aria-label="Brand Cards"');
   });
 
-  it("prioritizes only the first visible catalogue logos while leaving the remaining marks lazy", () => {
+  it("prioritizes visible and requested catalogue logos while leaving the remaining marks lazy", () => {
     expect(component).toContain('loading={priority ? "eager" : "lazy"}');
     expect(component).toContain('fetchPriority={priority ? "high" : "auto"}');
     expect(component).toContain("prioritizeVisibleLogos && index < 5");
+    expect(component).toContain('const priorityBrandMarks = new Set(["Aston Martin", "Bentley", "Brabus", "Rolls-Royce"])');
+    expect(brandSystemStyles).toContain(".brand-mark--aston-martin");
+    expect(brandSystemStyles).toContain(".brand-mark--bentley");
+    expect(brandSystemStyles).toContain(".brand-mark--brabus");
+    expect(brandSystemStyles).toContain(".brand-mark--rolls-royce");
+    expect(brandSystemStyles).toContain(".fleet-browse-brand-logo.brand-emblem-well > .brand-mark--aston-martin");
     expect(homeSource).toContain("prioritizeVisibleLogos");
   });
 });

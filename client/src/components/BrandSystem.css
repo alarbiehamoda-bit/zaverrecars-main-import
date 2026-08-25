@@ -40,6 +40,10 @@ html[data-theme="light"] #root .brand-emblem-well {
 #root .brand-emblem-well > .brand-mark--fit-round { max-height: 69% !important; max-width: 69% !important; }
 #root .brand-emblem-well > .brand-mark--fit-crest { max-height: 78% !important; max-width: 60% !important; }
 #root .brand-emblem-well > .brand-mark--fit-tall { max-height: 82% !important; max-width: 52% !important; }
+#root .brand-emblem-well > .brand-mark--aston-martin { max-height: 62% !important; max-width: 96% !important; transform: scale(1.38) !important; }
+#root .brand-emblem-well > .brand-mark--bentley { max-height: 76% !important; max-width: 76% !important; transform: scale(1.16) !important; }
+#root .brand-emblem-well > .brand-mark--brabus { max-height: 76% !important; max-width: 76% !important; transform: scale(1.16) !important; }
+#root .brand-emblem-well > .brand-mark--rolls-royce { max-height: 88% !important; max-width: 66% !important; transform: scale(1.1) !important; }
 #root .brand-emblem-well > .brand-mark--range-rover { max-height: 42% !important; max-width: 78% !important; object-position: center !important; transform: scale(1.16) !important; }
 #root .brand-emblem-well > .brand-mark--brabus { filter: brightness(0) contrast(1.28) !important; }
 
@@ -83,6 +87,10 @@ html[data-theme="light"] #root .brand-name-bar { background: linear-gradient(112
 #root .fleet-browse-brand-logo.brand-emblem-well > .brand-mark--fit-crest { max-height: 86% !important; max-width: 70% !important; transform: scale(1.08) !important; }
 #root .brand-cards.brand-logo-rail .brand-emblem-well > .brand-mark--fit-standard { max-height: 78% !important; max-width: 88% !important; transform: scale(1.06) !important; }
 #root .brand-cards.brand-logo-rail .brand-emblem-well > .brand-mark--fit-crest { max-height: 84% !important; max-width: 68% !important; transform: scale(1.05) !important; }
+#root .fleet-browse-brand-logo.brand-emblem-well > .brand-mark--aston-martin { max-height: 72% !important; max-width: 100% !important; transform: scale(1.56) !important; }
+#root .fleet-browse-brand-logo.brand-emblem-well > .brand-mark--bentley { max-height: 86% !important; max-width: 86% !important; transform: scale(1.24) !important; }
+#root .fleet-browse-brand-logo.brand-emblem-well > .brand-mark--brabus { max-height: 86% !important; max-width: 86% !important; transform: scale(1.28) !important; }
+#root .fleet-browse-brand-logo.brand-emblem-well > .brand-mark--rolls-royce { max-height: 94% !important; max-width: 72% !important; transform: scale(1.2) !important; }
 
 @media (max-width: 620px) {
   #root .brand-cards.brand-logo-rail .brand-emblem-well { height: 62px !important; width: 62px !important; }

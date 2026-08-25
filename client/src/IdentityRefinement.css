@@ -157,7 +157,6 @@ html[data-theme="light"] #root .site-footer .footer-brand > span { color: #0a9fd
   #root .mobile-menu > button { min-height: 48px; touch-action: manipulation; }
   #root .detail-header { isolation: isolate; }
   #root .detail-header-actions { gap: 6px !important; }
-  #root .detail-header-actions .detail-mobile-back { align-items: center !important; background: rgba(10, 75, 112, .12) !important; border: 1px solid rgba(14, 113, 165, .38) !important; border-radius: 10px; color: #075b9a !important; display: inline-flex !important; font-size: 7px !important; justify-content: center; letter-spacing: .08em; min-height: 44px !important; padding: 0 10px !important; pointer-events: auto !important; touch-action: manipulation; z-index: 8; }
   #root .detail-header-actions .theme-toggle { min-height: 44px !important; touch-action: manipulation; }
   #root .detail-header .brand-lockup { min-height: 44px; pointer-events: none !important; touch-action: auto; z-index: 8; }
   #root .fleet-browse-page .master-vehicle-grid--vertical .master-vehicle-card { animation: none !important; opacity: 1 !important; transform: none !important; will-change: auto !important; }

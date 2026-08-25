@@ -27,6 +27,7 @@ describe("public mobile navigation", () => {
     expect(detailSource).toContain('navigate("/")');
     expect(detailSource).toContain("navigate(originPath())");
     expect(detailSource).not.toContain("window.location.assign(originPath())");
+    expect(detailSource).not.toContain("detail-mobile-back");
   });
 
   it("keeps WhatsApp floating and gives article back the same double-press exit behaviour", () => {

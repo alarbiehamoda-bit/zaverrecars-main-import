@@ -264,7 +264,6 @@ export default function VehicleDetail() {
           <span>ZAVERRE</span>
         </div>
         <div className="detail-header-actions">
-          <button type="button" className="detail-mobile-back" onClick={returnToOrigin} aria-label="Return to collection"><ArrowLeft size={16} /> BACK</button>
           <PublicMobileMenu onBook={() => openBookingIntent()} />
           <button type="button" onClick={returnToOrigin}>ALL BRANDS</button>
         </div>
