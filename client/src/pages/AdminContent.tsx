@@ -2,7 +2,7 @@ import DashboardLayout from "@/components/DashboardLayout";
 import { contact as fallbackContact } from "@/config/contact";
 import { journalArticles, rentalFaqs } from "@/config/homeContent";
 import { vehicleCatalog } from "@/config/vehicleCatalog";
-import { fallbackHomeHero, type ManagedHomeHero } from "@/hooks/useCmsContent";
+import { fallbackHomeHero, fallbackHomeVideo, type ManagedHomeHero, type ManagedHomeVideo } from "@/hooks/useCmsContent";
 import { trpc } from "@/lib/trpc";
 import { Check, FilePenLine, Plus, Save, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -52,6 +52,15 @@ function parseHomeHero(value?: string): ManagedHomeHero {
   }
 }
 
+function parseHomeVideo(value?: string): ManagedHomeVideo {
+  if (!value) return fallbackHomeVideo;
+  try {
+    return { ...fallbackHomeVideo, ...(JSON.parse(value) as Partial<ManagedHomeVideo>) };
+  } catch {
+    return fallbackHomeVideo;
+  }
+}
+
 function AdminContentPage() {
   const utils = trpc.useUtils();
   const snapshot = trpc.cms.admin.snapshot.useQuery();
@@ -59,6 +68,7 @@ function AdminContentPage() {
   const hasPublishedPublicSettings = Boolean(publicContent.data?.settings.length);
   const [contact, setContact] = useState<ContactForm>(fallbackContact);
   const [homeHero, setHomeHero] = useState<ManagedHomeHero>(fallbackHomeHero);
+  const [homeVideo, setHomeVideo] = useState<ManagedHomeVideo>(fallbackHomeVideo);
   const [featuredVehicleKeys, setFeaturedVehicleKeys] = useState<string[]>([]);
   const [article, setArticle] = useState<ArticleDraft>(emptyArticle);
   const [faqQuestion, setFaqQuestion] = useState("");
@@ -71,6 +81,8 @@ function AdminContentPage() {
     setContact(parseContact(record?.valueJson));
     const heroRecord = snapshot.data?.settings.find((item) => item.settingKey === "homeHero");
     setHomeHero(parseHomeHero(heroRecord?.valueJson));
+    const videoRecord = snapshot.data?.settings.find((item) => item.settingKey === "homeVideo");
+    setHomeVideo(parseHomeVideo(videoRecord?.valueJson));
     const featuredRecord = snapshot.data?.settings.find((item) => item.settingKey === "homeFeaturedVehicles");
     try {
       const parsed = JSON.parse(featuredRecord?.valueJson || "[]") as unknown;
@@ -84,6 +96,7 @@ function AdminContentPage() {
   };
   const saveContact = trpc.cms.admin.saveSetting.useMutation({ onSuccess: refresh });
   const saveHomeHero = trpc.cms.admin.saveSetting.useMutation({ onSuccess: refresh });
+  const saveHomeVideo = trpc.cms.admin.saveSetting.useMutation({ onSuccess: refresh });
   const saveFeaturedVehicles = trpc.cms.admin.saveSetting.useMutation({ onSuccess: refresh });
   const importCurrent = trpc.cms.admin.importCurrentContent.useMutation({ onSuccess: refresh });
   const saveArticle = trpc.cms.admin.saveJournal.useMutation({ onSuccess: () => { refresh(); setArticle(emptyArticle); } });
@@ -108,6 +121,11 @@ function AdminContentPage() {
       <div className="admin-panel-heading"><div><p className="eyebrow">HOMEPAGE HERO</p><h2>Primary site message</h2></div><button className="button button-gold" disabled={saveHomeHero.isPending} onClick={() => saveHomeHero.mutate({ settingKey: "homeHero", valueJson: JSON.stringify(homeHero) })}>{saveHomeHero.isPending ? "SAVING…" : <><Save size={16} />SAVE HERO</>}</button></div>
       <div className="admin-cms-grid"><label>SMALL LABEL<input value={homeHero.kicker} onChange={(event) => setHomeHero((current) => ({ ...current, kicker: event.target.value }))} /></label><label>FIRST TITLE LINE<input value={homeHero.titleFirst} onChange={(event) => setHomeHero((current) => ({ ...current, titleFirst: event.target.value }))} /></label><label>EMPHASIS LINE<input value={homeHero.titleEmphasis} onChange={(event) => setHomeHero((current) => ({ ...current, titleEmphasis: event.target.value }))} /></label><label>FINAL TITLE LINE<input value={homeHero.titleLast} onChange={(event) => setHomeHero((current) => ({ ...current, titleLast: event.target.value }))} /></label><label className="admin-cms-wide">DESCRIPTION<textarea rows={3} value={homeHero.description} onChange={(event) => setHomeHero((current) => ({ ...current, description: event.target.value }))} /></label></div>
       {saveHomeHero.isSuccess && <p className="admin-success"><Check size={15} />Homepage message saved.</p>}
+    </section>
+    <section className="admin-cms-panel">
+      <div className="admin-panel-heading"><div><p className="eyebrow">HOMEPAGE FILM</p><h2>Primary video card</h2><p>Use a verified direct video URL and an optional poster image. If no video is supplied, the homepage keeps its editorial preview card.</p></div><button className="button button-gold" disabled={saveHomeVideo.isPending} onClick={() => saveHomeVideo.mutate({ settingKey: "homeVideo", valueJson: JSON.stringify(homeVideo) })}>{saveHomeVideo.isPending ? "SAVING…" : <><Save size={16} />SAVE VIDEO CARD</>}</button></div>
+      <div className="admin-cms-grid"><label>EYEBROW<input value={homeVideo.eyebrow} onChange={(event) => setHomeVideo((current) => ({ ...current, eyebrow: event.target.value }))} /></label><label className="admin-cms-wide">TITLE<input value={homeVideo.title} onChange={(event) => setHomeVideo((current) => ({ ...current, title: event.target.value }))} /></label><label className="admin-cms-wide">DESCRIPTION<textarea rows={3} value={homeVideo.description} onChange={(event) => setHomeVideo((current) => ({ ...current, description: event.target.value }))} /></label><label className="admin-cms-wide">DIRECT VIDEO URL<input value={homeVideo.videoUrl} placeholder="https://…/zaverre-film.mp4" onChange={(event) => setHomeVideo((current) => ({ ...current, videoUrl: event.target.value }))} /></label><label className="admin-cms-wide">POSTER IMAGE URL (OPTIONAL)<input value={homeVideo.posterUrl} placeholder="/manus-storage/… or verified image URL" onChange={(event) => setHomeVideo((current) => ({ ...current, posterUrl: event.target.value }))} /></label></div>
+      {saveHomeVideo.isSuccess && <p className="admin-success"><Check size={15} />Homepage video card saved.</p>}
     </section>
     <section className="admin-cms-panel">
       <div className="admin-panel-heading"><div><p className="eyebrow">FEATURED THREE</p><h2>Homepage vehicle selection</h2><p>Choose exactly three current vehicles. Their order here is their order on the homepage.</p></div><button className="button button-gold" disabled={featuredVehicleKeys.length !== 3 || saveFeaturedVehicles.isPending} onClick={() => saveFeaturedVehicles.mutate({ settingKey: "homeFeaturedVehicles", valueJson: JSON.stringify(featuredVehicleKeys) })}>{saveFeaturedVehicles.isPending ? "SAVING…" : <><Save size={16} />SAVE FEATURED THREE</>}</button></div>

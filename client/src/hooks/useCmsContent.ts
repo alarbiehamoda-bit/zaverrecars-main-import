@@ -11,12 +11,28 @@ export type ManagedHomeHero = {
   description: string;
 };
 
+export type ManagedHomeVideo = {
+  eyebrow: string;
+  title: string;
+  description: string;
+  videoUrl: string;
+  posterUrl: string;
+};
+
 export const fallbackHomeHero: ManagedHomeHero = {
   kicker: "LUXURY CAR RENTAL",
   titleFirst: "Choose the car.",
   titleEmphasis: "We’ll handle",
   titleLast: "the occasion.",
   description: "Dubai’s Premium Luxury & Supercar Experience, personally arranged around the way you want to arrive.",
+};
+
+export const fallbackHomeVideo: ManagedHomeVideo = {
+  eyebrow: "THE ZAVERRE MOMENT",
+  title: "See the arrival before you choose it.",
+  description: "A considered first look at the details, presence, and atmosphere behind every ZAVERRE arrival.",
+  videoUrl: "",
+  posterUrl: "",
 };
 
 function parseFeaturedVehicleKeys(value?: string) {
@@ -49,6 +65,15 @@ function parseHomeHero(value?: string): ManagedHomeHero {
   }
 }
 
+function parseHomeVideo(value?: string): ManagedHomeVideo {
+  if (!value) return fallbackHomeVideo;
+  try {
+    return { ...fallbackHomeVideo, ...(JSON.parse(value) as Partial<ManagedHomeVideo>) };
+  } catch {
+    return fallbackHomeVideo;
+  }
+}
+
 export function whatsappHref(contact: ManagedContact, message: string) {
   return `https://wa.me/${contact.whatsappInternational}?text=${encodeURIComponent(message)}`;
 }
@@ -57,6 +82,7 @@ export function useCmsContent() {
   const query = trpc.cms.public.useQuery();
   const contact = parseContact(query.data?.settings.find((item) => item.settingKey === "contact")?.valueJson);
   const homeHero = parseHomeHero(query.data?.settings.find((item) => item.settingKey === "homeHero")?.valueJson);
+  const homeVideo = parseHomeVideo(query.data?.settings.find((item) => item.settingKey === "homeVideo")?.valueJson);
   const featuredVehicleKeys = parseFeaturedVehicleKeys(query.data?.settings.find((item) => item.settingKey === "homeFeaturedVehicles")?.valueJson);
-  return { ...query, contact, homeHero, featuredVehicleKeys };
+  return { ...query, contact, homeHero, homeVideo, featuredVehicleKeys };
 }

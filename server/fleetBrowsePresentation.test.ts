@@ -7,6 +7,7 @@ const fleetBrowseStyles = readFileSync(new URL("../client/src/pages/FleetBrowse.
 const glassStyles = readFileSync(new URL("../client/src/vehicle-glass.css", import.meta.url), "utf8");
 const detailSource = readFileSync(new URL("../client/src/pages/VehicleDetail.tsx", import.meta.url), "utf8");
 const homeSource = readFileSync(new URL("../client/src/pages/Home.tsx", import.meta.url), "utf8");
+const appSource = readFileSync(new URL("../client/src/App.tsx", import.meta.url), "utf8");
 const globalStyles = readFileSync(new URL("../client/src/index.css", import.meta.url), "utf8");
 const vehicleAssetsSource = readFileSync(new URL("../client/src/lib/vehicleAssets.ts", import.meta.url), "utf8");
 
@@ -32,10 +33,10 @@ describe("fleet browse presentation", () => {
     expect(vehicleSystemSource).not.toContain("whatsappUrl(vehicleMessage(vehicle))");
   });
 
-  it("keeps the long collection easy to return from without adding brand text over vehicle images", () => {
-    expect(fleetBrowseSource).toContain("fleet-back-to-top");
-    expect(fleetBrowseSource).toContain("showBackToTop");
-    expect(fleetBrowseSource).toContain("window.scrollTo");
+  it("keeps the long collection free from a second floating action stack", () => {
+    expect(fleetBrowseSource).not.toContain("fleet-back-to-top");
+    expect(fleetBrowseSource).not.toContain("showBackToTop");
+    expect(fleetBrowseSource).not.toContain("fleet-floating-actions");
   });
 
   it("keeps enhanced scrolling calm when reduced motion is requested", () => {
@@ -68,21 +69,18 @@ describe("fleet browse presentation", () => {
     expect(glassStyles).toContain("box-shadow: inset 0 -28px 40px rgba(0, 0, 0, .32), 0 16px 30px rgba(0, 0, 0, .18)");
   });
 
-  it("keeps the return control above the WhatsApp action and clear of mobile safe areas", () => {
-    expect(fleetBrowseStyles).toContain("env(safe-area-inset-bottom)");
-    expect(fleetBrowseStyles).toContain("bottom: calc(104px + env(safe-area-inset-bottom))");
+  it("leaves a clear mobile footer area without a second floating-action stack", () => {
     expect(fleetBrowseStyles).toContain("padding: 28px 14px 108px");
-    expect(fleetBrowseStyles).toContain("z-index: 34");
     expect(fleetBrowseSource).toContain("document.scrollingElement");
     expect(fleetBrowseSource).toContain("window.requestAnimationFrame");
   });
 
-  it("places verified WhatsApp and call actions beneath the floating return control", () => {
-    expect(fleetBrowseSource).toContain("fleet-floating-actions");
-    expect(fleetBrowseSource).toContain("fleet-quick-contact--whatsapp");
-    expect(fleetBrowseSource).toContain("fleet-quick-contact--call");
+  it("uses the public contact rail instead of duplicating WhatsApp and call controls in the catalogue", () => {
+    expect(fleetBrowseSource).not.toContain("fleet-floating-actions");
+    expect(fleetBrowseSource).not.toContain("fleet-quick-contact--whatsapp");
+    expect(fleetBrowseSource).not.toContain("fleet-quick-contact--call");
     expect(fleetBrowseSource).toContain("contact.whatsappInternational");
-    expect(fleetBrowseStyles).toContain("flex-direction: column");
+    expect(appSource).toContain("<PublicFloatingContact />");
     expect(globalStyles).toContain(".delivery-location-grid li { align-items: center; background: rgba(47,111,170,.08)");
   });
 

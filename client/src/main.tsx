@@ -9,6 +9,7 @@ import { startLogin } from "./const";
 import "./index.css";
 import "./vehicle-glass.css";
 import "./components/BrandCards.css";
+import "./components/HomeVideoFeature.css";
 import "./ThemeConsistency.css";
 import "./performancePresentation.css";
 import "./IdentityRefinement.css";

@@ -1,2 +1,40 @@
-.floating-contact-rail { bottom: 20px; display: grid; gap: 8px; position: fixed; right: 16px; z-index: 42; }.floating-contact-rail a { align-items: center; background: linear-gradient(145deg, #4c3028, #251a18); border: 1px solid rgba(194,139,105,.58); border-radius: 999px; box-shadow: 0 12px 26px rgba(0,0,0,.28); color: #e6c2a9; display: inline-flex; height: 42px; justify-content: center; transition: background 180ms cubic-bezier(.23,1,.32,1), transform 180ms cubic-bezier(.23,1,.32,1); width: 42px; }.floating-contact-rail a:hover, .floating-contact-rail a:focus-visible { background: #694333; transform: translateY(-3px); }.floating-contact-rail a:active { transform: scale(.96); }.floating-contact-rail .floating-whatsapp-button { background: linear-gradient(145deg, #2aaf72, #126543); border-color: rgba(181,255,211,.58); color: #effff5; gap: 8px; min-width: 132px; padding: 0 15px; width: auto; }.floating-whatsapp-button span { font-size: 8px; font-weight: 900; letter-spacing: .13em; }
-@media (prefers-reduced-motion: no-preference) { .floating-contact-rail a { animation: floating-contact-bob 3.4s cubic-bezier(.23,1,.32,1) infinite; }.floating-contact-rail a + a { animation-delay: .16s; } } @keyframes floating-contact-bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+.floating-contact-rail {
+  bottom: max(22px, calc(14px + env(safe-area-inset-bottom)));
+  display: grid;
+  gap: 14px;
+  position: fixed;
+  right: 18px;
+  z-index: 45;
+}
+
+.floating-contact-rail a {
+  align-items: center;
+  border: 1px solid rgba(194, 139, 105, .58);
+  border-radius: 50%;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, .28);
+  color: #e6c2a9;
+  display: inline-flex;
+  height: 46px;
+  justify-content: center;
+  transition: background 180ms cubic-bezier(.23, 1, .32, 1), transform 180ms cubic-bezier(.23, 1, .32, 1);
+  width: 46px;
+}
+
+.floating-contact-button--call { background: linear-gradient(145deg, #4c3028, #251a18); }
+.floating-contact-button--whatsapp { background: linear-gradient(145deg, #2aaf72, #126543); border-color: rgba(181, 255, 211, .58) !important; color: #effff5 !important; }
+.floating-contact-rail a:hover, .floating-contact-rail a:focus-visible { transform: translateY(-3px); }
+.floating-contact-button--call:hover, .floating-contact-button--call:focus-visible { background: #694333; }
+.floating-contact-button--whatsapp:hover, .floating-contact-button--whatsapp:focus-visible { background: #17794f; }
+.floating-contact-rail a:active { transform: scale(.96); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .floating-contact-rail a { animation: floating-contact-bob 3.4s cubic-bezier(.23, 1, .32, 1) infinite; }
+  .floating-contact-rail a + a { animation-delay: .16s; }
+}
+
+@keyframes floating-contact-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+
+@media (max-width: 640px) {
+  .floating-contact-rail { bottom: max(18px, calc(12px + env(safe-area-inset-bottom))); gap: 12px; right: 13px; }
+  .floating-contact-rail a { height: 44px; width: 44px; }
+}

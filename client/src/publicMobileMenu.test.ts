@@ -22,17 +22,19 @@ describe("public mobile navigation", () => {
     });
   });
 
-  it("uses internal routing for detail return instead of a page reload", () => {
-    expect(detailSource).toContain("returnPressRef");
-    expect(detailSource).toContain('navigate("/")');
+  it("returns details directly to the stored fleet origin without stepping through browser history", () => {
+    expect(detailSource).not.toContain("returnPressRef");
     expect(detailSource).toContain("navigate(originPath())");
+    expect(detailSource).not.toContain("window.history.back()");
     expect(detailSource).not.toContain("window.location.assign(originPath())");
     expect(detailSource).not.toContain("detail-mobile-back");
   });
 
-  it("keeps WhatsApp floating and gives article back the same double-press exit behaviour", () => {
+  it("keeps WhatsApp global and returns an article directly to home", () => {
     expect(journalSource).toContain("returnFromArticle");
-    expect(journalSource).toContain("journalBackPressRef");
+    expect(journalSource).toContain('const returnFromArticle = () => navigate("/");');
+    expect(journalSource).not.toContain("journalBackPressRef");
+    expect(journalSource).not.toContain("window.history.back()");
     expect(journalSource).not.toContain("WHATSAPP <ArrowUpRight");
     expect(detailSource).not.toContain("WHATSAPP <ArrowUpRight size={15}");
   });

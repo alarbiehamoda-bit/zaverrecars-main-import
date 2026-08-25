@@ -30,6 +30,7 @@ import { vehicleAssetUrl } from "@/lib/vehicleAssets";
 import { vehicleSlug } from "@/lib/vehicleDetail";
 import { brandRouteSlug } from "@/lib/fleetRoutes";
 import { DeliveryLocationsSection, JournalPreviewSection, RentalFaqSection } from "@/components/HomeExperienceSections";
+import { HomeVideoFeature } from "@/components/HomeVideoFeature";
 import "../ThemeConsistency.css";
 import "../IdentityRefinement.css";
 
@@ -144,6 +145,7 @@ export default function Home() {
         </div>
       </section>
 
+      <HomeVideoFeature content={cms.homeVideo} />
       <FeaturedVehicles vehicles={featuredVehicles} onDetails={(selected) => navigate(`/fleet/${vehicleSlug(selected)}`)} onBook={openBooking} />
 
       <section id="fleet" className="fleet-section">

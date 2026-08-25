@@ -17,8 +17,7 @@ describe("identity refinement", () => {
     expect(styles).toContain(".brand-filter-all-button");
     expect(styles).toContain(".brand-filter-all-button");
     expect(styles).toContain(".vehicle-card .card-rate");
-    expect(styles).toContain("#root .floating-contact-rail--home");
-    expect(styles).toContain("bottom: 76px");
+    expect(styles).not.toContain("floating-contact-rail--home > :not");
     expect(styles).toContain(".hero-copy h1 em");
     expect(styles).toContain("#root .hero-cinematic .hero-copy > .section-kicker span");
     expect(styles).toContain("#root .brand-emblem-well");

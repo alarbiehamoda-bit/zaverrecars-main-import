@@ -11,6 +11,7 @@ import { THEME_COOKIE, type Theme } from "./contexts/ThemeContext";
 import "./index.css";
 import "./vehicle-glass.css";
 import "./components/BrandCards.css";
+import "./components/HomeVideoFeature.css";
 
 const queryClient = new QueryClient({ defaultOptions: { queries: { staleTime: 30_000 } } });
 const cookieTheme = document.cookie.split(";").map((item) => item.trim()).find((item) => item.startsWith(`${THEME_COOKIE}=`))?.slice(THEME_COOKIE.length + 1) as Theme | undefined;

@@ -115,9 +115,6 @@ html[data-theme="light"] #root .master-vehicle-card .vehicle-brand-ribbon__seal.
   .brand-lockup { gap: 8px; }
   .brand-lockup > .brand-mark { height: 32px; width: 32px; }
   .brand-lockup > span { font-size: 20px; letter-spacing: .12em; }
-  #root .floating-contact-rail--home { bottom: 76px; display: grid !important; right: 14px; z-index: 44; }
-  #root .floating-contact-rail--home > :not(.floating-whatsapp-button) { display: none; }
-  #root .floating-contact-rail--home .floating-whatsapp-button { min-width: 136px; }
   #root .vehicle-card .vehicle-card-title { font-size: 24px !important; }
   #root .fleet-browse-page .vehicle-card { height: auto !important; min-height: 580px !important; overflow: visible !important; }
   #root .fleet-browse-page .vehicle-image-wrap { flex: 0 0 40% !important; }

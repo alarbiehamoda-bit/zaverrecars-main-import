@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { ArrowDownRight, ArrowUp, ChevronLeft, MessageCircle, Phone, Search } from "lucide-react";
+import { ArrowDownRight, ChevronLeft, Search } from "lucide-react";
 import { useLocation } from "wouter";
 import "./FleetBrowse.css";
 import "../ThemeConsistency.css";
@@ -14,7 +14,7 @@ import { useTheme } from "@/contexts/ThemeContext";
 import { brandRouteSlug } from "@/lib/fleetRoutes";
 import { fleetCategoryFromSlug } from "@/lib/fleetPresentation";
 import { vehicleSlug } from "@/lib/vehicleDetail";
-import { contact, whatsappUrl } from "@/config/contact";
+import { contact } from "@/config/contact";
 
 const fleetReturnStorageKey = "zaverre.return-to-fleet";
 
@@ -46,7 +46,6 @@ export default function FleetBrowse() {
   const isCategoryRoute = pathSegments[1] === "category";
   const brandSlug = isCategoryRoute ? undefined : pathSegments[1];
   const categorySlug = isCategoryRoute ? pathSegments[2] : undefined;
-  const [showBackToTop, setShowBackToTop] = useState(false);
   const [bookingTarget, setBookingTarget] = useState<BookingIntentSubject | null>(null);
   const [vehicleNameQuery, setVehicleNameQuery] = useState("");
   const activeBrand = brandSlug ? brands.find((brand) => brandRouteSlug(brand.brandName) === brandSlug)?.brandName : undefined;
@@ -72,22 +71,6 @@ export default function FleetBrowse() {
     window.sessionStorage.setItem(fleetReturnStorageKey, JSON.stringify(target));
     navigate(`/fleet/${vehicleSlug(vehicle)}`);
   };
-  const backToTop = () => {
-    const pageScroller = document.scrollingElement;
-    pageScroller?.scrollTo({ top: 0, left: 0, behavior: "auto" });
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
-    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-    window.requestAnimationFrame(() => window.scrollTo({ top: 0, left: 0, behavior: "auto" }));
-  };
-
-  useEffect(() => {
-    const updateBackToTop = () => setShowBackToTop(window.scrollY > 720);
-    updateBackToTop();
-    window.addEventListener("scroll", updateBackToTop, { passive: true });
-    return () => window.removeEventListener("scroll", updateBackToTop);
-  }, []);
-
   useEffect(() => {
     const storedTarget = window.sessionStorage.getItem(fleetReturnStorageKey);
     if (!storedTarget) return;
@@ -133,11 +116,6 @@ export default function FleetBrowse() {
       <div className="filter-holder" aria-label="Filter Holder" data-filter-part="filter-holder"><BrandFilterRail activeBrand={activeBrand || "All"} onSelect={selectBrand} brands={brands} vehicles={vehicleCatalog} prioritizeVisibleLogos /></div>
       {vehicles.length ? <div key={collectionTransitionKey} className="fleet-collection-transition" data-active-brand={activeBrand || "all"}><MasterVehicleGrid vehicles={vehicles} layout="vertical" onDetails={openVehicleDetails} onBook={openBookingIntent} brandBadge={activeBrand ? { brandName: activeBrand, logoUrl: activeBrandMeta?.logoUrl } : undefined} /></div> : <div className="empty-state">No verified ZAVERRE vehicle matches this name.</div>}
     </section>
-    {showBackToTop && <div className="fleet-floating-actions" aria-label="Fleet return and contact actions">
-      <button type="button" className="fleet-back-to-top" onClick={backToTop} aria-label="Back to the top of the vehicle collection"><ArrowUp size={16} /><span>BACK TO TOP</span></button>
-      <a className="fleet-quick-contact fleet-quick-contact--whatsapp" href={whatsappUrl("Hello ZAVERRE, I would like help choosing a vehicle from the fleet.")} target="_blank" rel="noreferrer" aria-label="Contact ZAVERRE on WhatsApp"><MessageCircle size={15} /><span>WHATSAPP</span></a>
-      <a className="fleet-quick-contact fleet-quick-contact--call" href={`tel:+${contact.whatsappInternational}`} aria-label="Call ZAVERRE"><Phone size={14} /><span>CALL</span></a>
-    </div>}
     <BookingIntentDialog open={Boolean(bookingTarget)} onOpenChange={(open) => { if (!open) setBookingTarget(null); }} subject={bookingTarget} whatsappNumber={contact.whatsappInternational} />
   </main>;
 }

@@ -35,7 +35,7 @@ describe("shared brand emblem well", () => {
     expect(system).toContain("fleet-browse-brand-logo.brand-emblem-well > .brand-mark--fit-crest");
     expect(system).toContain("brand-cards.brand-logo-rail .brand-emblem-well > .brand-mark--fit-standard");
     expect(system).toContain("object-fit: contain");
-    expect(rail).toContain("grid-template-rows: 60px");
-    expect(rail).toContain("grid-template-rows: 62px");
+    expect(rail).toContain("grid-template-rows: 64px");
+    expect(rail).toContain("grid-template-rows: 66px");
   });
 });

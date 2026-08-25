@@ -7,6 +7,9 @@ const homeSource = readFileSync(resolve(process.cwd(), "client/src/pages/Home.ts
 const appSource = readFileSync(resolve(process.cwd(), "client/src/App.tsx"), "utf8");
 const experienceSource = readFileSync(resolve(process.cwd(), "client/src/components/HomeExperienceSections.tsx"), "utf8");
 const glassStyles = readFileSync(resolve(process.cwd(), "client/src/vehicle-glass.css"), "utf8");
+const videoFeatureSource = readFileSync(resolve(process.cwd(), "client/src/components/HomeVideoFeature.tsx"), "utf8");
+const cmsSource = readFileSync(resolve(process.cwd(), "client/src/hooks/useCmsContent.ts"), "utf8");
+const adminContentSource = readFileSync(resolve(process.cwd(), "client/src/pages/AdminContent.tsx"), "utf8");
 
 describe("homepage experience content", () => {
   it("keeps a confirmation-based delivery policy and the complete delivery-location list", () => {
@@ -44,6 +47,16 @@ describe("homepage experience content", () => {
   it("reads primary homepage messaging from the public content settings hook", () => {
     expect(homeSource).toContain("const hero = cms.homeHero");
     expect(homeSource).toContain("<GoldRule label={hero.kicker} />");
+  });
+
+  it("renders an editable homepage video card with a refined visual fallback", () => {
+    expect(homeSource).toContain("<HomeVideoFeature content={cms.homeVideo} />");
+    expect(videoFeatureSource).toContain("<video controls preload=\"metadata\"");
+    expect(videoFeatureSource).toContain("FILM PREVIEW");
+    expect(cmsSource).toContain('settingKey === "homeVideo"');
+    expect(cmsSource).toContain("See the arrival before you choose it.");
+    expect(adminContentSource).toContain('settingKey: "homeVideo"');
+    expect(adminContentSource).toContain("SAVE VIDEO CARD");
   });
 
   it("renders the public homepage in its final visual state without delayed reveal classes", () => {

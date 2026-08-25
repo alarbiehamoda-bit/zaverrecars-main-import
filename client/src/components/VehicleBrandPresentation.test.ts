@@ -58,6 +58,14 @@ describe("brand presentation system", () => {
     expect(component).toContain('aria-label="Brand Cards"');
   });
 
+  it("uses larger but contained marque wells and readable labels in the brand cards", () => {
+    expect(filterStyles).toContain("flex: 0 0 86px");
+    expect(filterStyles).toContain("grid-template-rows: 64px");
+    expect(filterStyles).toContain("font-size: 8px");
+    expect(brandSystemStyles).toContain("height: 64px");
+    expect(brandSystemStyles).toContain("max-width: 84%");
+  });
+
   it("prioritizes visible and requested catalogue logos while leaving the remaining marks lazy", () => {
     expect(component).toContain('loading={priority ? "eager" : "lazy"}');
     expect(component).toContain('fetchPriority={priority ? "high" : "auto"}');
