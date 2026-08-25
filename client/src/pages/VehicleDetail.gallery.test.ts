@@ -11,8 +11,8 @@ describe("vehicle detail gallery behavior", () => {
     expect(detailSource).toContain("const returnToOrigin");
     expect(detailSource).toContain("const originPath");
     expect(detailSource).toContain("navigate(originPath())");
-    expect(detailSource).toContain('type="button" onClick={returnToOrigin}>ALL BRANDS');
-    expect(detailSource).toContain('type="button" onClick={returnToOrigin}>FLEET');
+    expect(detailSource).toContain('onClick={returnToOrigin} aria-label="Return to the fleet. Press again promptly to return home.">ALL BRANDS');
+    expect(detailSource).toContain('onClick={returnToOrigin} aria-label="Return to the fleet. Press again promptly to return home.">FLEET');
     expect(detailSource).toContain('<div className="brand-lockup" aria-label="ZAVERRE">');
     expect(detailSource).not.toContain("detail-mobile-back");
     expect(detailSource).not.toContain("handleBrandReturn");

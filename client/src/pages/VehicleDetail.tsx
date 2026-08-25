@@ -236,7 +236,7 @@ export default function VehicleDetail() {
     returnPressRef.current = window.setTimeout(() => {
       returnPressRef.current = null;
       navigate(originPath());
-    }, 420);
+    }, 720);
   };
   const openBookingIntent = (target: Vehicle = vehicle!) => setBookingTarget({ label: target.fullName, message: safeMessage(target) });
 
@@ -265,12 +265,12 @@ export default function VehicleDetail() {
         </div>
         <div className="detail-header-actions">
           <PublicMobileMenu onBook={() => openBookingIntent()} />
-          <button type="button" onClick={returnToOrigin}>ALL BRANDS</button>
+          <button type="button" onClick={returnToOrigin} aria-label="Return to the fleet. Press again promptly to return home.">ALL BRANDS</button>
         </div>
       </header>
 
       <section className="detail-hero">
-        <div className="detail-breadcrumb"><button type="button" onClick={returnToOrigin}>FLEET</button><span>/</span><span>{vehicle.brand}</span><span>/</span><strong>{vehicle.model}</strong></div>
+          <div className="detail-breadcrumb"><button type="button" onClick={returnToOrigin} aria-label="Return to the fleet. Press again promptly to return home.">FLEET</button><span>/</span><span>{vehicle.brand}</span><span>/</span><strong>{vehicle.model}</strong></div>
           <CarGallery vehicleName={vehicle.fullName} images={gallery} imageFit={vehicle.galleryImageFit} />
       </section>
 

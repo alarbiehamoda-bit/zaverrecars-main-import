@@ -48,5 +48,10 @@ describe("identity refinement", () => {
     expect(styles).toContain("overflow-y: auto !important");
     expect(styles).toContain("overscroll-behavior-y: auto");
     expect(styles).toContain("#root > main { touch-action: pan-y; }");
+    expect(styles).toContain("Interaction polish: responsive depth");
+    expect(styles).toContain("@media (prefers-reduced-motion: no-preference)");
+    expect(styles).toContain("@media (prefers-reduced-motion: reduce)");
+    expect(styles).toContain(".vehicle-card:hover { transform: translateY(-4px)");
+    expect(styles).toContain(".home-video-feature:hover { transform: translateY(-3px)");
   });
 });

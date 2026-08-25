@@ -142,6 +142,29 @@ html:not([data-theme="light"]) #root .site-footer .footer-brand > span { color: 
 html[data-theme="light"] #root .site-footer .footer-brand > .footer-brand__mark { filter: brightness(.72) sepia(.7) hue-rotate(152deg) saturate(2.35) drop-shadow(0 0 6px rgba(10,200,255,.62)) !important; }
 html[data-theme="light"] #root .site-footer .footer-brand > span { color: #0a9fd8 !important; text-shadow: 0 0 10px rgba(10,200,255,.34); }
 
+/* Interaction polish: responsive depth without entry animations or layout shifts. */
+@media (prefers-reduced-motion: no-preference) {
+  #root :is(.button, .menu-button, .theme-toggle, .gallery-nav, .gallery-expand, .brand-logo-rail button, .brand-free-scroll-card, .horizontal-fleet-slide) { transition: transform 180ms cubic-bezier(.23,1,.32,1), opacity 180ms cubic-bezier(.23,1,.32,1); }
+  #root .vehicle-card { transition: transform 220ms cubic-bezier(.23,1,.32,1); }
+  #root .vehicle-card .vehicle-image-wrap img { transition: transform 260ms cubic-bezier(.23,1,.32,1); }
+  #root .vehicle-card .vehicle-brand-ribbon__seal { transition: transform 180ms cubic-bezier(.23,1,.32,1); }
+  #root .home-video-feature { transition: transform 240ms cubic-bezier(.23,1,.32,1); }
+  @media (hover: hover) {
+    #root :is(.button, .menu-button, .theme-toggle, .gallery-nav, .gallery-expand):hover { transform: translateY(-2px); }
+    #root .brand-logo-rail button:hover, #root .brand-free-scroll-card:hover, #root .horizontal-fleet-slide:hover { transform: translateY(-3px); }
+    #root .vehicle-card:hover { transform: translateY(-4px); }
+    #root .vehicle-card:hover .vehicle-image-wrap img { transform: scale(1.022); }
+    #root .vehicle-card:hover .vehicle-brand-ribbon__seal { transform: scale(1.045); }
+    #root .home-video-feature:hover { transform: translateY(-3px); }
+  }
+  #root :is(.button, .menu-button, .theme-toggle, .gallery-nav, .gallery-expand, .brand-logo-rail button, .brand-free-scroll-card, .horizontal-fleet-slide):active { transform: scale(.97); }
+  #root .vehicle-card:active { transform: scale(.992); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #root :is(.button, .menu-button, .theme-toggle, .gallery-nav, .gallery-expand, .brand-logo-rail button, .brand-free-scroll-card, .horizontal-fleet-slide, .vehicle-card, .vehicle-card .vehicle-image-wrap img, .vehicle-card .vehicle-brand-ribbon__seal, .home-video-feature) { transition: none !important; }
+}
+
 /* Mobile interaction layer: keep navigation controls above visual surfaces and easy to tap. */
 @media (max-width: 760px) {
   html, body, #root { min-height: 100%; overflow-y: auto !important; overscroll-behavior-y: auto; touch-action: auto; }

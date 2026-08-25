@@ -52,7 +52,7 @@ export default function JournalArticle({ params }: { params: { slug: string } })
     journalBackPressRef.current = window.setTimeout(() => {
       journalBackPressRef.current = null;
       navigate("/");
-    }, 420);
+    }, 720);
   };
 
   if (!article) {
@@ -69,7 +69,7 @@ export default function JournalArticle({ params }: { params: { slug: string } })
   return (
     <main id="main-content" className={`journal-article-page${theme === "light" ? " zaverre-day" : ""}`}>
       <header className="journal-article-header">
-        <button type="button" className="journal-back" onClick={returnFromArticle}><ArrowLeft size={16} /> BACK</button>
+        <button type="button" className="journal-back" onClick={returnFromArticle} aria-label="Return to the journal. Press again promptly to return home."><ArrowLeft size={16} /> BACK</button>
         <div className="journal-article-actions"><PublicMobileMenu /></div>
       </header>
       <article className="journal-article">

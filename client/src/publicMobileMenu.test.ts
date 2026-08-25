@@ -32,7 +32,7 @@ describe("public mobile navigation", () => {
     expect(detailSource).toContain("returnPressRef");
     expect(detailSource).toContain("navigate(originPath())");
     expect(detailSource).toContain('navigate("/")');
-    expect(detailSource).toContain("}, 420);");
+    expect(detailSource).toContain("}, 720);");
     expect(detailSource).not.toContain("window.history.back()");
     expect(detailSource).not.toContain("window.location.assign(originPath())");
     expect(detailSource).not.toContain("detail-mobile-back");
@@ -42,7 +42,7 @@ describe("public mobile navigation", () => {
     expect(journalSource).toContain("returnFromArticle");
     expect(journalSource).toContain("journalBackPressRef");
     expect(journalSource).toContain('navigate("/")');
-    expect(journalSource).toContain("}, 420);");
+    expect(journalSource).toContain("}, 720);");
     expect(journalSource).not.toContain("window.history.back()");
     expect(journalSource).not.toContain("WHATSAPP <ArrowUpRight");
     expect(detailSource).not.toContain("WHATSAPP <ArrowUpRight size={15}");
