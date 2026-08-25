@@ -3,7 +3,7 @@ import { useCmsContent } from "@/hooks/useCmsContent";
 import { PublicMobileMenu } from "@/components/PublicMobileMenu";
 import { useTheme } from "@/contexts/ThemeContext";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "wouter";
 
 function JournalVisual({ src, alt, title }: { src: string; alt: string; title: string }) {
@@ -26,6 +26,7 @@ export default function JournalArticle({ params }: { params: { slug: string } })
   const content = useCmsContent();
   const { theme } = useTheme();
   const [, navigate] = useLocation();
+  const journalBackPressRef = useRef<number | null>(null);
   const managed = content.data?.journal.find((item) => item.slug === params.slug);
   const article = managed ? {
     slug: managed.slug,
@@ -37,7 +38,22 @@ export default function JournalArticle({ params }: { params: { slug: string } })
     paragraphs: (() => { try { return JSON.parse(managed.paragraphsJson) as string[]; } catch { return []; } })(),
   } : journalArticles.find((item) => item.slug === params.slug);
 
-  const returnFromArticle = () => navigate("/");
+  useEffect(() => () => {
+    if (journalBackPressRef.current !== null) window.clearTimeout(journalBackPressRef.current);
+  }, []);
+
+  const returnFromArticle = () => {
+    if (journalBackPressRef.current !== null) {
+      window.clearTimeout(journalBackPressRef.current);
+      journalBackPressRef.current = null;
+      navigate("/");
+      return;
+    }
+    journalBackPressRef.current = window.setTimeout(() => {
+      journalBackPressRef.current = null;
+      navigate("/");
+    }, 420);
+  };
 
   if (!article) {
     return (

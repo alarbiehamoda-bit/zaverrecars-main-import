@@ -66,6 +66,14 @@ describe("brand presentation system", () => {
     expect(brandSystemStyles).toContain("max-width: 84%");
   });
 
+  it("gives Lamborghini, Porsche, Audi, Cadillac, and BMW a larger calibrated optical fit", () => {
+    ["lamborghini", "porsche", "audi", "cadillac", "bmw"].forEach((marque) => {
+      expect(brandSystemStyles).toContain(`.brand-mark--${marque}`);
+    });
+    expect(brandSystemStyles).toContain("brand-mark--audi { max-height: 64%");
+    expect(brandSystemStyles).toContain("brand-mark--bmw { max-height: 84%");
+  });
+
   it("prioritizes visible and requested catalogue logos while leaving the remaining marks lazy", () => {
     expect(component).toContain('loading={priority ? "eager" : "lazy"}');
     expect(component).toContain('fetchPriority={priority ? "high" : "auto"}');

@@ -38,7 +38,7 @@ import {
   Users,
   Zap,
 } from "lucide-react";
-import { KeyboardEvent as ReactKeyboardEvent, PointerEvent as ReactPointerEvent, useMemo, useRef, useState } from "react";
+import { KeyboardEvent as ReactKeyboardEvent, PointerEvent as ReactPointerEvent, useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, useRoute } from "wouter";
 import "./VehicleDetailEnhancements.css";
 
@@ -134,6 +134,7 @@ export default function VehicleDetail() {
   const vehicle = useMemo(() => configuredVehicle ? managedCatalog.find((item) => item.id === configuredVehicle.id) ?? configuredVehicle : undefined, [configuredVehicle, managedCatalog]);
   const detailQuery = trpc.vehicle.detail.useQuery({ vehicleKey: vehicle?.id || "vehicle-001" }, { enabled: Boolean(vehicle) });
   const [bookingTarget, setBookingTarget] = useState<BookingIntentSubject | null>(null);
+  const returnPressRef = useRef<number | null>(null);
   const content = detailQuery.data?.content;
   const gallery = useMemo(() => {
     const managedImages = detailQuery.data?.images ?? [];
@@ -221,7 +222,22 @@ export default function VehicleDetail() {
     }
   };
 
-  const returnToOrigin = () => navigate(originPath());
+  useEffect(() => () => {
+    if (returnPressRef.current !== null) window.clearTimeout(returnPressRef.current);
+  }, []);
+
+  const returnToOrigin = () => {
+    if (returnPressRef.current !== null) {
+      window.clearTimeout(returnPressRef.current);
+      returnPressRef.current = null;
+      navigate("/");
+      return;
+    }
+    returnPressRef.current = window.setTimeout(() => {
+      returnPressRef.current = null;
+      navigate(originPath());
+    }, 420);
+  };
   const openBookingIntent = (target: Vehicle = vehicle!) => setBookingTarget({ label: target.fullName, message: safeMessage(target) });
 
   if (!vehicle || !publicPrice) {

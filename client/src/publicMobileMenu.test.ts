@@ -22,18 +22,21 @@ describe("public mobile navigation", () => {
     });
   });
 
-  it("returns details directly to the stored fleet origin without stepping through browser history", () => {
-    expect(detailSource).not.toContain("returnPressRef");
+  it("returns details to the stored fleet origin on one press and home on a second quick press", () => {
+    expect(detailSource).toContain("returnPressRef");
     expect(detailSource).toContain("navigate(originPath())");
+    expect(detailSource).toContain('navigate("/")');
+    expect(detailSource).toContain("}, 420);");
     expect(detailSource).not.toContain("window.history.back()");
     expect(detailSource).not.toContain("window.location.assign(originPath())");
     expect(detailSource).not.toContain("detail-mobile-back");
   });
 
-  it("keeps WhatsApp global and returns an article directly to home", () => {
+  it("keeps WhatsApp global and gives an article the same two-press exit behaviour", () => {
     expect(journalSource).toContain("returnFromArticle");
-    expect(journalSource).toContain('const returnFromArticle = () => navigate("/");');
-    expect(journalSource).not.toContain("journalBackPressRef");
+    expect(journalSource).toContain("journalBackPressRef");
+    expect(journalSource).toContain('navigate("/")');
+    expect(journalSource).toContain("}, 420);");
     expect(journalSource).not.toContain("window.history.back()");
     expect(journalSource).not.toContain("WHATSAPP <ArrowUpRight");
     expect(detailSource).not.toContain("WHATSAPP <ArrowUpRight size={15}");
