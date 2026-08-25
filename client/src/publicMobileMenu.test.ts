@@ -7,6 +7,7 @@ const fleetSource = readFileSync(new URL("./pages/FleetBrowse.tsx", import.meta.
 const detailSource = readFileSync(new URL("./pages/VehicleDetail.tsx", import.meta.url), "utf8");
 const journalSource = readFileSync(new URL("./pages/JournalArticle.tsx", import.meta.url), "utf8");
 const notFoundSource = readFileSync(new URL("./pages/NotFound.tsx", import.meta.url), "utf8");
+const identityStyles = readFileSync(new URL("./IdentityRefinement.css", import.meta.url), "utf8");
 
 describe("public mobile navigation", () => {
   it("keeps one accessible menu implementation with all public destinations", () => {
@@ -20,6 +21,11 @@ describe("public mobile navigation", () => {
     [homeSource, fleetSource, detailSource, journalSource, notFoundSource].forEach((source) => {
       expect(source).toContain("<PublicMobileMenu");
     });
+    expect(menuSource).toContain('onClick={() => setOpen((value) => !value)}');
+    expect(menuSource).toContain('aria-expanded={open}');
+    expect(menuSource).toContain('className="mobile-menu public-mobile-menu"');
+    expect(identityStyles).toContain("pointer-events: auto");
+    expect(identityStyles).toContain(".detail-header, .journal-article-header");
   });
 
   it("returns details to the stored fleet origin on one press and home on a second quick press", () => {

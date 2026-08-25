@@ -82,7 +82,7 @@ html[data-theme="light"] #root .brand-name-bar { background: linear-gradient(112
   width: 64px !important;
 }
 
-#root .vehicle-brand-ribbon__seal.brand-emblem-well { height: 56px !important; width: 56px !important; }
+#root .vehicle-brand-ribbon__seal.brand-emblem-well { height: 64px !important; width: 64px !important; }
 #root .fleet-browse-brand-logo.brand-emblem-well { height: 128px !important; width: 128px !important; }
 
 /* Header and filter marks use more of the shared well while retaining their original ratios. */
@@ -107,8 +107,17 @@ html[data-theme="light"] #root .brand-name-bar { background: linear-gradient(112
 #root .fleet-browse-brand-logo.brand-emblem-well > .brand-mark--cadillac { max-height: 92% !important; max-width: 82% !important; transform: scale(1.14) !important; }
 #root .fleet-browse-brand-logo.brand-emblem-well > .brand-mark--bmw { max-height: 88% !important; max-width: 88% !important; transform: scale(1.16) !important; }
 
+/* Catalogue-card marks use the full centre of the shared well, regardless of marque shape. */
+#root .vehicle-brand-ribbon__seal.brand-emblem-well > .brand-mark,
+#root .vehicle-brand-ribbon__seal.brand-emblem-well > .brand-mark-fallback { align-self: center !important; justify-self: center !important; object-position: center !important; }
+#root .vehicle-brand-ribbon__seal.brand-emblem-well > .brand-mark--fit-standard { max-height: 84% !important; max-width: 90% !important; transform: scale(1.05) !important; }
+#root .vehicle-brand-ribbon__seal.brand-emblem-well > .brand-mark--fit-wide { max-height: 66% !important; max-width: 100% !important; transform: scale(1.2) !important; }
+#root .vehicle-brand-ribbon__seal.brand-emblem-well > .brand-mark--fit-round { max-height: 88% !important; max-width: 88% !important; transform: scale(1.05) !important; }
+#root .vehicle-brand-ribbon__seal.brand-emblem-well > .brand-mark--fit-crest { max-height: 92% !important; max-width: 76% !important; transform: scale(1.05) !important; }
+#root .vehicle-brand-ribbon__seal.brand-emblem-well > .brand-mark--fit-tall { max-height: 94% !important; max-width: 66% !important; transform: scale(1.05) !important; }
+
 @media (max-width: 620px) {
   #root .brand-cards.brand-logo-rail .brand-emblem-well { height: 66px !important; width: 66px !important; }
-  #root .vehicle-brand-ribbon__seal.brand-emblem-well { height: 48px !important; width: 48px !important; }
+  #root .vehicle-brand-ribbon__seal.brand-emblem-well { height: 56px !important; width: 56px !important; }
   #root .fleet-browse-brand-logo.brand-emblem-well { height: 136px !important; width: 136px !important; }
 }

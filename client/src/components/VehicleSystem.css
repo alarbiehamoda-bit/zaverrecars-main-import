@@ -53,7 +53,7 @@ html[data-theme="light"] .brand-emblem-well {
 
 .brand-emblem-well--filter { height: 52px; width: 52px; }
 .fleet-browse-brand-logo.brand-emblem-well--hero { height: 112px; width: 112px; }
-.vehicle-brand-ribbon__seal.brand-emblem-well--catalogue { height: 48px; width: 48px; }
+.vehicle-brand-ribbon__seal.brand-emblem-well--catalogue { height: 64px; width: 64px; }
 
 .vehicle-brand-ribbon {
   align-items: center;
@@ -62,10 +62,10 @@ html[data-theme="light"] .brand-emblem-well {
   border-radius: 14px;
   display: grid;
   gap: 10px;
-  grid-template-columns: 48px minmax(0, 1fr);
+  grid-template-columns: 64px minmax(0, 1fr);
   margin-bottom: 12px;
-  min-height: 58px;
-  padding: 5px 11px 5px 5px;
+  min-height: 72px;
+  padding: 4px 12px 4px 4px;
 }
 
 .vehicle-brand-ribbon__identity { display: grid; gap: 3px; min-width: 0; }
@@ -86,8 +86,8 @@ html[data-theme="light"] .vehicle-brand-ribbon__identity i { color: #74472c; }
 
 @media (max-width: 620px) {
   .fleet-browse-brand-logo.brand-emblem-well--hero { height: 96px; width: 96px; }
-  .vehicle-brand-ribbon { gap: 9px; grid-template-columns: 40px minmax(0, 1fr); min-height: 50px; padding: 4px 9px 4px 4px; }
-  .vehicle-brand-ribbon__seal.brand-emblem-well--catalogue { height: 40px; width: 40px; }
+  .vehicle-brand-ribbon { gap: 9px; grid-template-columns: 56px minmax(0, 1fr); min-height: 64px; padding: 4px 10px 4px 4px; }
+  .vehicle-brand-ribbon__seal.brand-emblem-well--catalogue { height: 56px; width: 56px; }
   .vehicle-brand-ribbon__identity strong { font-size: 20px; }
   .vehicle-brand-ribbon__identity i { font-size: 5.5px; }
   .card-spec-item { min-height: 52px; }

@@ -66,6 +66,14 @@ describe("brand presentation system", () => {
     expect(brandSystemStyles).toContain("max-width: 84%");
   });
 
+  it("keeps every vehicle-card mark larger and centered inside the catalogue emblem well", () => {
+    expect(styles).toContain("grid-template-columns: 64px minmax(0, 1fr)");
+    expect(styles).toContain("height: 64px; width: 64px");
+    expect(brandSystemStyles).toContain("Catalogue-card marks use the full centre");
+    expect(brandSystemStyles).toContain("vehicle-brand-ribbon__seal.brand-emblem-well > .brand-mark--fit-wide");
+    expect(brandSystemStyles).toContain("object-position: center !important");
+  });
+
   it("gives Lamborghini, Porsche, Audi, Cadillac, and BMW a larger calibrated optical fit", () => {
     ["lamborghini", "porsche", "audi", "cadillac", "bmw"].forEach((marque) => {
       expect(brandSystemStyles).toContain(`.brand-mark--${marque}`);
