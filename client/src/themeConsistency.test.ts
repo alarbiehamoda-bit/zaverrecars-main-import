@@ -11,8 +11,8 @@ describe("theme consistency", () => {
     expect(styles).toContain("#root .zaverre-day");
   });
 
-  it("protects small-screen section content from the fixed contact rail", () => {
+  it("keeps the floating contact rail available on small screens", () => {
     expect(styles).toContain("@media (max-width: 620px)");
-    expect(styles).toContain("#root .floating-contact-rail { display: none !important; }");
+    expect(styles).toContain("#root .floating-contact-rail { bottom: 14px; display: grid !important; right: 12px; }");
   });
 });

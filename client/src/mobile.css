@@ -189,3 +189,47 @@
   .journal-article { padding: 44px 14px !important; }
   .journal-article-intro h1 { font-size: clamp(42px, 12.5vw, 58px) !important; }
 }
+
+/* Article harmony: compact editorial reading and one stable palette in both themes. */
+.journal-article-page { background: #0d0d0c; color: #f6f0e5; }
+.journal-article-header { background: rgba(13, 13, 12, .97); }
+.journal-back { background: transparent; border: 0; cursor: pointer; padding: 8px 0; }
+html[data-theme="light"] #root .journal-article-page { background: linear-gradient(145deg, #eef9fd, #dceef6); color: #132e43; }
+html[data-theme="light"] #root .journal-article-header { background: rgba(248, 253, 255, .97); border-color: rgba(18, 83, 123, .2); }
+html[data-theme="light"] #root .journal-article-header .journal-back { color: #123f5f; }
+html[data-theme="light"] #root .journal-article-intro h1 { color: #173c59 !important; -webkit-text-fill-color: #173c59 !important; }
+html[data-theme="light"] #root .journal-article-intro > p:last-child,
+html[data-theme="light"] #root .journal-article-body { color: #31546b; }
+html[data-theme="light"] #root .journal-article-image { background: rgba(255, 255, 255, .62); border-color: rgba(18, 83, 123, .16); }
+html[data-theme="light"] #root .journal-article-body aside { border-color: rgba(18, 83, 123, .28); }
+html[data-theme="light"] #root .journal-article-body aside strong { color: #173c59; }
+html[data-theme="light"] #root .journal-article-body aside span { color: #496b7f; }
+html[data-theme="light"] #root .mobile-menu { background: linear-gradient(145deg, #f9fdff, #ddecf5) !important; border-color: rgba(16, 89, 133, .26) !important; box-shadow: 0 18px 40px rgba(17, 65, 94, .2); }
+html[data-theme="light"] #root .mobile-menu > button:not(.button) { color: #123f5f !important; }
+html[data-theme="light"] #root .mobile-menu > button:not(.button) svg { color: #0b79b9 !important; }
+html[data-theme="light"] #root .mobile-menu .button { background: #154d70 !important; border-color: #154d70 !important; color: #f4fbff !important; }
+#root :is(.site-header, .fleet-browse-header, .detail-header) .brand-lockup { pointer-events: none !important; user-select: none; }
+
+@media (max-width: 760px) {
+  #root .journal-article-header { min-height: 58px; padding: 10px 14px !important; }
+  #root .journal-article-header .journal-back { font-size: 8px; min-height: 40px; }
+  #root .journal-article { max-width: 660px; padding: 30px 14px !important; }
+  #root .journal-article-intro { margin-bottom: 22px; }
+  #root .journal-article-intro .eyebrow { font-size: 7px; }
+  #root .journal-article-intro h1 { font-size: clamp(31px, 9.2vw, 39px) !important; line-height: .98 !important; margin: 10px 0 14px !important; }
+  #root .journal-article-intro > p:last-child { font-size: 13px !important; line-height: 1.65 !important; }
+  #root .journal-article-image { min-height: 190px; padding: 8px; }
+  #root .journal-article-image img { max-height: 300px; }
+  #root .journal-article-body { font-size: 18px !important; line-height: 1.66 !important; margin-top: 26px !important; max-width: 36ch; }
+  #root .journal-article-body p { margin-bottom: 18px; }
+  #root .journal-article-body aside { gap: 7px; margin-top: 30px; padding-top: 16px; }
+  #root .journal-article-body aside strong { font-size: 20px !important; }
+  #root .journal-article-body aside span { font-size: 11px; line-height: 1.55; }
+  #root .journal-card { aspect-ratio: 1.48 / 1; border-radius: 14px; }
+  #root .journal-card-overlay { gap: 8px; padding: 14px; }
+  #root .journal-card strong { font-size: 25px !important; line-height: 1.02 !important; }
+  #root .journal-card-eyebrow,
+  #root .journal-card-open { font-size: 6px; }
+  #root .floating-contact-rail { bottom: 14px; display: grid !important; right: 12px; }
+  #root .floating-contact-rail .floating-whatsapp-button { min-height: 40px; min-width: 122px; }
+}

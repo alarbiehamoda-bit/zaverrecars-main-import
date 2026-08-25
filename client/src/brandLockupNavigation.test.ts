@@ -5,6 +5,7 @@ const home = readFileSync(new URL("./pages/Home.tsx", import.meta.url), "utf8");
 const fleet = readFileSync(new URL("./pages/FleetBrowse.tsx", import.meta.url), "utf8");
 const detail = readFileSync(new URL("./pages/VehicleDetail.tsx", import.meta.url), "utf8");
 const styles = readFileSync(new URL("./vehicle-glass.css", import.meta.url), "utf8");
+const identityStyles = readFileSync(new URL("./IdentityRefinement.css", import.meta.url), "utf8");
 
 describe("public brand lockups", () => {
   it("remain visual identity only, leaving navigation to explicit controls", () => {
@@ -13,5 +14,6 @@ describe("public brand lockups", () => {
       expect(source).not.toContain('className="brand-lockup" onClick=');
     }
     expect(styles).toContain(".brand-lockup { pointer-events: none;");
+    expect(identityStyles).toContain("#root .detail-header .brand-lockup { min-height: 44px; pointer-events: none !important;");
   });
 });

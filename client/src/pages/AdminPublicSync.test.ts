@@ -15,11 +15,12 @@ describe("administration to public-site synchronization", () => {
     expect(detail).toContain("return managedCatalog");
   });
 
-  it("uses the CMS source for global and vehicle-detail contact actions", () => {
+  it("uses the CMS source for the global floating contact action and vehicle-detail calls", () => {
     expect(floatingRail).toContain("useCmsContent");
     expect(floatingRail).toContain("whatsappHref(contact, message)");
     expect(detail).toContain("const { contact } = useCmsContent()");
-    expect(detail).toContain("whatsappHref(contact, safeMessage(vehicle))");
+    expect(detail).not.toContain("whatsappHref(contact, safeMessage(vehicle))");
+    expect(detail).toContain("contact.whatsappInternational");
   });
 
   it("invalidates the public CMS query after each content-editor save", () => {

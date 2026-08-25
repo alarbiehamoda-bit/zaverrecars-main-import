@@ -1,9 +1,10 @@
 import { journalArticles } from "@/config/homeContent";
-import { useCmsContent, whatsappHref } from "@/hooks/useCmsContent";
+import { useCmsContent } from "@/hooks/useCmsContent";
 import { PublicMobileMenu } from "@/components/PublicMobileMenu";
+import { useTheme } from "@/contexts/ThemeContext";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
-import { useState } from "react";
-import { Link } from "wouter";
+import { useEffect, useRef, useState } from "react";
+import { Link, useLocation } from "wouter";
 
 function JournalVisual({ src, alt, title }: { src: string; alt: string; title: string }) {
   const [imageUnavailable, setImageUnavailable] = useState(false);
@@ -23,6 +24,9 @@ function JournalVisual({ src, alt, title }: { src: string; alt: string; title: s
 
 export default function JournalArticle({ params }: { params: { slug: string } }) {
   const content = useCmsContent();
+  const { theme } = useTheme();
+  const [, navigate] = useLocation();
+  const journalBackPressRef = useRef<number | null>(null);
   const managed = content.data?.journal.find((item) => item.slug === params.slug);
   const article = managed ? {
     slug: managed.slug,
@@ -33,6 +37,24 @@ export default function JournalArticle({ params }: { params: { slug: string } })
     imageAlt: managed.imageAlt,
     paragraphs: (() => { try { return JSON.parse(managed.paragraphsJson) as string[]; } catch { return []; } })(),
   } : journalArticles.find((item) => item.slug === params.slug);
+
+  useEffect(() => () => {
+    if (journalBackPressRef.current !== null) window.clearTimeout(journalBackPressRef.current);
+  }, []);
+
+  const returnFromArticle = () => {
+    if (journalBackPressRef.current !== null) {
+      window.clearTimeout(journalBackPressRef.current);
+      journalBackPressRef.current = null;
+      navigate("/");
+      return;
+    }
+    journalBackPressRef.current = window.setTimeout(() => {
+      journalBackPressRef.current = null;
+      if (window.history.length > 1) window.history.back();
+      else navigate("/");
+    }, 420);
+  };
 
   if (!article) {
     return (
@@ -46,10 +68,10 @@ export default function JournalArticle({ params }: { params: { slug: string } })
   }
 
   return (
-    <main id="main-content" className="journal-article-page">
+    <main id="main-content" className={`journal-article-page${theme === "light" ? " zaverre-day" : ""}`}>
       <header className="journal-article-header">
-        <Link href="/" className="journal-back"><ArrowLeft size={16} /> BACK TO ZAVERRE</Link>
-        <div className="journal-article-actions"><PublicMobileMenu /><a href={whatsappHref(content.contact, `Hello ZAVERRE, I would like to enquire after reading: ${article.title}`)} target="_blank" rel="noreferrer">WHATSAPP <ArrowUpRight size={15} /></a></div>
+        <button type="button" className="journal-back" onClick={returnFromArticle}><ArrowLeft size={16} /> BACK</button>
+        <div className="journal-article-actions"><PublicMobileMenu /></div>
       </header>
       <article className="journal-article">
         <div className="journal-article-intro">

@@ -23,7 +23,16 @@ describe("public mobile navigation", () => {
   });
 
   it("uses internal routing for detail return instead of a page reload", () => {
+    expect(detailSource).toContain("returnPressRef");
+    expect(detailSource).toContain('navigate("/")');
     expect(detailSource).toContain("navigate(originPath())");
     expect(detailSource).not.toContain("window.location.assign(originPath())");
+  });
+
+  it("keeps WhatsApp floating and gives article back the same double-press exit behaviour", () => {
+    expect(journalSource).toContain("returnFromArticle");
+    expect(journalSource).toContain("journalBackPressRef");
+    expect(journalSource).not.toContain("WHATSAPP <ArrowUpRight");
+    expect(detailSource).not.toContain("WHATSAPP <ArrowUpRight size={15}");
   });
 });

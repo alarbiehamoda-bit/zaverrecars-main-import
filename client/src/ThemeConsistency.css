@@ -107,5 +107,5 @@ html:not([data-theme="light"]) #root .fleet-browse-page .filter-holder {
 }
 
 @media (max-width: 620px) {
-  #root .floating-contact-rail { display: none !important; }
+  #root .floating-contact-rail { bottom: 14px; display: grid !important; right: 12px; }
 }
