@@ -40,6 +40,7 @@ describe("identity refinement", () => {
     expect(styles).toContain("#0a9fd8");
     expect(styles).toContain("drop-shadow(0 0 6px rgba(10,200,255,.62))");
     expect(styles).toContain(".site-footer .footer-brand > .footer-brand__mark");
+    expect(styles).toContain(".zaverre-mark--footer { filter: none !important; }");
     expect(styles).toContain("height: 32px");
     expect(styles).toContain("min-height: 580px");
     expect(styles).toContain("overflow: visible");

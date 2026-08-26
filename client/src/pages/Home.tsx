@@ -190,7 +190,7 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="site-footer"><div className="footer-brand"><ZaverreMark className="footer-brand__mark" /><span>ZAVERRE</span></div><p>Luxury car rental, curated with restraint.</p><span>© {new Date().getFullYear()} ZAVERRE</span></footer>
+      <footer className="site-footer"><div className="footer-brand"><ZaverreMark className="footer-brand__mark zaverre-mark--footer" /><span>ZAVERRE</span></div><p>Luxury car rental, curated with restraint.</p><span>© {new Date().getFullYear()} ZAVERRE</span></footer>
 
       <FirstBookingCoupon />
       <BookingIntentDialog open={Boolean(bookingTarget)} onOpenChange={(open) => { if (!open) setBookingTarget(null); }} subject={bookingTarget} whatsappNumber={managedContact.whatsappInternational} />

@@ -299,7 +299,7 @@ export default function VehicleDetail() {
 
       <section className="detail-final-cta"><ImageIcon size={18} /><p>ONE VEHICLE. INDIVIDUAL ARRANGEMENT.</p><h2>Ready when you are.</h2></section>
 
-      <footer className="site-footer"><div className="footer-brand"><ZaverreMark className="footer-brand__mark" /><span>ZAVERRE</span></div><p>Luxury car rental, curated with restraint.</p></footer>
+      <footer className="site-footer"><div className="footer-brand"><ZaverreMark className="footer-brand__mark zaverre-mark--footer" /><span>ZAVERRE</span></div><p>Luxury car rental, curated with restraint.</p></footer>
       <BookingIntentDialog open={Boolean(bookingTarget)} onOpenChange={(open) => { if (!open) setBookingTarget(null); }} subject={bookingTarget} whatsappNumber={contact.whatsappInternational} />
     </main>
   );

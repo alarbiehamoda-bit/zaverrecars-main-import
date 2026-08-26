@@ -20,8 +20,7 @@ html:not([data-theme="light"]) body { background: linear-gradient(145deg, var(--
 html:not([data-theme="light"]) .site-header,
 html:not([data-theme="light"]) .fleet-browse-header,
 html:not([data-theme="light"]) .detail-header { background: linear-gradient(110deg, rgba(9,8,7,.98), rgba(45,27,19,.96)) !important; border-color: rgba(231,209,178,.24) !important; box-shadow: 0 8px 26px rgba(0,0,0,.24) !important; }
-html:not([data-theme="light"]) .brand-mark,
-html:not([data-theme="light"]) .footer-brand img { filter: brightness(1.08) sepia(.62) saturate(1.25) hue-rotate(344deg) !important; }
+html:not([data-theme="light"]) .brand-mark { filter: brightness(1.08) sepia(.62) saturate(1.25) hue-rotate(344deg) !important; }
 html:not([data-theme="light"]) .brand-lockup > span { color: var(--zvr-ivory) !important; }
 
 html:not([data-theme="light"]) :is(.header-book, .theme-toggle, .card-book, .booking-form .button-gold) { background: linear-gradient(135deg, #0c0a09, #392419) !important; border-color: rgba(210,168,90,.58) !important; box-shadow: inset 0 1px 0 rgba(247,234,217,.1), 0 9px 18px rgba(0,0,0,.2) !important; color: var(--zvr-ivory) !important; }
@@ -139,8 +138,8 @@ html[data-theme="light"] #root :is(.site-header, .fleet-browse-header, .detail-h
 /* Footer lockup intentionally mirrors the approved header mark in both themes. */
 #root .site-footer .footer-brand { align-items: center; gap: 10px; }
 #root .site-footer .footer-brand > .footer-brand__mark { background: transparent !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; height: 32px !important; object-fit: contain; padding: 0 !important; width: 32px !important; }
+#root .site-footer .footer-brand > .zaverre-mark--footer { filter: none !important; }
 html:not([data-theme="light"]) #root .site-footer .footer-brand > span { color: var(--zvr-ivory) !important; }
-html[data-theme="light"] #root .site-footer .footer-brand > .footer-brand__mark { filter: brightness(.72) sepia(.7) hue-rotate(152deg) saturate(2.35) drop-shadow(0 0 6px rgba(10,200,255,.62)) !important; }
 html[data-theme="light"] #root .site-footer .footer-brand > span { color: #0a9fd8 !important; text-shadow: 0 0 10px rgba(10,200,255,.34); }
 
 /* Interaction polish: responsive depth without entry animations or layout shifts. */

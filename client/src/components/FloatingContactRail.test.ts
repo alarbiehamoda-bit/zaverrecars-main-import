@@ -20,6 +20,9 @@ describe("floating contact rail", () => {
     expect(identityStyles).not.toContain("floating-contact-rail--home > :not");
     expect(app).toContain("function PublicFloatingContact()");
     expect(app).toContain('if (location.startsWith("/admin")) return null;');
+    expect(app).toContain("const [isUiReady, setIsUiReady] = useState(false);");
+    expect(app).toContain("window.requestAnimationFrame(() => setIsUiReady(true))");
+    expect(app).toContain("if (!isUiReady) return null;");
     expect(app).toContain('variant={location === "/" ? "home" : "default"}');
     expect(app).toContain("<PublicFloatingContact />");
   });

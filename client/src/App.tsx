@@ -1,7 +1,7 @@
 /** ZAVERRE — The Atelier Ledger design system: a dark, editorial public catalogue shell. */
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Route, Switch, useLocation } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { FloatingContactRail } from "./components/FloatingContactRail";
@@ -38,7 +38,13 @@ function PublicSkipLink() {
 
 function PublicFloatingContact() {
   const [location] = useLocation();
+  const [isUiReady, setIsUiReady] = useState(false);
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => setIsUiReady(true));
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
   if (location.startsWith("/admin")) return null;
+  if (!isUiReady) return null;
   return <FloatingContactRail variant={location === "/" ? "home" : "default"} />;
 }
 
