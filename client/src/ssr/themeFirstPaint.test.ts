@@ -18,4 +18,16 @@ describe("theme first paint", () => {
     expect(viteServer).toContain("data-theme=\"dark\" class=\"dark\"");
     expect(app).toContain("<ThemeProvider defaultTheme=\"dark\" initialTheme={initialTheme} switchable>");
   });
+
+  it("loads the final public style layers before the first interactive client frame", () => {
+    [clientEntry, serverEntry].forEach((entry) => {
+      expect(entry).toContain('import "./ThemeConsistency.css"');
+      expect(entry).toContain('import "./performancePresentation.css"');
+      expect(entry).toContain('import "./IdentityRefinement.css"');
+      expect(entry).toContain('import "./DesignCompletion.css"');
+    });
+    expect(viteServer).toContain("const ssrDevStyleHrefs");
+    expect(viteServer).toContain('"/src/IdentityRefinement.css?direct"');
+    expect(viteServer).toContain('"/src/DesignCompletion.css?direct"');
+  });
 });

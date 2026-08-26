@@ -12,6 +12,9 @@ import "./index.css";
 import "./vehicle-glass.css";
 import "./components/BrandCards.css";
 import "./components/HomeVideoFeature.css";
+import "./ThemeConsistency.css";
+import "./performancePresentation.css";
+import "./IdentityRefinement.css";
 import "./DesignCompletion.css";
 
 const queryClient = new QueryClient({ defaultOptions: { queries: { staleTime: 30_000 } } });

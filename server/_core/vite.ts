@@ -96,6 +96,17 @@ function readInitialTheme(cookieHeader?: string) {
   return value === "light" || value === "dark" ? value : undefined;
 }
 
+const ssrDevStyleHrefs = [
+  "/src/index.css?direct",
+  "/src/vehicle-glass.css?direct",
+  "/src/components/BrandCards.css?direct",
+  "/src/components/HomeVideoFeature.css?direct",
+  "/src/ThemeConsistency.css?direct",
+  "/src/performancePresentation.css?direct",
+  "/src/IdentityRefinement.css?direct",
+  "/src/DesignCompletion.css?direct",
+];
+
 async function buildPublicSsrData(
   req: Parameters<typeof createContext>[0]["req"],
   res: Parameters<typeof createContext>[0]["res"],
@@ -142,7 +153,8 @@ export async function setupVite(app: Express, server: Server) {
       let template = await fs.promises.readFile(clientTemplate, "utf-8");
       template = template.replace('src="/src/entry-client.tsx"', `src="/src/entry-client.tsx?v=${nanoid()}"`);
       template = await vite.transformIndexHtml(req.originalUrl, template);
-      template = template.replace("</head>", '<link rel="stylesheet" href="/src/index.css?direct" data-ssr-dev-css></head>');
+      const ssrDevStyles = ssrDevStyleHrefs.map((href) => `<link rel="stylesheet" href="${href}" data-ssr-dev-css>`).join("");
+      template = template.replace("</head>", `${ssrDevStyles}</head>`);
       const { render } = await vite.ssrLoadModule("/src/entry-server.tsx");
       const origin = canonicalOrigin(req);
       const publicData = await buildPublicSsrData(req, res);

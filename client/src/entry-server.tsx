@@ -9,6 +9,11 @@ import { trpc } from "./lib/trpc";
 import { getSsrHead, type SsrHead } from "./ssr/metadata";
 import "./components/BrandCards.css";
 import "./components/HomeVideoFeature.css";
+import "./index.css";
+import "./vehicle-glass.css";
+import "./ThemeConsistency.css";
+import "./performancePresentation.css";
+import "./IdentityRefinement.css";
 import "./DesignCompletion.css";
 import type { Theme } from "./contexts/ThemeContext";
 

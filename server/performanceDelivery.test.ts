@@ -30,10 +30,11 @@ describe("performance delivery contracts", () => {
     expect(homeSource).not.toContain("brand.folioTexture");
   });
 
-  it("loads the site fonts without blocking first paint", () => {
+  it("preloads and applies the site fonts before the final visual composition is painted", () => {
     expect(indexTemplate).toContain('rel="preload" as="style"');
     expect(indexTemplate).toContain("display=swap");
-    expect(indexTemplate).toContain('media="print"');
+    expect(indexTemplate).toContain('rel="stylesheet" href="https://fonts.googleapis.com/css2');
+    expect(indexTemplate).not.toContain('media="print"');
   });
 
   it("enables Brotli-capable compression and long-lived immutable static asset caching", () => {
