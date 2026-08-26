@@ -36,11 +36,11 @@ describe("public mobile navigation", () => {
     expect(identityStyles).toContain("html:not([data-theme]) #root :is(.theme-toggle, .menu-button) { visibility: hidden; }");
   });
 
-  it("returns details to the stored fleet origin on one press and home on a second quick press", () => {
+  it("replaces history with the stored fleet origin on one press and home on a second quick press", () => {
     expect(detailSource).toContain("returnPressRef");
-    expect(detailSource).toContain("navigate(originPath())");
-    expect(detailSource).toContain('navigate("/")');
-    expect(detailSource).toContain("}, 720);");
+    expect(detailSource).toContain("navigate(originPath(), { replace: true })");
+    expect(detailSource).toContain('navigate("/", { replace: true })');
+    expect(detailSource).toContain("}, 420);");
     expect(detailSource).not.toContain("window.history.back()");
     expect(detailSource).not.toContain("window.location.assign(originPath())");
     expect(detailSource).not.toContain("detail-mobile-back");
@@ -49,8 +49,8 @@ describe("public mobile navigation", () => {
   it("keeps WhatsApp global and gives an article the same two-press exit behaviour", () => {
     expect(journalSource).toContain("returnFromArticle");
     expect(journalSource).toContain("journalBackPressRef");
-    expect(journalSource).toContain('navigate("/")');
-    expect(journalSource).toContain("}, 720);");
+    expect(journalSource).toContain('navigate("/", { replace: true })');
+    expect(journalSource).toContain("}, 420);");
     expect(journalSource).not.toContain("window.history.back()");
     expect(journalSource).not.toContain("WHATSAPP <ArrowUpRight");
     expect(detailSource).not.toContain("WHATSAPP <ArrowUpRight size={15}");

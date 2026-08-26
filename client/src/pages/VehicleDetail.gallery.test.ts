@@ -10,7 +10,8 @@ describe("vehicle detail gallery behavior", () => {
   it("keeps the logo visual-only while explicit collection controls return to the origin", () => {
     expect(detailSource).toContain("const returnToOrigin");
     expect(detailSource).toContain("const originPath");
-    expect(detailSource).toContain("navigate(originPath())");
+    expect(detailSource).toContain("navigate(originPath(), { replace: true })");
+    expect(detailSource).toContain('navigate("/", { replace: true })');
     expect(detailSource).toContain('onClick={returnToOrigin} aria-label="Return to the fleet. Press again promptly to return home.">ALL BRANDS');
     expect(detailSource).toContain('onClick={returnToOrigin} aria-label="Return to the fleet. Press again promptly to return home.">FLEET');
     expect(detailSource).toContain('<div className="brand-lockup" aria-label="ZAVERRE">');

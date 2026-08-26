@@ -230,13 +230,13 @@ export default function VehicleDetail() {
     if (returnPressRef.current !== null) {
       window.clearTimeout(returnPressRef.current);
       returnPressRef.current = null;
-      navigate("/");
+      navigate("/", { replace: true });
       return;
     }
     returnPressRef.current = window.setTimeout(() => {
       returnPressRef.current = null;
-      navigate(originPath());
-    }, 720);
+      navigate(originPath(), { replace: true });
+    }, 420);
   };
   const openBookingIntent = (target: Vehicle = vehicle!) => setBookingTarget({ label: target.fullName, message: safeMessage(target) });
 

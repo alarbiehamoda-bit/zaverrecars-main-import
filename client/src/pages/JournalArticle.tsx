@@ -46,13 +46,13 @@ export default function JournalArticle({ params }: { params: { slug: string } })
     if (journalBackPressRef.current !== null) {
       window.clearTimeout(journalBackPressRef.current);
       journalBackPressRef.current = null;
-      navigate("/");
+      navigate("/", { replace: true });
       return;
     }
     journalBackPressRef.current = window.setTimeout(() => {
       journalBackPressRef.current = null;
-      navigate("/");
-    }, 720);
+      navigate("/", { replace: true });
+    }, 420);
   };
 
   if (!article) {
