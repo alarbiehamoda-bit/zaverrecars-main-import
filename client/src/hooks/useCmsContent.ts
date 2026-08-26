@@ -29,8 +29,8 @@ export const fallbackHomeHero: ManagedHomeHero = {
 
 export const fallbackHomeVideo: ManagedHomeVideo = {
   eyebrow: "THE ZAVERRE MOMENT",
-  title: "See the arrival before you choose it.",
-  description: "A considered first look at the details, presence, and atmosphere behind every ZAVERRE arrival.",
+  title: "Feel the arrival before you choose the keys.",
+  description: "Take a closer look at the presence, craft, and atmosphere behind every ZAVERRE arrival—before the road begins.",
   videoUrl: "",
   posterUrl: "",
 };

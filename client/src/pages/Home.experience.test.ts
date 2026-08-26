@@ -54,7 +54,9 @@ describe("homepage experience content", () => {
     expect(videoFeatureSource).toContain("<video controls preload=\"metadata\"");
     expect(videoFeatureSource).toContain("FILM PREVIEW");
     expect(cmsSource).toContain('settingKey === "homeVideo"');
-    expect(cmsSource).toContain("See the arrival before you choose it.");
+    expect(cmsSource).toContain("Feel the arrival before you choose the keys.");
+    expect(videoFeatureSource).toContain("PRIVATE PREVIEW · DUBAI");
+    expect(videoFeatureSource).toContain("A filmic first look at the collection.");
     expect(adminContentSource).toContain('settingKey: "homeVideo"');
     expect(adminContentSource).toContain("SAVE VIDEO CARD");
   });

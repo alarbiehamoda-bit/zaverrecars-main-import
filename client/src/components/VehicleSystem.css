@@ -61,16 +61,16 @@ html[data-theme="light"] .brand-emblem-well {
   border: 1px solid rgba(224,187,132,.34);
   border-radius: 14px;
   display: grid;
-  gap: 10px;
+  gap: 17px;
   grid-template-columns: 64px minmax(0, 1fr);
   margin-bottom: 12px;
-  min-height: 72px;
-  padding: 4px 12px 4px 4px;
+  min-height: 78px;
+  padding: 5px 15px 5px 5px;
 }
 
-.vehicle-brand-ribbon__identity { display: grid; gap: 3px; min-width: 0; }
-.vehicle-brand-ribbon__identity strong { color: #fff0d7; font-family: "Cormorant Garamond", Georgia, serif; font-size: clamp(20px, 2vw, 27px); font-weight: 700; letter-spacing: .04em; line-height: .88; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.vehicle-brand-ribbon__identity i { color: #e0bc82; font-family: "Manrope", Arial, sans-serif; font-size: 7px; font-style: normal; font-weight: 800; letter-spacing: .12em; line-height: 1.1; }
+.vehicle-brand-ribbon__identity { display: grid; gap: 6px; min-width: 0; padding-block: 3px; }
+.vehicle-brand-ribbon__identity strong { color: #fff0d7; font-family: "Cormorant Garamond", Georgia, serif; font-size: clamp(24px, 2.35vw, 31px); font-weight: 700; letter-spacing: .055em; line-height: .88; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vehicle-brand-ribbon__identity i { color: #e0bc82; font-family: "Manrope", Arial, sans-serif; font-size: 8px; font-style: normal; font-weight: 800; letter-spacing: .14em; line-height: 1.1; }
 .vehicle-brand-ribbon-mark { background: transparent; border: 0; box-shadow: none; padding: 0; }
 
 html[data-theme="light"] .vehicle-brand-ribbon { background: linear-gradient(105deg, #f7eee0, #dfc8a8); border-color: rgba(107,72,37,.36); }
@@ -86,10 +86,11 @@ html[data-theme="light"] .vehicle-brand-ribbon__identity i { color: #74472c; }
 
 @media (max-width: 620px) {
   .fleet-browse-brand-logo.brand-emblem-well--hero { height: 96px; width: 96px; }
-  .vehicle-brand-ribbon { gap: 9px; grid-template-columns: 56px minmax(0, 1fr); min-height: 64px; padding: 4px 10px 4px 4px; }
+  .vehicle-brand-ribbon { gap: 13px; grid-template-columns: 56px minmax(0, 1fr); min-height: 68px; padding: 4px 11px 4px 4px; }
   .vehicle-brand-ribbon__seal.brand-emblem-well--catalogue { height: 56px; width: 56px; }
-  .vehicle-brand-ribbon__identity strong { font-size: 20px; }
-  .vehicle-brand-ribbon__identity i { font-size: 5.5px; }
+  .vehicle-brand-ribbon__identity { gap: 4px; }
+  .vehicle-brand-ribbon__identity strong { font-size: 23px; }
+  .vehicle-brand-ribbon__identity i { font-size: 6.5px; }
   .card-spec-item { min-height: 52px; }
   .card-spec-item b { font-size: 7px; }
 }
