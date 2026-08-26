@@ -20,8 +20,10 @@ describe("fleet browse presentation", () => {
     expect(vehicleSystemSource).toContain("vehicles.map((vehicle, index)");
   });
 
-  it("keeps the primary vehicle photograph uncropped inside a stable card frame", () => {
+  it("uses a curated two-column showroom desktop layout while preserving a stable single-card tablet frame", () => {
+    expect(fleetBrowseStyles).toContain("grid-template-columns: repeat(2, minmax(0, 1fr))");
     expect(fleetBrowseStyles).toContain("grid-template-columns: minmax(0, min(100%, 620px))");
+    expect(fleetBrowseStyles).toContain("THE PRIVATE SHOWROOM");
     expect(readFileSync(new URL("../client/src/index.css", import.meta.url), "utf8")).toContain("aspect-ratio: 16 / 10");
     expect(readFileSync(new URL("../client/src/index.css", import.meta.url), "utf8")).toContain("object-fit: contain");
   });

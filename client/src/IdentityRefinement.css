@@ -79,8 +79,9 @@ html:not([data-theme="light"]) #root .master-vehicle-card .card-book { backgroun
 html:not([data-theme="light"]) #root .master-vehicle-card .card-details { background: linear-gradient(135deg, #d7af75, #f4dfbd) !important; color: #382014 !important; }
 
 /* Shared card rhythm: the brand ribbon and the two primary actions align in every catalogue context. */
-#root .master-vehicle-card .vehicle-brand-ribbon { grid-template-columns: 52px minmax(0, 1fr) !important; min-height: 62px !important; padding: 5px 11px 5px 5px !important; }
+#root .master-vehicle-card .vehicle-brand-ribbon { grid-template-columns: 52px minmax(0, 1fr) 52px !important; min-height: 62px !important; padding: 5px !important; }
 #root .master-vehicle-card .vehicle-brand-ribbon__seal.brand-emblem-well { height: 52px !important; width: 52px !important; }
+#root .master-vehicle-card .vehicle-brand-ribbon::after { height: 52px !important; width: 52px !important; }
 #root .master-vehicle-card .card-actions { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
 #root .master-vehicle-card :is(.card-book, .card-details) { align-items: center; display: inline-flex; justify-content: center; min-height: 44px !important; }
 #root .brand-emblem-well--filter > .brand-mark--fit-standard { max-height: 75% !important; max-width: 84% !important; transform: scale(1.08) !important; }

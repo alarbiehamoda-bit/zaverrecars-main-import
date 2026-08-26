@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
 const styles = readFileSync(new URL("./IdentityRefinement.css", import.meta.url), "utf8");
+const completionStyles = readFileSync(new URL("./DesignCompletion.css", import.meta.url), "utf8");
 
 describe("identity refinement", () => {
   it("uses black, brown, beige, and gold in dark mode without the blue neon lockup", () => {
@@ -48,10 +49,15 @@ describe("identity refinement", () => {
     expect(styles).toContain("overflow-y: auto !important");
     expect(styles).toContain("overscroll-behavior-y: auto");
     expect(styles).toContain("#root > main { touch-action: pan-y; }");
+    expect(styles).toContain("grid-template-columns: 52px minmax(0, 1fr) 52px");
+    expect(styles).toContain(".vehicle-brand-ribbon::after { height: 52px");
     expect(styles).toContain("Interaction polish: responsive depth");
     expect(styles).toContain("@media (prefers-reduced-motion: no-preference)");
     expect(styles).toContain("@media (prefers-reduced-motion: reduce)");
     expect(styles).toContain(".vehicle-card:hover { transform: translateY(-4px)");
     expect(styles).toContain(".home-video-feature:hover { transform: translateY(-3px)");
+    expect(completionStyles).toContain("Final public composition");
+    expect(completionStyles).toContain(".fleet-browse-content::before");
+    expect(completionStyles).toContain(".journal-article-body aside");
   });
 });
