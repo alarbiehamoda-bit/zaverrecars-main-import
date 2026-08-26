@@ -1,4 +1,5 @@
 import { ArrowDownRight, ChevronRight, Menu, X } from "lucide-react";
+import { createPortal } from "react-dom";
 import { useEffect, useId, useState } from "react";
 import { useLocation } from "wouter";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -51,7 +52,7 @@ export function PublicMobileMenu({ onBook }: PublicMobileMenuProps) {
       >
         {open ? <X size={21} /> : <Menu size={21} />}
       </button>
-      {open && (
+      {open && typeof document !== "undefined" && createPortal(
         <nav id={menuId} className="mobile-menu public-mobile-menu" aria-label="Mobile navigation">
           <button type="button" onClick={() => goHome()}>Home<ChevronRight size={18} /></button>
           <button type="button" onClick={goFleet}>Fleet<ChevronRight size={18} /></button>
@@ -59,7 +60,8 @@ export function PublicMobileMenu({ onBook }: PublicMobileMenuProps) {
           <button type="button" onClick={() => goHome("about")}>About<ChevronRight size={18} /></button>
           <button type="button" onClick={() => goHome("contact")}>Contact<ChevronRight size={18} /></button>
           {onBook && <button type="button" className="button button-gold mt-4" onClick={() => { setOpen(false); onBook(); }}>BOOK YOUR CAR <ArrowDownRight size={17} /></button>}
-        </nav>
+        </nav>,
+        document.body,
       )}
     </>
   );

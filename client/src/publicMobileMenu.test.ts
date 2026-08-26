@@ -24,12 +24,16 @@ describe("public mobile navigation", () => {
     expect(menuSource).toContain('onClick={() => setOpen((value) => !value)}');
     expect(menuSource).toContain('aria-expanded={open}');
     expect(menuSource).toContain('className="mobile-menu public-mobile-menu"');
+    expect(menuSource).toContain("createPortal(");
+    expect(menuSource).toContain("document.body");
     expect(identityStyles).toContain("pointer-events: auto");
     expect(identityStyles).toContain(".detail-header, .journal-article-header");
     expect(identityStyles).toContain("#root .menu-button { align-items: center; display: inline-flex !important");
     expect(identityStyles).toContain(".mobile-menu { -webkit-overflow-scrolling: touch");
     expect(identityStyles).toContain("z-index: 72");
     expect(identityStyles).toContain("z-index: 71");
+    expect(identityStyles).toContain("z-index: 1200");
+    expect(identityStyles).toContain("html:not([data-theme]) #root :is(.theme-toggle, .menu-button) { visibility: hidden; }");
   });
 
   it("returns details to the stored fleet origin on one press and home on a second quick press", () => {

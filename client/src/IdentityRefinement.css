@@ -168,13 +168,14 @@ html[data-theme="light"] #root .site-footer .footer-brand > span { color: #0a9fd
 
 /* Mobile interaction layer: keep navigation controls above visual surfaces and easy to tap. */
 @media (max-width: 760px) {
+  html:not([data-theme]) #root :is(.theme-toggle, .menu-button) { visibility: hidden; }
   html, body, #root { min-height: 100%; overflow-y: auto !important; overscroll-behavior-y: auto; touch-action: auto; }
   #root > main { touch-action: pan-y; }
   #root :is(.site-header, .fleet-browse-header, .detail-header, .journal-article-header, .public-error-header, .journal-not-found-menu) { isolation: isolate; position: relative; }
   #root .header-actions { gap: 6px !important; }
   #root .menu-button { align-items: center; display: inline-flex !important; justify-content: center; min-height: 44px; min-width: 44px; padding: 10px !important; position: relative; touch-action: manipulation; z-index: 72; }
   #root .mobile-menu { -webkit-overflow-scrolling: touch; max-height: calc(100dvh - 76px); overflow-y: auto; overscroll-behavior: contain; pointer-events: auto; touch-action: pan-y; z-index: 71; }
-  #root :is(.site-header, .fleet-browse-header, .detail-header, .journal-article-header, .public-error-header, .journal-not-found-menu) .mobile-menu { top: calc(100% + 8px); }
+  .public-mobile-menu { max-height: calc(100dvh - 88px) !important; position: fixed !important; right: 12px !important; top: calc(env(safe-area-inset-top) + 72px) !important; z-index: 1200 !important; }
   #root .mobile-menu > button { min-height: 48px; touch-action: manipulation; }
   #root .detail-header { isolation: isolate; }
   #root .detail-header-actions { gap: 6px !important; }
