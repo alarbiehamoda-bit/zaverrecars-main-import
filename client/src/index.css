@@ -3,7 +3,6 @@
  * Near-black gallery surfaces, warm ivory typography, and champagne keylines support original vehicle photography.
  */
 @import "tailwindcss";
-@import "tw-animate-css";
 @import "./mobile.css";
 
 @custom-variant dark (&:is(.dark *));
