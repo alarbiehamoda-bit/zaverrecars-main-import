@@ -26,6 +26,10 @@ describe("public mobile navigation", () => {
     expect(menuSource).toContain('className="mobile-menu public-mobile-menu"');
     expect(identityStyles).toContain("pointer-events: auto");
     expect(identityStyles).toContain(".detail-header, .journal-article-header");
+    expect(identityStyles).toContain("#root .menu-button { align-items: center; display: inline-flex !important");
+    expect(identityStyles).toContain(".mobile-menu { -webkit-overflow-scrolling: touch");
+    expect(identityStyles).toContain("z-index: 72");
+    expect(identityStyles).toContain("z-index: 71");
   });
 
   it("returns details to the stored fleet origin on one press and home on a second quick press", () => {
