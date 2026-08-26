@@ -75,6 +75,10 @@ describe("brand presentation system", () => {
     expect(styles).toContain("gap: 17px");
     expect(styles).toContain("font-size: clamp(24px, 2.35vw, 31px)");
     expect(styles).toContain("letter-spacing: .055em");
+    expect(styles).toContain("grid-template-columns: 64px minmax(0, 1fr) 64px");
+    expect(styles).toContain(".vehicle-brand-ribbon::after");
+    expect(styles).toContain("justify-items: center");
+    expect(styles).toContain("text-align: center");
   });
 
   it("gives Lamborghini, Porsche, Audi, Cadillac, and BMW a larger calibrated optical fit", () => {

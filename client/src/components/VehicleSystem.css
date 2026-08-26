@@ -62,13 +62,14 @@ html[data-theme="light"] .brand-emblem-well {
   border-radius: 14px;
   display: grid;
   gap: 17px;
-  grid-template-columns: 64px minmax(0, 1fr);
+  grid-template-columns: 64px minmax(0, 1fr) 64px;
   margin-bottom: 12px;
   min-height: 78px;
   padding: 5px 15px 5px 5px;
 }
 
-.vehicle-brand-ribbon__identity { display: grid; gap: 6px; min-width: 0; padding-block: 3px; }
+.vehicle-brand-ribbon::after { content: ""; height: 64px; width: 64px; }
+.vehicle-brand-ribbon__identity { align-content: center; display: grid; gap: 6px; justify-items: center; min-width: 0; padding-block: 3px; text-align: center; }
 .vehicle-brand-ribbon__identity strong { color: #fff0d7; font-family: "Cormorant Garamond", Georgia, serif; font-size: clamp(24px, 2.35vw, 31px); font-weight: 700; letter-spacing: .055em; line-height: .88; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .vehicle-brand-ribbon__identity i { color: #e0bc82; font-family: "Manrope", Arial, sans-serif; font-size: 8px; font-style: normal; font-weight: 800; letter-spacing: .14em; line-height: 1.1; }
 .vehicle-brand-ribbon-mark { background: transparent; border: 0; box-shadow: none; padding: 0; }
@@ -86,7 +87,8 @@ html[data-theme="light"] .vehicle-brand-ribbon__identity i { color: #74472c; }
 
 @media (max-width: 620px) {
   .fleet-browse-brand-logo.brand-emblem-well--hero { height: 96px; width: 96px; }
-  .vehicle-brand-ribbon { gap: 13px; grid-template-columns: 56px minmax(0, 1fr); min-height: 68px; padding: 4px 11px 4px 4px; }
+  .vehicle-brand-ribbon { gap: 8px; grid-template-columns: 56px minmax(0, 1fr) 56px; min-height: 68px; padding: 4px; }
+  .vehicle-brand-ribbon::after { height: 56px; width: 56px; }
   .vehicle-brand-ribbon__seal.brand-emblem-well--catalogue { height: 56px; width: 56px; }
   .vehicle-brand-ribbon__identity { gap: 4px; }
   .vehicle-brand-ribbon__identity strong { font-size: 23px; }
