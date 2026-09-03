@@ -29,7 +29,7 @@ public_route() {
   local path="$1"
   local needle="$2"
   local title="$3"
-  local body title_count og_count canonical_count
+  local body title_count og_count canonical_count image_count twitter_image_count site_name_count
   if ! fetch "$path"; then fail "$path (curl error)"; return; fi
   body="$(printf '%s' "$HTML" | awk '
     !inside { start = index($0, "<div id=\"root\">"); if (!start) next; inside = 1; $0 = substr($0, start + 15) }
@@ -38,12 +38,20 @@ public_route() {
   title_count="$(printf '%s' "$HTML" | sed 's#</head>.*##' | grep -o '<title>' | wc -l | tr -d ' ')"
   og_count="$(printf '%s' "$HTML" | sed 's#</head>.*##' | grep -o 'property="og:title"' | wc -l | tr -d ' ')"
   canonical_count="$(printf '%s' "$HTML" | sed 's#</head>.*##' | grep -o 'rel="canonical"' | wc -l | tr -d ' ')"
+  image_count="$(printf '%s' "$HTML" | sed 's#</head>.*##' | grep -o 'property="og:image"' | wc -l | tr -d ' ')"
+  twitter_image_count="$(printf '%s' "$HTML" | sed 's#</head>.*##' | grep -o 'name="twitter:image"' | wc -l | tr -d ' ')"
+  site_name_count="$(printf '%s' "$HTML" | sed 's#</head>.*##' | grep -o 'property="og:site_name"' | wc -l | tr -d ' ')"
   if [ "$CODE" = "200" ] \
     && printf '%s' "$body" | grep -qF -- "$needle" \
     && printf '%s' "$HTML" | grep -qF "<title>$title" \
     && [ "$title_count" = "1" ] \
     && [ "$og_count" = "1" ] \
     && [ "$canonical_count" = "1" ] \
+    && [ "$image_count" = "1" ] \
+    && [ "$twitter_image_count" = "1" ] \
+    && [ "$site_name_count" = "1" ] \
+    && printf '%s' "$HTML" | grep -qF 'property="og:image:width" content="1200"' \
+    && printf '%s' "$HTML" | grep -qF 'property="og:image:height" content="630"' \
     && printf '%s' "$HTML" | grep -qF 'name="twitter:card"' \
     && ! printf '%s' "$HTML" | grep -io '<meta[^>]*name=.robots.[^>]*>' | grep -qiF 'noindex' \
     && ! printf '%s' "$HTML" | grep -qF '<!--$!-->'; then

@@ -72,7 +72,7 @@ function buildHeadTags(head: SsrHead, origin: string) {
   }
   if (image) {
     const imageUrl = escapeHtml(image);
-    tags.push(`<link rel="preload" as="image" href="${imageUrl}" fetchpriority="high" />`, `<meta property="og:image" content="${imageUrl}" />`, `<meta name="twitter:image" content="${imageUrl}" />`);
+    tags.push(`<link rel="preload" as="image" href="${imageUrl}" fetchpriority="high" />`, `<meta property="og:image" content="${imageUrl}" />`, `<meta property="og:image:secure_url" content="${imageUrl}" />`, `<meta property="og:image:width" content="1200" />`, `<meta property="og:image:height" content="630" />`, `<meta property="og:image:type" content="image/png" />`, `<meta name="twitter:image" content="${imageUrl}" />`);
   }
   if (head.noindex || head.notFound) tags.push(`<meta name="robots" content="noindex, follow" />`);
   if (head.schema) tags.push(`<script id="zaverre-route-jsonld" type="application/ld+json">${JSON.stringify(head.schema).replace(/</g, "\\u003c")}</script>`);

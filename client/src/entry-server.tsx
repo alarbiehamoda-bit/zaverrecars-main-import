@@ -6,7 +6,7 @@ import superjson from "superjson";
 import { Router } from "wouter";
 import App from "./App";
 import { trpc } from "./lib/trpc";
-import { getSsrHead, type SsrHead } from "./ssr/metadata";
+import { getSsrHead, type SsrCmsData, type SsrHead } from "./ssr/metadata";
 import "./components/BrandCards.css";
 import "./components/HomeVideoFeature.css";
 import "./index.css";
@@ -31,7 +31,7 @@ export async function render(url: string, origin: string, publicData?: SsrPublic
   const ssrPath = splitAt === -1 ? url : url.slice(0, splitAt);
   const ssrSearch = splitAt === -1 ? "" : url.slice(splitAt + 1);
   const trpcClient = trpc.createClient({ links: [httpBatchLink({ url: "/api/trpc", transformer: superjson })] });
-  const head = getSsrHead(url, origin);
+  const head = getSsrHead(url, origin, publicData?.cms as SsrCmsData | undefined);
   if (publicData) {
     queryClient.setQueryData(getQueryKey(trpc.cms.public, undefined, "query"), publicData.cms);
     queryClient.setQueryData(getQueryKey(trpc.vehicle.publicContent, undefined, "query"), publicData.vehicleContent);

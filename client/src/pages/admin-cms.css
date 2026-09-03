@@ -23,3 +23,17 @@
 .booking-record-meta span { align-items: center; display: inline-flex; gap: 5px; }
 .booking-record-list select { min-width: 130px; }
 @media (max-width: 720px) { .admin-cms-page { padding: 18px 14px; }.admin-cms-grid { grid-template-columns: 1fr; }.admin-cms-wide { grid-column: auto; }.admin-panel-heading, .admin-record-list article, .booking-record-list article { align-items: flex-start; flex-direction: column; }.admin-record-list article > div:last-child { width: 100%; }.admin-record-list article > div:last-child button { flex: 1; justify-content: center; }.booking-record-list select { width: 100%; } }
+
+.sharing-preview-layout { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(280px, .85fr); gap: 1.25rem; align-items: start; }
+.sharing-preview-actions { display: flex; gap: .6rem; flex-wrap: wrap; justify-content: flex-end; }
+.sharing-page-editor { display: grid; gap: .75rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid color-mix(in srgb, currentColor 15%, transparent); }
+.sharing-add-page { display: flex; gap: .5rem; align-items: center; }
+.sharing-add-page input { flex: 1; }
+.sharing-preview-card { overflow: hidden; border: 1px solid color-mix(in srgb, currentColor 18%, transparent); border-radius: 1rem; background: #fff; color: #14171c; box-shadow: 0 18px 45px rgba(20, 23, 28, .14); }
+.sharing-preview-card img { display: block; width: 100%; aspect-ratio: 1200 / 630; object-fit: cover; background: #14171c; }
+.sharing-preview-card-body { display: grid; gap: .35rem; padding: .9rem 1rem 1rem; }
+.sharing-preview-logo { width: 34px !important; height: 34px; aspect-ratio: 1; object-fit: contain !important; border-radius: 8px; background: #14171c; padding: 5px; }
+.sharing-preview-card-body span, .sharing-preview-card-body small { color: #87817a; font-size: .72rem; }
+.sharing-preview-card-body strong { font-size: 1rem; line-height: 1.25; }
+.sharing-preview-card-body p { margin: 0; color: #4b4b48; font-size: .82rem; line-height: 1.45; }
+@media (max-width: 760px) { .sharing-preview-layout { grid-template-columns: 1fr; } .sharing-preview-actions { justify-content: flex-start; } }

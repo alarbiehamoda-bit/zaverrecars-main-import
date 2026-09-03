@@ -3,6 +3,7 @@ import { vehicleCatalog } from "@/config/vehicleCatalog";
 import { brand } from "@/config/brand";
 import { brandFromRouteSlug, categoryFromRouteSlug } from "@/lib/fleetRoutes";
 import { vehicleFromSlug } from "@/lib/vehicleDetail";
+import { defaultSharingPreview, type SharingPreviewSettings } from "@/lib/sharingPreview";
 
 const siteName = "ZAVERRE";
 const fallbackDescription = "Explore ZAVERRE's curated luxury car rental collection in Dubai, including exotic cars, performance SUVs and direct availability enquiries.";
@@ -11,104 +12,44 @@ function dubaiAutoRentalSchema(url: string) {
   return {
     "@context": "https://schema.org",
     "@graph": [
-      {
-        "@type": "AutoRental",
-        "@id": `${url}#auto-rental`,
-        name: siteName,
-        url,
-        image: brand.heroTexture,
-        description: fallbackDescription,
-        areaServed: { "@type": "City", name: "Dubai" },
-        knowsAbout: ["Luxury car rental", "Exotic car rental", "Supercar rental"],
-        priceRange: "AED",
-      },
+      { "@type": "AutoRental", "@id": `${url}#auto-rental`, name: siteName, url, image: brand.heroTexture, description: fallbackDescription, areaServed: { "@type": "City", name: "Dubai" }, knowsAbout: ["Luxury car rental", "Exotic car rental", "Supercar rental"], priceRange: "AED" },
       { "@type": "WebSite", "@id": `${url}#website`, name: siteName, url, inLanguage: "en" },
     ],
   };
 }
 
-export type RouteSeo = {
-  title: string;
-  description: string;
-  image?: string;
-  noindex?: boolean;
-  schema?: Record<string, unknown>;
-};
+export type RouteSeo = { title: string; description: string; image?: string; noindex?: boolean; schema?: Record<string, unknown> };
 
-export function getRouteSeo(pathname: string, origin: string): RouteSeo {
+export function getRouteSeo(pathname: string, origin: string, sharing?: SharingPreviewSettings): RouteSeo {
   const path = pathname === "/" ? "/" : pathname.replace(/\/+$/, "");
   const url = `${origin}${path}`;
-  if (path === "/") {
-    return {
-      title: "Luxury Car Rental Dubai | Exotic & Supercars | ZAVERRE",
-      description: fallbackDescription,
-      image: brand.heroTexture,
-      schema: dubaiAutoRentalSchema(url),
-    };
-  }
-  if (path === "/cars") {
-    return {
-      title: "Luxury & Exotic Cars for Rent in Dubai | ZAVERRE",
-      description: "Browse ZAVERRE's current luxury cars, performance SUVs, convertibles and exotic cars for rental enquiries in Dubai.",
-      schema: { "@context": "https://schema.org", "@type": "CollectionPage", name: "ZAVERRE Car Collection", url },
-    };
-  }
+  const sharingDefaults = sharing ?? defaultSharingPreview;
+  const applySharing = (seo: RouteSeo): RouteSeo => {
+    if (seo.noindex) return seo;
+    const pageOverride = sharingDefaults.pages[path];
+    return { ...seo, title: pageOverride?.title || (path === "/" ? sharingDefaults.projectTitle : seo.title), description: pageOverride?.description || (path === "/" ? sharingDefaults.projectDescription : seo.description), image: pageOverride?.imageUrl || sharingDefaults.projectImageUrl || seo.image || defaultSharingPreview.projectImageUrl };
+  };
+
+  if (path === "/") return applySharing({ title: "Luxury Car Rental Dubai | Exotic & Supercars | ZAVERRE", description: fallbackDescription, image: brand.heroTexture, schema: dubaiAutoRentalSchema(url) });
+  if (path === "/cars") return applySharing({ title: "Luxury & Exotic Cars for Rent in Dubai | ZAVERRE", description: "Browse ZAVERRE's current luxury cars, performance SUVs, convertibles and exotic cars for rental enquiries in Dubai.", schema: { "@context": "https://schema.org", "@type": "CollectionPage", name: "ZAVERRE Car Collection", url } });
   if (path.startsWith("/cars/category/")) {
     const category = categoryFromRouteSlug(path.slice("/cars/category/".length));
-    if (category) {
-      return {
-        title: `${category.label} for Rent in Dubai | ZAVERRE`,
-        description: `Browse the current ZAVERRE collection of ${category.label.toLowerCase()} available for direct rental enquiries in Dubai.`,
-        schema: { "@context": "https://schema.org", "@type": "CollectionPage", name: `ZAVERRE ${category.label}`, url },
-      };
-    }
+    if (category) return applySharing({ title: `${category.label} for Rent in Dubai | ZAVERRE`, description: `Browse the current ZAVERRE collection of ${category.label.toLowerCase()} available for direct rental enquiries in Dubai.`, schema: { "@context": "https://schema.org", "@type": "CollectionPage", name: `ZAVERRE ${category.label}`, url } });
   }
   if (path.startsWith("/cars/")) {
-    const brand = brandFromRouteSlug(path.slice("/cars/".length));
-    if (brand) {
-      return {
-        title: `${brand} Rental in Dubai | ZAVERRE`,
-        description: `Browse the current ZAVERRE ${brand} collection and enquire directly about availability and daily rental details in Dubai.`,
-        schema: { "@context": "https://schema.org", "@type": "CollectionPage", name: `ZAVERRE ${brand} Collection`, url },
-      };
-    }
+    const brandName = brandFromRouteSlug(path.slice("/cars/".length));
+    if (brandName) return applySharing({ title: `${brandName} Rental in Dubai | ZAVERRE`, description: `Browse the current ZAVERRE ${brandName} collection and enquire directly about availability and daily rental details in Dubai.`, schema: { "@context": "https://schema.org", "@type": "CollectionPage", name: `ZAVERRE ${brandName} Collection`, url } });
   }
   if (path.startsWith("/fleet/")) {
     const vehicle = vehicleFromSlug(path.slice("/fleet/".length));
     if (vehicle) {
       const description = vehicle.description || `${vehicle.fullName} is available from ZAVERRE for a direct luxury car rental enquiry in Dubai.`;
-      return {
-        title: `${vehicle.fullName} Rental in Dubai | ZAVERRE`,
-        description,
-        image: vehicle.image,
-        schema: {
-          "@context": "https://schema.org",
-          "@type": "Product",
-          name: vehicle.fullName,
-          description,
-          image: toAbsoluteUrl(vehicle.image, origin),
-          category: vehicle.category,
-          url,
-          offers: {
-            "@type": "Offer",
-            priceCurrency: "AED",
-            price: vehicle.priceAedPerDay,
-            url,
-          },
-        },
-      };
+      return applySharing({ title: `${vehicle.fullName} Rental in Dubai | ZAVERRE`, description, image: vehicle.image, schema: { "@context": "https://schema.org", "@type": "Product", name: vehicle.fullName, description, image: toAbsoluteUrl(vehicle.image, origin), category: vehicle.category, url, offers: { "@type": "Offer", priceCurrency: "AED", price: vehicle.priceAedPerDay, url } } });
     }
   }
   if (path.startsWith("/journal/")) {
     const article = journalArticles.find((item) => item.slug === path.slice("/journal/".length));
-    if (article) {
-      return {
-        title: `${article.title} | ZAVERRE Journal`,
-        description: article.summary,
-        image: article.image,
-        schema: { "@context": "https://schema.org", "@type": "BlogPosting", headline: article.title, description: article.summary, image: toAbsoluteUrl(article.image, origin), mainEntityOfPage: url, publisher: { "@type": "Organization", name: siteName, url: origin } },
-      };
-    }
+    if (article) return applySharing({ title: `${article.title} | ZAVERRE Journal`, description: article.summary, image: article.image, schema: { "@context": "https://schema.org", "@type": "BlogPosting", headline: article.title, description: article.summary, image: toAbsoluteUrl(article.image, origin), mainEntityOfPage: url, publisher: { "@type": "Organization", name: siteName, url: origin } } });
   }
   if (path.startsWith("/admin")) return { title: "ZAVERRE Management", description: "Protected ZAVERRE management area.", noindex: true };
   return { title: "Page not found | ZAVERRE", description: fallbackDescription, noindex: true };
