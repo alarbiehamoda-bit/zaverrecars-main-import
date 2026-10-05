@@ -64,8 +64,8 @@ export default function FleetBrowse() {
 
   const selectBrand = (brandName: string) => navigate(brandName === "All" ? "/cars" : `/cars/${brandRouteSlug(brandName)}`);
   const openBookingIntent = (vehicle?: Vehicle) => setBookingTarget(vehicle
-    ? { label: vehicle.fullName, message: `Hello ZAVERRE, I would like to reserve the ${vehicle.fullName}. Please confirm availability and the final daily rate.` }
-    : { label: "the ZAVERRE collection", message: "Hello ZAVERRE, I would like to enquire about the fleet. Please share availability and rental details." });
+    ? { label: vehicle.fullName, vehicleKey: vehicle.id, message: `Hello ZAVERRE, I would like to reserve the ${vehicle.fullName}. Please confirm availability and the final daily rate.` }
+    : { label: "the ZAVERRE collection", vehicleKey: "collection", message: "Hello ZAVERRE, I would like to enquire about the fleet. Please share availability and rental details." });
   const openVehicleDetails = (vehicle: Vehicle) => {
     const target: FleetReturnTarget = { fleetPath, vehicleId: vehicle.id };
     window.sessionStorage.setItem(fleetReturnStorageKey, JSON.stringify(target));

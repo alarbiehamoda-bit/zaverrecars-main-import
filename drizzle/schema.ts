@@ -91,7 +91,7 @@ export const bookingEnquiries = mysqlTable("bookingEnquiries", {
   id: int("id").autoincrement().primaryKey(),
   vehicleKey: varchar("vehicleKey", { length: 64 }).notNull(),
   fullName: varchar("fullName", { length: 255 }).notNull(),
-  phone: varchar("phone", { length: 80 }).notNull(),
+  phone: varchar("phone", { length: 80 }),
   email: varchar("email", { length: 320 }),
   pickupDate: varchar("pickupDate", { length: 32 }),
   returnDate: varchar("returnDate", { length: 32 }),
@@ -99,9 +99,20 @@ export const bookingEnquiries = mysqlTable("bookingEnquiries", {
   deliveryRequired: boolean("deliveryRequired").default(false).notNull(),
   driverAge: int("driverAge"),
   notes: text("notes"),
-  status: mysqlEnum("status", ["new", "contacted", "closed"]).default("new").notNull(),
+  status: mysqlEnum("status", ["new", "contacted", "qualified", "converted", "closed", "lost"]).default("new").notNull(),
+  source: varchar("source", { length: 64 }).default("website").notNull(),
+  trackingId: varchar("trackingId", { length: 64 }).unique(),
+  landingPath: varchar("landingPath", { length: 512 }),
+  utmSource: varchar("utmSource", { length: 160 }),
+  utmMedium: varchar("utmMedium", { length: 160 }),
+  utmCampaign: varchar("utmCampaign", { length: 160 }),
+  utmTerm: varchar("utmTerm", { length: 160 }),
+  utmContent: varchar("utmContent", { length: 160 }),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
-});
+}, (table) => [
+  index("bookingEnquiries_status_created_idx").on(table.status, table.createdAt),
+  index("bookingEnquiries_vehicle_idx").on(table.vehicleKey),
+]);
 
 /** Immutable operational history for administrator-initiated actions. */
 export const adminActivityLog = mysqlTable("adminActivityLog", {

@@ -492,8 +492,8 @@ export async function getAdminOperationsSnapshot() {
   return {
     metrics: {
       newBookings: bookings.filter((entry) => entry.status === "new").length,
-      activeBookings: bookings.filter((entry) => entry.status === "contacted").length,
-      closedBookings: bookings.filter((entry) => entry.status === "closed").length,
+      activeBookings: bookings.filter((entry) => ["contacted", "qualified"].includes(entry.status)).length,
+      closedBookings: bookings.filter((entry) => ["closed", "lost", "converted"].includes(entry.status)).length,
       visibleBrands: brands.filter((entry) => entry.isVisible).length,
       hiddenBrands: brands.filter((entry) => !entry.isVisible).length,
       vehicleOverrides: vehicles.length,
@@ -519,14 +519,15 @@ export async function getPublicCmsContent() {
 
 export async function getAdminCmsSnapshot() {
   const db = await getDb();
-  if (!db) return { settings: [], journal: [], faqs: [], bookings: [] };
-  const [settings, journal, faqs, bookings] = await Promise.all([
+  if (!db) return { settings: [], journal: [], faqs: [], bookings: [], leadActivity: [] };
+  const [settings, journal, faqs, bookings, leadActivity] = await Promise.all([
     db.select().from(contentSettings),
     db.select().from(journalEntries).orderBy(asc(journalEntries.sortOrder), asc(journalEntries.id)),
     db.select().from(siteFaqEntries).orderBy(asc(siteFaqEntries.sortOrder), asc(siteFaqEntries.id)),
     db.select().from(bookingEnquiries).orderBy(desc(bookingEnquiries.createdAt), desc(bookingEnquiries.id)),
+    db.select().from(adminActivityLog).where(eq(adminActivityLog.subjectType, "lead")).orderBy(desc(adminActivityLog.createdAt), desc(adminActivityLog.id)).limit(200),
   ]);
-  return { settings, journal, faqs, bookings };
+  return { settings, journal, faqs, bookings, leadActivity };
 }
 
 export async function upsertContentSetting(values: typeof contentSettings.$inferInsert) {
@@ -584,7 +585,7 @@ export async function deleteSiteFaq(id: number) {
   await db.delete(siteFaqEntries).where(eq(siteFaqEntries.id, id));
 }
 
-export async function updateBookingStatus(id: number, status: "new" | "contacted" | "closed") {
+export async function updateBookingStatus(id: number, status: "new" | "contacted" | "qualified" | "converted" | "closed" | "lost") {
   const db = await getDb();
   if (!db) throw new Error("Database is not available");
   await db.update(bookingEnquiries).set({ status }).where(eq(bookingEnquiries.id, id));

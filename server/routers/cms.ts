@@ -127,10 +127,10 @@ export const cmsRouter = router({
         await recordAdminActivity({ actorUserId: ctx.user.id, action: "faq.deleted", subjectType: "faq", subjectKey: String(input.id) });
       }),
     updateBookingStatus: adminProcedure
-      .input(z.object({ id: z.number().int().positive(), status: z.enum(["new", "contacted", "closed"]) }))
+      .input(z.object({ id: z.number().int().positive(), status: z.enum(["new", "contacted", "qualified", "converted", "closed", "lost"]) }))
       .mutation(async ({ ctx, input }) => {
         await updateBookingStatus(input.id, input.status);
-        await recordAdminActivity({ actorUserId: ctx.user.id, action: "booking.status.updated", subjectType: "booking", subjectKey: String(input.id), detailsJson: JSON.stringify({ status: input.status }) });
+        await recordAdminActivity({ actorUserId: ctx.user.id, action: "lead.status.updated", subjectType: "lead", subjectKey: String(input.id), detailsJson: JSON.stringify({ status: input.status }) });
       }),
   }),
 });

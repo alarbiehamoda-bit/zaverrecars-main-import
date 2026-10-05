@@ -64,7 +64,7 @@ describe("unified vehicle system safeguards", () => {
     expect(detailSource).toContain("detail-related-master-card");
   });
 
-  it("routes booking actions through optional intent details that open direct WhatsApp without storing a request", () => {
+  it("routes booking actions through the shared lead-aware WhatsApp intent dialog", () => {
     expect(homeSource).not.toContain('id="booking"');
     expect(homeSource).toContain("const openGeneralEnquiry");
     expect(homeSource).toContain("BookingIntentDialog");

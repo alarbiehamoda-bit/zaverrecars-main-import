@@ -83,9 +83,9 @@ export default function Home() {
     .map((id) => vehicleCatalog.find((vehicle) => vehicle.id === id))
     .filter((vehicle): vehicle is Vehicle => Boolean(vehicle)), [featuredOrder, vehicleCatalog]);
 
-  const openGeneralEnquiry = () => setBookingTarget({ label: "the ZAVERRE collection", message: "Hello ZAVERRE, I would like to enquire about the collection. Please share availability and rental details." });
+  const openGeneralEnquiry = () => setBookingTarget({ label: "the ZAVERRE collection", vehicleKey: "collection", message: "Hello ZAVERRE, I would like to enquire about the collection. Please share availability and rental details." });
   const openBooking = (vehicle: Vehicle) => {
-    setBookingTarget({ label: vehicle.fullName, message: vehicleMessage(vehicle) });
+    setBookingTarget({ label: vehicle.fullName, vehicleKey: vehicle.id, message: vehicleMessage(vehicle) });
   };
 
   const scrollTo = (id: string) => {

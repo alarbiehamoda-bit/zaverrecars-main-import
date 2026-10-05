@@ -238,7 +238,7 @@ export default function VehicleDetail() {
       navigate(originPath(), { replace: true });
     }, 420);
   };
-  const openBookingIntent = (target: Vehicle = vehicle!) => setBookingTarget({ label: target.fullName, message: safeMessage(target) });
+  const openBookingIntent = (target: Vehicle = vehicle!) => setBookingTarget({ label: target.fullName, vehicleKey: target.id, message: safeMessage(target) });
 
   if (!vehicle || !publicPrice) {
     return (

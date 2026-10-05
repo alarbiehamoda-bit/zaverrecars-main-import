@@ -17,8 +17,10 @@ import { sendBookingEmail } from "../bookingEmail";
 import { adminProcedure, publicProcedure, router } from "../_core/trpc";
 import { notifyOwner } from "../_core/notification";
 import { storagePut } from "../storage";
+import { nanoid } from "nanoid";
 
 const vehicleKey = z.string().regex(/^vehicle-\d{3}$/);
+const leadVehicleKey = vehicleKey.or(z.literal("collection"));
 const nullableText = z.string().max(50000).nullable().optional();
 const nullableShortText = z.string().trim().max(255).nullable().optional();
 
@@ -36,9 +38,9 @@ export const vehicleRouter = router({
   createBooking: publicProcedure
     .input(
       z.object({
-        vehicleKey,
+        vehicleKey: leadVehicleKey,
         fullName: z.string().trim().min(2).max(255),
-        phone: z.string().trim().min(4).max(80),
+        phone: z.string().trim().min(4).max(80).optional(),
         email: z.string().trim().email().max(320).optional().or(z.literal("")),
         pickupDate: z.string().max(32).optional(),
         returnDate: z.string().max(32).optional(),
@@ -46,21 +48,38 @@ export const vehicleRouter = router({
         deliveryRequired: z.boolean().default(false),
         driverAge: z.number().int().min(18).max(100).optional(),
         notes: z.string().trim().max(5000).optional(),
+        source: z.string().trim().min(2).max(64).default("website"),
+        landingPath: z.string().trim().max(512).optional(),
+        utmSource: z.string().trim().max(160).optional(),
+        utmMedium: z.string().trim().max(160).optional(),
+        utmCampaign: z.string().trim().max(160).optional(),
+        utmTerm: z.string().trim().max(160).optional(),
+        utmContent: z.string().trim().max(160).optional(),
       }),
     )
     .mutation(async ({ input }) => {
+      const trackingId = `ZVR-${nanoid(10).toUpperCase()}`;
       const id = await createBookingEnquiry({
         ...input,
+        trackingId,
         email: input.email || null,
+        phone: input.phone || null,
         pickupDate: input.pickupDate || null,
         returnDate: input.returnDate || null,
         pickupLocation: input.pickupLocation || null,
         notes: input.notes || null,
+        landingPath: input.landingPath || null,
+        utmSource: input.utmSource || null,
+        utmMedium: input.utmMedium || null,
+        utmCampaign: input.utmCampaign || null,
+        utmTerm: input.utmTerm || null,
+        utmContent: input.utmContent || null,
       });
+      await recordAdminActivity({ actorUserId: null, action: "lead.created", subjectType: "lead", subjectKey: trackingId, detailsJson: JSON.stringify({ id, vehicleKey: input.vehicleKey, source: input.source }) });
       try {
         await notifyOwner({
-          title: `New ZAVERRE booking request · ${input.vehicleKey}`,
-          content: `${input.fullName} · ${input.phone}${input.pickupDate ? ` · pickup ${input.pickupDate}` : ""}`,
+          title: `New ZAVERRE lead · ${input.vehicleKey}`,
+          content: `${input.fullName} · ${input.phone || "WhatsApp contact"}${input.pickupDate ? ` · pickup ${input.pickupDate}` : ""} · ${trackingId}`,
         });
       } catch (error) {
         console.warn("[booking] owner notification failed after the enquiry was saved", error);
@@ -70,7 +89,7 @@ export const vehicleRouter = router({
       } catch (error) {
         console.warn("[booking] email notification failed after the enquiry was saved", error);
       }
-      return { id };
+      return { id, trackingId };
     }),
   admin: router({
     get: adminProcedure.input(z.object({ vehicleKey })).query(({ input }) =>

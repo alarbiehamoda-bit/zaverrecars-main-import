@@ -5,11 +5,12 @@ import { describe, expect, it } from "vitest";
 const source = readFileSync(resolve(process.cwd(), "client/src/components/BookingIntentDialog.tsx"), "utf8");
 
 describe("booking intent dialog", () => {
-  it("passes optional dates and location directly to WhatsApp without a stored mutation", () => {
+  it("captures the lead before opening WhatsApp and includes a tracking reference", () => {
     expect(source).toContain("CONTINUE TO WHATSAPP");
     expect(source).toContain("window.open");
-    expect(source).toContain("not stored by this form");
-    expect(source).not.toContain("trpc.");
-    expect(source).not.toContain("localStorage");
+    expect(source).toContain("trpc.vehicle.createBooking.useMutation");
+    expect(source).toContain("trackingId");
+    expect(source).toContain("utmCampaign");
+    expect(source).toContain("vehicleKey: subject.vehicleKey");
   });
 });

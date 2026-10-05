@@ -57,6 +57,13 @@
       "when": 1787556963441,
       "tag": "0007_brave_rictor",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1791162260802,
+      "tag": "0008_loving_chronomancer",
+      "breakpoints": true
     }
   ]
 }

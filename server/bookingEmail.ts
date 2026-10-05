@@ -6,7 +6,7 @@ const BOOKING_RECIPIENT = "zaverrecars@gmail.com";
 export type BookingEmailInput = {
   vehicleKey: string;
   fullName: string;
-  phone: string;
+  phone?: string | null;
   email?: string | null;
   pickupDate?: string | null;
   returnDate?: string | null;
