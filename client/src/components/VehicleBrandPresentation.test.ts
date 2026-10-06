@@ -5,6 +5,7 @@ const component = readFileSync(new URL("./VehicleSystem.tsx", import.meta.url), 
 const styles = readFileSync(new URL("./VehicleSystem.css", import.meta.url), "utf8");
 const filterStyles = readFileSync(new URL("./BrandCards.css", import.meta.url), "utf8");
 const brandSystemStyles = readFileSync(new URL("./BrandSystem.css", import.meta.url), "utf8");
+const identityStyles = readFileSync(new URL("../IdentityRefinement.css", import.meta.url), "utf8");
 const homeSource = readFileSync(new URL("../pages/Home.tsx", import.meta.url), "utf8");
 
 const marques = ["Lamborghini", "Maserati", "Ferrari", "McLaren", "Mercedes-Benz", "Porsche", "Rolls-Royce", "Range Rover", "Audi", "BMW", "Bentley", "Aston Martin", "Cadillac", "Brabus", "Mansory"];
@@ -79,6 +80,12 @@ describe("brand presentation system", () => {
     expect(styles).toContain(".vehicle-brand-ribbon::after");
     expect(styles).toContain("justify-items: center");
     expect(styles).toContain("text-align: center");
+  });
+
+  it("keeps the catalogue marque ribbon compact without losing its centered three-column balance", () => {
+    expect(identityStyles).toContain("grid-template-columns: 48px minmax(0, 1fr) 48px");
+    expect(identityStyles).toContain("min-height: 58px");
+    expect(identityStyles).toContain("margin-inline: 4px");
   });
 
   it("gives Lamborghini, Porsche, Audi, Cadillac, and BMW a larger calibrated optical fit", () => {

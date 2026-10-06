@@ -16,4 +16,11 @@ describe("public brand lockups", () => {
     expect(styles).toContain(".brand-lockup { pointer-events: none;");
     expect(identityStyles).toContain("#root .detail-header .brand-lockup { min-height: 44px; pointer-events: none !important;");
   });
+
+  it("keeps the pre-coloured light monogram free from recolouring and aspect distortion", () => {
+    expect(identityStyles).toContain('html[data-theme="light"] :is(.site-header, .fleet-browse-header, .detail-header) .brand-lockup .zaverre-mark.brand-mark');
+    expect(identityStyles).toContain("filter: none !important");
+    expect(identityStyles).toContain("aspect-ratio: 1 / 1");
+    expect(identityStyles).toContain("object-fit: contain !important");
+  });
 });
