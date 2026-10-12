@@ -37,14 +37,14 @@ describe("vehicle detail helpers", () => {
     expect(featuredVehicleIds.every((id) => vehicleCatalog.some((vehicle) => vehicle.id === id))).toBe(true);
   });
 
-  it("uses public prices from verified source records and confirmed August pricing overrides", () => {
+  it("uses public prices from verified source records and the ZAVERRE catalogue", () => {
     const vantage = vehicleCatalog.find((vehicle) => vehicle.fullName === "Aston Martin Vantage");
     const ferrari296 = vehicleCatalog.find((vehicle) => vehicle.fullName === "Ferrari 296 GTS Spyder");
     const rangeRover = vehicleCatalog.find((vehicle) => vehicle.brand === "Range Rover");
-    expect(vantage?.priceAedPerDay).toBe(1750);
+    expect(vantage?.priceAedPerDay).toBe(1800);
     expect(vantage?.priceSource).toBe("uploaded-workbook");
     expect(vantage?.image).toMatch(/^https:\/\/cdn\.sanity\.io\//);
-    expect(ferrari296?.priceAedPerDay).toBe(3950);
+    expect(ferrari296?.priceAedPerDay).toBe(4000);
     expect(ferrari296?.specifications).toContainEqual({ label: "Power", value: "819 horsepower" });
     expect(rangeRover?.priceAedPerDay).toBeGreaterThan(0);
     expect(rangeRover?.specifications.some((specification) => specification.label === "Year" && specification.value.length > 0)).toBe(true);
