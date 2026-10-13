@@ -15,7 +15,7 @@ export const workbookFleetEntries = [
       "offsetX": 0,
       "offsetY": 0
     },
-    "priceAedPerDay": 2500,
+    "priceAedPerDay": 2200,
     "specifications": [
       {
         "label": "Engine",
@@ -157,7 +157,7 @@ export const workbookFleetEntries = [
       "offsetX": 0,
       "offsetY": 0
     },
-    "priceAedPerDay": 2200,
+    "priceAedPerDay": 1800,
     "specifications": [
       {
         "label": "0–100 km/h",
@@ -296,7 +296,7 @@ export const workbookFleetEntries = [
       "offsetX": 0,
       "offsetY": 0
     },
-    "priceAedPerDay": 1550,
+    "priceAedPerDay": 1200,
     "specifications": [
       {
         "label": "Engine",
@@ -438,7 +438,7 @@ export const workbookFleetEntries = [
       "offsetX": 0,
       "offsetY": 0
     },
-    "priceAedPerDay": 2000,
+    "priceAedPerDay": 1800,
     "specifications": [
       {
         "label": "Engine",
@@ -509,7 +509,7 @@ export const workbookFleetEntries = [
       "offsetX": 0,
       "offsetY": 0
     },
-    "priceAedPerDay": 1500,
+    "priceAedPerDay": 1200,
     "specifications": [
       {
         "label": "Engine",
@@ -580,7 +580,7 @@ export const workbookFleetEntries = [
       "offsetX": 0,
       "offsetY": 0
     },
-    "priceAedPerDay": 2200,
+    "priceAedPerDay": 2000,
     "specifications": [
       {
         "label": "Engine",
@@ -652,7 +652,7 @@ export const workbookFleetEntries = [
       "offsetX": 0,
       "offsetY": 0
     },
-    "priceAedPerDay": 2200,
+    "priceAedPerDay": 2000,
     "specifications": [
       {
         "label": "Engine",
@@ -724,7 +724,7 @@ export const workbookFleetEntries = [
       "offsetX": 0,
       "offsetY": 0
     },
-    "priceAedPerDay": 4500,
+    "priceAedPerDay": 4000,
     "specifications": [
       {
         "label": "0–100 km/h",
@@ -928,7 +928,7 @@ export const workbookFleetEntries = [
       "offsetX": 0,
       "offsetY": 0
     },
-    "priceAedPerDay": 1300,
+    "priceAedPerDay": 1200,
     "specifications": [
       {
         "label": "Engine",
@@ -1213,7 +1213,7 @@ export const workbookFleetEntries = [
       "offsetX": 0,
       "offsetY": 0
     },
-    "priceAedPerDay": 1450,
+    "priceAedPerDay": 1500,
     "specifications": [
       {
         "label": "0–100 km/h",
@@ -1348,7 +1348,7 @@ export const workbookFleetEntries = [
       "offsetX": 0,
       "offsetY": 0
     },
-    "priceAedPerDay": 1150,
+    "priceAedPerDay": 1300,
     "specifications": [
       {
         "label": "Engine",
@@ -1419,7 +1419,7 @@ export const workbookFleetEntries = [
       "offsetX": 0,
       "offsetY": 0
     },
-    "priceAedPerDay": 1650,
+    "priceAedPerDay": 1500,
     "specifications": [
       {
         "label": "Engine",
@@ -2216,7 +2216,7 @@ export const workbookFleetEntries = [
       "offsetX": 0,
       "offsetY": 0
     },
-    "priceAedPerDay": 9000,
+    "priceAedPerDay": 8000,
     "specifications": [
       {
         "label": "Engine",
@@ -2504,7 +2504,7 @@ export const workbookFleetEntries = [
       "offsetX": 0,
       "offsetY": 0
     },
-    "priceAedPerDay": 3000,
+    "priceAedPerDay": 3300,
     "specifications": [
       {
         "label": "Engine",
@@ -2576,7 +2576,7 @@ export const workbookFleetEntries = [
       "offsetX": 0,
       "offsetY": 0
     },
-    "priceAedPerDay": 3000,
+    "priceAedPerDay": 3300,
     "specifications": [
       {
         "label": "Engine",
@@ -2720,7 +2720,7 @@ export const workbookFleetEntries = [
       "offsetX": 0,
       "offsetY": 0
     },
-    "priceAedPerDay": 3000,
+    "priceAedPerDay": 3300,
     "specifications": [
       {
         "label": "Engine",
@@ -4791,7 +4791,7 @@ export const workbookFleetEntries = [
       "offsetX": 0,
       "offsetY": 0
     },
-    "priceAedPerDay": 1000,
+    "priceAedPerDay": 1300,
     "specifications": [
       {
         "label": "Engine",
@@ -5005,7 +5005,7 @@ export const workbookFleetEntries = [
       "offsetX": 0,
       "offsetY": 0
     },
-    "priceAedPerDay": 2500,
+    "priceAedPerDay": 2200,
     "specifications": [
       {
         "label": "Engine",
@@ -5780,7 +5780,7 @@ export const workbookFleetEntries = [
       "offsetX": 0,
       "offsetY": 0
     },
-    "priceAedPerDay": 3500,
+    "priceAedPerDay": 3000,
     "specifications": [
       {
         "label": "0–100 km/h",
@@ -6275,7 +6275,7 @@ export const workbookFleetEntries = [
       "offsetX": 0,
       "offsetY": 0
     },
-    "priceAedPerDay": 2500,
+    "priceAedPerDay": 2000,
     "specifications": [
       {
         "label": "Engine",

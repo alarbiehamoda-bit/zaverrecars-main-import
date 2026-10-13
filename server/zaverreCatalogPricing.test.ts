@@ -7,7 +7,7 @@ describe("ZAVERRE catalogue pricing", () => {
   it("applies the attached catalogue prices to the matched flagship vehicles", () => {
     expect(price("Lamborghini Revuelto")).toBe(11000);
     expect(price("Ferrari Purosangue Novitec")).toBe(10000);
-    expect(price("Mercedes-Benz AMG GT63 Coupe")).toBe(2500);
+    expect(price("Mercedes-Benz AMG GT63 Coupe")).toBe(2200);
     expect(price("Porsche 911 GT3 RS")).toBe(6500);
     expect(price("Rolls-Royce Cullinan Mansory")).toBe(5500);
   });
