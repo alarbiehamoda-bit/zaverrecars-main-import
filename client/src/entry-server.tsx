@@ -15,6 +15,7 @@ import "./ThemeConsistency.css";
 import "./performancePresentation.css";
 import "./IdentityRefinement.css";
 import "./DesignCompletion.css";
+import "./VisualPolish.css";
 import type { Theme } from "./contexts/ThemeContext";
 
 export type SsrRenderResult = { html: string; dehydratedState: unknown; head: SsrHead };

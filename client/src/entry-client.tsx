@@ -16,6 +16,7 @@ import "./ThemeConsistency.css";
 import "./performancePresentation.css";
 import "./IdentityRefinement.css";
 import "./DesignCompletion.css";
+import "./VisualPolish.css";
 
 const queryClient = new QueryClient({ defaultOptions: { queries: { staleTime: 30_000 } } });
 const cookieTheme = document.cookie.split(";").map((item) => item.trim()).find((item) => item.startsWith(`${THEME_COOKIE}=`))?.slice(THEME_COOKIE.length + 1) as Theme | undefined;
