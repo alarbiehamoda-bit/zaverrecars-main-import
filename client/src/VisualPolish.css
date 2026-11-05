@@ -518,3 +518,53 @@ html[data-theme="light"] #root :is(
   color: #3b2c23 !important;
   stroke: #3b2c23 !important;
 }
+
+/* Final light-surface contrast pass for detail headings and icon-led copy. */
+html[data-theme="light"] #root :is(
+  .vehicle-detail-page .detail-section-heading h2,
+  .vehicle-detail-page .detail-booking-section h2,
+  .vehicle-detail-page .detail-final-cta h2,
+  .vehicle-detail-page .detail-faq-item button,
+  .vehicle-detail-page .detail-description,
+  .vehicle-detail-page .detail-feature-grid span,
+  .vehicle-detail-page .detail-spec-grid--iconic dt,
+  .vehicle-detail-page .detail-spec-grid--iconic dd,
+  .vehicle-detail-page .detail-rental-grid dt,
+  .vehicle-detail-page .detail-rental-grid dd,
+  .vehicle-detail-page .detail-price-panel > p,
+  .vehicle-detail-page .detail-price-panel > small,
+  .vehicle-detail-page .detail-price-panel > span,
+  .vehicle-detail-page .detail-price-duration span,
+  .vehicle-detail-page .detail-price-duration b,
+  .vehicle-detail-page .detail-booking-form label,
+  .vehicle-detail-page .detail-booking-section > div > p:last-child,
+  .vehicle-detail-page .detail-faq-item p,
+  .vehicle-detail-page .detail-final-cta > p) {
+  color: #3a2419 !important;
+  -webkit-text-fill-color: #3a2419 !important;
+}
+html[data-theme="light"] #root :is(
+  .vehicle-detail-page .detail-spec-grid--iconic > div,
+  .vehicle-detail-page .detail-rental-grid > div,
+  .vehicle-detail-page .detail-feature-grid span,
+  .vehicle-detail-page .detail-price-panel,
+  .vehicle-detail-page .detail-booking-form) {
+  border-color: rgba(91, 60, 38, .3) !important;
+}
+html[data-theme="light"] #root :is(
+  .vehicle-detail-page .detail-spec-grid--iconic > div > svg,
+  .vehicle-detail-page .detail-feature-grid svg,
+  .vehicle-detail-page .detail-final-cta > svg,
+  .vehicle-detail-page .detail-price-duration svg) {
+  color: #6c4427 !important;
+  stroke: #6c4427 !important;
+}
+html[data-theme="light"] #root :is(
+  .vehicle-detail-page .detail-about-section .eyebrow,
+  .vehicle-detail-page .detail-rental-section .eyebrow,
+  .vehicle-detail-page .detail-booking-section .eyebrow,
+  .vehicle-detail-page .detail-faq-section .eyebrow,
+  .vehicle-detail-page .detail-final-cta > p) {
+  color: #70482b !important;
+  -webkit-text-fill-color: #70482b !important;
+}
