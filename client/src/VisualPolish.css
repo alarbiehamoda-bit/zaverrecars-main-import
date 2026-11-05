@@ -461,3 +461,8 @@ html[data-theme="light"] #root :is(
   color: #f5c84b !important;
   -webkit-text-fill-color: #f5c84b !important;
 }
+#root :is(.vehicle-card .card-rate .dirham-mark, .detail-price-value .dirham-mark,
+  .detail-rental-price .dirham-mark) {
+  color: #c8922f !important;
+  -webkit-text-fill-color: #c8922f !important;
+}
