@@ -466,3 +466,55 @@ html[data-theme="light"] #root :is(
   color: #c8922f !important;
   -webkit-text-fill-color: #c8922f !important;
 }
+
+/* Contrast follows the surface: light copy on dark panels, dark copy on light panels. */
+html:not([data-theme="light"]) #root :is(
+  .fleet-browse-page .fleet-category-rail button,
+  .fleet-browse-page .fleet-browse-toolbar .search-field input,
+  .fleet-browse-page .fleet-category-rail .fleet-category-count,
+  .vehicle-detail-page .detail-price-panel > p,
+  .vehicle-detail-page .detail-price-panel > small,
+  .vehicle-detail-page .detail-price-panel > span,
+  .vehicle-detail-page .detail-price-duration span,
+  .vehicle-detail-page .detail-price-duration b,
+  .vehicle-detail-page .detail-spec-grid dt,
+  .vehicle-detail-page .detail-spec-grid dd,
+  .vehicle-detail-page .detail-rental-grid dt,
+  .vehicle-detail-page .detail-rental-grid dd,
+  .vehicle-detail-page .detail-colour,
+  .vehicle-detail-page .detail-booking-section > div > p:last-child,
+  .vehicle-detail-page .detail-final-cta > p,
+  .vehicle-detail-page .detail-faq-item p,
+  .vehicle-detail-page .detail-booking-form label) {
+  color: #eadfce !important;
+  -webkit-text-fill-color: #eadfce !important;
+}
+html[data-theme="light"] #root :is(
+  .fleet-browse-page .fleet-category-rail button,
+  .fleet-browse-page .fleet-browse-toolbar .search-field input,
+  .fleet-browse-page .fleet-category-rail .fleet-category-count,
+  .vehicle-detail-page .detail-price-panel > p,
+  .vehicle-detail-page .detail-price-panel > small,
+  .vehicle-detail-page .detail-price-panel > span,
+  .vehicle-detail-page .detail-price-duration span,
+  .vehicle-detail-page .detail-price-duration b,
+  .vehicle-detail-page .detail-spec-grid dt,
+  .vehicle-detail-page .detail-spec-grid dd,
+  .vehicle-detail-page .detail-rental-grid dt,
+  .vehicle-detail-page .detail-rental-grid dd,
+  .vehicle-detail-page .detail-colour,
+  .vehicle-detail-page .detail-booking-section > div > p:last-child,
+  .vehicle-detail-page .detail-final-cta > p,
+  .vehicle-detail-page .detail-faq-item p,
+  .vehicle-detail-page .detail-booking-form label) {
+  color: #3b2c23 !important;
+  -webkit-text-fill-color: #3b2c23 !important;
+}
+html[data-theme="light"] #root :is(
+  .vehicle-detail-page .detail-spec-grid--iconic > div > svg,
+  .vehicle-detail-page .detail-feature-grid svg,
+  .vehicle-detail-page .detail-final-cta > svg,
+  .fleet-browse-page .fleet-browse-toolbar .search-field svg) {
+  color: #3b2c23 !important;
+  stroke: #3b2c23 !important;
+}
