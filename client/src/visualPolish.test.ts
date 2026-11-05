@@ -26,8 +26,10 @@ describe("ZAVERRE visual polish layer", () => {
     expect(css).toContain("#f5c84b");
     expect(css).toContain("Light mode copy correction: recolour blue sentences, not button surfaces.");
     expect(css).toContain("stroke: #fff !important");
+    expect(css).toContain("display: none !important");
+    expect(css).toContain("font-size: 13px");
     expect(css).toContain('html[data-theme="light"]');
     expect(css).toContain("prefers-reduced-motion");
-    expect(css).not.toContain("display: none");
+    expect(css).not.toContain("visibility: hidden");
   });
 });

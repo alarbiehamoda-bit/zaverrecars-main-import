@@ -568,3 +568,52 @@ html[data-theme="light"] #root :is(
   color: #70482b !important;
   -webkit-text-fill-color: #70482b !important;
 }
+
+/* Final readability pass: stronger secondary copy and cleaner brand filters. */
+#root .brand-cards.brand-logo-rail > a > small {
+  font-size: 13px;
+  letter-spacing: .035em;
+  line-height: 1.08;
+}
+#root .brand-cards.brand-logo-rail > a > .brand-filter-model-count {
+  display: none !important;
+}
+#root .brand-filter-all-button > b {
+  display: none !important;
+}
+#root .brand-cards.brand-logo-rail > a > small {
+  font-size: 13px !important;
+  font-weight: 800;
+  max-width: 116px !important;
+  overflow: visible;
+  white-space: normal;
+  text-overflow: clip;
+}
+#root .brand-cards.brand-logo-rail > a {
+  grid-template-rows: 60px minmax(22px, auto);
+  min-height: 112px;
+}
+html[data-theme="light"] #root :is(
+  .detail-price-panel > p, .detail-price-panel > small, .detail-price-panel > span,
+  .detail-price-duration span, .detail-spec-grid dt, .detail-rental-grid dt,
+  .detail-colour, .detail-booking-section > div > p:last-child,
+  .detail-final-cta > p, .detail-faq-item p, .detail-booking-form label,
+  .fleet-browse-page .fleet-browse-count small, .brand-rate-summary small,
+  .home-video-feature__note, .home-video-feature__copy > p:not(.home-video-feature__eyebrow),
+  .featured-section-heading > p, .fleet-section .section-heading > p,
+  .editorial-copy > p, .booking-intro > p, .contact-section > div > p,
+  .journal-preview-head > p) {
+  color: #4b3022 !important;
+  -webkit-text-fill-color: #4b3022 !important;
+}
+@media (max-width: 760px) {
+  #root .brand-cards.brand-logo-rail > a {
+    flex-basis: 124px;
+    grid-template-rows: 56px minmax(22px, auto);
+    min-height: 112px;
+  }
+  #root .brand-cards.brand-logo-rail > a > small {
+    font-size: 12px !important;
+    max-width: 116px !important;
+  }
+}
