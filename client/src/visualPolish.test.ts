@@ -20,6 +20,9 @@ describe("ZAVERRE visual polish layer", () => {
     expect(css).toContain(".fleet-browse-page");
     expect(css).toContain(".master-vehicle-grid--vertical .vehicle-card");
     expect(css).toContain(".vehicle-detail-page");
+    expect(css).toContain("larger names and a calmer showroom-card presentation");
+    expect(css).toContain("color: #f1e7d8 !important");
+    expect(css).toContain(".brand-filter-model-count");
     expect(css).toContain('html[data-theme="light"]');
     expect(css).toContain("prefers-reduced-motion");
     expect(css).not.toContain("display: none");

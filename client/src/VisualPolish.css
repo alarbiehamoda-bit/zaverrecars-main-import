@@ -185,6 +185,113 @@
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05), 0 15px 34px rgba(0, 0, 0, .12);
 }
 
+/* Brand filter: larger names and a calmer showroom-card presentation. */
+#root .brand-cards.brand-logo-rail {
+  align-items: stretch;
+  gap: 12px;
+  padding: 5px 3px 10px;
+}
+#root .brand-cards.brand-logo-rail > a {
+  align-content: center;
+  background: linear-gradient(145deg, rgba(255, 255, 255, .075), rgba(226, 198, 145, .035));
+  border: 1px solid rgba(226, 198, 145, .2);
+  border-radius: 16px;
+  flex: 0 0 112px;
+  gap: 7px;
+  grid-template-rows: 60px minmax(18px, auto) minmax(11px, auto);
+  min-height: 126px;
+  padding: 9px 7px 10px;
+}
+#root .brand-cards.brand-logo-rail > a.active,
+#root .brand-cards.brand-logo-rail > a:hover,
+#root .brand-cards.brand-logo-rail > a:focus-visible {
+  background: linear-gradient(145deg, rgba(231, 194, 127, .17), rgba(255, 255, 255, .055));
+  border-color: rgba(239, 208, 153, .7);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, .2), inset 0 1px 0 rgba(255, 255, 255, .13);
+}
+#root .brand-cards.brand-logo-rail > a > small {
+  color: #fff5e6;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .055em;
+  line-height: 1.1;
+  max-width: 104px;
+}
+#root .brand-cards.brand-logo-rail > a > .brand-filter-model-count {
+  color: #d9c9b4;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: .09em;
+  line-height: 1.1;
+  max-width: 104px;
+}
+#root .brand-cards.brand-logo-rail .brand-emblem-well {
+  height: 60px;
+  width: 60px;
+}
+
+/* Replace legacy blue informational text with warm, high-contrast ivory. */
+#root :is(.detail-spec-grid--iconic dt, .detail-spec-grid--iconic dd,
+  .detail-rental-grid dt, .detail-rental-grid dd,
+  .detail-price-duration span, .detail-price-duration b,
+  .detail-feature-grid span, .detail-booking-form label,
+  .detail-booking-section > div > p:last-child,
+  .detail-description, .detail-colour, .detail-price-panel p,
+  .detail-price-panel small, .detail-price-panel span) {
+  color: #f1e7d8 !important;
+}
+#root :is(.detail-spec-grid--iconic > div > svg, .detail-feature-grid svg,
+  .detail-price-duration svg, .detail-price-value .dirham-mark,
+  .detail-rental-price .dirham-mark) {
+  color: #e7c98e !important;
+}
+#root .detail-spec-grid--iconic dd,
+#root .detail-rental-grid dd,
+#root .detail-price-duration b {
+  font-weight: 800;
+}
+#root .detail-spec-grid--iconic > div,
+#root .detail-rental-grid > div,
+#root .detail-feature-grid span {
+  border-color: rgba(226, 198, 145, .28) !important;
+}
+html[data-theme="light"] #root :is(.detail-spec-grid--iconic dt, .detail-spec-grid--iconic dd,
+  .detail-rental-grid dt, .detail-rental-grid dd, .detail-feature-grid span,
+  .detail-booking-form label, .detail-description, .detail-colour,
+  .detail-price-panel p, .detail-price-panel small, .detail-price-panel span) {
+  color: #4a3528 !important;
+}
+html[data-theme="light"] #root :is(.detail-spec-grid--iconic > div > svg, .detail-feature-grid svg) {
+  color: #8a5b32 !important;
+}
+
+/* Final accent correction: soft light beige instead of vivid yellow. */
+#root .brand-cards.brand-logo-rail > a > small,
+#root .brand-cards.brand-logo-rail > a > .brand-filter-model-count,
+#root :is(.detail-spec-grid--iconic dt, .detail-spec-grid--iconic dd,
+  .detail-rental-grid dt, .detail-rental-grid dd,
+  .detail-price-duration span, .detail-price-duration b,
+  .detail-feature-grid span, .detail-booking-form label,
+  .detail-booking-section > div > p:last-child,
+  .detail-description, .detail-colour, .detail-price-panel p,
+  .detail-price-panel small, .detail-price-panel span) {
+  color: #eadfce !important;
+}
+#root :is(.detail-spec-grid--iconic > div > svg, .detail-feature-grid svg,
+  .detail-price-duration svg, .detail-price-value .dirham-mark,
+  .detail-rental-price .dirham-mark) {
+  color: #e8dcc8 !important;
+}
+#root .brand-cards.brand-logo-rail > a.active,
+#root .brand-cards.brand-logo-rail > a:hover,
+#root .brand-cards.brand-logo-rail > a:focus-visible {
+  border-color: rgba(234, 223, 206, .62);
+}
+html[data-theme="light"] #root .brand-cards.brand-logo-rail > a > small,
+html[data-theme="light"] #root .brand-cards.brand-logo-rail > a > .brand-filter-model-count {
+  color: #5d493a !important;
+}
+
 /* Vehicle cards: image-first gallery treatment and consistent actions. */
 #root .fleet-browse-page .master-vehicle-grid--vertical .vehicle-card {
   background: linear-gradient(145deg, rgba(49, 44, 37, .86), rgba(15, 14, 13, .96));
@@ -288,6 +395,14 @@ html[data-theme="light"] #root .fleet-browse-page .master-vehicle-grid--vertical
     margin-bottom: 30px;
     padding: 13px 12px;
   }
+  #root .brand-cards.brand-logo-rail { gap: 9px; }
+  #root .brand-cards.brand-logo-rail > a {
+    flex-basis: 104px;
+    grid-template-rows: 56px minmax(18px, auto) minmax(11px, auto);
+    min-height: 119px;
+  }
+  #root .brand-cards.brand-logo-rail .brand-emblem-well { height: 56px; width: 56px; }
+  #root .brand-cards.brand-logo-rail > a > small { font-size: 10px; }
   #root .fleet-browse-toolbar { padding-bottom: 18px; }
   #root .fleet-browse-toolbar h2 { font-size: 42px; }
   #root .fleet-browse-page .master-vehicle-grid--vertical { gap: 15px; max-width: 360px; }
