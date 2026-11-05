@@ -28,6 +28,9 @@ describe("ZAVERRE visual polish layer", () => {
     expect(css).toContain("stroke: #fff !important");
     expect(css).toContain("display: none !important");
     expect(css).toContain("font-size: 13px");
+    expect(css).toContain("margin-top: 7px");
+    expect(css).toContain("#b77d19");
+    expect(css).toContain("#e1b84d");
     expect(css).toContain('html[data-theme="light"]');
     expect(css).toContain("prefers-reduced-motion");
     expect(css).not.toContain("visibility: hidden");

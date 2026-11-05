@@ -617,3 +617,48 @@ html[data-theme="light"] #root :is(
     max-width: 116px !important;
   }
 }
+
+/* Keep the marque label below the emblem frame, never inside its visual edge. */
+#root .brand-cards.brand-logo-rail > a > small {
+  margin-top: 7px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Small copy on light surfaces needs ink contrast instead of near-white beige. */
+html[data-theme="light"] #root :is(
+  .brand-cards.brand-logo-rail > a > small,
+  .fleet-browse-page small, .vehicle-detail-page small,
+  .vehicle-detail-page .detail-related-swipe-note,
+  .vehicle-card small, .card-rate__meta, .card-rate__currency,
+  .home-video-feature__note, .booking-form small, .detail-booking-form small) {
+  color: #4b3022 !important;
+  -webkit-text-fill-color: #4b3022 !important;
+}
+
+/* Detail labels and their icons use two related gold tones for hierarchy. */
+#root :is(.detail-spec-grid--iconic dt, .detail-rental-grid dt,
+  .detail-price-duration span, .detail-price-duration b) {
+  color: #b77d19 !important;
+  -webkit-text-fill-color: #b77d19 !important;
+}
+#root :is(.detail-spec-grid--iconic > div > svg, .detail-feature-grid svg,
+  .detail-price-duration svg) {
+  color: #e1b84d !important;
+  stroke: #e1b84d !important;
+}
+html[data-theme="light"] #root :is(.detail-spec-grid--iconic dd, .detail-rental-grid dd) {
+  color: #6f4817 !important;
+  -webkit-text-fill-color: #6f4817 !important;
+}
+html:not([data-theme="light"]) #root :is(
+  .vehicle-detail-page .detail-price-panel > small,
+  .vehicle-detail-page .detail-price-duration span,
+  .vehicle-detail-page .detail-related-swipe-note,
+  .vehicle-detail-page .detail-booking-form small,
+  .vehicle-detail-page .detail-faq-item p,
+  .vehicle-card small, .card-rate__meta, .card-rate__currency,
+  .home-video-feature__note) {
+  color: #b9aa98 !important;
+  -webkit-text-fill-color: #b9aa98 !important;
+}
