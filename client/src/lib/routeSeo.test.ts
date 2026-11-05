@@ -14,6 +14,8 @@ describe("route SEO metadata", () => {
     expect(article.title).toContain("Ferrari or Lamborghini");
     expect(article.schema?.["@type"]).toBe("BlogPosting");
     expect(home.title).toContain("Luxury Car Rental Dubai");
+    expect(home.keywords).toContain("luxury car rental Dubai");
+    expect(vehicle.keywords).toContain("Aston Martin DBX 707 rental Dubai");
     expect(home.schema?.["@graph"]).toEqual(expect.arrayContaining([expect.objectContaining({ "@type": "AutoRental" })]));
   });
   it("applies project and page-level sharing overrides with a safe fallback", () => {

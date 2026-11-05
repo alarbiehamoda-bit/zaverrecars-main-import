@@ -23,6 +23,9 @@ describe("ZAVERRE visual polish layer", () => {
     expect(css).toContain("larger names and a calmer showroom-card presentation");
     expect(css).toContain("color: #f1e7d8 !important");
     expect(css).toContain(".brand-filter-model-count");
+    expect(css).toContain("#f5c84b");
+    expect(css).toContain("Light mode copy correction: recolour blue sentences, not button surfaces.");
+    expect(css).toContain("stroke: #fff !important");
     expect(css).toContain('html[data-theme="light"]');
     expect(css).toContain("prefers-reduced-motion");
     expect(css).not.toContain("display: none");

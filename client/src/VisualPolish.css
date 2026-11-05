@@ -422,3 +422,42 @@ html[data-theme="light"] #root .fleet-browse-page .master-vehicle-grid--vertical
   #root .brand-cards.brand-logo-rail > a,
   #root .hero-cinematic .hero-cta .button { transition: none !important; }
 }
+
+/* Light mode copy correction: recolour blue sentences, not button surfaces. */
+html[data-theme="light"] #root :is(
+  .eyebrow, .hero-brand, .section-kicker span, .model-filter-label,
+  .fleet-filter-label, .fleet-filter-panel label > span, .hero-ready-caption span,
+  .hero-ready-caption em, .fleet-browse-toolbar .search-field input,
+  .fleet-browse-toolbar .search-field::placeholder, .fleet-category-rail button,
+  .fleet-browse-page .brand-name-bar strong, .fleet-browse-page .fleet-browse-count small,
+  .brand-rate-summary small, .home-video-feature__eyebrow, .home-video-feature__note,
+  .home-video-feature__copy > p:not(.home-video-feature__eyebrow),
+  .detail-price-panel > p, .detail-price-panel > small, .detail-price-panel > span,
+  .detail-price-duration span, .detail-price-duration b, .detail-spec-grid dt,
+  .detail-spec-grid dd, .detail-rental-grid dt, .detail-rental-grid dd,
+  .detail-colour, .detail-booking-section > div > p:last-child,
+  .detail-final-cta > p, .detail-faq-item p, .detail-booking-form label,
+  .booking-form label, .booking-form .notes-field, .booking-form .form-bottom p,
+  .featured-section-heading > p, .fleet-section .section-heading > p,
+  .editorial-copy > p, .booking-intro > p, .contact-section > div > p,
+  .journal-preview-head > p, .delivery-location-grid li, .contact-links a) {
+  color: #eadfce !important;
+  -webkit-text-fill-color: #eadfce !important;
+}
+html[data-theme="light"] #root :is(
+  .hero-ready-caption svg, .detail-spec-grid--iconic > div > svg,
+  .detail-feature-grid svg, .detail-final-cta > svg, .home-video-feature__eyebrow svg,
+  .fleet-browse-toolbar .search-field svg) {
+  color: #fff !important;
+  stroke: #fff !important;
+}
+
+/* Restore vivid yellow only for prices, numeric counters and AED marks. */
+#root :is(.fleet-browse-count > span, .fleet-discovery-result > b,
+  .vehicle-card .card-rate strong, .detail-price-value strong,
+  .detail-rental-price b, .detail-price-panel strong,
+  .vehicle-card .card-rate .dirham-mark, .detail-price-value .dirham-mark,
+  .detail-rental-price .dirham-mark) {
+  color: #f5c84b !important;
+  -webkit-text-fill-color: #f5c84b !important;
+}

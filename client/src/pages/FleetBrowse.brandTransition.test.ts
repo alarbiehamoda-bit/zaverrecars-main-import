@@ -18,9 +18,9 @@ describe("fleet brand transition", () => {
     expect(styles).toContain("translateY(10px)");
   });
 
-  it("filters the current collection through a name-only search bar", () => {
+  it("filters the current collection through vehicle, brand and category search", () => {
     expect(pageSource).toContain("vehicleNameQuery");
-    expect(pageSource).toContain("vehicle.fullName.toLocaleLowerCase().includes(normalizedVehicleNameQuery)");
-    expect(pageSource).toContain('placeholder="Search by vehicle name"');
+    expect(pageSource).toContain("vehicle.fullName, vehicle.brand, vehicle.model, vehicle.category");
+    expect(pageSource).toContain('placeholder="Search by vehicle, brand or category"');
   });
 });

@@ -58,7 +58,11 @@ export default function FleetBrowse() {
     return brandMatches && categoryMatches;
   }).sort((a, b) => a.index - b.index), [activeBrand, activeCategory, vehicleCatalog]);
   const normalizedVehicleNameQuery = vehicleNameQuery.trim().toLocaleLowerCase();
-  const vehicles = useMemo(() => collectionVehicles.filter((vehicle) => !normalizedVehicleNameQuery || vehicle.fullName.toLocaleLowerCase().includes(normalizedVehicleNameQuery)), [collectionVehicles, normalizedVehicleNameQuery]);
+  const vehicles = useMemo(() => collectionVehicles.filter((vehicle) => {
+    if (!normalizedVehicleNameQuery) return true;
+    const searchableText = [vehicle.fullName, vehicle.brand, vehicle.model, vehicle.category, ...vehicleFilterBrands(vehicle)].join(" ").toLocaleLowerCase();
+    return searchableText.includes(normalizedVehicleNameQuery);
+  }), [collectionVehicles, normalizedVehicleNameQuery]);
   const pageTitle = activeBrand || activeCategory?.label || "All cars";
   const collectionTransitionKey = activeBrand ? `brand-${brandRouteSlug(activeBrand)}` : activeCategory ? `category-${activeCategory.slug}` : "all-cars";
 
@@ -111,7 +115,7 @@ export default function FleetBrowse() {
     <section className="fleet-browse-content" aria-labelledby="fleet-browse-title">
       <div className="fleet-browse-toolbar filter-top" aria-label="Filter Top" data-filter-part="filter-top">
         <div><p className="eyebrow"><span>FILTER TOP</span><i aria-hidden="true">/</i><span>BRAND CARDS</span></p><h2 id="fleet-browse-title">Browse <em>the fleet.</em></h2></div>
-        <label className="fleet-name-search"><Search size={16} aria-hidden="true" /><span className="sr-only">Search by vehicle name</span><input type="search" value={vehicleNameQuery} onChange={(event) => setVehicleNameQuery(event.target.value)} placeholder="Search by vehicle name" aria-label="Search by vehicle name" autoComplete="off" /></label>
+        <label className="fleet-name-search"><Search size={16} aria-hidden="true" /><span className="sr-only">Search by vehicle, brand or category</span><input type="search" value={vehicleNameQuery} onChange={(event) => setVehicleNameQuery(event.target.value)} placeholder="Search by vehicle, brand or category" aria-label="Search by vehicle, brand or category" autoComplete="off" /></label>
       </div>
       <div className="filter-holder" aria-label="Filter Holder" data-filter-part="filter-holder"><BrandFilterRail activeBrand={activeBrand || "All"} onSelect={selectBrand} brands={brands} vehicles={vehicleCatalog} prioritizeVisibleLogos /></div>
       {vehicles.length ? <div key={collectionTransitionKey} className="fleet-collection-transition" data-active-brand={activeBrand || "all"}><MasterVehicleGrid vehicles={vehicles} layout="vertical" onDetails={openVehicleDetails} onBook={openBookingIntent} brandBadge={activeBrand ? { brandName: activeBrand, logoUrl: activeBrandMeta?.logoUrl } : undefined} /></div> : <div className="empty-state">No verified ZAVERRE vehicle matches this name.</div>}

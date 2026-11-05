@@ -6,6 +6,7 @@ describe("server-side SEO metadata", () => {
 
   it("marks public catalogue and detail pages as indexable with canonical paths", () => {
     expect(getSsrHead("/cars", origin).canonicalPath).toBe("/cars");
+    expect(getSsrHead("/cars", origin).keywords).toContain("luxury car rental Dubai");
     const vehicle = getSsrHead("/fleet/lamborghini-huracan-evo-spyder", origin);
     expect(vehicle.canonicalPath).toBe("/fleet/lamborghini-huracan-evo-spyder");
     expect(vehicle.schema?.["@type"]).toBe("Product");

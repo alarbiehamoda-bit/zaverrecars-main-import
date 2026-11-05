@@ -34,6 +34,7 @@ export default function RouteSeo() {
     const image = seo.image ? toAbsoluteUrl(seo.image, origin) : undefined;
     document.title = seo.title;
     setMeta('meta[name="description"]', "name", "description", seo.description);
+    setMeta('meta[name="keywords"]', "name", "keywords", seo.keywords?.join(", "));
     setMeta('meta[property="og:title"]', "property", "og:title", seo.title);
     setMeta('meta[property="og:description"]', "property", "og:description", seo.description);
     setMeta('meta[property="og:type"]', "property", "og:type", seo.schema?.["@type"] === "BlogPosting" ? "article" : "website");

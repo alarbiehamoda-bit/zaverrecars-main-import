@@ -4,6 +4,7 @@ import { defaultSharingPreview, parseSharingPreview, type SharingPreviewSettings
 export type SsrHead = {
   title: string;
   description: string;
+  keywords?: string[];
   canonicalPath?: string;
   ogImage?: string;
   ogType: "website" | "article";
@@ -34,6 +35,7 @@ export function getSsrHead(url: string, origin: string, cms?: SsrCmsData): SsrHe
   return {
     title: seo.title,
     description: seo.description,
+    keywords: seo.keywords,
     canonicalPath: isPublic ? path : undefined,
     ogImage: seo.image,
     ogType: articleType ? "article" : "website",

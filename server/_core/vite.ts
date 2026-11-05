@@ -52,11 +52,13 @@ function absoluteUrl(value: string | undefined, origin: string) {
 function buildHeadTags(head: SsrHead, origin: string) {
   const title = escapeHtml(trimText(head.title || siteName, 70));
   const description = escapeHtml(trimText(head.description || "Luxury and exotic car rental in Dubai.", 200));
+  const keywords = head.keywords?.length ? escapeHtml(head.keywords.join(", ")) : undefined;
   const canonical = head.canonicalPath ? `${origin}${head.canonicalPath}` : undefined;
   const image = absoluteUrl(head.ogImage, origin);
   const tags = [
     `<title>${title}</title>`,
     `<meta name="description" content="${description}" />`,
+    ...(keywords ? [`<meta name="keywords" content="${keywords}" />`] : []),
     `<meta property="og:type" content="${head.ogType}" />`,
     `<meta property="og:title" content="${title}" />`,
     `<meta property="og:description" content="${description}" />`,
