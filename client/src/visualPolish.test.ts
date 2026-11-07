@@ -34,6 +34,12 @@ describe("ZAVERRE visual polish layer", () => {
     expect(css).toContain("#9edcff");
     expect(css).toContain("#c18a55");
     expect(css).toContain(".editorial-copy .section-kicker span");
+    expect(css).toContain("#123f62");
+    expect(css).toContain("#f3fbff");
+    expect(css).toContain("contain: layout paint");
+    expect(css).toContain(".card-spec-item b");
+    expect(css).toContain(".vehicle-brand-ribbon, .brand-name-bar");
+    expect(css).toContain("#1d668e");
     expect(css).toContain('html[data-theme="light"]');
     expect(css).toContain("prefers-reduced-motion");
     expect(css).not.toContain("visibility: hidden");
