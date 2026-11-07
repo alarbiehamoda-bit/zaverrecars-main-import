@@ -31,6 +31,9 @@ describe("ZAVERRE visual polish layer", () => {
     expect(css).toContain("margin-top: 7px");
     expect(css).toContain("#b77d19");
     expect(css).toContain("#e1b84d");
+    expect(css).toContain("#9edcff");
+    expect(css).toContain("#c18a55");
+    expect(css).toContain(".editorial-copy .section-kicker span");
     expect(css).toContain('html[data-theme="light"]');
     expect(css).toContain("prefers-reduced-motion");
     expect(css).not.toContain("visibility: hidden");

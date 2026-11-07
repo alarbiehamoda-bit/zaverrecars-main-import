@@ -662,3 +662,33 @@ html:not([data-theme="light"]) #root :is(
   color: #b9aa98 !important;
   -webkit-text-fill-color: #b9aa98 !important;
 }
+
+/* Brand language: blue ribbons in night mode, warm-brown ribbons by day. */
+html:not([data-theme="light"]) #root :is(
+  .vehicle-brand-ribbon__identity strong,
+  .vehicle-brand-ribbon__identity i,
+  .brand-name-bar strong) {
+  color: #9edcff !important;
+  -webkit-text-fill-color: #9edcff !important;
+}
+html[data-theme="light"] #root :is(
+  .vehicle-brand-ribbon__identity strong,
+  .vehicle-brand-ribbon__identity i,
+  .brand-name-bar strong) {
+  color: #c18a55 !important;
+  -webkit-text-fill-color: #c18a55 !important;
+}
+
+/* THE ZAVERRE APPROACH and its supporting editorial copy. */
+html[data-theme="light"] #root :is(
+  .editorial-copy .section-kicker span,
+  .editorial-copy > p,
+  .editorial-copy .principle-grid strong,
+  .editorial-copy .principle-grid span) {
+  color: #173d57 !important;
+  -webkit-text-fill-color: #173d57 !important;
+}
+html[data-theme="light"] #root .editorial-copy .principle-grid svg {
+  color: #245a7c !important;
+  stroke: #245a7c !important;
+}
