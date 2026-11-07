@@ -8,15 +8,15 @@ const serverEntry = readFileSync(new URL("../entry-server.tsx", import.meta.url)
 const viteServer = readFileSync(new URL("../../../server/_core/vite.ts", import.meta.url), "utf8");
 
 describe("theme first paint", () => {
-  it("uses one cookie-backed theme value in SSR and the first client render", () => {
+  it("uses a dark-only value in SSR and the first client render", () => {
     expect(themeContext).toContain('export const THEME_COOKIE = "zaverre_theme"');
     expect(themeContext).not.toContain("localStorage.getItem(\"theme\")");
-    expect(clientEntry).toContain("THEME_COOKIE");
+    expect(clientEntry).toContain('document.documentElement.dataset.theme = "dark"');
     expect(clientEntry).toContain("document.documentElement.dataset.theme");
-    expect(serverEntry).toContain("initialTheme?: Theme");
-    expect(viteServer).toContain("readInitialTheme(req.headers.cookie)");
+    expect(serverEntry).toContain('Router ssrPath={ssrPath} ssrSearch={ssrSearch}><App /></Router>');
+    expect(viteServer).toContain("const htmlAttributes = 'data-theme=\"dark\" class=\"dark\"'");
     expect(viteServer).toContain("data-theme=\"dark\" class=\"dark\"");
-    expect(app).toContain("<ThemeProvider defaultTheme=\"dark\" initialTheme={initialTheme} switchable>");
+    expect(app).toContain("<ThemeProvider defaultTheme=\"dark\">");
   });
 
   it("loads the final public style layers before the first interactive client frame", () => {

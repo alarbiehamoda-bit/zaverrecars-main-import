@@ -20,39 +20,23 @@ interface ThemeProviderProps {
 
 export function ThemeProvider({
   children,
-  defaultTheme = "light",
-  initialTheme,
-  switchable = false,
+  defaultTheme: _defaultTheme = "dark",
+  initialTheme: _initialTheme,
+  switchable: _switchable = false,
 }: ThemeProviderProps) {
-  // Use the same cookie-backed value on the server and in the browser's first
-  // render. Reading localStorage after mount would visibly swap designs.
-  const [theme, setTheme] = useState<Theme>(initialTheme ?? defaultTheme);
+  // ZAVERRE is dark-only. Keep legacy props for SSR compatibility, but never
+  // allow an old cookie or device preference to restore the retired light mode.
+  const [theme] = useState<Theme>("dark");
 
   useEffect(() => {
     const root = document.documentElement;
-    root.dataset.theme = theme;
-    if (theme === "dark") {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
-    }
-
-    if (switchable) document.cookie = `${THEME_COOKIE}=${theme}; Path=/; Max-Age=31536000; SameSite=Lax`;
-  }, [theme, switchable]);
-
-  const toggleTheme = switchable
-    ? () => {
-        const root = document.documentElement;
-        root.classList.add("theme-transitioning");
-        setTheme(prev => (prev === "light" ? "dark" : "light"));
-        window.requestAnimationFrame(() => {
-          window.requestAnimationFrame(() => root.classList.remove("theme-transitioning"));
-        });
-      }
-    : undefined;
+    root.dataset.theme = "dark";
+    root.classList.add("dark");
+    root.classList.remove("theme-transitioning");
+  }, []);
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, switchable }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme: undefined, switchable: false }}>
       {children}
     </ThemeContext.Provider>
   );

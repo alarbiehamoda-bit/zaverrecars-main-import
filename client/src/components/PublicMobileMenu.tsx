@@ -2,7 +2,6 @@ import { ArrowDownRight, ChevronRight, Menu, X } from "lucide-react";
 import { createPortal } from "react-dom";
 import { useEffect, useId, useState } from "react";
 import { useLocation } from "wouter";
-import { ThemeToggle } from "@/components/ThemeToggle";
 
 const homeSectionStorageKey = "zaverre.home-section";
 
@@ -41,7 +40,6 @@ export function PublicMobileMenu({ onBook }: PublicMobileMenuProps) {
 
   return (
     <>
-      <ThemeToggle />
       <button
         type="button"
         className="menu-button"

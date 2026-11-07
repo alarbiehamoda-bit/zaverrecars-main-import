@@ -13,10 +13,10 @@ const themeContextSource = readFileSync(resolve(process.cwd(), "client/src/conte
 const sonnerSource = readFileSync(resolve(process.cwd(), "client/src/components/ui/sonner.tsx"), "utf8");
 
 describe("theme and touch gallery controls", () => {
-  it("enables a persistent dark and day-mode toggle from the application shell", () => {
-    expect(appSource).toContain('ThemeProvider defaultTheme="dark" initialTheme={initialTheme} switchable');
+  it("locks the public application to the dark-only palette", () => {
+    expect(appSource).toContain('ThemeProvider defaultTheme="dark"');
+    expect(appSource).not.toContain("switchable>");
     expect(toggleSource).toContain("Switch to day mode");
-    expect(toggleSource).toContain("Switch to dark mode");
     expect(globalStyles).toContain(".detail-header-actions .theme-toggle { display: inline-flex");
     expect(vehicleGlassStyles).toContain("Rebuilt daylight palette");
     expect(vehicleGlassStyles).toContain("#154d80");

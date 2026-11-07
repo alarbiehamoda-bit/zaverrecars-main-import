@@ -81,9 +81,9 @@ function buildHeadTags(head: SsrHead, origin: string) {
   return tags.join("\n");
 }
 
-function composeHtml(template: string, appHtml: string, head: SsrHead, origin: string, dehydratedState: unknown, initialTheme?: "light" | "dark") {
-  const theme = initialTheme ?? "dark";
-  const htmlAttributes = theme === "dark" ? 'data-theme="dark" class="dark"' : 'data-theme="light"';
+function composeHtml(template: string, appHtml: string, head: SsrHead, origin: string, dehydratedState: unknown, _initialTheme?: "light" | "dark") {
+  // ZAVERRE is dark-only; ignore legacy theme cookies to prevent a light first paint.
+  const htmlAttributes = 'data-theme="dark" class="dark"';
   const serialized = JSON.stringify(superjson.serialize(dehydratedState)).replace(/</g, "\\u003c").replace(/\u2028/g, "\\u2028").replace(/\u2029/g, "\\u2029");
   const stateScript = `<script>window.__RQ_STATE__ = ${serialized}</script>`;
   return template
@@ -93,9 +93,8 @@ function composeHtml(template: string, appHtml: string, head: SsrHead, origin: s
     .replace("<!--app-html-->", () => appHtml);
 }
 
-function readInitialTheme(cookieHeader?: string) {
-  const value = cookieHeader?.split(";").map((item) => item.trim()).find((item) => item.startsWith("zaverre_theme="))?.slice("zaverre_theme=".length);
-  return value === "light" || value === "dark" ? value : undefined;
+function readInitialTheme(_cookieHeader?: string) {
+  return undefined;
 }
 
 const ssrDevStyleHrefs = [

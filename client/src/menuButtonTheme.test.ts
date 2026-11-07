@@ -17,8 +17,8 @@ describe("mobile menu button theme", () => {
     expect(menuSource).toContain('className="mobile-menu public-mobile-menu"');
   });
 
-  it("places the three-line menu directly beside the theme control", () => {
-    expect(menuSource.indexOf("<ThemeToggle />")).toBeLessThan(menuSource.indexOf('className="menu-button"'));
+  it("keeps the three-line menu as the only theme-independent header control", () => {
+    expect(menuSource).not.toContain("ThemeToggle");
     expect(homeSource.indexOf("<PublicMobileMenu")).toBeLessThan(homeSource.indexOf('className="header-book"'));
   });
 

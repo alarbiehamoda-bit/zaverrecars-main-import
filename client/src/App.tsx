@@ -53,6 +53,6 @@ function Router() {
       return <Switch><Route path="/" component={Home} /><Route path="/cars" component={FleetBrowse} /><Route path="/cars/category/:categorySlug" component={FleetBrowse} /><Route path="/cars/:brandSlug" component={FleetBrowse} /><Route path="/fleet/:slug" component={VehicleDetail} /><Route path="/journal/:slug" component={JournalArticle} /><Route path="/admin" component={AdminOperations} /><Route path="/admin/foundation" component={AdminFoundation} /><Route path="/admin/content" component={AdminContent} /><Route path="/admin/vehicles" component={AdminVehicles} /><Route path="/admin/pricing" component={AdminVehicles} /><Route path="/admin/import" component={AdminVehicles} /><Route path="/admin/brands" component={AdminVehicles} /><Route path="/admin/bookings" component={AdminBookings} /><Route path="/404" component={NotFound} /><Route component={NotFound} /></Switch>;
 }
 
-export default function App({ initialTheme }: { initialTheme?: Theme }) {
-  return <ErrorBoundary><ThemeProvider defaultTheme="dark" initialTheme={initialTheme} switchable><TooltipProvider><RouteScrollReset /><RouteSeo /><PublicSkipLink /><PublicFloatingContact /><Toaster /><Suspense fallback={<span className="sr-only" aria-live="polite">Loading page</span>}><Router /></Suspense></TooltipProvider></ThemeProvider></ErrorBoundary>;
+export default function App(_props: { initialTheme?: Theme } = {}) {
+  return <ErrorBoundary><ThemeProvider defaultTheme="dark"><TooltipProvider><RouteScrollReset /><RouteSeo /><PublicSkipLink /><PublicFloatingContact /><Toaster /><Suspense fallback={<span className="sr-only" aria-live="polite">Loading page</span>}><Router /></Suspense></TooltipProvider></ThemeProvider></ErrorBoundary>;
 }
