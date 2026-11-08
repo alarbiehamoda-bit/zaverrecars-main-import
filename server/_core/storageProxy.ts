@@ -3,6 +3,8 @@ import { ENV } from "./env";
 
 const signedUrlCache = new Map<string, { url: string; expiresAt: number }>();
 // Legacy baseline was public, max-age=900; the production policy below is longer.
+let sharePreviewCache: { body: Buffer; expiresAt: number } | undefined;
+const sharePreviewKey = "zaverre-share-preview_5dca3a4a.png";
 
 function getCachedSignedUrl(key: string) {
   const cached = signedUrlCache.get(key);
@@ -15,6 +17,49 @@ function getCachedSignedUrl(key: string) {
 }
 
 export function registerStorageProxy(app: Express) {
+  app.get("/share-preview.webp", async (_req, res) => {
+    if (sharePreviewCache && sharePreviewCache.expiresAt > Date.now()) {
+      res
+        .type("webp")
+        .set("Cache-Control", "public, max-age=86400, stale-while-revalidate=604800")
+        .send(sharePreviewCache.body);
+      return;
+    }
+    if (!ENV.forgeApiUrl || !ENV.forgeApiKey) {
+      res.status(500).send("Storage proxy not configured");
+      return;
+    }
+    try {
+      const forgeUrl = new URL(
+        "v1/storage/presign/get",
+        ENV.forgeApiUrl.replace(/\/+$/, "") + "/",
+      );
+      forgeUrl.searchParams.set("path", sharePreviewKey);
+      const forgeResp = await fetch(forgeUrl, {
+        headers: { Authorization: `Bearer ${ENV.forgeApiKey}` },
+      });
+      if (!forgeResp.ok) {
+        res.status(502).send("Storage backend error");
+        return;
+      }
+      const { url } = (await forgeResp.json()) as { url: string };
+      const assetResp = await fetch(url);
+      if (!assetResp.ok) {
+        res.status(502).send("Share preview asset unavailable");
+        return;
+      }
+      const body = Buffer.from(await assetResp.arrayBuffer());
+      sharePreviewCache = { body, expiresAt: Date.now() + 86_400_000 };
+      res
+        .type("webp")
+        .set("Cache-Control", "public, max-age=86400, stale-while-revalidate=604800")
+        .send(body);
+    } catch (err) {
+      console.error("[StorageProxy] share preview failed:", err);
+      res.status(502).send("Share preview proxy error");
+    }
+  });
+
   app.get("/manus-storage/*", async (req, res) => {
     const key = (req.params as Record<string, string>)[0];
     if (!key) {

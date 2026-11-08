@@ -1,5 +1,5 @@
 export const SHARING_PREVIEW_SETTING_KEY = "sharingPreview";
-export const SHARING_PREVIEW_FALLBACK_IMAGE = "/manus-storage/zaverre-share-preview_5dca3a4a.png";
+export const SHARING_PREVIEW_FALLBACK_IMAGE = "/share-preview.webp";
 export const SHARING_PREVIEW_DEFAULT_TITLE = "Luxury Car Rental Dubai | Exotic & Supercars | ZAVERRE";
 export const SHARING_PREVIEW_DEFAULT_DESCRIPTION = "Explore ZAVERRE's curated luxury car rental collection in Dubai, including exotic cars, performance SUVs and direct availability enquiries.";
 
@@ -31,6 +31,12 @@ function cleanText(value: unknown, fallback: string, max: number) {
   return normalized ? normalized.slice(0, max) : fallback;
 }
 
+function normalizePreviewImage(value: string) {
+  return value === "/manus-storage/zaverre-share-preview_5dca3a4a.png"
+    ? SHARING_PREVIEW_FALLBACK_IMAGE
+    : value;
+}
+
 export function isUsablePublicImage(value: unknown) {
   if (typeof value !== "string") return false;
   const candidate = value.trim();
@@ -54,14 +60,14 @@ export function parseSharingPreview(value?: string): SharingPreviewSettings {
         return [path, {
           title: cleanText(entry.title, "", 160),
           description: cleanText(entry.description, "", 300),
-          imageUrl: isUsablePublicImage(entry.imageUrl) ? String(entry.imageUrl).trim() : "",
+          imageUrl: isUsablePublicImage(entry.imageUrl) ? normalizePreviewImage(String(entry.imageUrl).trim()) : "",
         }];
       }),
     ) : {};
     return {
       projectTitle: cleanText(raw.projectTitle, defaultSharingPreview.projectTitle, 160),
       projectDescription: cleanText(raw.projectDescription, defaultSharingPreview.projectDescription, 300),
-      projectImageUrl: isUsablePublicImage(raw.projectImageUrl) ? String(raw.projectImageUrl).trim() : SHARING_PREVIEW_FALLBACK_IMAGE,
+      projectImageUrl: isUsablePublicImage(raw.projectImageUrl) ? normalizePreviewImage(String(raw.projectImageUrl).trim()) : SHARING_PREVIEW_FALLBACK_IMAGE,
       logoUrl: isUsablePublicImage(raw.logoUrl) ? String(raw.logoUrl).trim() : defaultSharingPreview.logoUrl,
       pages,
     };

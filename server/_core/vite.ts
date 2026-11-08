@@ -11,7 +11,7 @@ import { appRouter } from "../routers";
 import { robotsText, sitemapXml } from "../seo";
 import { createContext } from "./context";
 
-const configuredCanonicalOrigin = (process.env.CANONICAL_ORIGIN || "").replace(/\/+$/, "");
+const configuredCanonicalOrigin = (process.env.CANONICAL_ORIGIN || "https://zaverrecars-g2wydywi.manus.space").replace(/\/+$/, "");
 const siteName = process.env.SITE_NAME || "ZAVERRE";
 
 function requestOrigin(req: Request) {
