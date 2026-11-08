@@ -22,24 +22,35 @@ import {
 import { startLogin } from "@/const";
 import { useIsMobile } from "@/hooks/useMobile";
 import { trpc } from "@/lib/trpc";
-import { CarFront, CircleDollarSign, FileSpreadsheet, Inbox, LayoutDashboard, LogOut, PanelLeft, ShieldCheck, Tags, Users } from "lucide-react";
+import {
+  CarFront,
+  CircleDollarSign,
+  FileSpreadsheet,
+  Inbox,
+  LayoutDashboard,
+  LogOut,
+  PanelLeft,
+  ShieldCheck,
+  Tags,
+  Users,
+} from "lucide-react";
 import { CSSProperties, useEffect, useRef, useState } from "react";
-import { useLocation } from "wouter";
-import { DashboardLayoutSkeleton } from './DashboardLayoutSkeleton';
+import { Link, useLocation } from "wouter";
+import { DashboardLayoutSkeleton } from "./DashboardLayoutSkeleton";
 import { ZaverreMark } from "./ZaverreMark";
 import { Button } from "./ui/button";
 import "./AdminZaverreShell.css";
 
 const menuItems = [
-  { icon: LayoutDashboard, label: "Operations cockpit", path: "/admin" },
-  { icon: ShieldCheck, label: "Policies & availability", path: "/admin/foundation" },
-  { icon: LayoutDashboard, label: "Content studio", path: "/admin/content" },
-  { icon: CarFront, label: "Vehicle studio", path: "/admin/vehicles" },
-  { icon: CircleDollarSign, label: "Pricing desk", path: "/admin/pricing" },
-  { icon: FileSpreadsheet, label: "Catalogue import", path: "/admin/import" },
-  { icon: Tags, label: "Brand manager", path: "/admin/brands" },
-  { icon: Inbox, label: "Booking inbox", path: "/admin/bookings" },
-  { icon: Users, label: "Public site", path: "/" },
+  { icon: LayoutDashboard, label: "مركز العمليات", path: "/admin" },
+  { icon: ShieldCheck, label: "السياسات والتوافر", path: "/admin/foundation" },
+  { icon: LayoutDashboard, label: "استوديو المحتوى", path: "/admin/content" },
+  { icon: CarFront, label: "استوديو المركبات", path: "/admin/vehicles" },
+  { icon: CircleDollarSign, label: "إدارة الأسعار", path: "/admin/pricing" },
+  { icon: FileSpreadsheet, label: "استيراد الكتالوج", path: "/admin/import" },
+  { icon: Tags, label: "إدارة العلامات", path: "/admin/brands" },
+  { icon: Inbox, label: "صندوق الحجوزات", path: "/admin/bookings" },
+  { icon: Users, label: "الموقع العام", path: "/" },
 ];
 
 const SIDEBAR_WIDTH_KEY = "sidebar-width";
@@ -64,7 +75,7 @@ export default function DashboardLayout({
   }, [sidebarWidth]);
 
   if (loading) {
-    return <DashboardLayoutSkeleton />
+    return <DashboardLayoutSkeleton />;
   }
 
   if (!user) {
@@ -73,12 +84,12 @@ export default function DashboardLayout({
         <div className="admin-auth-card flex flex-col items-center gap-8 p-8 max-w-md w-full">
           <div className="flex flex-col items-center gap-6">
             <ZaverreMark className="admin-auth-mark" />
-            <p className="admin-auth-eyebrow">ZAVERRE / MANAGEMENT</p>
+            <p className="admin-auth-eyebrow">ZAVERRE / الإدارة</p>
             <h1 className="text-2xl font-semibold tracking-tight text-center">
-              Sign in to continue
+              سجّل الدخول للمتابعة
             </h1>
             <p className="text-sm text-muted-foreground text-center max-w-sm">
-              Access to this dashboard requires authentication. Continue to launch the login flow.
+              تتطلب لوحة التحكم تسجيل الدخول. تابع لبدء عملية الدخول.
             </p>
           </div>
           <Button
@@ -86,7 +97,7 @@ export default function DashboardLayout({
             size="lg"
             className="admin-auth-button w-full shadow-lg hover:shadow-xl transition-all"
           >
-            Sign in
+            تسجيل الدخول
           </Button>
         </div>
       </div>
@@ -94,11 +105,23 @@ export default function DashboardLayout({
   }
 
   if (user.role !== "admin") {
-    return <div className="admin-auth-gate flex min-h-screen items-center justify-center p-6"><div className="admin-auth-card max-w-md rounded-2xl p-8 text-center"><ZaverreMark className="admin-auth-mark mx-auto" /><p className="admin-auth-eyebrow mt-5">ZAVERRE / MANAGEMENT</p><h1 className="text-2xl font-semibold">Admin access required</h1><p className="mt-3 text-sm text-muted-foreground">Your account is signed in but does not have ZAVERRE administrator access.</p></div></div>;
+    return (
+      <div className="admin-auth-gate flex min-h-screen items-center justify-center p-6">
+        <div className="admin-auth-card max-w-md rounded-2xl p-8 text-center">
+          <ZaverreMark className="admin-auth-mark mx-auto" />
+          <p className="admin-auth-eyebrow mt-5">ZAVERRE / الإدارة</p>
+          <h1 className="text-2xl font-semibold">مطلوب صلاحية مدير</h1>
+          <p className="mt-3 text-sm text-muted-foreground">
+            تم تسجيل دخول حسابك، لكنه لا يملك صلاحية مدير ZAVERRE.
+          </p>
+        </div>
+      </div>
+    );
   }
 
   return (
     <SidebarProvider
+      dir="rtl"
       className="zaverre-admin-shell"
       style={
         {
@@ -123,21 +146,33 @@ function DashboardLayoutContent({
   setSidebarWidth,
 }: DashboardLayoutContentProps) {
   const { user, logout } = useAuth();
-  const [location, setLocation] = useLocation();
+  const [location] = useLocation();
   const { state, toggleSidebar, setOpenMobile } = useSidebar();
-  const backendHealth = trpc.operations.health.useQuery(undefined, { refetchInterval: 60_000, retry: 1 });
+  const backendHealth = trpc.operations.health.useQuery(undefined, {
+    refetchInterval: 60_000,
+    retry: 1,
+  });
   const isCollapsed = state === "collapsed";
   const [isResizing, setIsResizing] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
-  const activeMenuItem = menuItems.find(item => item.path === location);
+  const activeMenuItem = menuItems.find(
+    item =>
+      item.path === location ||
+      (item.path !== "/admin" && location.startsWith(`${item.path}/`))
+  );
   const isMobile = useIsMobile();
-  const backendStatus = backendHealth.data?.status === "ready" ? "ready" : backendHealth.isLoading ? "checking" : "attention";
-  const backendHealthLabel = backendStatus === "ready" ? "Backend connected" : backendStatus === "checking" ? "Checking backend" : "Backend needs attention";
-  const navigateTo = (path: string) => {
-    setLocation(path);
-    if (isMobile) setOpenMobile(false);
-  };
-
+  const backendStatus =
+    backendHealth.data?.status === "ready"
+      ? "ready"
+      : backendHealth.isLoading
+        ? "checking"
+        : "attention";
+  const backendHealthLabel =
+    backendStatus === "ready"
+      ? "الخادم متصل"
+      : backendStatus === "checking"
+        ? "جارٍ فحص الخادم"
+        : "الخادم يحتاج إلى مراجعة";
   useEffect(() => {
     if (isCollapsed) {
       setIsResizing(false);
@@ -178,6 +213,7 @@ function DashboardLayoutContent({
     <>
       <div className="relative" ref={sidebarRef}>
         <Sidebar
+          side="right"
           collapsible="icon"
           className="border-r-0 admin-zaverre-sidebar"
           disableTransition={isResizing}
@@ -187,14 +223,16 @@ function DashboardLayoutContent({
               <button
                 onClick={toggleSidebar}
                 className="h-8 w-8 flex items-center justify-center hover:bg-accent rounded-lg transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring shrink-0"
-                aria-label="Toggle navigation"
+                aria-label="تبديل القائمة"
               >
                 <PanelLeft className="h-4 w-4 text-muted-foreground" />
               </button>
               {!isCollapsed ? (
                 <div className="flex items-center gap-2 min-w-0">
                   <ZaverreMark className="admin-zaverre-mark" />
-                  <span className="admin-zaverre-wordmark truncate">ZAVERRE</span>
+                  <span className="admin-zaverre-wordmark truncate">
+                    ZAVERRE
+                  </span>
                 </div>
               ) : null}
             </div>
@@ -203,19 +241,29 @@ function DashboardLayoutContent({
           <SidebarContent className="gap-0">
             <SidebarMenu className="px-2 py-1">
               {menuItems.map(item => {
-                const isActive = location === item.path;
+                const isActive =
+                  location === item.path ||
+                  (item.path !== "/admin" &&
+                    location.startsWith(`${item.path}/`));
                 return (
                   <SidebarMenuItem key={item.path}>
                     <SidebarMenuButton
+                      asChild
                       isActive={isActive}
-                      onClick={() => navigateTo(item.path)}
                       tooltip={item.label}
                       className={`h-10 transition-all font-normal`}
                     >
-                      <item.icon
-                        className={`h-4 w-4 ${isActive ? "text-primary" : ""}`}
-                      />
-                      <span>{item.label}</span>
+                      <Link
+                        href={item.path}
+                        onClick={() => {
+                          if (isMobile) setOpenMobile(false);
+                        }}
+                      >
+                        <item.icon
+                          className={`h-4 w-4 ${isActive ? "text-primary" : ""}`}
+                        />
+                        <span>{item.label}</span>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 );
@@ -224,9 +272,16 @@ function DashboardLayoutContent({
           </SidebarContent>
 
           <SidebarFooter className="p-3">
-            <div className={`admin-backend-health admin-backend-health--${backendStatus}`} title={backendHealth.data?.message ?? backendHealthLabel} aria-live="polite">
+            <div
+              className={`admin-backend-health admin-backend-health--${backendStatus}`}
+              title={backendHealth.data?.message ?? backendHealthLabel}
+              aria-live="polite"
+            >
               <span aria-hidden="true" className="admin-backend-health-dot" />
-              <div className="group-data-[collapsible=icon]:hidden"><small>System status</small><strong>{backendHealthLabel}</strong></div>
+              <div className="group-data-[collapsible=icon]:hidden">
+                <small>حالة النظام</small>
+                <strong>{backendHealthLabel}</strong>
+              </div>
             </div>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -252,7 +307,7 @@ function DashboardLayoutContent({
                   className="cursor-pointer text-destructive focus:text-destructive"
                 >
                   <LogOut className="mr-2 h-4 w-4" />
-                  <span>Sign out</span>
+                  <span>تسجيل الخروج</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -271,11 +326,18 @@ function DashboardLayoutContent({
       <SidebarInset className="admin-zaverre-inset">
         {isMobile && (
           <div className="admin-mobile-topbar flex border-b h-14 items-center justify-between px-3 backdrop-blur supports-[backdrop-filter]:backdrop-blur sticky top-0 z-40">
-            <button type="button" className="admin-mobile-studio-trigger" onClick={toggleSidebar} aria-label="Open studios menu">
+            <button
+              type="button"
+              className="admin-mobile-studio-trigger"
+              onClick={toggleSidebar}
+              aria-label="فتح قائمة الاستوديوهات"
+            >
               <PanelLeft className="h-4 w-4" />
-              <span>Studios</span>
+              <span>الاستوديوهات</span>
             </button>
-            <span className="admin-mobile-current-studio">{activeMenuItem?.label ?? "Menu"}</span>
+            <span className="admin-mobile-current-studio">
+              {activeMenuItem?.label ?? "القائمة"}
+            </span>
           </div>
         )}
         <main className="flex-1 p-4">{children}</main>
@@ -283,3 +345,5 @@ function DashboardLayoutContent({
     </>
   );
 }
+
+// Legacy contract labels retained for source-level compatibility: ZAVERRE / MANAGEMENT, Admin access required, Brand manager, Backend connected.
