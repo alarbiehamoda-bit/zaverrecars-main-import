@@ -6,15 +6,26 @@ import { vehicleFromSlug } from "@/lib/vehicleDetail";
 import { defaultSharingPreview, type SharingPreviewSettings } from "@/lib/sharingPreview";
 
 const siteName = "ZAVERRE";
-const fallbackDescription = "Explore ZAVERRE's curated luxury car rental collection in Dubai, including exotic cars, performance SUVs and direct availability enquiries.";
-const coreKeywords = ["luxury car rental Dubai", "exotic car rental Dubai", "supercar rental Dubai", "premium car hire Dubai", "ZAVERRE"];
+const fallbackDescription = "Explore ZAVERRE's curated luxury car rental collection in Dubai, including Lamborghini, Ferrari, Rolls-Royce and performance SUVs with direct availability enquiries.";
+const coreKeywords = [
+  "luxury car rental Dubai",
+  "exotic car rental Dubai",
+  "supercar rental Dubai",
+  "supercar hire Dubai",
+  "premium car hire Dubai",
+  "sports car rental Dubai",
+  "luxury SUV rental Dubai",
+  "chauffeur car rental Dubai",
+  "ZAVERRE",
+];
 
 function dubaiAutoRentalSchema(url: string) {
   return {
     "@context": "https://schema.org",
     "@graph": [
       { "@type": "AutoRental", "@id": `${url}#auto-rental`, name: siteName, url, image: brand.heroTexture, description: fallbackDescription, areaServed: { "@type": "City", name: "Dubai" }, knowsAbout: ["Luxury car rental", "Exotic car rental", "Supercar rental"], priceRange: "AED" },
-      { "@type": "WebSite", "@id": `${url}#website`, name: siteName, url, inLanguage: "en" },
+      { "@type": "Organization", "@id": `${url}#organization`, name: siteName, url, logo: brand.monogramGold, areaServed: { "@type": "City", name: "Dubai" } },
+      { "@type": "WebSite", "@id": `${url}#website`, name: siteName, url, inLanguage: "en", publisher: { "@id": `${url}#organization` } },
     ],
   };
 }
@@ -31,8 +42,8 @@ export function getRouteSeo(pathname: string, origin: string, sharing?: SharingP
     return { ...seo, title: pageOverride?.title || (path === "/" ? sharingDefaults.projectTitle : seo.title), description: pageOverride?.description || (path === "/" ? sharingDefaults.projectDescription : seo.description), image: pageOverride?.imageUrl || sharingDefaults.projectImageUrl || seo.image || defaultSharingPreview.projectImageUrl };
   };
 
-  if (path === "/") return applySharing({ title: "Luxury Car Rental Dubai | Exotic & Supercars | ZAVERRE", description: fallbackDescription, keywords: [...coreKeywords, "Dubai supercar hire", "luxury SUV rental Dubai"], image: brand.heroTexture, schema: dubaiAutoRentalSchema(url) });
-  if (path === "/cars") return applySharing({ title: "Luxury & Exotic Cars for Rent in Dubai | ZAVERRE", description: "Browse ZAVERRE's current luxury cars, performance SUVs, convertibles and exotic cars for rental enquiries in Dubai.", keywords: [...coreKeywords, "rent Lamborghini Dubai", "rent Ferrari Dubai", "luxury SUV hire Dubai"], schema: { "@context": "https://schema.org", "@type": "CollectionPage", name: "ZAVERRE Car Collection", url } });
+  if (path === "/") return applySharing({ title: "Luxury Car Rental Dubai | Exotic & Supercars | ZAVERRE", description: fallbackDescription, keywords: [...coreKeywords, "Dubai supercar hire", "rent Lamborghini Dubai", "rent Ferrari Dubai", "rent Rolls-Royce Dubai"], image: brand.heroTexture, schema: dubaiAutoRentalSchema(url) });
+  if (path === "/cars") return applySharing({ title: "Luxury & Exotic Cars for Rent in Dubai | ZAVERRE", description: "Browse ZAVERRE's current luxury cars, performance SUVs, convertibles and exotic cars for rental enquiries in Dubai, with daily rates and direct WhatsApp assistance.", keywords: [...coreKeywords, "rent Lamborghini Dubai", "rent Ferrari Dubai", "rent Rolls-Royce Dubai", "luxury SUV hire Dubai"], schema: { "@context": "https://schema.org", "@type": "CollectionPage", name: "ZAVERRE Car Collection", description: "Luxury and exotic cars available for rental enquiries in Dubai.", url } });
   if (path.startsWith("/cars/category/")) {
     const category = categoryFromRouteSlug(path.slice("/cars/category/".length));
     if (category) return applySharing({ title: `${category.label} for Rent in Dubai | ZAVERRE`, description: `Browse the current ZAVERRE collection of ${category.label.toLowerCase()} available for direct rental enquiries in Dubai.`, keywords: [...coreKeywords, `${category.label.toLowerCase()} rental Dubai`, `${category.label.toLowerCase()} hire UAE`], schema: { "@context": "https://schema.org", "@type": "CollectionPage", name: `ZAVERRE ${category.label}`, url } });
